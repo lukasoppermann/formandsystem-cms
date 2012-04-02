@@ -84,5 +84,4 @@ libs
 css / _cache
 js / _cache
 - change prefix to db_prefix
-- 
 - use data from cms data (incl. system/cms)
