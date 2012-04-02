@@ -5,6 +5,7 @@
 *.ai
 *.orig
 _*/
+logs/
 
 # Packages #
 ############
