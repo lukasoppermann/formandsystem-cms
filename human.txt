@@ -8,7 +8,7 @@
 		
 
 /* SITE */
-	Last update:2012/02/04
-	Language:English, German
+	Last update: 2012/02/04
+	Language: English, German
 	Doctype: HTML5
-	IDE: TextMate, Illustrator, Photoshop
+	IDE: TextMate

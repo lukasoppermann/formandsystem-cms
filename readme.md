@@ -1,29 +1,88 @@
-# Form&System
+# Form&System v2.0
 
-This is a part of the content management system I am developing I am only uploading parts of the system though to keep it slim.
+## Database Structure
 
-## To Do List
+*CMS Tables*
+- ci_sessions
+- users
+- log
 
-- build installer for cms which does all the work!
-- how to use Transmit Folder SYNC??? Use all you can of Transmits capabilities.
-- auth (incorporate ci_session checking, autologin/remember me with cookies, get new password, get userdata)
-- form class (use form types like email, url, number, text, tel, ... so iPhone and co can use it for finding right keyboard)
-- include CI caching (file caching)
-- css lib
-- js lib
-- use CI compression for html (config.php) instead of template.php ????
-- write helper to convert urls (if http:// leave alone, else include base_url() or lang_url(), ... better make it lang_url($url) ??? )
-- notices (lib/func?)
-- navigation
-- page
-- add utf8 header to index.php (?) (use charset from settings somehow)
-- work with route 404
-- notices (lib) with notice helper
+- cms_data
+- cms_entries
+- cms_menu
 
-## Changelog
+- client_data
+- client_entries
+- client_menu
+- client_files
 
-v 0.1
-- initial upload
+### Table structure
+*indexed colum*
 
+**ci_sessions**
+- session_id
+- ip_address
+- user_agent	
+- last_activity
+- user_data
 
+**users**
+- *id*
+- token
+- status
+- *email*
+- *user*
+- password
+- salt
+- group	
+- data
 
+**log**
+- *id*
+- *user_id*
+- *system*
+- *type*
+- *entry_id*
+- date
+- data
+
+**cms_data**
+- *id*
+- *key*
+- *type*
+- value
+
+**cms_menu**
+- id
+- label
+- path
+- type
+- menu
+- parent_id
+- status
+- position
+- language
+- data
+
+**cms_entries**
+- id
+- *menu_id*
+- *type*
+- *language*
+- *status*
+- title
+- text
+- date
+- data
+
+## Config
+- put to db
+dir_media
+dir_layout
+dir_images
+libs
+css / _cache
+js / _cache
+- change prefix to db_prefix
+- 
+- use data from cms data (incl. system/cms)

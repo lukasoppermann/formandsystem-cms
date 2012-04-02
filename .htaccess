@@ -6,11 +6,11 @@
 AddCharset utf-8 .html .xhtml
 Options +FollowSymlinks
 RewriteEngine on
-RewriteBase /formandsystem/
+RewriteBase /formandsystem_future/
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond $1 !^(index\.php|images|media|layout|css|libs|robots\.txt)
-RewriteRule ^(.*)$ /formandsystem/index.php?/$1 [L]
+RewriteRule ^(.*)$ /formandsystem_future/index.php?/$1 [L]
 
 # Add Proper MIME-Type for Favicon
 AddType image/x-icon .ico
