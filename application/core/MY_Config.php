@@ -38,7 +38,7 @@ class MY_Config extends CI_Config {
 	{
 		// merge params
 		$params = array_merge(array(
-					'key' => array('settings')
+					'key' => array('settings', 'system', 'user')
 				), $params);
 		// get CI instance
 		$this->CI =& get_instance();
@@ -59,7 +59,11 @@ class MY_Config extends CI_Config {
 		foreach($results as $k => $result)
 		{	
 			// json_decode data
-			$result = array_merge($result, json_decode($result['data'], TRUE));
+			$_json = json_decode($result['data'], TRUE);
+			foreach($_json as $key => $val)
+			{
+				$result[$key] = $val;
+			}
 			unset($result['data']);
 			// index by key and type
 			if(isset($result['_id']))
@@ -72,10 +76,23 @@ class MY_Config extends CI_Config {
 				$config[$result['key']][$result['type']][] = $result;
 			}
 		}
+		// -----------------------------------
+		// prepare settings
+		if( isset($config['settings']) )
+		{
+			foreach($config['settings'] as $type => $setting)
+			{
+				if(count($setting) == 1)
+				{
+					$config['settings'][$type] = $setting[0];
+				}
+			}
+		}
+		$this->config = $config;
 		//
-		echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
-		print_r($config);
-		echo "</pre>";
+		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
+		// print_r($config);
+		// echo "</pre>";
 		// run query
 		// $query = $this->CI->db->get();	
 		// set $array to collect $row->types
@@ -170,6 +187,66 @@ class MY_Config extends CI_Config {
 	}
 // --------------------------------------------------------------------
 
+/**
+ * Extend the fn to fetch a config file item
+ *
+ *
+ * @access	public
+ * @param	string	the config item name
+ * @param	string	the index name
+ * @param	bool
+ * @return	string
+ */
+function item($item, $index = '')
+{
+	if ($index == '')
+	{
+		// check for deep linking
+		if( strrpos($item,'/') != FALSE)
+		{
+			// explode by / to get array levels
+			$explode = array_filter(explode('/', $item));
+			// count elements
+			$c = count($explode);
+			$i = 0;
+			$_config = $this->config;
+			// loop through array
+			while($c > $i)
+			{
+				$_config = $_config[$explode[$i]];
+				$i++;
+			}
+			// return result
+			$pref = $_config;
+		}
+		else
+		{
+			if ( ! isset($this->config[$item]))
+			{
+				return FALSE;
+			}
+
+			$pref = $this->config[$item];
+		}
+	}
+	else
+	{
+		if ( ! isset($this->config[$index]))
+		{
+			return FALSE;
+		}
+
+		if ( ! isset($this->config[$index][$item]))
+		{
+			return FALSE;
+		}
+
+		$pref = $this->config[$index][$item];
+	}
+
+	return $pref;
+}
+// --------------------------------------------------------------------
 /**
  * Extend set config item fn, to work with arrays
  *
