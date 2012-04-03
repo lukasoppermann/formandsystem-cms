@@ -3,12 +3,7 @@
 |--------------------------------------------------------------------------
 | JS Class
 |--------------------------------------------------------------------------
-|
 */
-$config['js']['dir']		= 'libs/js/';
-// compression settings
-$config['js']['offset'] = 3600;
-$config['js']['gzip'] = TRUE;
 // regex
 $config['js']['regex'] = array(
 						'replace' => array(

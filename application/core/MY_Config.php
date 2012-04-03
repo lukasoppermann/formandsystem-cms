@@ -38,7 +38,7 @@ class MY_Config extends CI_Config {
 	{
 		// merge params
 		$params = array_merge(array(
-					'key' => array('settings', 'system', 'user')
+					'key' => array('settings', 'system', 'user', 'compression')
 				), $params);
 		// get CI instance
 		$this->CI =& get_instance();
@@ -101,16 +101,14 @@ class MY_Config extends CI_Config {
 		// users
 		$this->config['user'] = $config['user'];
 		// -----------------------------------
+		// users
+		$this->config['compression'] = $config['compression'];
+		// -----------------------------------
 		// settings
 		foreach($config['settings'] as $key => $settings)
 		{
 			$this->config[$key] = $settings;
 		}
-		// $this->config = $config;
-		//
-		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
-		// print_r($this->config);
-		// echo "</pre>";
 	}
 // --------------------------------------------------------------------
 
@@ -123,55 +121,55 @@ class MY_Config extends CI_Config {
  * @param	bool
  * @return	string
  */
-function item($item, $index = '')
-{
-	if ($index == '')
+	function item($item, $index = '')
 	{
-		// check for deep linking
-		if( strrpos($item,'/') != FALSE)
+		if ($index == '')
 		{
-			// explode by / to get array levels
-			$explode = array_filter(explode('/', $item));
-			// count elements
-			$c = count($explode);
-			$i = 0;
-			$_config = $this->config;
-			// loop through array
-			while($c > $i)
+			// check for deep linking
+			if( strrpos($item,'/') != FALSE)
 			{
-				$_config = $_config[$explode[$i]];
-				$i++;
+				// explode by / to get array levels
+				$explode = array_filter(explode('/', $item));
+				// count elements
+				$c = count($explode);
+				$i = 0;
+				$_config = $this->config;
+				// loop through array
+				while($c > $i)
+				{
+					$_config = $_config[$explode[$i]];
+					$i++;
+				}
+				// return result
+				$pref = $_config;
 			}
-			// return result
-			$pref = $_config;
+			else
+			{
+				if ( ! isset($this->config[$item]))
+				{
+					return FALSE;
+				}
+
+				$pref = $this->config[$item];
+			}
 		}
 		else
 		{
-			if ( ! isset($this->config[$item]))
+			if ( ! isset($this->config[$index]))
 			{
 				return FALSE;
 			}
 
-			$pref = $this->config[$item];
+			if ( ! isset($this->config[$index][$item]))
+			{
+				return FALSE;
+			}
+
+			$pref = $this->config[$index][$item];
 		}
+
+		return $pref;
 	}
-	else
-	{
-		if ( ! isset($this->config[$index]))
-		{
-			return FALSE;
-		}
-
-		if ( ! isset($this->config[$index][$item]))
-		{
-			return FALSE;
-		}
-
-		$pref = $this->config[$index][$item];
-	}
-
-	return $pref;
-}
 // --------------------------------------------------------------------
 /**
  * Extend set config item fn, to work with arrays
@@ -334,7 +332,6 @@ function item($item, $index = '')
  */	
 	function user_group($item = null, $group = null)
 	{
-		// return from cms system
 		if( isset($this->config['user']['group'][$group][$item]) )
 		{
 			return $this->config['user']['group'][$group][$item];
@@ -361,7 +358,6 @@ function item($item, $index = '')
  */	
 	function user_right($item = null, $right = null)
 	{
-		// return from cms system
 		if( isset($this->config['user']['right'][$right][$item]) )
 		{
 			return $this->config['user']['right'][$right][$item];
@@ -373,6 +369,28 @@ function item($item, $index = '')
 		elseif($right == null)
 		{
 			return $this->config['user']['right'];
+		}
+		else
+		{
+			return false;
+		}
+	}
+// --------------------------------------------------------------------
+/**
+ * compression - returns compression data
+ *
+ * @param string 
+ * @return string
+ */	
+	function compression($item = null, $type = 'html')
+	{
+		if( isset($this->config['compression'][$type][$item]) )
+		{
+			return $this->config['compression'][$type][$item];
+		}
+		elseif( $item == 'array' )
+		{
+			return $this->config['compression'][$type];
 		}
 		else
 		{

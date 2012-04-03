@@ -3,11 +3,7 @@
 |--------------------------------------------------------------------------
 | CSS Class
 |--------------------------------------------------------------------------
-|
 */
-// compression settings
-$config['css']['offset'] = 3600;
-$config['css']['gzip'] = TRUE;
 // regex
 $config['css']['regex'] = array(
 					'replace' => array(
