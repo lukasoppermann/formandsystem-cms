@@ -67,11 +67,13 @@ $config['db_menu'] 				= 'menu';
 //
 $config['db_entries'] 			= 'entries';
 //
-$config['db_user'] 				= 'users';
-//
 $config['db_files'] 			= 'files';
 //
 $config['db_data'] 				= 'data';
+//
+$config['db_user'] 				= 'users';
+//
+$config['db_log'] 				= 'log';
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

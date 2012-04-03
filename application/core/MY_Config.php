@@ -10,7 +10,7 @@
  */
 class MY_Config extends CI_Config {
 
-	var $CI;
+	var $CI, $system;
 	
 	//php 5 constructor
 	function __construct() 
@@ -88,102 +88,29 @@ class MY_Config extends CI_Config {
 				}
 			}
 		}
-		$this->config = $config;
+		// -----------------------------------
+		// systems
+		$this->config['system'] = $config['system'];
+		// system - cms
+		$this->config['system']['cms'] 	= $config['system']['cms'][key($config['system']['cms'])];
+		$this->config['db_prefix'] 		= $config['cms']['db_prefix'];
+		$this->config['db_menu']		= $config['cms']['db_menu'];
+		$this->config['db_data']		= $config['cms']['db_data'];
+		$this->config['db_entries']		= $config['cms']['db_entries'];
+		// -----------------------------------
+		// users
+		$this->config['user'] = $config['user'];
+		// -----------------------------------
+		// settings
+		foreach($config['settings'] as $key => $settings)
+		{
+			$this->config[$key] = $settings;
+		}
+		// $this->config = $config;
 		//
 		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
-		// print_r($config);
+		// print_r($this->config);
 		// echo "</pre>";
-		// run query
-		// $query = $this->CI->db->get();	
-		// set $array to collect $row->types
-		// $array = array();
-		// 	// run through each item
-		// 	foreach ($query->result() as $row)
-		// 	{
-		// 		// if value is a json-string
-		// 		if(is_array($values = json_decode($row->value, TRUE)))
-		// 		{
-		// 			// if json is split into languages
-		// 			if(array_key_exists($this->item('lang_id'), $values))
-		// 			{
-		// 				// set config item wit current language
-		// 				$this->set_item($row->type, $values[$this->item('lang_id')]);
-		// 			}
-		// 			// if json is NOT split into languages
-		// 			else
-		// 			{
-		// 				// if type is NOT in array
-		// 				if( !in_array($row->type, $array) )
-		// 				{
-		// 					// set config item
-		// 					$this->set_item($row->type, $values);
-		// 					// add type to array
-		// 					$array[] = $row->type;
-		// 				}
-		// 				// if type is in array
-		// 				else
-		// 				{
-		// 					// get data for type
-		// 					$value = $this->item($row->type);
-		// 					// reset to get first id
-		// 					reset($value);
-		// 					// if data is array
-		// 					if( is_array($value[key($value)]) )
-		// 					{
-		// 						$value[] = $values;
-		// 					}
-		// 					// if data is NOT an array
-		// 					else
-		// 					{
-		// 						// nedd this to not have doubling effect
-		// 						$val = $value;
-		// 						unset($value);
-		// 						// add data and new data to array
-		// 						$value[] = $val;
-		// 						$value[] = $values;
-		// 					}
-		// 					// set config item
-		// 					$this->set_item($row->type, $value);
-		// 				}
-		// 			}
-		// 		}
-		// 		// if value is a normal string
-		// 		else
-		// 		{
-		// 			// if type is NOT in array
-		// 			if( !in_array($row->type, $array) )
-		// 			{
-		// 				// set config item
-		// 				$this->set_item($row->type, $row->value);
-		// 				// add type to array
-		// 				$array[] = $row->type;
-		// 			}
-		// 			// if type is in array
-		// 			else
-		// 			{
-		// 				// get data for type
-		// 				$value = $this->item($row->type);
-		// 				// if data is array
-		// 				if( is_array($value[key($value)]) )
-		// 				{
-		// 					// add to array
-		// 					$value[] = $row->value;
-		// 				}
-		// 				// if data is NOT an array
-		// 				else
-		// 				{
-		// 					// add this to not have doubling effect
-		// 					$val = $value;
-		// 					unset($value);
-		// 					// add original and new data to array
-		// 					$value[] = $val;
-		// 					$value[] = $row->value;
-		// 				}
-		// 				// set config item
-		// 				$this->set_item($row->type, $value);					
-		// 			}
-		// 		}
-		// 	}
 	}
 // --------------------------------------------------------------------
 
@@ -333,7 +260,126 @@ function item($item, $index = '')
 
 		return rtrim($this->config[$item], '/');
 	}
-	
+// --------------------------------------------------------------------
+/**
+ * system - returns system
+ *
+ * @param string 
+ * @return string
+ */	
+	function system($item = null, $system = null)
+	{
+		// return from current system
+		if($system == null)
+		{
+			if( isset($this->config['system']['current'][$item]) )
+			{
+				return $this->config['system']['current'][$item];
+			}
+			elseif( $item == 'array' )
+			{
+				return $this->config['system']['current'];
+			}
+			else
+			{
+				return false;
+			}
+		}
+		// return from selected system
+		else
+		{
+			if( isset($this->config['system'][$system][$item]) )
+			{
+				return $this->config['system'][$system][$item];
+			}
+			elseif( $item == 'array' )
+			{
+				return $this->config['system'][$system];
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+// --------------------------------------------------------------------
+/**
+ * cms - returns cms system
+ *
+ * @param string 
+ * @return string
+ */	
+	function cms($item = null)
+	{
+		// return from cms system
+		if( isset($this->config['system']['cms'][$item]) )
+		{
+			return $this->config['system']['cms'][$item];
+		}
+		elseif( $item == 'array' )
+		{
+			return $this->config['system']['cms'];
+		}
+		else
+		{
+			return false;
+		}
+	}
+// --------------------------------------------------------------------
+/**
+ * user_group - returns user_group data
+ *
+ * @param string 
+ * @return string
+ */	
+	function user_group($item = null, $group = null)
+	{
+		// return from cms system
+		if( isset($this->config['user']['group'][$group][$item]) )
+		{
+			return $this->config['user']['group'][$group][$item];
+		}
+		elseif( $item == 'array' && $group != null)
+		{
+			return $this->config['user']['group'][$group];
+		}
+		elseif($group == null)
+		{
+			return $this->config['user']['group'];
+		}
+		else
+		{
+			return false;
+		}
+	}	
+// --------------------------------------------------------------------
+/**
+ * user_right - returns user_right data
+ *
+ * @param string 
+ * @return string
+ */	
+	function user_right($item = null, $right = null)
+	{
+		// return from cms system
+		if( isset($this->config['user']['right'][$right][$item]) )
+		{
+			return $this->config['user']['right'][$right][$item];
+		}
+		elseif( $item == 'array' && $right != null)
+		{
+			return $this->config['user']['right'][$right];
+		}
+		elseif($right == null)
+		{
+			return $this->config['user']['right'];
+		}
+		else
+		{
+			return false;
+		}
+	}
+// end of class	
 }
 /* End of file MY_Config.php */
 /* Location: ./application/core/MY_Config.php */

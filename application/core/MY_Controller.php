@@ -19,7 +19,10 @@ class MY_Controller extends CI_Controller {
 		// get config data
 		$this->config->set_config_from_db();
 		echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
-		print_r($this->config->item('settings/menu/1/label'));
+		print_r($this->config->item('menu/1/label'));
+		echo "</pre>";
+		echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
+		print_r($this->config->user_right());
 		echo "</pre>";
 		// set charset
 		Header("Content-type: text/html;charset=UTF-8");
