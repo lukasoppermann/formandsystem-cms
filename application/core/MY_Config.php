@@ -38,7 +38,7 @@ class MY_Config extends CI_Config {
 	{
 		// merge params
 		$params = array_merge(array(
-					'key' => array('settings', 'system', 'user', 'compression')
+					'key' => array('settings', 'system', 'user', 'languages')
 				), $params);
 		// get CI instance
 		$this->CI =& get_instance();
@@ -103,6 +103,9 @@ class MY_Config extends CI_Config {
 		// -----------------------------------
 		// users
 		$this->config['compression'] = $config['compression'];
+		// -----------------------------------
+		// languages
+		$this->config['languages'] = $config['languages']['language'];
 		// -----------------------------------
 		// settings
 		foreach($config['settings'] as $key => $settings)
