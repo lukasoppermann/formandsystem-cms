@@ -190,7 +190,6 @@ class MY_Config extends CI_Config {
 /**
  * Extend the fn to fetch a config file item
  *
- *
  * @access	public
  * @param	string	the config item name
  * @param	string	the index name
