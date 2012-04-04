@@ -16,6 +16,8 @@ class MY_Controller extends CI_Controller {
 	function __construct() 
  	{
 		parent::__construct();
+		// get config from db
+		$this->config->set_config_from_db();
 		// set charset
 		Header("Content-type: text/html;charset=UTF-8");
 		// set header for browser to not cache stuff
@@ -26,17 +28,16 @@ class MY_Controller extends CI_Controller {
 		Header("Pragma: no-cache" ); // HTTP/1.0
 		// --------------------------------------------------------------------	
 		// get systems and system data
-		// $array = index_array(get_db_data(config('prefix').config('db_data'), 
-		// 							array('where' => array('key' => 'system'), 'select' => 'id, value'), 
-		// 							array('add' => array('type' => '1', 'path' => base_url().'$[name]/'.$this->config->unslash_item('lang_abbr').$this->fs_navigation->current('path')))), 'id');
-		// 	// get current system
-		// 	$system = $this->fs_url->part($array, array('url_position' => 1, 'active_element' => 'name', 'return_element' => 'id', 'config_name' => 'system'));
+		// get current system
+		echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
+		print_r($this->config);
+		echo "</pre>";
 		// 		// write current system to config
 		// 		$this->config->set_item('system',$array[$system]);
 		// 		// write $system from system config db entry
 		// 		$this->system = $array[$system];
 		// 		// get system languages
-		// 		$this->system['language'] = sort_array(index_array(get_db_data($this->system['config']['prefix'].$this->system['config']['db_data'], array('where' => array('key' => 'languages'), 'select' => 'value')), 'position'), 'position', TRUE);
+				// $this->system['language'] = sort_array(index_array(get_db_data($this->system['config']['prefix'].$this->system['config']['db_data'], array('where' => array('key' => 'languages'), 'select' => 'value')), 'position'), 'position', TRUE);
 		// 		// get system config data
 		// 		$system_config = index_array(get_db_data($this->system['config']['prefix'].$this->system['config']['db_data'], 
 		// 							array('where' => array('key' => 'settings'), 'select' => 'type, value')), 'type', TRUE);

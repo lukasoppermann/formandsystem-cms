@@ -19,6 +19,8 @@ $config['dir_css_cache']= $config['dir_libs'].'css/_cache';
 // js
 $config['dir_js']		= $config['dir_libs'].'js/';
 $config['dir_js_cache']	= $config['dir_libs'].'js/images/';
+
+$config['lang_id'] = 1;
 /*
 |--------------------------------------------------------------------------
 | Database Prefix
@@ -115,7 +117,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = TRUE;
+$config['enable_hooks'] = FALSE;
 /*
 |--------------------------------------------------------------------------
 | Class Extension Prefix

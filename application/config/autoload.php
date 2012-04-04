@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('fs_debug', 'fs_css', 'fs_js', 'database', 'session', 'fs_languages', 'fs_authentication', 'fs_navigation', 'fs_url', 'fs_entries');
+$autoload['libraries'] = array('fs_debug', 'fs_css', 'fs_js', 'database', 'session', 'fs_authentication', 'fs_navigation', 'fs_url', 'fs_entries');
 
 
 /*
@@ -64,7 +64,7 @@ $autoload['libraries'] = array('fs_debug', 'fs_css', 'fs_js', 'database', 'sessi
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('fs_debug','number','array','fs_authentication','string','url','fs_config','fs_metadata','fs_database','fs_view','form');
+$autoload['helper'] = array('fs_debug','fs_variable','number','array','fs_authentication','string','url','fs_config','fs_metadata', 'fs_database','fs_view','form');
 
 /*
 | -------------------------------------------------------------------

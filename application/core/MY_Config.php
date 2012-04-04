@@ -10,7 +10,7 @@
  */
 class MY_Config extends CI_Config {
 
-	var $CI, $system;
+	var $CI;
 	
 	//php 5 constructor
 	function __construct() 
@@ -33,15 +33,13 @@ class MY_Config extends CI_Config {
 	 * @param	string			the config item value
 	 * @return	void
 	 */
-	function set_config_from_db($CI, $db = null, $params = array())
+	function set_config_from_db($db = null, $params = array())
 	{
-		$this->CI = $CI;
+		$this->CI = &get_instance();
 		// merge params
 		$params = array_merge(array(
 					'key' => array('settings', 'system', 'user', 'languages')
 				), $params);
-		// get CI instance
-		$this->CI = get_instance();
 		// check for db name or use default
 		$db == null ? $db = $this->item('db_prefix').$this->item('db_data') : '';
 		// load database library
@@ -91,20 +89,25 @@ class MY_Config extends CI_Config {
 		// -----------------------------------
 		// systems
 		$this->config['system'] = $config['system'];
-		// current system
+		// default system from DB
 		foreach($this->config['system']['system'] as $system)
 		{
 			if($system['default'] == 1)
 			{
-				$this->config['system']['current'] = $system;
+				$default_system = $system;
 			}
+			$system_names[$system['_id']] = $system['name'];
 		}
+		// get current system from URL
+		$current_system = $this->CI->fs_url->part(1, '', $default_system['name'], $system_names);
+		// assign current system to config
+		$this->config['system']['current']	= $this->config['system']['system'][array_search($current_system, $system_names)];
 		// system - cms
-		$this->config['system']['cms'] 	= $config['system']['cms'][key($config['system']['cms'])];
-		$this->config['db_prefix'] 		= $this->config['system']['cms']['db_prefix'];
-		$this->config['db_menu']		= $this->config['system']['cms']['db_menu'];
-		$this->config['db_data']		= $this->config['system']['cms']['db_data'];
-		$this->config['db_entries']		= $this->config['system']['cms']['db_entries'];
+		$this->config['system']['cms'] 		= $config['system']['cms'][key($config['system']['cms'])];
+		$this->config['db_prefix'] 			= $this->config['system']['cms']['db_prefix'];
+		$this->config['db_menu']			= $this->config['system']['cms']['db_menu'];
+		$this->config['db_data']			= $this->config['system']['cms']['db_data'];
+		$this->config['db_entries']			= $this->config['system']['cms']['db_entries'];
 		// -----------------------------------
 		// users
 		$this->config['user'] = $config['user'];
@@ -115,6 +118,23 @@ class MY_Config extends CI_Config {
 		// -----------------------------------
 		// languages
 		$this->config['languages'] = $config['languages']['language'];
+		// defaults & mapping
+		foreach($config['languages']['language'] as $lang)
+		{
+			// set defaults
+			if( isset($lang['default']) && $lang['default'] == TRUE )
+			{
+				$this->config['lang_default_abbr']	= $lang['abbr'];
+				$this->config['lang_default_id']	= $lang['_id'];
+				$this->config['lang_default_name']	= $lang['name'];					
+			}
+			// map ids & abbrs
+			$this->config['languages_abbr'][$lang['_id']]	= $lang['abbr'];
+			$this->config['languages_id'][$lang['abbr']] 	= $lang['_id'];		
+		}
+		// set current lang
+		$this->CI->fs_url->part(2, 'lang_abbr', $this->config['languages_abbr'][key($this->config['languages_abbr'])], $this->config['languages_abbr']);	
+		$this->config['lang_id'] = 	$this->config['languages_id'][$this->config['lang_abbr']];
 		// -----------------------------------
 		// settings
 		foreach($config['settings'] as $key => $settings)
