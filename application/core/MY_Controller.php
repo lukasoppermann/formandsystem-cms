@@ -16,8 +16,6 @@ class MY_Controller extends CI_Controller {
 	function __construct() 
  	{
 		parent::__construct();
-		// get config data
-		$this->config->set_config_from_db();
 		// set charset
 		Header("Content-type: text/html;charset=UTF-8");
 		// set header for browser to not cache stuff

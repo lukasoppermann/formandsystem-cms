@@ -6,6 +6,7 @@
 *.orig
 _*/
 logs/
+log-
 
 # Packages #
 ############

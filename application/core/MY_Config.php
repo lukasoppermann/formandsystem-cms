@@ -20,7 +20,6 @@ class MY_Config extends CI_Config {
 		// MAPPING 
 		// TEMPORARY 
 		// REMOVE
-		
 		$this->map('prefix','db_prefix');
 		//
 	}
@@ -34,14 +33,15 @@ class MY_Config extends CI_Config {
 	 * @param	string			the config item value
 	 * @return	void
 	 */
-	function set_config_from_db($db = null, $params = array())
+	function set_config_from_db($CI, $db = null, $params = array())
 	{
+		$this->CI = $CI;
 		// merge params
 		$params = array_merge(array(
 					'key' => array('settings', 'system', 'user', 'languages')
 				), $params);
 		// get CI instance
-		$this->CI =& get_instance();
+		$this->CI = get_instance();
 		// check for db name or use default
 		$db == null ? $db = $this->item('db_prefix').$this->item('db_data') : '';
 		// load database library
@@ -69,7 +69,7 @@ class MY_Config extends CI_Config {
 			if(isset($result['_id']))
 			{
 				// index by _id id exists
-				$config[$result['key']][$result['type']][$result['_id']] = $result;				
+				$config[$result['key']][$result['type']][$result['_id']] = $result;
 			}
 			else
 			{
@@ -91,18 +91,27 @@ class MY_Config extends CI_Config {
 		// -----------------------------------
 		// systems
 		$this->config['system'] = $config['system'];
+		// current system
+		foreach($this->config['system']['system'] as $system)
+		{
+			if($system['default'] == 1)
+			{
+				$this->config['system']['current'] = $system;
+			}
+		}
 		// system - cms
 		$this->config['system']['cms'] 	= $config['system']['cms'][key($config['system']['cms'])];
-		$this->config['db_prefix'] 		= $config['cms']['db_prefix'];
-		$this->config['db_menu']		= $config['cms']['db_menu'];
-		$this->config['db_data']		= $config['cms']['db_data'];
-		$this->config['db_entries']		= $config['cms']['db_entries'];
+		$this->config['db_prefix'] 		= $this->config['system']['cms']['db_prefix'];
+		$this->config['db_menu']		= $this->config['system']['cms']['db_menu'];
+		$this->config['db_data']		= $this->config['system']['cms']['db_data'];
+		$this->config['db_entries']		= $this->config['system']['cms']['db_entries'];
 		// -----------------------------------
 		// users
 		$this->config['user'] = $config['user'];
 		// -----------------------------------
 		// users
-		$this->config['compression'] = $config['compression'];
+		$this->config['compression'] = $config['settings']['compression'];
+		unset($config['settings']['compression']);
 		// -----------------------------------
 		// languages
 		$this->config['languages'] = $config['languages']['language'];
