@@ -33,13 +33,11 @@ class MY_Config extends CI_Config {
 	 * @param	string			the config item value
 	 * @return	void
 	 */
-	function set_config_from_db($db = null, $params = array())
+	function set_config_from_db($db = null)
 	{
 		$this->CI = &get_instance();
 		// merge params
-		$params = array_merge(array(
-					'key' => array('settings', 'system', 'user', 'languages')
-				), $params);
+		$keys = array('settings', 'system', 'user', 'languages');
 		// check for db name or use default
 		$db == null ? $db = $this->item('db_prefix').$this->item('db_data') : '';
 		// load database library
@@ -47,7 +45,7 @@ class MY_Config extends CI_Config {
 		// get data from db
 		$this->CI->db->select('id, key, type, data');
 		$this->CI->db->from($db);
-		foreach($params['key'] as $key)
+		foreach($keys as $key)
 		{
 			$this->CI->db->or_where('key', $key);	
 		}
@@ -135,6 +133,7 @@ class MY_Config extends CI_Config {
 		// set current lang
 		$this->CI->fs_url->part(2, 'lang_abbr', $this->config['languages_abbr'][key($this->config['languages_abbr'])], $this->config['languages_abbr']);	
 		$this->config['lang_id'] = 	$this->config['languages_id'][$this->config['lang_abbr']];
+		$this->config['languages']['current'] = $this->config['languages'][$this->config['lang_id']];
 		// -----------------------------------
 		// settings
 		foreach($config['settings'] as $key => $settings)
@@ -295,6 +294,7 @@ class MY_Config extends CI_Config {
  * system - returns system
  *
  * @param string 
+ * @param string 
  * @return string
  */	
 	function system($item = null, $system = null)
@@ -355,6 +355,49 @@ class MY_Config extends CI_Config {
 			return false;
 		}
 	}
+// --------------------------------------------------------------------
+/**
+ * languages - returns language item
+ *
+ * @param string 
+ * @param int 
+ * @return string
+ */	
+	function language($item = null, $language_id = null)
+	{
+		// return from current language
+		if($language_id == null)
+		{
+			if( isset($this->config['languages']['current'][$item]) )
+			{
+				return $this->config['languages']['current'][$item];
+			}
+			elseif( $item == 'array' )
+			{
+				return $this->config['languages']['current'];
+			}
+			else
+			{
+				return false;
+			}
+		}
+		// return from selected language
+		else
+		{
+			if( isset($this->config['languages'][$language_id][$item]) )
+			{
+				return $this->config['languages'][$language_id][$item];
+			}
+			elseif( $item == 'array' )
+			{
+				return $this->config['languages'][$language_id];
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}	
 // --------------------------------------------------------------------
 /**
  * user_group - returns user_group data
