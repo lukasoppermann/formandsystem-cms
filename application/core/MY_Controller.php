@@ -27,34 +27,6 @@ class MY_Controller extends CI_Controller {
 		Header("Cache-Control: post-check=0, pre-check=0", FALSE); 
 		Header("Pragma: no-cache" ); // HTTP/1.0
 		// --------------------------------------------------------------------	
-		// get systems and system data
-		// get current system
-		echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
-		print_r($this->config);
-		echo "</pre>";
-		// 		// write current system to config
-		// 		$this->config->set_item('system',$array[$system]);
-		// 		// write $system from system config db entry
-		// 		$this->system = $array[$system];
-		// 		// get system languages
-				// $this->system['language'] = sort_array(index_array(get_db_data($this->system['config']['prefix'].$this->system['config']['db_data'], array('where' => array('key' => 'languages'), 'select' => 'value')), 'position'), 'position', TRUE);
-		// 		// get system config data
-		// 		$system_config = index_array(get_db_data($this->system['config']['prefix'].$this->system['config']['db_data'], 
-		// 							array('where' => array('key' => 'settings'), 'select' => 'type, value')), 'type', TRUE);
-		// 		$multi = array('menu','type','status','template','channel','category','robots');
-		// 		foreach($system_config as $key => $value)
-		// 		{
-		// 			if(!in_array($key, $multi))
-		// 			{
-		// 				$this->system[$key] = $value[key($value)];
-		// 				unset($this->system[$key]['type']);
-		// 			}
-		// 			else
-		// 			{
-		// 				$this->system[$key] = $value;
-		// 			}
-		// 		}
-		// --------------------------------------------------------------------
 		// load assets
 		css_add('screen',array('base,menu,icons,gui'));
 		// js_add_lines('default','CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'"; CURRENT_SYSTEM = "'.$system.'";');
