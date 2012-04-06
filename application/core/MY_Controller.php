@@ -28,9 +28,11 @@ class MY_Controller extends CI_Controller {
 		Header("Pragma: no-cache" ); // HTTP/1.0
 		// --------------------------------------------------------------------	
 		// load assets
-		css_add('screen',array('base,menu,icons,gui'));
+		$this->fs_css->add('libs/css/icons.css');
+		$this->fs_css->add('base,debug,icons,gui', 'screen');
+		$this->fs_css->delete('debug', 'screen');
 		// js_add_lines('default','CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'"; CURRENT_SYSTEM = "'.$system.'";');
-		js_add('default',array('jquery', 'jquery.cookie', 'ui/minified/jquery.ui.core.min', 'ui/minified/jquery.ui.widget.min', 'ui/minified/jquery.ui.mouse.min', 'javascript'));	
+		js_add('default', array('jquery', 'jquery.cookie', 'ui/minified/jquery.ui.core.min', 'ui/minified/jquery.ui.widget.min', 'ui/minified/jquery.ui.mouse.min', 'javascript'));	
 		// --------------------------------------------------------------------	
 		// check for Logout
 		// if($this->fs_navigation->current('path') == '/logout')

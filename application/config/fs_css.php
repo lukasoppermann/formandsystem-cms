@@ -18,8 +18,6 @@ $config['css']['regex'] = array(
 					// 'gradiants' => '',
 					// 'transition' => '',
 );
-// define groups
-$config['css']['groups'] = array('print','screen');
 // define tags
 $config['css']['tags']['print']		= 	'<link rel="stylesheet" href="[file]" type="text/css" media="print" />';
 $config['css']['tags']['screen']	= 	'<link rel="stylesheet" href="[file]" type="text/css" media="screen" />';
