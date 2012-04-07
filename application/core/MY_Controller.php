@@ -21,18 +21,19 @@ class MY_Controller extends CI_Controller {
 		// set charset
 		Header("Content-type: text/html;charset=UTF-8");
 		// set header for browser to not cache stuff
-		Header("Last-Modified: " . gmdate( "D, j M Y H:i:s" ) . " GMT"); 
-		Header("Expires: " . gmdate( "D, j M Y H:i:s", time() ) . " GMT"); 
+		Header("Last-Modified: ". gmdate( "D, j M Y H:i:s" ) ." GMT"); 
+		Header("Expires: ". gmdate( "D, j M Y H:i:s", time() ). " GMT"); 
 		Header("Cache-Control: no-store, no-cache, must-revalidate"); // HTTP/1.1 
 		Header("Cache-Control: post-check=0, pre-check=0", FALSE); 
 		Header("Pragma: no-cache" ); // HTTP/1.0
 		// --------------------------------------------------------------------	
 		// load assets
 		$this->fs_css->add('libs/css/icons.css');
-		$this->fs_css->add('base,debug,icons,gui', 'screen');
-		$this->fs_css->delete('debug', 'screen');
+		$this->fs_css->add('base,icons,gui', 'screen');
 		// js_add_lines('default','CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'"; CURRENT_SYSTEM = "'.$system.'";');
-		js_add('default', array('jquery', 'jquery.cookie', 'ui/minified/jquery.ui.core.min', 'ui/minified/jquery.ui.widget.min', 'ui/minified/jquery.ui.mouse.min', 'javascript'));	
+		$this->fs_js->add('jquery', 'default');
+		$this->fs_js->get('default', FALSE);
+		// js_add('default', array('jquery', 'jquery.cookie', 'ui/minified/jquery.ui.core.min', 'ui/minified/jquery.ui.widget.min', 'ui/minified/jquery.ui.mouse.min', 'javascript'));	
 		// --------------------------------------------------------------------	
 		// check for Logout
 		// if($this->fs_navigation->current('path') == '/logout')

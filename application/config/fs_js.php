@@ -15,8 +15,6 @@ $config['js']['regex'] = array(
 						),
 						// 'variables' => '#\[\$(.*)\]#' // produces an error
 );
-// define groups
-$config['js']['groups'] = array('default', 'uncompressed');
 // define tags
 $config['js']['tags']['default'] = '<script type="text/javascript" src="[file]"></script>';
 $config['js']['tags']['uncompressed'] = '<script type="text/javascript" src="[file]"></script>';

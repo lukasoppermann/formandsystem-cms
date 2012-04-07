@@ -4,7 +4,7 @@
 <?	
 echo favicon('media/layout/favicon.ico','media/layout/favicon.png');
 echo meta();
-echo css('print, screen', FALSE);
+echo css('screen', TRUE);
 echo fs_debug_print_css();
 echo title('All variables for title are missing | Form&amp;System');
 echo "\n";

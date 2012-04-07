@@ -6,19 +6,19 @@
 */
 // regex
 $config['css']['regex'] = array(
-					'replace' => array(
-						'#\s0px#' => ' 0 ',
-						'#[\r\n|\r|\n|\t|\f]#' => ' ',
-						'#/\*(.*?)\*/#s' => '',
-						'#(\,|\;|\:|\{|\}|\s)[ ]+#' => '$1',
-						'#[ ]+(\,|\;|\:|\{|\}|px|\%)#' => '$1',
-						'#url\([\'||"]?[^http://||data:](\.?\.\/)*(.*?)[\'||"]?\)#is' =>'url(\''.base_url().'$2\')',
-					),
-					'variables' => '#\[\$(.*)\]#'
-					// 'gradiants' => '',
-					// 'transition' => '',
+	'variables' => '#\$([a-zA-Z0-9_-]+)#',
+	// leave replace as last element to do the cleanup
+	'replace' => array(
+		'#\s0px#' => ' 0 ',
+		'#[\;]{2,}#' => ';',
+		'#[\r\n|\r|\n|\t|\f]#' => ' ',
+		'#/\*(.*?)\*/#s' => '',
+		'#(\,|\;|\:|\{|\}|\s)[ ]+#' => '$1',
+		'#[ ]+(\,|\;|\:|\{|\}|px|\%)#' => '$1',
+		'#url\([\'||"]?[^http://||data:](\.?\.\/)*(.*?)[\'||"]?\)#is' =>'url(\''.base_url().'$2\')',
+	)
 );
 // define tags
 $config['css']['tags']['print']		= 	'<link rel="stylesheet" href="[file]" type="text/css" media="print" />';
 $config['css']['tags']['screen']	= 	'<link rel="stylesheet" href="[file]" type="text/css" media="screen" />';
-$config['css']['tags']['lines'] 	= 	'<style type="text/css">'."\n".'[file]'."\n".'</style>';
+$config['css']['tags']['lines'] 	= 	'<style type="text/css">'."\n\t".'[file]'."\n\t".'</style>';

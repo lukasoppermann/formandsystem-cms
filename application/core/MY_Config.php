@@ -102,14 +102,11 @@ class MY_Config extends CI_Config {
 		$this->config['system']['current']	= $this->config['system']['system'][array_search($current_system, $system_names)];
 		// system - cms
 		$this->config['system']['cms'] = $config['system']['cms'][key($config['system']['cms'])];
+		// push all system vars into base config
 		foreach($this->config['system']['cms'] as $key => $var)
 		{
 			$this->config[$key] = $var;	
 		}
-		// $this->config['db_prefix'] 			= $this->config['system']['cms']['db_prefix'];
-		// $this->config['db_menu']			= $this->config['system']['cms']['db_menu'];
-		// $this->config['db_data']			= $this->config['system']['cms']['db_data'];
-		// $this->config['db_entries']			= $this->config['system']['cms']['db_entries'];
 		// -----------------------------------
 		// users
 		$this->config['user'] = $config['user'];
