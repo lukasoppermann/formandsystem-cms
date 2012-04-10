@@ -18,7 +18,8 @@ $config['css']['regex'] = array(
 		'#url\([\'||"]?[^http://||data:](\.?\.\/)*(.*?)[\'||"]?\)#is' =>'url(\''.base_url().'$2\')',
 	)
 );
-// define tags
+// default tags DO NOT REMOVE
+$config['css']['tags']['default']	= 	'<link rel="stylesheet" href="[file]" type="text/css" media="screen" />';
 $config['css']['tags']['print']		= 	'<link rel="stylesheet" href="[file]" type="text/css" media="print" />';
-$config['css']['tags']['screen']	= 	'<link rel="stylesheet" href="[file]" type="text/css" media="screen" />';
 $config['css']['tags']['lines'] 	= 	'<style type="text/css">'."\n\t".'[file]'."\n\t".'</style>';
+// define your own tags

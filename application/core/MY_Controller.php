@@ -28,11 +28,11 @@ class MY_Controller extends CI_Controller {
 		Header("Pragma: no-cache" ); // HTTP/1.0
 		// --------------------------------------------------------------------	
 		// load assets
-		$this->fs_css->add('libs/css/icons.css');
-		$this->fs_css->add('base,icons,gui', 'screen');
+		css_add('libs/css/icons.css');
+		css_add('base,icons,gui', 'screen');
 		// js_add_lines('default','CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'"; CURRENT_SYSTEM = "'.$system.'";');
-		$this->fs_js->add('jquery', 'default');
-		$this->fs_js->get('default', FALSE);
+		js_add(array('jquery'), 'default');
+		js_add('http://www.jquery.com/jquery.js', 'default');
 		// js_add('default', array('jquery', 'jquery.cookie', 'ui/minified/jquery.ui.core.min', 'ui/minified/jquery.ui.widget.min', 'ui/minified/jquery.ui.mouse.min', 'javascript'));	
 		// --------------------------------------------------------------------	
 		// check for Logout
@@ -67,7 +67,8 @@ class MY_Controller extends CI_Controller {
 		// $group = current_nav('group', true);
 		//
 		// echo trim(sha512(salt('lukas', 'exj5IJxo4UJ')));
-		// login($group);
+		// login(1);
+		$data['content'] = 'test';
 	}
 	
 }

@@ -1,5 +1,5 @@
-<? 
+<?php
 
-echo $content;
+echo variable($content);
 
 // end views/default.php
