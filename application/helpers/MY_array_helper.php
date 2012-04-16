@@ -18,18 +18,18 @@
  * @param array params
  * @return array (sorted)
  */
-function sort_array($array, $subkey, $params)
+function sort_array($array, $subkey, $params = array())
 {
 	// merge params array
 	$params = array_merge(array(
-					'use_key' 	=> FALSE,
-					'sort' 		=> 'asc', // vs desc
-					'remove' 	=> false // remove empty from array
-				),(array) $params);
+		'use_key' 	=> FALSE,
+		'sort' 		=> 'asc', // vs desc
+		'remove' 	=> false // remove empty from array
+	), $params);
 	// build sorter array
 	foreach($array as $key => $value)
 	{
-		if(isset($value[$subkey]))
+		if( isset($value[$subkey]) )
 		{
 			$sorter[$key] = strtolower($value[$subkey]);
 		}
@@ -78,22 +78,26 @@ function sort_array($array, $subkey, $params)
  */
 function array_depth($array) 
 {
-    $max_indentation = 1;
-
-    $array_str = print_r($array, true);
-    $lines = explode("\n", $array_str);
-
-    foreach ($lines as $line) 
+	// init maximal depth (deepest child)
+	$max_depth = 1;
+	// print array as string
+	$array_str = print_r($array, true);
+	// explode string by line breaks
+	$lines = explode("\n", $array_str);
+	// loop through lines and check for depth
+	foreach ($lines as $line) 
 	{
-        $indentation = (strlen($line) - strlen(ltrim($line))) / 4;
-
-        if ($indentation > $max_indentation) 
+		// get depth for current loop
+		$depth = ( strlen($line) - strlen( ltrim($line) ) ) / 4;
+		// if depth is deeper
+		if ($depth > $max_depth) 
 		{
-                $max_indentation = $indentation;
-        }
-    }
-
-    return ceil(($max_indentation - 1) / 2) + 1;
+			// set max depth to depth
+			$max_depth = $depth;
+ 		}
+	}
+	// return depth
+    return ceil( ($max_depth - 1) / 2) + 1;
 }
 // ------------------------------------------------------------------------
 /**
@@ -309,17 +313,22 @@ function alias_loop(&$array, $keys)
 
 function empty_array($array)
 {
+	// loop through array
 	foreach($array as $key => $element)
 	{
+		// if element is empty delete it
 		if( empty($element) )
 		{
 			unset($array[$key]);
 		}
+		// if element is array
 		elseif( is_array($array[$key]) )
 		{
+			// loop through children
 			$array[$key] = empty_array($array[$key]);
 		}
 	}
+	// return clean array
 	return $array;
 }
 // ------------------------------------------------------------------------
