@@ -16,6 +16,7 @@ div, ul, li{
 }
 #header #logo{
 	padding: 0 35px 0 15px;
+	margin: 0;
 	width: 100px;
 	height: 45px;
 	overflow: hidden;

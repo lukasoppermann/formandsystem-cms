@@ -6,7 +6,7 @@
 <? 
 echo js('default', TRUE); // somehow there is a compression problem
 echo fs_debug_print_js();
-
+// echo copyright();
 ?>
 </body>
 </html>

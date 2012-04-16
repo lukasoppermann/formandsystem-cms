@@ -1,13 +1,12 @@
 <?=doctype('html5')."\n"; ?>
 <html lang="<?=config('lang_abbr')?>">
 <head>
-<?	
-echo favicon('media/layout/favicon.ico','media/layout/favicon.png');
+<?
+echo favicon('favicon');
 echo meta();
 echo css('screen', TRUE);
 echo fs_debug_print_css();
 echo title('All variables for title are missing | Form&amp;System');
-echo "\n";
 ?>
 </head>
 <body<?=variable($body_id).variable($body_class); ?>>

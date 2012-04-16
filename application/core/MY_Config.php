@@ -404,6 +404,7 @@ class MY_Config extends CI_Config {
  * user_group - returns user_group data
  *
  * @param string 
+ * @param string 
  * @return string
  */	
 	function user_group($item = null, $group = null)
@@ -430,6 +431,7 @@ class MY_Config extends CI_Config {
  * user_right - returns user_right data
  *
  * @param string 
+ * @param string 
  * @return string
  */	
 	function user_right($item = null, $right = null)
@@ -455,6 +457,7 @@ class MY_Config extends CI_Config {
 /**
  * compression - returns compression data
  *
+ * @param string 
  * @param string 
  * @return string
  */	
