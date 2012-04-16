@@ -109,13 +109,15 @@ function array_depth($array)
  */
 function add_array($array, $args)
 {
+	// loop through args to add
 	foreach($args as $key => $value)
 	{
+		// get array depth by exploding by /
 		$key = explode('/', $key);
-
+		// add to array using fn _add_array
 		$array = _add_array($array, $key, $value);
 	}
-	
+	// return new array
 	return $array;
 }
 // ------------------------------------------------------------------------
