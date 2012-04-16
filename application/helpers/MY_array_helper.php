@@ -334,23 +334,32 @@ function empty_array($array)
  */	
 function index_array($array, $index, $multi = FALSE)
 {
-	foreach($array as $key => $value)
+	// if multikey = TRUE
+	if($multi == TRUE)
 	{
-		if($multi == TRUE)
+		// loop through array
+		foreach($array as $key => $value)
 		{
-			$new_array[$value[$index]][$key] = $value;
-		}
-		else
-		{
-			$new_array[$value[$index]] = $value;
+			$new_array[$value[$index]][$key] = $value;		
 		}
 	}
-	if(isset($new_array) && is_array($new_array) )
+	// if unique keys expected
+	else
+	{
+		// loop through array
+		foreach($array as $key => $value)
+		{
+			$new_array[$value[$index]] = $value;		
+		}
+	}
+	// check if array exists
+	if( isset($new_array) && is_array($new_array) )
 	{
 		return $new_array;
 	}
 	else
 	{
+		// if array does not exists return empty array
 		return array(null);
 	}
 }
@@ -393,7 +402,7 @@ function array_key_exists_nc($key, $search)
         return $key;
     }
 	// if not check for wrong parameters
-    if(!(is_string($key) && is_array($search) && count($search))) 
+    if( !(is_string($key) && is_array($search) && count($search)) ) 
 	{
         return false;
     }
