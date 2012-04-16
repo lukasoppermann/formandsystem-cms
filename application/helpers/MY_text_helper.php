@@ -95,5 +95,38 @@ function closetags($html)
 	// return html
 	return $html;
 }
+// ------------------------------------------------------------------------
+/**
+ * close all open xhtml tags at the end of the string
+ *
+ * @param string
+ * @param string
+ * @return string
+ */
+function to_alphanum( $text, $add_chars = array(null) )
+{
+	// strip tags
+	$text = strip_tags($text);
+	// if additional characters are given
+	if( count($add_chars) > 0 )
+	{
+		// loop through additional chars
+		foreach($add_chars as $find => $replace)
+		{
+			// check if replace already in chars
+			if( !isset($chars) || !in_array($replace, $chars) )
+			{
+				$chars[] = $replace;
+			}
+			// add to find & replace arrays
+			$finds[] 	= $find;
+			$replaces[] = $replace;
+		}
+		// replace characters
+		$text = str_replace($finds, $replaces, $text);
+	}
+	// make alphanumplus
+	return preg_replace("/[^a-zA-Z0-9".implode('\\', $chars)."]/", "", $text);
+}
 /* End of file MY_text_helper.php */
 /* Location: ./application/helpers/MY_text_helper.php */
