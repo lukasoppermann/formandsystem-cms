@@ -297,33 +297,6 @@ function get_json($json, $key)
 }
 // ------------------------------------------------------------------------
 /**
- * alias_loop - builds an alias array from array 
- *
- * @param array
- * @param array $keys (empty on init)
- * @param array alias 
- */
-function alias_loop(&$array, $keys)
-{
-	foreach($array as $key => $value)
-	{
-		$keys[] = $key;
-		if(is_array($value))
-		{
-			alias_loop(&$value, &$keys, &$alias);
-		}
-		else
-		{
-			$alias[implode('/',$keys)] =& $array[$key];
-		}
-		end($keys);
-		unset($keys[key($keys)]);
-	}
-	end($keys);
-	unset($keys[key($keys)]);
-}
-// ------------------------------------------------------------------------
-/**
  * empty_array - delete empty elements from array
  *
  * @param array
