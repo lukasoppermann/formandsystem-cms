@@ -131,33 +131,42 @@ function add_array($array, $args)
  */
 function _add_array($array = array(), $keys, $value)
 {
+	// while fn needs to go deeper into array
 	if(count($keys) > 1)
 	{
+		// get current key
 		reset($keys);
 		$key = $keys[key($keys)];
+		// remove current key from keys
 		unset($keys[key($keys)]);
-		
-		if(isset($array[$key]))
+		// if key exists merge
+		if( isset($array[$key]) )
 		{
 			$array[$key] = _add_array($array[$key], $keys, $value);
 		}
+		// if key does not exists add
 		else
 		{
 			$array[$key] = _add_array('', $keys, $value);			
 		}
 	}
+	// if right depth in array is reached
 	else
 	{
+		// get current key
 		$key = $keys[key($keys)];
+		// if key exists merge
 		if(isset($array[$key]))
 		{
 			$array[$key] = array_merge($array[$key], $value);		
 		}
+		// if key does not exists add
 		else
 		{
 			$array[$key] = $value;			
 		}
 	}
+	// return new array
 	return $array;
 }
 // ------------------------------------------------------------------------
@@ -186,8 +195,9 @@ function add_json($json, $array)
  */
 function delete_array($array)
 {
-	// get args
+	// get arguments
 	$args = func_get_args();
+	// unset first arg, b/c it is the array
 	unset($args[0]);
 	// if args = array in array, turn into just array
 	if(isset($args[1]) && is_array($args[1]))
@@ -196,8 +206,6 @@ function delete_array($array)
 	}
 	// remove specified fields from array
 	$array = _delete_array($array, $args);
-	
-
 	// remove empty elements from array
 	$array = empty_array($array);
 	// return array
@@ -214,13 +222,17 @@ function delete_array($array)
  */
 function _delete_array($array, $keys, $key = '')
 {
+	// loop through array
 	foreach($array as $k => $value)
 	{
+		// get current key
 		$key = trim($key.'/'.$k,'/');
-		if(!in_array($key, $keys) && !is_array($value))
+		// check if key is supposed to stay & $value is not an array
+		if( !in_array($key, $keys) && !is_array($value) )
 		{
 			$new_array[$k] = $value;
 		}
+		// if value is array go deeper
 		elseif(!in_array($key, $keys))
 		{
 			$new_array[$k] = _delete_array($value, $keys, $key);
@@ -228,7 +240,7 @@ function _delete_array($array, $keys, $key = '')
 		$key = str_replace($k, '', $key);
 		$key = trim($key, '/');
 	}
-
+	// return new array
 	return variable($new_array);
 }
 // ------------------------------------------------------------------------
@@ -241,14 +253,14 @@ function _delete_array($array, $keys, $key = '')
 function delete_json($json)
 {
 	// convert to array
-	$_json = json_decode($json, TRUE);	
+	$json = json_decode($json, TRUE);	
 	// get args
 	$args = func_get_args();
 	unset($args[0]);
 	// delete from array
-	$_json = delete_array($_json, $args);
+	$json = delete_array($json, $args);
 	// convert to json
-	return json_encode($_json);
+	return json_encode($json);
 }
 // ------------------------------------------------------------------------
 /**
@@ -260,22 +272,27 @@ function delete_json($json)
  */
 function get_json($json, $key)
 {
-	$array = $json = json_decode($json, TRUE);
+	// decode json
+	$array = json_decode($json, TRUE);
+	// get array keys for all levels
 	$keys = explode('/', $key);
+	// count keys
 	$count_keys = count($keys);
-	
+	// loop through keys
 	for( $i = 0; $i < $count_keys; ++$i )
 	{
+		// while key exists go deeper
 		if(array_key_exists($keys[$i], $array))
 		{
 			$array = $array[$keys[$i]];
 		}
+		// if key does not exists, return false
 		else
 		{
 			return False;
 		}
 	}
-	
+	// return array
 	return $array;
 }
 // ------------------------------------------------------------------------
