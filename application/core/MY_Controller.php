@@ -36,6 +36,16 @@ class MY_Controller extends CI_Controller {
 		css_add('base,icons,gui', 'screen');
 		// js_add_lines('default','CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'"; CURRENT_SYSTEM = "'.$system.'";');
 		js_add(array('jquery'), 'default');
+		echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
+		print_r();
+		echo "</pre>";
+		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
+		// print_r(db_get( 'cms_entries', array('id' => array(1,2), 'menu_id' => 0), array('limit' => 2, 'order' => 'id DESC') ));
+		// echo "</pre>";
+		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
+		// print_r(db_get_raw('cms_entries', array('id' => array(1,2)), array('limit' => 2, 'order' => 'id DESC')));
+		// echo "</pre>";
+		// db_update('cms_entries', array('id' => array(1,2), 'menu_id' => 0), array('languages' => 73), TRUE );
 		// js_add('default', array('jquery', 'jquery.cookie', 'ui/minified/jquery.ui.core.min', 'ui/minified/jquery.ui.widget.min', 'ui/minified/jquery.ui.mouse.min', 'javascript'));	
 		// --------------------------------------------------------------------	
 		// check for Logout
@@ -47,6 +57,9 @@ class MY_Controller extends CI_Controller {
 		// Initialize Menus
 		// Main
 		// $this->data['menu']['main'] = $this->fs_navigation->tree(array('menu' => '10', 'id' => 'main_menu', 'class_lvl_0' => 'main-submenu'));
+		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
+		// print_r($this->data['menu']['main']);
+		// echo "</pre>";
 		// // // Submenu
 		// $this->data['menu']['sub'] = $this->fs_navigation->tree(array('menu' => '10', 'id' => 'sub_menu', 'start_lvl' => '2', 'lvl' => '1', 
 		// 							'hide' => array('0', 'shortcut'), 'item_class' => 'submenu-item'));	

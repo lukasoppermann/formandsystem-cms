@@ -41,31 +41,11 @@ function active_url($slash = TRUE)
 	$CI =& get_instance();
 	if($slash == TRUE)
 	{
-		return $CI->config->slash_item('base_url').variable($CI->config->slash_item('url_parts')).$CI->config->slash_item('lang_abbr');
+		return $CI->config->slash_item('base_url').variable($CI->config->slash_item('url_parts'));
 	}
 	else
 	{
-		return $CI->config->slash_item('base_url').variable($CI->config->slash_item('url_parts')).$CI->config->unslash_item('lang_abbr');
-	}
-}
-// ------------------------------------------------------------------------
-/**
- * active_parts - returns the default parts
- *
- * @param boolean
- * @return string
- */
-function active_parts($slash = TRUE)
-{
-	$CI =& get_instance();
-	
-	if($slash == TRUE)
-	{
-		return variable($CI->config->slash_item('url_parts')).$CI->config->slash_item('lang_abbr');
-	}
-	else
-	{
-		return variable($CI->config->slash_item('url_parts')).$CI->config->unslash_item('lang_abbr');
+		return $CI->config->slash_item('base_url').variable($CI->config->slash_item('url_parts'));
 	}
 }
 // ------------------------------------------------------------------------
@@ -82,62 +62,12 @@ function page_url($slash = TRUE)
 	
 	if($slash == TRUE)
 	{
-		return $CI->config->slash_item('base_url').variable($CI->config->slash_item('url_parts')).$CI->config->unslash_item('lang_abbr').$CI->fs_navigation->current('path').'/';
+		return $CI->config->slash_item('base_url').variable($CI->config->unslash_item('url_parts')).$CI->fs_navigation->current('path').'/';
 	}
 	else
 	{
-		return $CI->config->slash_item('base_url').variable($CI->config->slash_item('url_parts')).$CI->config->unslash_item('lang_abbr').$CI->fs_navigation->current('path');
+		return $CI->config->slash_item('base_url').variable($CI->config->unslash_item('url_parts')).$CI->fs_navigation->current('path');
 	}
-}
-// ------------------------------------------------------------------------
-/**
- * lang_url - returns the base_url with the current language part
- *
- * @param array to be sortet
- * @param string key to be sorted by
- * @return array (sorted)
- */
-function lang_url($slash = TRUE)
-{
-	$CI =& get_instance();
-	
-	if($slash == TRUE)
-	{
-		return $CI->config->slash_item('base_url').$CI->config->slash_item('lang_abbr');
-	}
-	else
-	{
-		return $CI->config->slash_item('base_url').$CI->config->unslash_item('lang_abbr');
-	}
-}
-
-// ------------------------------------------------------------------------
-/**
- * strip_lang - returns the given url without the language part
- *
- * @param string 
- * @return string
- */
-function strip_lang($url)
-{
-	$CI =& get_instance();
-	
-	return preg_replace('/^'.$CI->config->unslash_item('lang_abbr').'\//', '', ltrim($url, '/'));
-
-}
-// ------------------------------------------------------------------------
-/**
- * strip_defaults - returns the given url without the language, system and base url
- *
- * @param string 
- * @return string
- */
-function strip_defaults($url)
-{
-	$CI =& get_instance();
-	
-	return preg_replace('/(.*)'.$CI->config->unslash_item('lang_abbr').'\//', '', ltrim($url, '/'));
-
 }
 // ------------------------------------------------------------------------
 /**
@@ -171,45 +101,6 @@ function media($dir, $file)
 	else
 	{
 		return $CI->config->slash_item('base_url').$CI->config->slash_item('dir_media').$file;	
-	}
-}
-// ------------------------------------------------------------------------
-/**
- * prep_url - returns the given url with protocol or internal path
- *
- * @param string 
- * @return string
- */
-function prep_url($string = null)
-{
-	$CI =& get_instance();
-	$languages = $CI->config->item('languages');
-	
-	if( preg_match("[http://|http:|www.|ww.|.*\.]", $string, $match) )
-	{
-		if($match[0] == 'http://' || $match[0] == 'http:')
-		{
-			return 'http://'.str_replace($match[0], '', $string);
-		}
-		elseif($match[0] == 'www.' || $match[0] == 'ww.')
-		{
-			return 'http://www.'.str_replace($match[0], '', $string);
-		}
-		else
-		{
-			return 'http://'.$string;
-		}
-	}
-	else
-	{
-		if( in_array(substr( ltrim($string, '/'), 0, 2 ), $languages['abbr']) )
-		{
-			return base_url().ltrim($string, '/');
-		}
-		else
-		{
-			return lang_url().ltrim($string, '/');	
-		}	
 	}
 }
 // --------------------------------------------------------------------
