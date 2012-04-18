@@ -77,30 +77,23 @@ function page_url($slash = TRUE)
  * @param string 
  * @return string
  */
-function media($dir, $file)
+function media($file = null, $dir = null, $base = TRUE)
 {
 	$CI =& get_instance();
-	
-	$args = func_get_args();
-	//
-	if(count($args) > 1)
+	// check for base
+	$base_url = '';
+	if($base == TRUE)
 	{
-		foreach($args as $arg)
-		{
-			if(substr($arg,-4,1) == '.' || substr($arg,-5,1) == '.')
-			{
-				$file = trim($arg,"/");
-			}
-			else
-			{
-				$dir = $CI->config->slash_item('dir_'.$arg);
-			}
-		}
-		return $CI->config->slash_item('base_url').$dir.$file;	
+		$base_url = $CI->config->slash_item('base_url');
+	}
+	// return url
+	if( $dir != null && $CI->config->slash_item('dir_'.$dir) != null)
+	{
+		return $base_url.$CI->config->slash_item('dir_'.$dir).$file;	
 	}
 	else
 	{
-		return $CI->config->slash_item('base_url').$CI->config->slash_item('dir_media').$file;	
+		return $base_url.$CI->config->slash_item('dir_media').$file;	
 	}
 }
 // --------------------------------------------------------------------

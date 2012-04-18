@@ -36,9 +36,10 @@ class MY_Controller extends CI_Controller {
 		css_add('base,icons,gui', 'screen');
 		// js_add_lines('default','CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'"; CURRENT_SYSTEM = "'.$system.'";');
 		js_add(array('jquery'), 'default');
-		echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
-		print_r();
-		echo "</pre>";
+		echo media('Test.jpg').'<br />';
+		echo media('lukas/','layout').'<br />';
+		echo media('lukas/','layouts').'<br />';
+		echo media('peter.jpg','images', false).'<br />';
 		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
 		// print_r(db_get( 'cms_entries', array('id' => array(1,2), 'menu_id' => 0), array('limit' => 2, 'order' => 'id DESC') ));
 		// echo "</pre>";
