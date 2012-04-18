@@ -16,6 +16,7 @@ class MY_Controller extends CI_Controller {
 	function __construct() 
  	{
 		parent::__construct();
+		//
 		// get config from db
 		$this->config->set_config_from_db();
 		// set charset
@@ -27,20 +28,14 @@ class MY_Controller extends CI_Controller {
 		Header("Cache-Control: post-check=0, pre-check=0", FALSE); 
 		Header("Pragma: no-cache" ); // HTTP/1.0
 		// --------------------------------------------------------------------	
+		// DEVELOPEMENT		
+		$this->output->enable_profiler(FALSE);
+		// --------------------------------------------------------------------	
 		// load assets
 		css_add('libs/css/icons.css');
 		css_add('base,icons,gui', 'screen');
 		// js_add_lines('default','CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'"; CURRENT_SYSTEM = "'.$system.'";');
 		js_add(array('jquery'), 'default');
-		js_add('http://www.jquery.com/jquery.js', 'default');
-		$json = json_encode(array('test' => array('lukas' => 'peter', 'kai' => 'hausen'), 'peter' => 'user'));
-		$json = add_json($json, array('user' => 'Admin'));
-		echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
-		print_r($json);
-		echo "</pre>";
-		echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
-		print_r(get_json($json, 'test/lukas'));
-		echo "</pre>";
 		// js_add('default', array('jquery', 'jquery.cookie', 'ui/minified/jquery.ui.core.min', 'ui/minified/jquery.ui.widget.min', 'ui/minified/jquery.ui.mouse.min', 'javascript'));	
 		// --------------------------------------------------------------------	
 		// check for Logout
