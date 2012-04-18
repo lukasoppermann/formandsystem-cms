@@ -156,9 +156,9 @@ function _add_array($array = array(), $keys, $value)
 		// get current key
 		$key = $keys[key($keys)];
 		// if key exists merge
-		if(isset($array[$key]))
+		if( isset($array[$key]) && is_array($array[$key]) )
 		{
-			$array[$key] = array_merge($array[$key], $value);		
+			$array[$key] = array_merge($array[$key], (array) $value);		
 		}
 		// if key does not exists add
 		else
