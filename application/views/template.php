@@ -14,12 +14,7 @@
 <?=nl2br($this->load->view('header')); ?>
 
 <?=$page; ?>
-
-<?
-if( ENVIRONMENT == 'development' )
-{
-	css_add('benchmark');
-	echo nl2br($this->load->view('benchmark'));
-}
-?>
 <?=nl2br($this->load->view('footer')); ?>
+<?
+	echo fs_benchmark();
+?>

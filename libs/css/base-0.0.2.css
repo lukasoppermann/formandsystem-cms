@@ -4,9 +4,13 @@ html, body{
 	padding: 0;
 	position: relative;
 	min-width: 900px;
+	min-height: 100%;
+	height: 100%;	
 	font-family: "Helvetica", Arial, Sans-serif;
 }
 body{
+	float: left;
+	width: 100%;
 	overflow-y: scroll; /* Always show scroll bar*/
 }
 div, ul, li{
@@ -19,6 +23,28 @@ img{
 	margin: 0;
 	border: 0;
 }
+textarea{
+	text-align: left;
+    font-family: "helvetica", "arial", sans-serif;
+	font-size: 12px;
+	outline: none !important; 
+	resize: none;
+	overflow: auto;	
+}
+:focus, :active{
+	outline: none !important; 
+	outline: 0 !important;
+	outline-color: transparent;
+	outline-style: none;
+}
+/*------------------------*/
+/* Layout */
+#page_wrapper{
+	float: left;
+	width: 100%;
+	height: 100%;
+}
+/*----------------------------------*/
 #header #logo{
 	padding: 0 35px 0 15px;
 	margin: 0;
@@ -184,6 +210,12 @@ img{
 /*------------------------*/
 /* Content */
 #content{
+	float: left;
+	width: 100%;
+	height: 100%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
 	padding-left: 2.5%;
 }
 /*------------------------*/

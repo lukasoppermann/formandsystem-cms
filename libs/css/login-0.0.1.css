@@ -1,3 +1,13 @@
+#login{
+	width: 260px;
+	position: absolute;
+	left: 50%;
+	padding: 5px;
+	margin-left: -140px;
+}
+#login .widget-content{
+	float: left;
+}
 .user-image{
 	position: relative;	
 	border-radius: 2px;
@@ -19,7 +29,58 @@
 	width: 100%;
 	height: 100%;
 	z-index: 2;
+	border-radius: 2px;	
 	box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.35);
 	-webkit-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.35);
 	-moz-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.35);
+	background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0.4) 0, rgba(0,0,0,0.1) 30px, rgba(0,0,0,0.0) 40px);
+	background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0.4) 0, rgba(0,0,0,0.1) 30px, rgba(0,0,0,0.0) 40px);
+}
+.user-image .overlay .username{
+	display: block;
+	text-align: right;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding: 5px;
+	color: rgb(255,255,255);
+	font-weight: bold;
+	text-shadow: rgba(0,0,0,0.25) 0px 1px 0px, rgba(0,0,0,0.5) 0px 0px 1px, rgba(0,0,0,0.35) 0px 0px 3px;
+}
+.form-element{
+	float: left;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
+	padding: 5px;
+	width: 100%;
+}
+.form-element .input{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
+	width: 100%;
+	padding: 7px;
+	border-radius: 3px;
+	border: 1px solid rgb(220,220,220);
+	background: rgb(245,245,245);
+	box-shadow: inset 0px 0px 0px 1px rgb(238,238,238);
+	-webkit-box-shadow: inset 0px 0px 0px 1px rgb(238,238,238);
+	-moz-box-shadow: inset 0px 0px 0px 1px rgb(238,238,238);
+	transition-property: color, border, box-shadow, background;  
+	transition-duration: .25s;  
+	-webkit-transition-property: color, border, box-shadow, background;
+	-webkit-transition-duration: .25s;
+	-moz-transition-property: color, border, box-shadow, background;
+	-moz-transition-duration: .25s;
+}
+.form-element .input:hover{
+	border: 1px solid rgb(200,200,200);
+}
+.form-element .input:focus, .form-element .input:active{
+	background: rgb(250,250,250);
+	border: 1px solid rgb(200,200,200);
+	box-shadow: inset 0px 1px 0px 0px rgb(230,230,230), inset 0px 0px 0px 1px rgb(240,240,240);
+	-webkit-box-shadow: inset 0px 1px 0px 0px rgb(230,230,230), inset 0px 0px 0px 1px rgb(240,240,240);
+	-moz-box-shadow: inset 0px 1px 0px 0px rgb(230,230,230), inset 0px 0px 0px 1px rgb(240,240,240);
 }

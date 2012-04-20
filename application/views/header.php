@@ -22,7 +22,6 @@ echo title('All variables for title are missing | Form&amp;System');
 	</div>
 	<!-- <div id="content" style="height:<?=get_cookie('content_height')?>px;"> -->
 		<div id="content">	
-					<img src="<?=media('formandsystem_icons.svg', 'layout')?>" />
         <!-- DEBUG CONSOLE -->
 		    <?=fs_show_log();?>
         <!-- END DEBUG CONSOLE -->		    
@@ -45,4 +44,3 @@ echo title('All variables for title are missing | Form&amp;System');
 			}
 		echo '</form></div>';
 		} ?>
-		<div id="stage">

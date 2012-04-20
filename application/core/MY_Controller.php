@@ -30,7 +30,7 @@ class MY_Controller extends CI_Controller {
 		Header("Pragma: no-cache" ); // HTTP/1.0
 		// --------------------------------------------------------------------	
 		// DEVELOPEMENT		
-		$this->output->enable_profiler(FALSE);
+		$this->output->enable_profiler(TRUE);
 		// --------------------------------------------------------------------	
 		// load assets
 		css_add('libs/css/icons.css');
