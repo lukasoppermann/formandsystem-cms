@@ -1,5 +1,8 @@
 <?php
 
+// ---------------------------------------------
+// Labels
+
 $lang['save']			= "save";
 
 $lang['saving']			= "saving";
@@ -37,6 +40,13 @@ $lang['password']		= "password";
 $lang['username']		= "username";
 
 $lang['email']			= "email";
+
+// ---------------------------------------------
+// Messages
+
+$lang['login_wrong_user']			= "This user does not exist.";
+
+$lang['login_wrong_password']		= "The password does not match the user.";
 
 /* End of file gui_lang.php */
 /* Location: ./system/language/english/gui_lang.php */

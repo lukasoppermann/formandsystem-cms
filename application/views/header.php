@@ -4,7 +4,7 @@
 <?
 echo favicon('favicon');
 echo meta();
-echo css('screen', TRUE);
+echo css('default', FALSE);
 echo fs_debug_print_css();
 echo title('All variables for title are missing | Form&amp;System');
 ?>
@@ -12,7 +12,7 @@ echo title('All variables for title are missing | Form&amp;System');
 <body<?=variable($body_id).variable($body_class); ?>>
 <div id="page_wrapper">
 	<div id="header">
-		<?=logo(array('alt' => 'Form and System', 'url' => active_url(TRUE).'dashboard'))."\n"; ?>
+		<?=logo(array('file' => media('formandsystem_logo.png', 'layout'), 'alt' => 'Form and System', 'url' => active_url(TRUE).'dashboard'))."\n"; ?>
 		<?=variable($menu['main'])?>
 		<?=variable($menu['meta'])?>
 	</div>
@@ -22,6 +22,7 @@ echo title('All variables for title are missing | Form&amp;System');
 	</div>
 	<!-- <div id="content" style="height:<?=get_cookie('content_height')?>px;"> -->
 		<div id="content">	
+					<img src="<?=media('formandsystem_icons.svg', 'layout')?>" />
         <!-- DEBUG CONSOLE -->
 		    <?=fs_show_log();?>
         <!-- END DEBUG CONSOLE -->		    

@@ -27,3 +27,6 @@ $config['favorite_images']['iphone'] 		= '-iphone';
 $config['favorite_images']['ipad'] 			= '-ipad';
 $config['favorite_images']['iphone4']		= '-iphone4';
 // $config['favorite_images']['ipad3']			= '-ipad3';
+
+/* End of file fs_meta.php */
+/* Location: ./application/config/fs_meta.php */

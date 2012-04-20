@@ -12,6 +12,7 @@ class MY_Controller extends CI_Controller {
 
 	var $data	= null;
 	var $system = null;
+	var $test = null;
 	//php 5 constructor
 	function __construct() 
  	{
@@ -33,13 +34,12 @@ class MY_Controller extends CI_Controller {
 		// --------------------------------------------------------------------	
 		// load assets
 		css_add('libs/css/icons.css');
-		css_add('base,icons,gui', 'screen');
+		css_add('base,icons,gui');
 		// js_add_lines('default','CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'"; CURRENT_SYSTEM = "'.$system.'";');
 		js_add(array('jquery'), 'default');
-		echo media('Test.jpg').'<br />';
-		echo media('lukas/','layout').'<br />';
-		echo media('lukas/','layouts').'<br />';
-		echo media('peter.jpg','images', false).'<br />';
+		$db = 'cms_entries';
+		$data = array('menu_id' => 5, 'title' => 'New Title', 'data' => array('user' => 'test', 'peter' => 'schmidt'));
+		$data = array($data, array('menu_id' => '16', 'title' => '3', 'data' => 'test'));
 		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
 		// print_r(db_get( 'cms_entries', array('id' => array(1,2), 'menu_id' => 0), array('limit' => 2, 'order' => 'id DESC') ));
 		// echo "</pre>";
@@ -57,7 +57,18 @@ class MY_Controller extends CI_Controller {
 		// --------------------------------------------------------------------
 		// Initialize Menus
 		// Main
-		// $this->data['menu']['main'] = $this->fs_navigation->tree(array('menu' => '10', 'id' => 'main_menu', 'class_lvl_0' => 'main-submenu'));
+		foreach($this->config->item('menu') as $menu)
+		{
+			$this->data['menu'][$menu['name']] = $this->fs_navigation->tree(array('menu' => $menu['_id'], 'id' => $menu['name'].'_menu', 'class_lvl_0' => $menu['class']));	
+		}
+		
+		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
+		// print_r();
+		// echo "</pre>";
+		// $this->CI->db->select('id, status, password, salt, email, user, group, data');
+		// $this->CI->db->where('user', $username);
+		// $this->CI->db->where('status', '1');
+		// $this->CI->db->from('users');
 		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
 		// print_r($this->data['menu']['main']);
 		// echo "</pre>";
@@ -81,13 +92,12 @@ class MY_Controller extends CI_Controller {
 		// 	</ul>";
 		// --------------------------------------------------------------------		
 		// check for sufficient rights
-		// $group = current_nav('group', true);
+		$group = current_nav('group', true);
 		//
 		// echo trim(sha512(salt('lukas', 'exj5IJxo4UJ')));
-		// login(1);
+		login(1);
 		$data['content'] = 'test';
 	}
-	
 }
 /* End of file MY_Controller.php */
 /* Location: ./application/core/MY_Controller.php */
