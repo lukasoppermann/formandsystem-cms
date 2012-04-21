@@ -1,12 +1,14 @@
 #login{
-	width: 260px;
+	width: 290px;
 	position: absolute;
 	left: 50%;
-	padding: 5px;
-	margin-left: -140px;
+	margin-left: -145px;
 }
 #login .widget-content{
+	position: relative;
 	float: left;
+	padding: 5px;
+	z-index: 1;
 }
 .user-image{
 	position: relative;	
@@ -47,40 +49,46 @@
 	font-weight: bold;
 	text-shadow: rgba(0,0,0,0.25) 0px 1px 0px, rgba(0,0,0,0.5) 0px 0px 1px, rgba(0,0,0,0.35) 0px 0px 3px;
 }
-.form-element{
+@-moz-keyframes errors-drop {
+    0% { margin-top: -35px; }
+    100% { margin-top: -15px; }
+}
+@-webkit-keyframes errors-drop {
+    0% { margin-top: -35px; }
+    100% { margin-top: -15px; }
+}
+#login_errors{
+	position: relative;	
 	float: left;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;	
-	padding: 5px;
-	width: 100%;
-}
-.form-element .input{
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;	
-	width: 100%;
-	padding: 7px;
+	display: block;
+	padding: 12px 10px 7px 10px;
+	width: 232px;
+	margin: -35px 18px 0;
 	border-radius: 3px;
-	border: 1px solid rgb(220,220,220);
-	background: rgb(245,245,245);
-	box-shadow: inset 0px 0px 0px 1px rgb(238,238,238);
-	-webkit-box-shadow: inset 0px 0px 0px 1px rgb(238,238,238);
-	-moz-box-shadow: inset 0px 0px 0px 1px rgb(238,238,238);
-	transition-property: color, border, box-shadow, background;  
-	transition-duration: .25s;  
-	-webkit-transition-property: color, border, box-shadow, background;
-	-webkit-transition-duration: .25s;
-	-moz-transition-property: color, border, box-shadow, background;
-	-moz-transition-duration: .25s;
+	background: rgb(255,235,235);
+	border: 1px solid rgb(200,125,125);
+	color: rgb(150,35,35);
+	z-index: 0;
+	box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
 }
-.form-element .input:hover{
-	border: 1px solid rgb(200,200,200);
+#login_errors.error{
+	margin: -15px 18px 0;
+   /* Firefox 4+ */
+	-moz-animation-name: errors-drop;
+	-moz-animation-timing-function: ease-in;
+	-moz-animation-iteration-count: once;
+	-moz-animation-duration: .5s;
+	/* Webkit */
+	-webkit-animation-name: errors-drop;
+	-webkit-animation-timing-function: ease-in;
+	-webkit-animation-iteration-count: once;
+	-webkit-animation-duration: .5s;
 }
-.form-element .input:focus, .form-element .input:active{
-	background: rgb(250,250,250);
-	border: 1px solid rgb(200,200,200);
-	box-shadow: inset 0px 1px 0px 0px rgb(230,230,230), inset 0px 0px 0px 1px rgb(240,240,240);
-	-webkit-box-shadow: inset 0px 1px 0px 0px rgb(230,230,230), inset 0px 0px 0px 1px rgb(240,240,240);
-	-moz-box-shadow: inset 0px 1px 0px 0px rgb(230,230,230), inset 0px 0px 0px 1px rgb(240,240,240);
+.error p{
+	margin: 0 0 5px;
+}
+.error p:last-child{
+	margin: 0;
 }

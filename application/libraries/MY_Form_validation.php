@@ -16,15 +16,11 @@ class MY_Form_validation extends CI_Form_validation
 	 * @param	string
 	 * @return	string
 	 */
-    function add_message($message)
+    function add_message($message, $key = 'manual')
     {
-		if(!isset($this->_error_array['manual']))
+		if(!isset($this->_error_array[$key]))
 		{
-			$this->_error_array['manual'] ='<p>'.$message.'</p>';
-		}
-		else
-		{
-			$this->_error_array['manual'] .='<p>'.$message.'</p>';
+			$this->_error_array[$key] ='<p>'.$message.'</p>';
 		}
     }
 // end of Class
