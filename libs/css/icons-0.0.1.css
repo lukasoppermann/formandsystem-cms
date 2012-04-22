@@ -1,0 +1,15 @@
+/*------------------------*/
+/* icons defaults*/
+.icon:before{
+	content: "";
+	display: block;
+	width: 20px;
+	height: 20px;	
+	background-image: url('../../media/layout/formandsystem_icons.png');
+	position: relative;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+.icon:hover{ cursor: pointer; }
+.visible:before{ background-position: 0px -64px; }
+.invisible:before{ background-position: -16px -64px; }

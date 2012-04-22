@@ -18,7 +18,7 @@ class Dashboard extends MY_Controller {
 		// $data['login_log'] = $this->session->userdata('time_log');
 		// $this->data['content'] = '<div id="user" class="widget">'.$this->load->view('widgets/user', $data, TRUE).'</div>';
 		// load view
-		view('default', ''); // $this->data		
+		view('default', $this->data); // $this->data		
 	}
 	
 }

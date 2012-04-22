@@ -40,20 +40,13 @@ class MY_Controller extends CI_Controller {
 		$db = 'cms_entries';
 		$data = array('menu_id' => 5, 'title' => 'New Title', 'data' => array('user' => 'test', 'peter' => 'schmidt'));
 		$data = array($data, array('menu_id' => '16', 'title' => '3', 'data' => 'test'));
-		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
-		// print_r(db_get( 'cms_entries', array('id' => array(1,2), 'menu_id' => 0), array('limit' => 2, 'order' => 'id DESC') ));
-		// echo "</pre>";
-		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
-		// print_r(db_get_raw('cms_entries', array('id' => array(1,2)), array('limit' => 2, 'order' => 'id DESC')));
-		// echo "</pre>";
-		// db_update('cms_entries', array('id' => array(1,2), 'menu_id' => 0), array('languages' => 73), TRUE );
 		// js_add('default', array('jquery', 'jquery.cookie', 'ui/minified/jquery.ui.core.min', 'ui/minified/jquery.ui.widget.min', 'ui/minified/jquery.ui.mouse.min', 'javascript'));	
 		// --------------------------------------------------------------------	
 		// check for Logout
-		// if($this->fs_navigation->current('path') == '/logout')
-		// {
-		// 	logout();
-		// }
+		if($this->fs_navigation->current('path') == '/logout')
+		{
+			logout();
+		}
 		// --------------------------------------------------------------------
 		// Initialize Menus
 		// Main
@@ -61,7 +54,6 @@ class MY_Controller extends CI_Controller {
 		{
 			$this->data['menu'][$menu['name']] = $this->fs_navigation->tree(array('menu' => $menu['_id'], 'id' => $menu['name'].'_menu', 'class_lvl_0' => $menu['class']));	
 		}
-		
 		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
 		// print_r();
 		// echo "</pre>";
@@ -95,7 +87,7 @@ class MY_Controller extends CI_Controller {
 		$group = current_nav('group', true);
 		//
 		// echo trim(sha512(salt('lukas', 'exj5IJxo4UJ')));
-		login(1);
+		login($group);
 		$data['content'] = 'test';
 	}
 }

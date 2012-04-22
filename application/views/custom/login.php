@@ -13,11 +13,13 @@
 			</div>
 			<img src="<?=media('lukas.jpg', 'images')?>">
 		</div>
-		<div class="form-element">
-			<input class="input empty<?=(form_error('username') != null ? ' error' : ''); ?>" type="text" id="username" name="username" placeholder="username / email" value="" />
+		<div class="form-element<?=(set_value('password') == null ? ' empty' : '')?>">
+			<input class="input<?=(form_error('username') != null ? ' error' : ''); ?>" type="text" id="username" name="username" placeholder="username / email" value="<?=set_value('username')?>" />
 		</div>
-		<div class="form-element">
-			<input class="input empty<?=(form_error('password') != null ? ' error' : ''); ?>" type="text" id="password" name="password" placeholder="password" value="" />
+		<div class="form-element<?=(set_value('password') == null ? ' empty' : '')?>">
+			<div id="show_password" class="icon visible"></div>
+			<input id="password_clear" placeholder="password" class="hidden" value="" />
+			<input class="input<?=(form_error('password') != null ? ' error' : ''); ?>" type="password" id="password" name="password" placeholder="password" value="<?=set_value('password')?>" />
 		</div>
 		<input type="submit" value="" style="visibility: hidden; height: 0px; width: 0px; z-index: -100; position: absolute; left: -200%;"/>
 	</form>

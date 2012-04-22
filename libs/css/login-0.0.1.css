@@ -92,3 +92,32 @@
 .error p:last-child{
 	margin: 0;
 }
+#show_password{
+	display: block;
+	width: 20px;
+	height: 20px;	
+	position: absolute;
+	right: 10px;
+	top: 12px;
+}
+#password_clear{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	display: block;
+	width: 198px;
+	height: 14px;
+	padding: 3px 10px 3px 3px;
+	background: rgb(250,250,250);
+	border: none;
+	font-size: 11px;
+	line-height: 1;
+}
+.empty #password_clear{
+	background: rgb(245,245,245);
+}
+#password{
+	padding-right: 40px;
+	font-size: 11px;
+	line-height: 1;
+}

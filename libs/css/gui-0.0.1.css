@@ -5,6 +5,7 @@
 	box-sizing: border-box;	
 	padding: 5px;
 	width: 100%;
+	line-height: 1;
 }
 .form-element .input{
 	-moz-box-sizing: border-box;
@@ -12,9 +13,11 @@
 	box-sizing: border-box;	
 	width: 100%;
 	padding: 7px;
+	font-size: 11px;
+	height: 30px;
 	border-radius: 3px;
-	border: 1px solid rgb(220,220,220);
-	background: rgb(245,245,245);
+	background: rgb(250,250,250);
+	border: 1px solid rgb(200,200,200);
 	box-shadow: inset 0px 0px 0px 1px rgb(238,238,238);
 	-webkit-box-shadow: inset 0px 0px 0px 1px rgb(238,238,238);
 	-moz-box-shadow: inset 0px 0px 0px 1px rgb(238,238,238);
@@ -25,10 +28,14 @@
 	-moz-transition-property: color, border, box-shadow, background;
 	-moz-transition-duration: .25s;
 }
+.form-element.empty .input{
+	border: 1px solid rgb(220,220,220);
+	background: rgb(245,245,245);
+}
 .form-element:hover .input{
 	border: 1px solid rgb(200,200,200);
 }
-.form-element .input:focus, .form-element .input:active, .form-element .input:not(.empty){
+.form-element .input:focus, .form-element .input:active{
 	background: rgb(250,250,250);
 	border: 1px solid rgb(200,200,200);
 	box-shadow: inset 0px 1px 0px 0px rgb(230,230,230), inset 0px 0px 0px 1px rgb(240,240,240);
