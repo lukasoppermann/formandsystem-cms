@@ -13,12 +13,22 @@
 			</div>
 			<img src="<?=media('lukas.jpg', 'images')?>">
 		</div>
-		<div class="form-element<?=(set_value('password') == null ? ' empty' : '')?>">
-			<input class="input<?=(form_error('username') != null ? ' error' : ''); ?>" type="text" id="username" name="username" placeholder="username / email" value="<?=set_value('username')?>" />
+		<div class="form-element one-row<?=(set_value('username') == null ? ' empty' : '')?>">
+			<div class="bubble right basic-shadow hidden"><p><?=lang('user_forgot')?></p>
+				<div class="form-element">
+					<input type="text" name="full_name" id="full_name" class="input" value="" placeholder="<?=lang('first_last_name')?>">
+					<div id="retrieve_user" class="button"><span class="fade icon submit"></span></div>
+				</div>
+			</div>
+			<input class="input<?=(form_error('username') != null ? ' error' : ''); ?>" type="text" id="username" name="username" placeholder="<?=lang('username')?> / <?=lang('email')?>" value="<?=set_value('username')?>" />
 		</div>
-		<div class="form-element<?=(set_value('password') == null ? ' empty' : '')?>">
-			<div id="show_password" class="icon visible"></div>
-			<input id="password_clear" placeholder="password" class="hidden" value="" />
+		<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">
+			<div class="bubble right basic-shadow hidden">
+				<?=lang('password_forgot')?> 
+				<a href=""><?=lang('password_forgot_link')?></a>
+			</div>
+			<div id="show_password" class="icon fade visible"></div>
+			<input id="password_clear" placeholder="<?=lang('password')?>" class="hidden" value="" />
 			<input class="input<?=(form_error('password') != null ? ' error' : ''); ?>" type="password" id="password" name="password" placeholder="password" value="<?=set_value('password')?>" />
 		</div>
 		<input type="submit" value="" style="visibility: hidden; height: 0px; width: 0px; z-index: -100; position: absolute; left: -200%;"/>

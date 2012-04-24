@@ -87,6 +87,7 @@
 	-webkit-animation-duration: .5s;
 }
 .error p{
+	line-height: 13px;
 	margin: 0 0 5px;
 }
 .error p:last-child{
@@ -98,7 +99,7 @@
 	height: 20px;	
 	position: absolute;
 	right: 10px;
-	top: 12px;
+	top: 5px;
 }
 #password_clear{
 	position: absolute;
@@ -120,4 +121,26 @@
 	padding-right: 40px;
 	font-size: 11px;
 	line-height: 1;
+}
+.form-element{
+	width: 250px;
+}
+#retrieve_user{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
+	height: 30px;
+	width: 20px;
+	background: rgb(235,235,235);
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	padding: 0;
+	box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
+	-webkit-box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
+	-moz-box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
+}
+#retrieve_user .icon{
+	position: absolute;
+	top: 4px;
 }

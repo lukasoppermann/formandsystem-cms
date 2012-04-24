@@ -147,7 +147,7 @@ function _add_array($array = array(), $keys, $value)
 		// if key does not exists add
 		else
 		{
-			$array[$key] = _add_array('', $keys, $value);			
+			$array[$key] = _add_array($array, $keys, $value);	
 		}
 	}
 	// if right depth in array is reached

@@ -1,6 +1,15 @@
 $(function(){
 	// once jquery is loaded
 	// --------------------------------------------------------------------
+	// add focus to first failed field
+	$('.form-element').find('.error').first().focus().select();
+	// --------------------------------------------------------------------
+	// bubble
+	$('.form-element').find('.error').siblings('.bubble.right').each(function()
+	{
+		$(this).hide().removeClass('hidden').fadeIn(100);
+	});
+	// --------------------------------------------------------------------
 	// add class 'empty' to element if empty on blur, else remove
 	$('body').on('blur', 'input', function()
 	{
@@ -27,13 +36,13 @@ $(function(){
 		if( !_this.hasClass('active') )
 		{
 			password = _input.val();
-			_this.addClass('active');
+			_this.addClass('active invisible').removeClass('visible');
 			_clear.val(password).removeClass('hidden');
 		}
 		else
 		{
 			password = _clear.val();
-			_this.removeClass('active');
+			_this.removeClass('active invisible').addClass('visible');
 			_input.val(password);
 			_clear.addClass('hidden');
 		}

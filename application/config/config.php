@@ -21,6 +21,12 @@ $config['dir_js']		= $config['dir_libs'].'js/';
 $config['dir_js_cache']	= $config['dir_libs'].'js/_cache/';
 
 $config['lang_id'] = 1;
+// attempts
+$config['attempts'] = 15;
+// reset time
+$config['reset_attempts'] = 3600; // 1 hour = 3600
+// ip lockout
+$config['ip_lockout'] = 15; // should be >= attempts
 /*
 |--------------------------------------------------------------------------
 | Database Prefix

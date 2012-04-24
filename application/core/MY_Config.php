@@ -80,7 +80,7 @@ class MY_Config extends CI_Config {
 			{
 				if(count($setting) == 1)
 				{
-					$config['settings'][$type] = $setting[0];
+					$config['settings'][$type] = $setting[key($setting)];
 				}
 			}
 		}

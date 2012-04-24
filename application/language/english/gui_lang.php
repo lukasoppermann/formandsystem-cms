@@ -3,50 +3,69 @@
 // ---------------------------------------------
 // Labels
 
-$lang['save']			= "save";
+$lang['save']						= "save";
 
-$lang['saving']			= "saving";
+$lang['saving']						= "saving";
 
-$lang['delete']			= "delete";
+$lang['delete']						= "delete";
 
-$lang['edit']			= "edit";
+$lang['edit']						= "edit";
 
-$lang['publish']		= "publish";
+$lang['submit']						= "submit";
 
-$lang['language']		= "language";
+$lang['publish']					= "publish";
 
-$lang['status']			= "status";
+$lang['language']					= "language";
 
-$lang['file']			= "file";
+$lang['status']						= "status";
 
-$lang['image']			= "image";
+$lang['file']						= "file";
 
-$lang['upload']			= "upload";
+$lang['image']						= "image";
 
-$lang['download']		= "download";
+$lang['upload']						= "upload";
 
-$lang['title']			= "title";
+$lang['download']					= "download";
 
-$lang['excerpt']		= "excerpt";
+$lang['title']						= "title";
 
-$lang['description']	= "description";
+$lang['excerpt']					= "excerpt";
 
-$lang['tags']			= "tags";
+$lang['description']				= "description";
 
-$lang['keywords']		= "keywords";
+$lang['tags']						= "tags";
 
-$lang['password']		= "password";
+$lang['keywords']					= "keywords";
 
-$lang['username']		= "username";
+$lang['password']					= "password";
 
-$lang['email']			= "email";
+$lang['username']					= "username";
+
+$lang['email']						= "email";
+
+$lang['first_last_name']			= "Firstname Surname";
 
 // ---------------------------------------------
 // Messages
 
 $lang['login_wrong_user']			= "This user does not exist.";
 
+$lang['login_deactive_user']		= "This user is blocked.";
+
+$lang['login_temp_block']			= "This user is temporarily blocked.";
+
 $lang['login_wrong_password']		= "The password does not match the user.";
 
+$lang['login_successful']			= "Login successful.";
+
+$lang['logout_successful']			= "Logout successful.";
+
+$lang['login_ip_block']				= "You have been temporarily blocked, please try again in 1 hour.";
+
+$lang['password_forgot']			= "Forgot your password?";
+
+$lang['password_forgot_link']		= "Recover it here.";
+
+$lang['user_forgot']				= "Forgot your login data?";
 /* End of file gui_lang.php */
 /* Location: ./system/language/english/gui_lang.php */
