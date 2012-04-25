@@ -67,5 +67,11 @@ $lang['password_forgot']			= "Forgot your password?";
 $lang['password_forgot_link']		= "Recover it here.";
 
 $lang['user_forgot']				= "Forgot your login data?";
+
+$lang['recovered_password']			= "Password has been recovered.";
+
+$lang['user_blocked']				= "You can login via";
+
+$lang['user_blocked_link']			= "email authentication";
 /* End of file gui_lang.php */
 /* Location: ./system/language/english/gui_lang.php */

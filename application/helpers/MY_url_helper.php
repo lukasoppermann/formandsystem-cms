@@ -96,6 +96,22 @@ function media($file = null, $dir = null, $base = TRUE)
 		return $base_url.$CI->config->slash_item('dir_media').$file;	
 	}
 }
+// ------------------------------------------------------------------------
+/**
+ * last_segment - returns the last segment of the url
+ *
+ * @return string
+ */
+function last_segment()
+{
+	$CI =& get_instance();
+	// get url segments
+	$segments = $CI->uri->segment_array();
+	// set array to last item
+	end($segments);
+	// return last item
+	return $segments[key($segments)];
+}
 // --------------------------------------------------------------------
 /**
  * safe_mailto - encrypts email addresses with javascript 

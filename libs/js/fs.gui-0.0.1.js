@@ -5,9 +5,8 @@ $(function(){
 	$('.form-element').find('.error').first().focus().select();
 	// --------------------------------------------------------------------
 	// bubble
-	$('.form-element').find('.error').siblings('.bubble.right').each(function()
-	{
-		$(this).hide().removeClass('hidden').fadeIn(100);
+	$('.bubble.right').each(function(){
+		$(this).css({'right':'+=30','opacity':'0'}).animate({'right':'-=30','opacity':'1.0'});
 	});
 	// --------------------------------------------------------------------
 	// add class 'empty' to element if empty on blur, else remove
@@ -24,32 +23,5 @@ $(function(){
 			_input.parents('.form-element').removeClass('empty');
 		}
 	});
-	// --------------------------------------------------------------------
-	// show / hide password
-	$('body').on('click', '#show_password', function()
-	{
-		var _this		= $(this);
-		var _input 		= $('#password');
-		var _clear		= $('#password_clear');
-		var password 	= null;
-		//
-		if( !_this.hasClass('active') )
-		{
-			password = _input.val();
-			_this.addClass('active invisible').removeClass('visible');
-			_clear.val(password).removeClass('hidden');
-		}
-		else
-		{
-			password = _clear.val();
-			_this.removeClass('active invisible').addClass('visible');
-			_input.val(password);
-			_clear.addClass('hidden');
-		}
-	});
-	// update password field from real text
-	$('body').on('keydown', '#password_clear', function()
-	{
-		$('#password').val($(this).val());
-	});
+// end of jquery area
 });

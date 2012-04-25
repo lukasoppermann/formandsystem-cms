@@ -97,6 +97,15 @@
 	background-image: -moz-linear-gradient(top, rgb(240,240,240), rgb(230,230,230));
 	background-image: -webkit-linear-gradient(top, rgb(240,240,240), rgb(230,230,230));
 	cursor: pointer;
+	transition-property: color, border-color, box-shadow;  
+	transition-duration: .4s;  
+	-webkit-transition-property: color, border-color, box-shadow;
+	-webkit-transition-duration: .4s;
+	-moz-transition-property: color, border-color, box-shadow;
+	-moz-transition-duration: .4s;
+}
+.button:hover{
+	border:  1px solid rgb(150,150,150);
 }
 /*------------------------*/
 /* bubble */
@@ -109,22 +118,11 @@
 	top: -10px;
 	opacity: 1;
 	width: 150px;
+	z-index: 50;
 	border: 1px solid rgb(200,200,200);
 	background-color: rgb(252,252,252);
 	background-image: -moz-linear-gradient(top, rgb(252,252,252), rgb(245,245,245));
-	background-image: -webkit-linear-gradient(top, rgb(252,252,252), rgb(245,245,245));
-	/* Firefox 4+ */
-	-moz-animation-name: bubble-right;
-	-moz-animation-timing-function: ease;
-	-moz-animation-iteration-count: once;
-	-moz-animation-duration: .5s;
-	-moz-animation-delay: .2s;	
-	/* Webkit */
-	-webkit-animation-name: bubble-right;
-	-webkit-animation-timing-function: ease;
-	-webkit-animation-iteration-count: once;
-	-webkit-animation-duration: .5s;
-	-webkit-animation-delay: .2s;	
+	background-image: -webkit-linear-gradient(top, rgb(252,252,252), rgb(245,245,245));	
 }
 .bubble.right:before, .bubble.right:after{
 	content: "";
@@ -148,14 +146,6 @@
 	left: -15px;
 	margin-top: -7px;	
 	z-index: 1;	
-}
-@-moz-keyframes bubble-right {
-    0% { right: -140px; opacity: 0; }
-    100% { right: -176px; opacity: 1; }
-}
-@-webkit-keyframes bubble-right {
-    0% { right: -140px; opacity: 0; }
-    100% { right: -176px; opacity: 1; }
 }
 .bubble a{
 	color: rgb(50,150,200);

@@ -1,10 +1,9 @@
-<?php
-	$CI = &get_instance();			
-	if( $CI->config->compression('compression','html') == TRUE && ENVIRONMENT != 'development')
+<?php			
+	if( $this->config->compression('compression','html') == TRUE && ENVIRONMENT != 'development')
 	{
 		ob_start("ob_gzhandler");
 		header("cache-control: must-revalidate");
-		header("expires: ".gmdate('D, d M Y H:i:s', time() + $CI->config->compression('expire','html'))." GMT");
+		header("expires: ".gmdate('D, d M Y H:i:s', time() + $this->config->compression('expire','html'))." GMT");
 	}
 	else
 	{

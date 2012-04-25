@@ -93,18 +93,21 @@
 .error p:last-child{
 	margin: 0;
 }
-#show_password{
-	display: block;
+#show_password, #show_forgot_user{
+	display: none;
 	width: 20px;
 	height: 20px;	
 	position: absolute;
 	right: 10px;
 	top: 5px;
 }
+#show_forgot_user{
+	display: block;
+}
 #password_clear{
 	position: absolute;
-	top: 10px;
-	left: 10px;
+	top: 5px;
+	left: 5px;
 	display: block;
 	width: 198px;
 	height: 14px;
@@ -140,7 +143,15 @@
 	-webkit-box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
 	-moz-box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
 }
+#retrieve_user:hover{
+	box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);
+	-webkit-box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);	
+}
 #retrieve_user .icon{
 	position: absolute;
 	top: 4px;
+}
+#forgot_user{
+	top: -25px;
 }

@@ -11,7 +11,7 @@
 	overflow: hidden;
 }
 .icon.fade{
-	opacity: 0.6;
+	opacity: 0.4;
 	transition-property: opacity;  
 	transition-duration: .4s;  
 	-webkit-transition-property: opacity;
@@ -19,10 +19,11 @@
 	-moz-transition-property: opacity;
 	-moz-transition-duration: .4s;
 }
-.icon.fade:hover, :hover > .icon.fade{
+.icon.fade:hover, .button:hover > .icon.fade{
 	opacity: 1;
 }
 .icon:hover{ cursor: pointer; }
 .visible:before{ background-position: 0px 0px; }
 .invisible:before{ background-position: -20px 0px; }
 .submit:before{ background-position: -40px 0px; }
+.help:before{ background-position: -60px 0px; }
