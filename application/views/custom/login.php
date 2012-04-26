@@ -1,5 +1,5 @@
 <?
-	fs_log('Add special error message for blocked user ("Reactivate user -> sends email")');
+	fs_log('Make login.js fn for bubble retrieve generic for all bubbles on page');	
 	fs_log('Send emails to retrieve password / user');	
 	fs_log('Send email to login into block user account');
 ?>
@@ -17,7 +17,7 @@
 		<!-- User Name or Email -->
 		<div class="form-element one-row<?=(set_value('username') == null ? ' empty' : '')?>">
 			<!-- Forgot User Bubble -->
-			<div class="bubble right basic-shadow <?=(($this->session->userdata('user_blocked') != TRUE && 
+			<div class="bubble right basic-shadow <?=((form_data('user_blocked') != 'TRUE' && 
 			form_error('username') != null) ? '' : ' hidden' )?>" id="forgot_user">
 				<div class="bubble-content">
 					<p><?=lang('user_forgot')?></p>
@@ -28,7 +28,7 @@
 				</div>
 			</div>
 			<!-- Blocked User Bubble -->
-			<div class="bubble right basic-shadow <?=(($this->session->userdata('user_blocked') == TRUE && 
+			<div class="bubble right basic-shadow <?=((form_data('user_blocked') == 'TRUE' && 
 			form_error('username') != null) ? '' : ' hidden' )?>" id="blocked_user">
 				<div class="bubble-content">
 					<?=lang('user_blocked')?>
@@ -46,7 +46,7 @@
 		<!-- User Password -->
 		<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">
 			<!-- Forgot Password Bubble -->
-			<? if($this->session->userdata('fs_password_fails') >= 3 && set_value('username') != null && form_error('password') != null){?>
+			<? if(form_data('fs_password_fails') >= 3 && set_value('username') != null && form_error('password') != null){?>
 				<div class="bubble right basic-shadow" id="forgot_password">
 					<div class="bubble-content">
 						<?=lang('password_forgot')?> 

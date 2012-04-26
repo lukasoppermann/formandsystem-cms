@@ -86,7 +86,7 @@ class MY_Controller extends CI_Controller {
 		// check for sufficient rights
 		$group = current_nav('group', true);
 		//
-		// echo trim(sha512(salt('lukas', 'exj5IJxo4UJ')));
+		// echo trim(_sha512(salt('lukas', 'exj5IJxo4UJ')));
 		login($group);
 		$data['content'] = 'test';
 	}
