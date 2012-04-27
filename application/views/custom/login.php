@@ -1,7 +1,9 @@
 <?
+	fs_log('Clean up js var names');
 	fs_log('Make login.js fn for bubble retrieve generic for all bubbles on page');	
 	fs_log('Send emails to retrieve password / user');	
 	fs_log('Send email to login into block user account');
+	fs_log('Create decent, simple email template');
 ?>
 <div class="widget shadow" id="login">
 	<form action="<?=$url?>" method="post" accept-charset="utf-8" name="login" class="widget-content">
@@ -18,21 +20,21 @@
 		<div class="form-element one-row<?=(set_value('username') == null ? ' empty' : '')?>">
 			<!-- Forgot User Bubble -->
 			<div class="bubble right basic-shadow <?=((form_data('user_blocked') != 'TRUE' && 
-			form_error('username') != null) ? '' : ' hidden' )?>" id="forgot_user">
+			form_error('username') != null) ? '' : ' hidden' )?>" id="forgot_user_bubble">
 				<div class="bubble-content">
 					<p><?=lang('user_forgot')?></p>
 					<div class="form-element">
 						<input type="text" name="full_name" id="full_name" class="input" value="" placeholder="<?=lang('first_last_name')?>">
-						<div id="retrieve_user" class="button"><span class="fade icon submit"></span></div>
+						<a data-url="userdata" data-post="full_name" class="retrieval-link button" id="retrieve_user_link"><span class="fade icon submit"></span></a>
 					</div>
 				</div>
 			</div>
 			<!-- Blocked User Bubble -->
 			<div class="bubble right basic-shadow <?=((form_data('user_blocked') == 'TRUE' && 
-			form_error('username') != null) ? '' : ' hidden' )?>" id="blocked_user">
+			form_error('username') != null) ? '' : ' hidden' )?>" id="blocked_user_bubble">
 				<div class="bubble-content">
 					<?=lang('user_blocked')?>
-					<a id="retrieve_password"><?=lang('user_blocked_link')?></a>
+					<a data-url="blocked_user" data-post="username" class="retrieval-link" id="unblock_user_link"><?=lang('user_blocked_link')?></a>
 				</div>
 			</div>
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
@@ -47,10 +49,10 @@
 		<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">
 			<!-- Forgot Password Bubble -->
 			<? if(form_data('fs_password_fails') >= 3 && set_value('username') != null && form_error('password') != null){?>
-				<div class="bubble right basic-shadow" id="forgot_password">
+				<div class="bubble right basic-shadow" id="forgot_password_bubble">
 					<div class="bubble-content">
 						<?=lang('password_forgot')?> 
-						<a id="retrieve_password"><?=lang('password_forgot_link')?></a>
+						<a data-url="password" data-post="username" class="retrieval-link" id="retrieve_password_link"><?=lang('password_forgot_link')?></a>
 					</div>
 				</div>
 			<?} ?>

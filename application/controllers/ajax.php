@@ -35,21 +35,38 @@ class Ajax extends CI_Controller {
 			if( $key = 'password' )
 			{
 				// get user data
-				$user_data = db_select(config('db_user'), array( array('user' => $this->input->post('user'), 'email' => $this->input->post('user')) ), array('limit' => 1, 'single' => TRUE));
+				$user_data = db_select(config('db_user'), array( array('user' => $this->input->post('user'), 
+				'email' => $this->input->post('user')) ), array('limit' => 1, 'single' => TRUE));
 				// set log data
-				$log = array('message' => lang('recovered_password'), 'username' => $user_data['user'] );
-				// log login attempt
+				$log = array('message' => lang('password_recovery_request'), 'username' => $user_data['user'] );
+				// log recover
 				$this->fs_log->raw_log(array('type' => 3, 'user_id' => $user_data['id'], 'data' => $log)); 
 				// email data
-				$email['subject'] = lang('recovered_password');
+				$email['subject'] = 'Recover your password';
 				$email['title']	  = 'Recover your password';
-				$email['content'] = 'To retrieve your password <a href="'.current_url().'/{key}">follow this link</a>.';				
+				$email['content'] = 'To retrieve your password <a href="'.current_url().'/{key}">follow this link</a>.';
 			}
 			// ----------------------------------------------------------------
 			// retrieve user data
-			elseif( $key = 'user' )
+			elseif( $key = 'userdata' )
 			{
 				
+			}
+			// ----------------------------------------------------------------
+			// activate blocked user
+			elseif( $key = 'blocked_user' )
+			{
+				// get user data
+				$user_data = db_select(config('db_user'), array( array('user' => $this->input->post('user'), 
+				'email' => $this->input->post('user')) ), array('limit' => 1, 'single' => TRUE));
+				// set log data
+				$log = array('message' => lang('user_unblock_request'), 'username' => $user_data['user'] );
+				// log recover
+				$this->fs_log->raw_log(array('type' => 3, 'user_id' => $user_data['id'], 'data' => $log));
+				// email data
+				$email['subject'] = 'Reactivate your profile';
+				$email['title']	  = 'Reactivate your profile';
+				$email['content'] = 'To reactivate your profile <a href="'.current_url().'/{key}">follow this link</a>.';				
 			}
 			// ----------------------------------------------------------------
 			// create retrieval key
@@ -65,20 +82,20 @@ class Ajax extends CI_Controller {
 			// load email library
 			$this->load->library('email');
 			// set email data
-			$this->email->from(config('email_support/'.config('lang_id')), config('page_name').' - Form&System CMS');
+			$this->email->from(config('email_support/'.config('lang_id')), config('page_name/'.config('lang_id')).' - Form&System CMS');
 			$this->email->to($user_data['email']); 
 			// // add subject
 			$this->email->subject($email['subject']);
 			// // add message
 			$this->email->message($this->load->view('emails/email_template', $email, TRUE));	
 			// // send email
-			if( !$this->email->send() )
+			if( /* !$this->email->send()*/ 1 != 1 )
 			{
 			  show_error($this->email->print_debugger());
 			}
 			else
 			{
-				echo 'Your e-mail has been sent!';
+				json_encode(array('message' => lang('email_sent_to_user'), 'success' => TRUE, 'error' => FALSE));
 			}
 		}
 		

@@ -47,20 +47,29 @@ $lang['first_last_name']			= "Firstname Surname";
 
 // ---------------------------------------------
 // Messages
+//
+// ---------------------------------------------
+// error messages
 
-$lang['login_wrong_user']			= "This user does not exist.";
+$lang['error_wrong_user']			= "This user does not exist.";
 
-$lang['login_deactive_user']		= "This user is blocked.";
+$lang['error_deactive_user']		= "This user is blocked.";
 
-$lang['login_temp_block']			= "This user is temporarily blocked.";
+$lang['error_temp_block']			= "This user is temporarily blocked.";
 
-$lang['login_wrong_password']		= "The password does not match the user.";
+$lang['error_wrong_password']		= "The password does not match the user.";
+
+$lang['error_ip_block']				= "You have been temporarily blocked, please try again in 1 hour.";
+
+// ---------------------------------------------
+// success messages
 
 $lang['login_successful']			= "Login successful.";
 
 $lang['logout_successful']			= "Logout successful.";
 
-$lang['login_ip_block']				= "You have been temporarily blocked, please try again in 1 hour.";
+// ---------------------------------------------
+// misc messages
 
 $lang['password_forgot']			= "Forgot your password?";
 
@@ -68,10 +77,22 @@ $lang['password_forgot_link']		= "Recover it here.";
 
 $lang['user_forgot']				= "Forgot your login data?";
 
-$lang['recovered_password']			= "Password has been recovered.";
-
 $lang['user_blocked']				= "You can login via";
 
 $lang['user_blocked_link']			= "email authentication";
+
+$lang['email_sent_to_user']			= "An email has been sent to your email address.";
+
+// ---------------------------------------------
+// log messages
+
+$lang['password_recovery_request']	= "Password recovery key has been requested.";
+
+$lang['password_recovered']			= "Password has been recovered.";
+
+$lang['user_unblock_request']		= "User unblock key has been requested.";
+
+$lang['user_unblocked']				= "User has been unblocked.";
+
 /* End of file gui_lang.php */
 /* Location: ./system/language/english/gui_lang.php */

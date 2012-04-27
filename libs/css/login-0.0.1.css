@@ -128,7 +128,7 @@
 .form-element{
 	width: 250px;
 }
-#retrieve_user{
+#retrieve_user_link{
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;	
@@ -143,15 +143,15 @@
 	-webkit-box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
 	-moz-box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
 }
-#retrieve_user:hover{
+#retrieve_user_link:hover{
 	box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);
 	-webkit-box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);
 	-moz-box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);	
 }
-#retrieve_user .icon{
+#retrieve_user_link .icon{
 	position: absolute;
 	top: 4px;
 }
-#forgot_user{
+#forgot_user_bubble{
 	top: -25px;
 }

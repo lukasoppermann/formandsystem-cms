@@ -22,7 +22,7 @@ $config['dir_js_cache']	= $config['dir_libs'].'js/_cache/';
 
 $config['lang_id'] = 1;
 // attempts
-$config['attempts'] = 3;
+$config['attempts'] = 30;
 // reset time
 $config['reset_attempts'] = 3600; // 1 hour = 3600
 // ip lockout
