@@ -20,7 +20,7 @@
 	-moz-transition-duration: .4s;
 }
 .icon.fade:hover, .button:hover > .icon.fade{
-	opacity: 1;
+	opacity: 1 !important;
 }
 .icon:hover{ cursor: pointer; }
 .visible:before{ background-position: 0px 0px; }

@@ -14,370 +14,201 @@
 			img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
 			table td{border-collapse:collapse;}
 			#backgroundTable{height:100% !important; margin:0; padding:0; width:100% !important;}
-			
-			/* Template Styles */
-			
-			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: COMMON PAGE ELEMENTS /\/\/\/\/\/\/\/\/\/\ */
-
-			/**
-			* @tab Page
-			* @section background color
-			* @tip Set the background color for your email. You may want to choose one that matches your company's branding.
-			* @theme page
-			*/
 			body, #backgroundTable{
-				/*@editable*/ background-color:#FAFAFA;
+				background-color: rgb(245,245,245);
 			}
-			
-			/**
-			* @tab Page
-			* @section email border
-			* @tip Set the border for your email.
-			*/
 			#templateContainer{
-				/*@editable*/ border:0;
+				border:0;
+				box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.25);
+				-webkit-box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.25);
+				-moz-box-shadow: 1px 0px 5px 0px rgba(0,0,0,0.25);
+				border-radius: 3px;
 			}
-			
-			/**
-			* @tab Page
-			* @section heading 1
-			* @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
-			* @style heading 1
-			*/
 			h1, .h1{
-				/*@editable*/ color:#202020;
+				color: rgb(255,255,255)
 				display:block;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:40px;
-				/*@editable*/ font-weight:bold;
-				/*@editable*/ line-height:100%;
+				font-family:Arial;
+				font-weight:bold;
+				line-height:100%;
 				margin-top:2%;
 				margin-right:0;
 				margin-bottom:1%;
 				margin-left:0;
-				/*@editable*/ text-align:left;
+				text-align:left;
 			}
-
-			/**
-			* @tab Page
-			* @section heading 2
-			* @tip Set the styling for all second-level headings in your emails.
-			* @style heading 2
-			*/
 			h2, .h2{
-				/*@editable*/ color:#404040;
+				color:#404040;
 				display:block;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:18px;
-				/*@editable*/ font-weight:bold;
-				/*@editable*/ line-height:100%;
+				font-family:Arial;
+				font-size:18px;
+				font-weight:bold;
+				line-height:100%;
 				margin-top:2%;
 				margin-right:0;
 				margin-bottom:1%;
 				margin-left:0;
-				/*@editable*/ text-align:left;
+				text-align:left;
 			}
-
-			/**
-			* @tab Page
-			* @section heading 3
-			* @tip Set the styling for all third-level headings in your emails.
-			* @style heading 3
-			*/
 			h3, .h3{
-				/*@editable*/ color:#606060;
+				color:#606060;
 				display:block;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:16px;
-				/*@editable*/ font-weight:bold;
-				/*@editable*/ line-height:100%;
+				font-family:Arial;
+				font-size:16px;
+				font-weight:bold;
+				line-height:100%;
 				margin-top:2%;
 				margin-right:0;
 				margin-bottom:1%;
 				margin-left:0;
-				/*@editable*/ text-align:left;
+				text-align:left;
+			}
+			h4, .h4{
+				color:#808080;
+				display:block;
+				font-family:Arial;
+				font-size:14px;
+				font-weight:bold;
+				line-height:100%;
+				margin-top:2%;
+				margin-right:0;
+				margin-bottom:1%;
+				margin-left:0;
+				text-align:left;
+			}
+			
+			#templatePreheader{
+				background-color: rgb(245,245,245);
+			}
+			.preheaderContent div{
+				color:#707070;
+				font-family:Arial;
+				font-size:10px;
+				line-height:100%;
+				text-align:left;
+			}
+			.preheaderContent div a:link, .preheaderContent div a:visited, /* Yahoo! Mail Override */ .preheaderContent div a .yshortcuts /* Yahoo! Mail Override */{
+				color:#336699;
+				font-weight:normal;
+				text-decoration:underline;
+			}
+			#social div{
+				text-align:right;
 			}
 
-			/**
-			* @tab Page
-			* @section heading 4
-			* @tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
-			* @style heading 4
-			*/
-			h4, .h4{
-				/*@editable*/ color:#808080;
-				display:block;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:14px;
-				/*@editable*/ font-weight:bold;
-				/*@editable*/ line-height:100%;
-				margin-top:2%;
-				margin-right:0;
-				margin-bottom:1%;
-				margin-left:0;
-				/*@editable*/ text-align:left;
-			}
-			
-			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: PREHEADER /\/\/\/\/\/\/\/\/\/\ */
-			
-			/**
-			* @tab Header
-			* @section preheader style
-			* @tip Set the background color for your email's preheader area.
-			* @theme page
-			*/
-			#templatePreheader{
-				/*@editable*/ background-color:#FAFAFA;
-			}
-			
-			/**
-			* @tab Header
-			* @section preheader text
-			* @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
-			*/
-			.preheaderContent div{
-				/*@editable*/ color:#707070;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:10px;
-				/*@editable*/ line-height:100%;
-				/*@editable*/ text-align:left;
-			}
-			
-			/**
-			* @tab Header
-			* @section preheader link
-			* @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
-			*/
-			.preheaderContent div a:link, .preheaderContent div a:visited, /* Yahoo! Mail Override */ .preheaderContent div a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#336699;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
-			}
-			
-			/**
-			* @tab Header
-			* @section social bar style
-			* @tip Set the background color and border for your email's footer social bar.
-			*/
-			#social div{
-				/*@editable*/ text-align:right;
-			}
-			
-			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: HEADER /\/\/\/\/\/\/\/\/\/\ */
-			
-			/**
-			* @tab Header
-			* @section header style
-			* @tip Set the background color and border for your email's header area.
-			* @theme header
-			*/
 			#templateHeader{
-				/*@editable*/ background-color:#FFFFFF;
-				/*@editable*/ border-bottom:5px solid #505050;
+				z-index: 55;
+				height: 45px;
+				background-color: rgb(70,70,70);
+				background-image: -moz-linear-gradient(top, rgb(70,70,70), rgb(60,60,60));
+				background-image: -webkit-linear-gradient(top, rgb(70,70,70), rgb(60,60,60));
+				border-bottom: 1px solid rgb(55,55,55);
+				box-shadow: 0px 1px 0px 0px rgb(50,50,50), 0 2px 0 0 rgba(0,0,0,0.1), 0 3px 0 0 rgba(0,0,0,0.05);
+				-webkit-box-shadow: 0px 1px 0px 0px rgb(50,50,50), 0 2px 0 0 rgba(0,0,0,0.1), 0 3px 0 0 rgba(0,0,0,0.05);
+				-moz-box-shadow: 0px 1px 0px 0px rgb(50,50,50), 0 2px 0 0 rgba(0,0,0,0.1), 0 3px 0 0 rgba(0,0,0,0.05);
+				border-radius: 3px 3px 0 0;
 			}
-			
-			/**
-			* @tab Header
-			* @section header text
-			* @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
-			*/
 			.headerContent{
-				/*@editable*/ color:#202020;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:34px;
-				/*@editable*/ font-weight:bold;
-				/*@editable*/ line-height:100%;
-				/*@editable*/ padding:10px;
-				/*@editable*/ text-align:right;
-				/*@editable*/ vertical-align:middle;
+				color: rgb(255,255,255);
+				text-shadow: rgba(0,0,0,0.74) 0px 1px 1px;
+				font-family:Arial;
+				font-size: 10px;
+				font-weight:bold;
+				line-height:100%;
+				padding: 5px;
+				text-align:right;
+				vertical-align:middle;
 			}
-			
-			/**
-			* @tab Header
-			* @section header link
-			* @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
-			*/
+			.headerContent h1{
+				height: 20px;
+				text-align:right;
+				overflow: hidden;
+			}
 			.headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#336699;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
+				color: rgb(255,255,255);
+				font-weight:normal;
+				text-decoration:underline;
 			}
 			
 			#headerImage{
 				height:auto;
 				max-width:600px !important;
 			}
-			
-			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: MAIN BODY /\/\/\/\/\/\/\/\/\/\ */
-			
-			/**
-			* @tab Body
-			* @section body style
-			* @tip Set the background color for your email's body area.
-			*/
 			#templateContainer, .bodyContent{
-				/*@editable*/ background-color:#FDFDFD;
+				background-color:#FDFDFD;
 			}
-			
-			/**
-			* @tab Body
-			* @section body text
-			* @tip Set the styling for your email's main content text. Choose a size and color that is easy to read.
-			* @theme main
-			*/
 			.bodyContent div{
-				/*@editable*/ color:#505050;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:14px;
-				/*@editable*/ line-height:150%;
-				/*@editable*/ text-align:justify;
+				color:#505050;
+				font-family:Arial;
+				font-size:14px;
+				line-height:150%;
+				text-align:justify;
 			}
-			
-			/**
-			* @tab Body
-			* @section body link
-			* @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
-			*/
 			.bodyContent div a:link, .bodyContent div a:visited, /* Yahoo! Mail Override */ .bodyContent div a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#336699;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
+				color:#336699;
+				font-weight:normal;
+				text-decoration:underline;
 			}
 			
 			.bodyContent img{
 				display:inline;
 				height:auto;
 			}
-			
-			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: SIDEBAR /\/\/\/\/\/\/\/\/\/\ */
-			
-			/**
-			* @tab Sidebar
-			* @section sidebar style
-			* @tip Set the background color and border for your email's sidebar area.
-			*/
 			#templateSidebar{
-				/*@editable*/ background-color:#FDFDFD;
+				background-color:#FDFDFD;
 			}
-			
-			/**
-			* @tab Sidebar
-			* @section sidebar style
-			* @tip Set the background color and border for your email's sidebar area.
-			*/
 			.sidebarContent{
-				/*@editable*/ border-right:1px solid #DDDDDD;
+				border-left:1px solid #DDDDDD;
 			}
-			
-			/**
-			* @tab Sidebar
-			* @section sidebar text
-			* @tip Set the styling for your email's sidebar text. Choose a size and color that is easy to read.
-			*/
 			.sidebarContent div{
-				/*@editable*/ color:#505050;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:10px;
-				/*@editable*/ line-height:150%;
-				/*@editable*/ text-align:left;
+				color:#505050;
+				font-family:Arial;
+				font-size:10px;
+				line-height:150%;
+				text-align:left;
 			}
-			
-			/**
-			* @tab Sidebar
-			* @section sidebar link
-			* @tip Set the styling for your email's sidebar links. Choose a color that helps them stand out from your text.
-			*/
 			.sidebarContent div a:link, .sidebarContent div a:visited, /* Yahoo! Mail Override */ .sidebarContent div a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#336699;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
+				color:#336699;
+				font-weight:normal;
+				text-decoration:underline;
 			}
 			
 			.sidebarContent img{
 				display:inline;
 				height:auto;
 			}
-			
-			/* /\/\/\/\/\/\/\/\/\/\ STANDARD STYLING: FOOTER /\/\/\/\/\/\/\/\/\/\ */
-			
-			/**
-			* @tab Footer
-			* @section footer style
-			* @tip Set the background color and top border for your email's footer area.
-			* @theme footer
-			*/
 			#templateFooter{
-				/*@editable*/ background-color:#FAFAFA;
-				/*@editable*/ border-top:3px solid #909090;
+				background-color:#FAFAFA;
+				border-top:3px solid #909090;
 			}
-			
-			/**
-			* @tab Footer
-			* @section footer text
-			* @tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
-			* @theme footer
-			*/
 			.footerContent div{
-				/*@editable*/ color:#707070;
-				/*@editable*/ font-family:Arial;
-				/*@editable*/ font-size:11px;
-				/*@editable*/ line-height:125%;
-				/*@editable*/ text-align:left;
+				color:#707070;
+				font-family:Arial;
+				font-size:11px;
+				line-height:125%;
+				text-align:left;
 			}
-			
-			/**
-			* @tab Footer
-			* @section footer link
-			* @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
-			*/
 			.footerContent div a:link, .footerContent div a:visited, /* Yahoo! Mail Override */ .footerContent div a .yshortcuts /* Yahoo! Mail Override */{
-				/*@editable*/ color:#336699;
-				/*@editable*/ font-weight:normal;
-				/*@editable*/ text-decoration:underline;
+				color:#336699;
+				font-weight:normal;
+				text-decoration:underline;
 			}
 			
 			.footerContent img{
 				display:inline;
 			}
-			
-			/**
-			* @tab Footer
-			* @section social bar style
-			* @tip Set the background color and border for your email's footer social bar.
-			* @theme footer
-			*/
 			#social{
-				/*@editable*/ background-color:#FFFFFF;
-				/*@editable*/ border:0;
+				background-color:#FFFFFF;
+				border:0;
 			}
-			
-			/**
-			* @tab Footer
-			* @section social bar style
-			* @tip Set the background color and border for your email's footer social bar.
-			*/
 			#social div{
-				/*@editable*/ text-align:left;
+				text-align:left;
 			}
-			
-			/**
-			* @tab Footer
-			* @section utility bar style
-			* @tip Set the background color and border for your email's footer utility bar.
-			* @theme footer
-			*/
 			#utility{
-				/*@editable*/ background-color:#FAFAFA;
-				/*@editable*/ border-top:0;
+				background-color:#FAFAFA;
+				border-top:0;
 			}
-
-			/**
-			* @tab Footer
-			* @section utility bar style
-			* @tip Set the background color and border for your email's footer utility bar.
-			*/
 			#utility div{
-				/*@editable*/ text-align:left;
+				text-align:left;
 			}
 			
 			#monkeyRewards img{
@@ -390,45 +221,38 @@
         	<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
             	<tr>
                 	<td align="center" valign="top">
-                        <!-- // Begin Template Preheader \\ -->
                         <table border="0" cellpadding="10" cellspacing="0" width="600" id="templatePreheader">
                             <tr>
-                                <td valign="top" class="preheaderContent">
-                                
-                                	<!-- // Begin Module: Standard Preheader \ -->
+                                <td valign="top" class="preheaderContent">            
                                     <table border="0" cellpadding="10" cellspacing="0" width="100%">
                                     	<tr>
                                         	<td valign="top">
-                                            	<div mc:edit="std_preheader_content">
-                                                	 Use this area to offer a short teaser of your email's content. Text here will show in the preview area of some email clients.
+                                            	<div class="std_preheader_content">
+                                                	 <?=$teaser?>
                                                 </div>
                                             </td>
-                                            <!-- *|IFNOT:ARCHIVE_PAGE|* -->
 											<td valign="top" width="170">
-                                            	<div mc:edit="std_preheader_links">
-                                                	Email not displaying correctly?<br /><a href="*|ARCHIVE|*" target="_blank">View it in your browser</a>.
+                                            	<div class="std_preheader_links">
+                                                	<?$teser_two?>
                                                 </div>
                                             </td>
-											<!-- *|END:IF|* -->
                                         </tr>
                                     </table>
-                                	<!-- // End Module: Standard Preheader \ -->
-                                    
                                 </td>
                             </tr>
                         </table>
-                        <!-- // End Template Preheader \\ -->
+                        <!-- devider -->
                     	<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateContainer">
                         	<tr>
                             	<td align="center" valign="top">
                                     <!-- // Begin Template Header \\ -->
-                                	<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
+                                	<table border="0" cellpadding="0" cellspacing="0" width="600" height="45" id="templateHeader">
                                         <tr>
                                         	<td class="headerContent">
-                                            	<img src="<?=media('formandsystem_logo.png','layout')?>" style="max-width:180px;" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowtext />
+                                            	<img src="http://www:8888/formandsystem_future/media/layout/formandsystem_logo.png" style="max-width:180px;" id="headerImage campaign-icon" />
                                             </td>
                                             <td class="headerContent" width="100%" style="padding-left:10px; padding-right:20px;">
-                                            	<div mc:edit="Header_content">
+                                            	<div id="Header_content">
                                                     <h1><?=$title?></h1>
                                             	</div>
                                             </td>
@@ -442,17 +266,33 @@
                                     <!-- // Begin Template Body \\ -->
                                 	<table border="0" cellpadding="10" cellspacing="0" width="600" id="templateBody">
                                     	<tr>
+                                        	<td valign="top" class="bodyContent">
+
+                                                <!-- // Begin Module: Standard Content \\ -->
+                                                <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                                                    <tr>
+                                                        <td valign="top" style="padding-right:0;">
+                                                            <div class="std_content00">
+                                                            	<h2 class="h2"><?=$subheadline?></h2>
+                                                                <?=$content?>
+															</div>
+														</td>
+                                                    </tr>
+                                                </table>
+                                                <!-- // End Module: Standard Content \\ -->
+
+                                            </td>
                                         	<!-- // Begin Sidebar \\  -->
-                                        	<td valign="top" width="180" id="templateSidebar">
+                                        	<!-- <td valign="top" width="180" id="templateSidebar">
                                             	<table border="0" cellpadding="0" cellspacing="0" width="100%">
                                                 	<tr>
-                                                    	<td valign="top">
+                                                    	<td valign="top"> -->
                                                         
                                                             <!-- // Begin Module: Standard Content \\ -->
-                                                            <table border="0" cellpadding="20" cellspacing="0" width="100%" class="sidebarContent">
+                                                            <!-- <table border="0" cellpadding="20" cellspacing="0" width="100%" class="sidebarContent">
                                                                 <tr>
-                                                                    <td valign="top" style="padding-left:10px;">
-                                                                        <div mc:edit="std_content01">
+                                                                    <td valign="top" style="padding-right:10px;">
+                                                                        <div class="std_content01">
                                                                             <strong>Basic content module</strong>
                                                                             <br />
                                                                             Far far away, behind the word mountains.
@@ -464,30 +304,14 @@
                                                                         </div>
                                                                     </td>
                                                                 </tr>
-                                                            </table>
+                                                            </table> -->
                                                             <!-- // End Module: Standard Content \\ -->
                                                         
-                                                        </td>
+                                                        <!-- </td>
                                                     </tr>
                                                 </table>
-                                            </td>
-                                            <!-- // End Sidebar \\ -->
-                                        	<td valign="top" class="bodyContent">
-                                            
-                                                <!-- // Begin Module: Standard Content \\ -->
-                                                <table border="0" cellpadding="10" cellspacing="0" width="100%">
-                                                    <tr>
-                                                        <td valign="top" style="padding-left:0;">
-                                                            <div mc:edit="std_content00">
-                                                            	<h2 class="h2"><?=$subheadline?></h2>
-                                                                <?=$content?>
-															</div>
-														</td>
-                                                    </tr>
-                                                </table>
-                                                <!-- // End Module: Standard Content \\ -->
-                                            
-                                            </td>
+                                            </td> -->
+		                                 <!-- // End Sidebar \\ -->
                                         </tr>
                                     </table>
                                     <!-- // End Template Body \\ -->
@@ -504,27 +328,18 @@
                                                 <table border="0" cellpadding="10" cellspacing="0" width="100%">
                                                     <tr>
                                                         <td colspan="2" valign="middle" id="social">
-                                                            <div mc:edit="std_social">
-                                                                &nbsp;<a href="*|TWITTER:PROFILEURL|*">follow on Twitter</a> | <a href="*|FACEBOOK:PROFILEURL|*">friend on Facebook</a> | <a href="*|FORWARD|*">forward to a friend</a>&nbsp;
-                                                            </div>
+                                                            <div class="std_social">
+                                                                &nbsp;<a href="*https://twitter.com/formsystem">follow Form&System on Twitter</a> | <a href="https://www.facebook.com/formandsystem">follow Form&System on Facebook</a></div>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td valign="top" width="350">
-                                                            <div mc:edit="std_footer">
-																<em>Copyright &copy; *|CURRENT_YEAR|* *|LIST:COMPANY|*, All rights reserved.</em>
+                                                            <div class="std_footer">
+																<em>Copyright &copy; <?=date(Y)?> Form&System, All rights reserved.</em>
 																<br />
-																*|IFNOT:ARCHIVE_PAGE|* *|LIST:DESCRIPTION|*
-																<br />
-																<strong>Our mailing address is:</strong>
-																<br />
-																*|HTML:LIST_ADDRESS_HTML|**|END:IF|* 
                                                             </div>
                                                         </td>
                                                         <td valign="top" width="190" id="monkeyRewards">
-                                                            <div mc:edit="monkeyrewards">
-                                                                *|IF:REWARDS|* *|HTML:REWARDS|* *|END:IF|*
-                                                            </div>
                                                         </td>
                                                     </tr>
                                                 </table>

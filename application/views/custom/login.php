@@ -1,19 +1,22 @@
 <?
-	fs_log('Clean up js var names');
 	fs_log('Make login.js fn for bubble retrieve generic for all bubbles on page');	
 	fs_log('Send emails to retrieve password / user');	
 	fs_log('Send email to login into block user account');
-	fs_log('Create decent, simple email template');
+	
+	// get random profile
+	$this->lang->load('profiles');
+	$profiles = array_values(lang('profiles'));
+	$profiles = $profiles[rand(0, count($profiles)-1)];
 ?>
 <div class="widget shadow" id="login">
 	<form action="<?=$url?>" method="post" accept-charset="utf-8" name="login" class="widget-content">
 		<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 		<!-- User Image -->
-		<div class="user-image">
+		<div class="user-image cms-profile">
 			<div class="overlay">
-				<div class="username">Lukas Oppermann</div>
+				<div class="username"><?=$profiles['name']?></div>
 			</div>
-			<img src="<?=media('lukas.jpg', 'images')?>">
+			<img class="profile-image" src="<?=media('profiles/'.$profiles['image'], 'layout')?>">
 		</div>
 		<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 		<!-- User Name or Email -->
@@ -58,7 +61,7 @@
 			<?} ?>
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- Show Password Icon -->
-			<div id="show_password" class="icon fade visible"></div>
+			<div id="show_password" class="icon fade visible" style="display: none;"></div>
 			<!-- Clear Text Input -->
 			<input id="password_clear" placeholder="<?=lang('password')?>" class="hidden" value="" />
 			<!-- Password Input Field -->

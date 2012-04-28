@@ -9,20 +9,27 @@
 	display: block;
 	height: 30px;
 }
+::-webkit-input-placeholder {
+	text-shadow: none !important;
+}
+:-moz-placeholder {
+	text-shadow: none !important;
+}
 .form-element .input{
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;	
 	width: 100%;
 	padding: 7px;
-	font-size: 11px;
+	font-size: 12px;
 	height: 30px;
 	border-radius: 3px;
 	background: rgb(250,250,250);
+	color: rgb(100,100,100);
 	border: 1px solid rgb(200,200,200);
-	box-shadow: inset 0px 0px 0px 1px rgb(238,238,238);
-	-webkit-box-shadow: inset 0px 0px 0px 1px rgb(238,238,238);
-	-moz-box-shadow: inset 0px 0px 0px 1px rgb(238,238,238);
+	box-shadow: inset 0px 0px 0px 1px rgb(235,235,235);
+	-webkit-box-shadow: inset 0px 0px 0px 1px rgb(235,235,235);
+	-moz-box-shadow: inset 0px 0px 0px 1px rgb(235,235,235);
 	transition-property: color, border, box-shadow, background;  
 	transition-duration: .25s;  
 	-webkit-transition-property: color, border, box-shadow, background;
@@ -38,6 +45,8 @@
 	border: 1px solid rgb(200,200,200);
 }
 .form-element .input:focus, .form-element .input:active{
+	text-shadow: none;
+	color: rgb(50,50,50);
 	background: rgb(250,250,250);
 	border: 1px solid rgb(200,200,200);
 	box-shadow: inset 0px 1px 0px 0px rgb(230,230,230), inset 0px 0px 0px 1px rgb(240,240,240);

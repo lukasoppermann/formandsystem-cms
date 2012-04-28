@@ -1,6 +1,12 @@
 $(function(){
 	// once jquery is loaded
 	// --------------------------------------------------------------------
+	var _sub_menu_bar = $("#sub_menu_bar");
+	if(	$.trim(_sub_menu_bar.text()) != '')
+	{
+		_sub_menu_bar.animate({'marginTop':'+='+45}, 500, 'swing');
+	}
+	// --------------------------------------------------------------------
 	// add focus to first failed field
 	$('.form-element').find('.error').first().focus().select();
 	// --------------------------------------------------------------------
