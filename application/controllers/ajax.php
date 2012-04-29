@@ -36,21 +36,32 @@ class Ajax extends CI_Controller {
 			{
 				// get user data
 				$user_data = db_select(config('db_user'), array( array('user' => $this->input->post('user'), 
-				'email' => $this->input->post('user')) ), array('limit' => 1, 'single' => TRUE, 'json' => ''));
+				'email' => $this->input->post('user')) ), array('select' => 'id, user, email, data', 'limit' => 1, 'single' => TRUE, 'json' => 'data'));
 				// set log data
 				$log = array('message' => lang('password_recovery_request'), 'username' => $user_data['user'] );
 				// log recover
 				$this->fs_log->raw_log(array('type' => 3, 'user_id' => $user_data['id'], 'data' => $log)); 
 				// email data
-				$email['subject'] = 'Recover your password';
-				$email['title']	  = 'Recover your password';
-				$email['content'] = 'To retrieve your password <a href="'.current_url().'/{key}">follow this link</a>.';
+				$email['subject'] 	= 'Recover your password';
+				$email['title']	  	= 'Recover your password';
+				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.current_url().'/{key}';				
+				$email['content']	= 'To retrieve your password <a href="'.current_url().'/{key}">follow this link</a>.';
 			}
 			// ----------------------------------------------------------------
 			// retrieve user data
 			elseif( $key == 'userdata' )
 			{
-				
+				// get user data
+				$user_data = db_select(config('db_user'), 'MATCH (data) AGAINST("'.$this->input->post('user').'")', 
+				array('select' => 'id, user, email, data', 'limit' => 1, 'single' => FALSE, 'json' => 'data'));
+				echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
+				print_r($user_data);
+				echo "</pre>";
+				// email data
+				$email['subject'] 	= 'Recover your password';
+				$email['title']	  	= 'Recover your password';
+				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.current_url().'/{key}';
+				$email['content'] 	= 'To retrieve your password <a href="'.current_url().'/{key}">follow this link</a>.';
 			}
 			// ----------------------------------------------------------------
 			// activate blocked user
@@ -58,20 +69,21 @@ class Ajax extends CI_Controller {
 			{
 				// get user data
 				$user_data = db_select(config('db_user'), array( array('user' => $this->input->post('user'), 
-				'email' => $this->input->post('user')) ), array('select' => 'id, user, email', 'json' => '','limit' => 1, 'single' => TRUE));
+				'email' => $this->input->post('user')) ), array('select' => 'id, user, email', 'json' => '', 'limit' => 1, 'single' => TRUE, 'json' => 'data'));
 				// set log data
 				$log = array('message' => lang('user_unblock_request'), 'username' => $user_data['user'] );
 				// log recover
 				$this->fs_log->raw_log(array('type' => 3, 'user_id' => $user_data['id'], 'data' => $log));
 				// email data
-				$email['subject'] = 'Reactivate your profile';
-				$email['title']	  = 'Reactivate your profile';
-				$email['content'] = 'To reactivate your profile <a href="'.current_url().'/{key}">follow this link</a>.';				
+				$email['subject'] 	= 'Reactivate your profile';
+				$email['title']	  	= 'Reactivate your profile';
+				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.current_url().'/{key}';
+				$email['content'] 	= 'To reactivate your profile <a href="'.current_url().'/{key}">follow this link</a>.';				
 			}
 			// ----------------------------------------------------------------
 			// create retrieval key
 			$retrieval_key = random_string('alnum', mt_rand(75, 100));
-			$email['content'] = str_replace('{key}', $retrieval_key, $email['content']);
+			$message = str_replace('{key}', $retrieval_key, $this->load->view('emails/email_template', $email, TRUE));
 			// ----------------------------------------------------------------
 			// add retrival key & timestamp to db
 			db_update(config('db_user'), array('id' => $user_data['id']), array('data/retrieval_key' => $retrieval_key, 
@@ -87,11 +99,11 @@ class Ajax extends CI_Controller {
 			// // add subject
 			$this->email->subject($email['subject']);
 			// // add message
-			$this->email->message($this->load->view('emails/email_template', $email, TRUE));	
+			$this->email->message($message);	
 			// // send email
-			if( /* !$this->email->send()*/ 1 != 1 )
+			if( !$this->email->send() )
 			{
-			  show_error($this->email->print_debugger());
+				show_error($this->email->print_debugger());
 			}
 			else
 			{
@@ -119,7 +131,8 @@ class Ajax extends CI_Controller {
 				$profiles = array_values(lang('profiles'));
 				$profiles = $profiles[rand(0, count($profiles)-1)];
 				// return random name and profile picture
-				echo json_encode( array('message' => lang('error_wrong_user'), 'class' => 'cms-profile', 'user_image' => media('profiles/'.$profiles['image'], 'layout'), 
+				echo json_encode( array('message' => lang('error_wrong_user'), 'class' => 'cms-profile', 
+				'user_image' => media('profiles/'.$profiles['image'], 'layout'), 
 				'username' => $profiles['name'], 'success' => FALSE, 'error' => TRUE) );
 			}
 			else

@@ -45,42 +45,6 @@ $(function(){
 			});			
 		}
 	});
-	// --------------------------------------------------------------------
-	// Password retrieve ajax
-	// _retrieve_password.on('click', function(){
-	// 	$.ajax({
-	// 		url: CI_BASE+'ajax/user/retrieve/password',
-	// 		data: {'user':_input_user.val()},
-	// 		dataType: 'text',
-	// 		type: 'POST',
-	// 		success: function(response){
-	// 			bubble_response( _forgot_password, response );
-	// 		},
-	// 	});
-	// 	return false;
-	// });
-	// // --------------------------------------------------------------------
-	// // User blocked ajax
-	// var _user_link_blocked = null;
-	// _user_blocked.on('click', function()
-	// {	
-	// 	if(_user_link_blocked == null )
-	// 	{
-	// 		_user_link_blocked = true;
-	// 		// ajax call
-	// 		$.ajax({
-	// 			url: CI_BASE+'ajax/user/retrieve/user_blocked',
-	// 			data: {'user':_input_user.val()},
-	// 			dataType: 'text',
-	// 			type: 'POST',
-	// 			success: function(response){
-	// 				bubble_response( blocked_user, response );
-	// 				_user_link_blocked = null;
-	// 			},
-	// 		});
-	// 	}
-	// 	return false;
-	// });
 	// --------------------------------------
 	// fn for bubble link events
 	var retrieval_pending = null;
