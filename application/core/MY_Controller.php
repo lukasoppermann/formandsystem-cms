@@ -52,7 +52,14 @@ class MY_Controller extends CI_Controller {
 		// Main
 		foreach($this->config->item('menu') as $menu)
 		{
-			$this->data['menu'][$menu['name']] = $this->fs_navigation->tree(array('menu' => $menu['_id'], 'id' => $menu['name'].'_menu', 'class_lvl_0' => $menu['class']));	
+			$this->data['menu'][$menu['name']] = $this->fs_navigation->tree(array(
+				'menu' => $menu['menu_id'], 
+				'id' => $menu['name'].'_menu', 
+				'class_lvl_0' => variable($menu['class']), 
+				'start_lvl' => variable($menu['start_lvl']), 
+				'lvl' => variable($menu['lvl']), 
+				'hide' => variable($menu['hide']))
+			);	
 		}
 		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
 		// print_r();

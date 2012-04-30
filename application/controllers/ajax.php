@@ -44,24 +44,36 @@ class Ajax extends CI_Controller {
 				// email data
 				$email['subject'] 	= 'Recover your password';
 				$email['title']	  	= 'Recover your password';
-				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.current_url().'/{key}';				
-				$email['content']	= 'To retrieve your password <a href="'.current_url().'/{key}">follow this link</a>.';
+				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.base_url().'login/{key}';				
+				$email['content']	= 'To retrieve your password <a href="'.base_url().'login/{key}">follow this link</a>.';
 			}
 			// ----------------------------------------------------------------
 			// retrieve user data
 			elseif( $key == 'userdata' )
 			{
+				// user full name
+				$full_name = reduce_multiples(strtolower($this->input->post('user')), ' ', TRUE);
 				// get user data
-				$user_data = db_select(config('db_user'), 'MATCH (data) AGAINST("'.$this->input->post('user').'")', 
-				array('select' => 'id, user, email, data', 'limit' => 1, 'single' => FALSE, 'json' => 'data'));
-				echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
-				print_r($user_data);
-				echo "</pre>";
+				$_user_data = db_select(config('db_user'), 'MATCH (data) AGAINST("'.$full_name.'")',
+				array('select' => 'id, user, email, data', 'limit' => 1, 'single' => FALSE, 'json' => 'data')); 
+				// loop through results
+				foreach( (array) $_user_data as $user )
+				{
+					// check if full name is the same
+					if( strtolower($user['firstname'].' '.$user['lastname']) == $full_name)
+					{
+						$user_data[] = $user;
+						// set log data
+						$log = array('message' => lang('user_unblock_request'), 'username' => $user['user'] );
+						// log recover
+						$this->fs_log->raw_log(array('type' => 3, 'user_id' => $user['id'], 'data' => $log));
+					}
+				}
 				// email data
 				$email['subject'] 	= 'Recover your password';
 				$email['title']	  	= 'Recover your password';
-				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.current_url().'/{key}';
-				$email['content'] 	= 'To retrieve your password <a href="'.current_url().'/{key}">follow this link</a>.';
+				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.base_url().'login/{key}';
+				$email['content'] 	= 'To retrieve your password <a href="'.base_url().'login/{key}">follow this link</a>.';
 			}
 			// ----------------------------------------------------------------
 			// activate blocked user
@@ -78,36 +90,54 @@ class Ajax extends CI_Controller {
 				$email['subject'] 	= 'Reactivate your profile';
 				$email['title']	  	= 'Reactivate your profile';
 				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.current_url().'/{key}';
-				$email['content'] 	= 'To reactivate your profile <a href="'.current_url().'/{key}">follow this link</a>.';				
+				$email['content'] 	= 'To reactivate your profile <a href="'.base_url().'login/{key}">follow this link</a>.';				
 			}
-			// ----------------------------------------------------------------
-			// create retrieval key
-			$retrieval_key = random_string('alnum', mt_rand(75, 100));
-			$message = str_replace('{key}', $retrieval_key, $this->load->view('emails/email_template', $email, TRUE));
-			// ----------------------------------------------------------------
-			// add retrival key & timestamp to db
-			db_update(config('db_user'), array('id' => $user_data['id']), array('data/retrieval_key' => $retrieval_key, 
-					'data/retrieval_time' => (time()+config('retrieval_time')) ), TRUE, 'data' );
-			// ----------------------------------------------------------------
-			// send retrieval email
-			//
-			// load email library
-			$this->load->library('email');
-			// set email data
-			$this->email->from(config('email_support/'.config('lang_id')), config('page_name/'.config('lang_id')).' - Form&System CMS');
-			$this->email->to($user_data['email']); 
-			// // add subject
-			$this->email->subject($email['subject']);
-			// // add message
-			$this->email->message($message);	
-			// // send email
-			if( !$this->email->send() )
+			// check if user exists
+			if( isset($user_data) )
 			{
-				show_error($this->email->print_debugger());
+				// loop through all users to recieve emails
+				foreach( (array) $user_data as $user )
+				{
+					// ----------------------------------------------------------------
+					// create retrieval key
+					$retrieval_key = random_string('alnum', mt_rand(75, 100));
+					$message = str_replace('{key}', $retrieval_key, $this->load->view('emails/email_template', $email, TRUE));
+					// ----------------------------------------------------------------
+					// add retrival key & timestamp to db
+					db_update(config('db_user'), array('id' => $user['id']), array('data/retrieval_key' => $retrieval_key, 
+							'data/retrieval_time' => (time()+config('retrieval_time')) ), TRUE, 'data' );
+					// ----------------------------------------------------------------
+					// send retrieval email
+					//
+					// load email library
+					$this->load->library('email');
+					// set email data
+					$this->email->from(config('email_support/'.config('lang_id')), config('page_name/'.config('lang_id')).' - Form&System CMS');
+					$this->email->to($user['email']); 
+					// add subject
+					$this->email->subject($email['subject']);
+					// add message
+					$this->email->message($message);	
+					// send email
+					if( !$this->email->send() )
+					{
+						echo json_encode(array('message' => lang('email_not_sent_to_user'), 'success' => FALSE, 'error' => TRUE));
+						// set log data
+						$log = array('message' => lang('email_not_sent_to_user'), 'username' => $user['user'] );
+						// log recover
+						$this->fs_log->raw_log(array('type' => 4, 'user_id' => $user['id'], 'data' => $log));
+					}
+					// email not sent
+					else
+					{
+						echo json_encode(array('message' => lang('email_sent_to_user'), 'success' => TRUE, 'error' => FALSE));
+					}
+				}
 			}
+			// wrong user fullname given
 			else
 			{
-				echo json_encode(array('message' => lang('email_sent_to_user'), 'success' => TRUE, 'error' => FALSE));
+				echo json_encode(array('message' => lang('error_wrong_user'), 'success' => FALSE, 'error' => TRUE));
 			}
 		}
 		// ----------------------------------------------------------------

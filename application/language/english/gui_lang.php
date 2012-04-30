@@ -83,6 +83,8 @@ $lang['user_blocked_link']			= "email authentication";
 
 $lang['email_sent_to_user']			= "An email has been sent to your email address.";
 
+$lang['email_not_sent_to_user']		= "Email could not be sent to your email address. Please contact the support.";
+
 // ---------------------------------------------
 // log messages
 

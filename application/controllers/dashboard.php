@@ -12,7 +12,6 @@ class Dashboard extends MY_Controller {
 	
 	function index()
 	{	
-		fs_log('In authentication change add_error to add_message');
 		//
 		// $data['username'] = ucfirst(user('firstname')).' '.ucfirst(user('lastname'));
 		// $data['login_log'] = $this->session->userdata('time_log');

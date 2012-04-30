@@ -5,7 +5,8 @@ $(function(){
 	// inputs
 	var _input_user 				= $('#username');
 	var _input_password 			= $('#password');
-	var _input_password_clear		= $('#password_clear');	
+	var _input_password_clear		= $('#password_clear');
+	var _input_full_name			= $('#full_name');
 	// buttons
 	var _btn_show_password 			= $('#show_password');
 	var _btn_show_user				= $('#show_forgot_user');
@@ -23,6 +24,15 @@ $(function(){
 	var given_user					= null;
 	var	timer_user					= null;
 	var	user_image_class			= 'cms-profile';
+	// --------------------------------------------------------------------
+	// move login box to center	
+	var _box_margin 				= (($(window).height()-$(".active").height())/2)-65;
+	if(_box_margin < 40)
+	{
+		_box_margin = 40;
+	}
+	$(".widget:not(.active)").animate({'marginTop':_box_margin+50}, 400);
+	$(".active").animate({'marginTop':_box_margin}, 300);
 	// --------------------------------------------------------------------
 	// show user retrieve window on click
 	_btn_show_user.on('click', function()
@@ -52,7 +62,6 @@ $(function(){
 	{
 		var _this = $(this);
 		var user = _wrapper.find('#'+_this.data('post')).val();
-		console.log(retrieval_pending);
 		// check if retrival is pending
 		if(retrieval_pending == null && user != null && user != "")
 		{
@@ -66,10 +75,11 @@ $(function(){
 				type: 'POST',
 				success: function(response)
 				{
-					bubble_response( _this.parents('.bubble'), response.message );
+					var bubble = _this.parents('.bubble');
+					bubble_response( bubble, height = bubble.height(), response );
 					// set retrival to NOT pending
 					retrieval_pending = null;
-				},
+				}
 			});
 		}
 		// return false / no link behavior
@@ -77,20 +87,39 @@ $(function(){
 	});
 	// --------------------------------------
 	// fn for bubble response
-	function bubble_response( bubble, response )
+	function bubble_response( bubble, height, response )
 	{
 		// get vars
 		var _content 	= bubble.find('.bubble-content');
 		var text 		= _content.html();
 		// animate bubble
 		_content.animate({'opacity':0}, 200, function(){
-			_content.text(response).animate({'opacity':1}, 200, function(){
-				setTimeout(function(){
-					bubble.fadeOut(300, function(){
-						_content.html(text);
-					});
-				}, 10000);
+			_content.text(response.message).animate({'opacity':1}, 200, function()
+			{
+				if(response.success == true)
+				{
+					setTimeout(function()
+					{
+						bubble.fadeOut(300, function(){
+							_content.html(text);
+							bubble.css({'top': '+=' + ( (height - bubble.height()) / 2 )});
+						});
+					}, 10000);
+				}
+				else
+				{
+					setTimeout(function()
+					{
+						bubble.fadeOut(300, function(){
+							_content.html(text);
+							bubble.css({'top': '+=' + ( (height - bubble.height()) / 2 )}).fadeIn(300);
+						});
+					}, 5000);
+				}
 			});
+			// animate bubble position
+			bubble.css({'top': '+=' + ( (height - bubble.height()) / 2 )});
+			height = bubble.height();
 		});
 	}
 	// --------------------------------------------------------------------
@@ -215,6 +244,19 @@ $(function(){
 	{
 		// update real password field
 		_input_password.val( _input_password_clear.val() );
+	});
+	// --------------------------------------------------------------------
+	// user full name enter	
+	_forgot_user_bubble.on('keydown', _input_full_name, function(e)
+	{
+		// grab pressed key
+		var keycode = (e.keyCode ? e.keyCode : e.which);		
+		// if pressed key == return
+		if(keycode == '13')
+		{
+			e.preventDefault();
+			$("#retrieve_user_link").click();
+		}
 	});
 	// --------------------------------------------------------------------
 	// get user name & image

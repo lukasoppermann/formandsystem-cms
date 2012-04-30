@@ -6,6 +6,10 @@
 	width: 20px;
 	height: 20px;	
 	background-image: url('../../media/layout/formandsystem_icons.svg');
+	-webkit-background-size: 32em 6.4em;
+	-o-background-size: 32em 6.4em;
+	-moz-background-size: 32em 6.4em;
+	background-size: 32em 6.4em;
 	position: relative;
 	background-repeat: no-repeat;
 	overflow: hidden;
@@ -27,3 +31,4 @@
 .invisible:before{ background-position: -20px 0px; }
 .submit:before{ background-position: -40px 0px; }
 .help:before{ background-position: -60px 0px; }
+.add:before{ background-position: -2em 0; }

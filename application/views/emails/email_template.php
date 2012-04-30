@@ -27,7 +27,7 @@
 			h1, .h1{
 				color: rgb(255,255,255)
 				display:block;
-				font-family:Arial;
+				font-family: Verdana;
 				font-weight:bold;
 				line-height:100%;
 				margin-top:2%;
@@ -39,7 +39,7 @@
 			h2, .h2{
 				color:#404040;
 				display:block;
-				font-family:Arial;
+				font-family: Verdana;
 				font-size:18px;
 				font-weight:bold;
 				line-height:100%;
@@ -84,7 +84,7 @@
 				font-family:Arial;
 				font-size:10px;
 				line-height:100%;
-				text-align:left;
+				text-align:center;
 			}
 			.preheaderContent div a:link, .preheaderContent div a:visited, /* Yahoo! Mail Override */ .preheaderContent div a .yshortcuts /* Yahoo! Mail Override */{
 				color:#336699;
@@ -226,14 +226,9 @@
                                 <td valign="top" class="preheaderContent">            
                                     <table border="0" cellpadding="10" cellspacing="0" width="100%">
                                     	<tr>
-                                        	<td valign="top">
+                                        	<td valign="top" align="center">
                                             	<div class="std_preheader_content">
-                                                	 <?=$teaser?>
-                                                </div>
-                                            </td>
-											<td valign="top" width="170">
-                                            	<div class="std_preheader_links">
-                                                	<?$teser_two?>
+													<center><?=$teaser?></center>
                                                 </div>
                                             </td>
                                         </tr>
@@ -273,7 +268,6 @@
                                                     <tr>
                                                         <td valign="top" style="padding-right:0;">
                                                             <div class="std_content00">
-                                                            	<h2 class="h2"><?=$subheadline?></h2>
                                                                 <?=$content?>
 															</div>
 														</td>
@@ -335,7 +329,7 @@
                                                     <tr>
                                                         <td valign="top" width="350">
                                                             <div class="std_footer">
-																<em>Copyright &copy; <?=date(Y)?> Form&System, All rights reserved.</em>
+																<em>Copyright &copy; <?=date('Y')?> Form&System, All rights reserved.</em>
 																<br />
                                                             </div>
                                                         </td>
