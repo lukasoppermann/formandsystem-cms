@@ -205,8 +205,8 @@ $(function(){
 	_input_password.on('blur', function()
 	{
 		// assing variables
-		var _input_password = $(this);
-		var _btn_show_password = _input_password.siblings('.show-password');		
+		var _input_password 			= $(this);
+		var _btn_show_password 			= _input_password.siblings('.show-password');		
 		// if password field is empty
 		if(_input_password.val() == '' && _btn_show_password.css('opacity') != 0)
 		{
@@ -220,6 +220,9 @@ $(function(){
 	// on blur password clear field
 	_input_password_clear.on('blur', function()
 	{
+		// assing variables
+		var _input_password_clear 		= $(this);
+		var _btn_show_password 			= _input_password.siblings('.show-password');
 		// if password field is empty
 		if(_input_password_clear.val() == '' && _btn_show_password.css('opacity') != 0)
 		{
@@ -237,6 +240,10 @@ $(function(){
 	// show / hide password clear text
 	_btn_show_password.on('click', function()
 	{
+		// assing variables
+		var _btn_show_password 			= $(this);
+		var _input_password_clear 		= _btn_show_password.siblings('.password-clear');
+		var _input_password				= _btn_show_password.siblings('.password');
 		// if clear password is not active
 		if( !_btn_show_password.hasClass('active') )
 		{
@@ -259,8 +266,10 @@ $(function(){
 	// if typing in clear password field
 	_input_password_clear.on('keyup', function()
 	{
+		// assing variables
+		var _input_password_clear 			= $(this);
 		// update real password field
-		_input_password.val( _input_password_clear.val() );
+		_input_password_clear.siblings('.password').val( _input_password_clear.val() );
 	});
 	// --------------------------------------------------------------------
 	// user full name enter	
