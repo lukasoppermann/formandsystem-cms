@@ -5,13 +5,13 @@
 			<!-- User Image -->
 			<div class="user-image">
 				<div class="overlay">
-					<div class="username"><?=$full_name?></div>
+					<div class="fullname"><?=$full_name?></div>
 				</div>
 				<img class="profile-image" src="<?=media($image, 'images')?>">
 			</div>
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- User Name or Email -->
-
+			<input class="user" type="hidden" name="username" value="<?=$user?>" />
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- User Password -->
 			<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">
@@ -20,18 +20,20 @@
 					<div class="bubble right basic-shadow" id="forgot_password_bubble">
 						<div class="bubble-content">
 							<?=lang('password_forgot')?> 
-							<a data-url="password" data-post="username" class="retrieval-link" id="retrieve_password_link"><?=lang('password_forgot_link')?></a>
+							<a data-url="password" data-post="username" class="retrieval-link" id="retrieve_password_link">
+								<?=lang('password_forgot_link')?>
+							</a>
 						</div>
 					</div>
 				<?} ?>
 				<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 				<!-- Show Password Icon -->
-				<div id="show_password" class="icon fade visible" style="display: none;"></div>
+				<div class="show-password icon fade visible" style="display: none;"></div>
 				<!-- Clear Text Input -->
-				<input id="password_clear" placeholder="<?=lang('password')?>" class="hidden" value="" />
+				<input class="password-clear hidden" placeholder="<?=lang('password')?>" value="" />
 				<!-- Password Input Field -->
-				<input class="input<?=(form_error('password') != null ? ' error' : ''); ?>" 
-				type="password" class="password" name="password" placeholder="password" value="<?=set_value('password')?>" />
+				<input class="password input<?=(form_error('password') != null ? ' error' : ''); ?>" 
+				type="password" name="password" placeholder="password" value="<?=set_value('password')?>" />
 			</div>
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- Submit Form -->

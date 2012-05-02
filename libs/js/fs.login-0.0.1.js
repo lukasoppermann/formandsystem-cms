@@ -2,13 +2,14 @@ $(function(){
 	// once jquery is loaded
 	// --------------------------------------------------------------------
 	var _wrapper 					= $('#login');
+	var _widget 					= $('.widget');
 	// inputs
 	var _input_user 				= $('#username');
-	var _input_password 			= $('#password');
-	var _input_password_clear		= $('#password_clear');
+	var _input_password 			= $('.password');
+	var _input_password_clear		= $('.password-clear');
 	var _input_full_name			= $('#full_name');
 	// buttons
-	var _btn_show_password 			= $('#show_password');
+	var _btn_show_password 			= $('.show-password');
 	var _btn_show_user				= $('#show_forgot_user');
 	// buttons
 	var _forgot_user_bubble			= $('#forgot_user_bubble');
@@ -31,7 +32,18 @@ $(function(){
 	// submit form ajax
 	_wrapper.on('submit', function(e)
 	{
-		
+		var _active = _wrapper.find('.active');
+		// submit form via ajax
+		$.ajax({
+			url: CI_BASE+'ajax/user/login/',
+			data: {'user':_active.find('.user').val(), 'password':_active.find('.password').val()},
+			dataType: 'json',
+			type: 'POST',
+			success: function(response)
+			{
+				console.log(response);
+			}
+		});
 		// return false
 		return false;
 	});
@@ -164,15 +176,14 @@ $(function(){
 		}
 	});
 	// --------------------------------------------------------------------
-	// show password visibility icon
-	if(_input_password.val() != '')
-	{
-		// fadein if password field is not empty
-		_btn_show_password.show().animate({'opacity':0.4}, 300);
-	}
+	// show/hide show password icon
+	// --------------------
 	// typing into password field
 	_input_password.on('keyup', function()
 	{
+		// assing variables
+		var _input_password = $(this);
+		var _btn_show_password = _input_password.siblings('.show-password');
 		// if field is emtpy
 		if(_input_password.val() == '')
 		{
@@ -189,9 +200,13 @@ $(function(){
 			_btn_show_password.show().animate({'opacity':0.4}, 300);
 		}
 	});
+	// --------------------
 	// on blur password field
 	_input_password.on('blur', function()
 	{
+		// assing variables
+		var _input_password = $(this);
+		var _btn_show_password = _input_password.siblings('.show-password');		
 		// if password field is empty
 		if(_input_password.val() == '' && _btn_show_password.css('opacity') != 0)
 		{

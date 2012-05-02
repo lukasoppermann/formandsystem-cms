@@ -10,9 +10,6 @@
 }
 /*------------------------*/
 /* Errors */
-.active .login-errors{
-	display: block;
-}
 .login-errors{
 	position: relative;	
 	float: left;
@@ -88,7 +85,7 @@
 }
 /*------------------------*/
 /* Form Data */
-#show_password, #show_forgot_user{
+.show-password, #show_forgot_user{
 	opacity: 0;
 	width: 20px;
 	height: 20px;	
@@ -99,10 +96,10 @@
 #show_forgot_user{
 	opacity: 0.4;
 }
-#password_clear{
+.password-clear{
 	position: absolute;
 	top: 5px;
-	left: 5px;
+	left: 10px;
 	display: block;
 	width: 198px;
 	height: 14px;
@@ -113,13 +110,13 @@
 	font-size: 12px;
 	line-height: 1;
 }
-#password_clear:focus{
+.password-clear:focus{
 	color: rgb(50,50,50);	
 }
-.empty #password_clear{
+.empty .password-clear{
 	background: rgb(245,245,245);
 }
-#password{
+.password{
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;	
@@ -171,7 +168,7 @@
 .user-image.cms-profile .overlay{
 	background-image: none;
 }
-.user-image .overlay .username{
+.user-image .overlay .fullname{
 	display: block;
 	float: left;
 	text-align: right;
