@@ -30,10 +30,10 @@
 				<!-- Show Password Icon -->
 				<div class="show-password icon fade visible" style="display: none;"></div>
 				<!-- Clear Text Input -->
-				<input class="password-clear hidden" placeholder="<?=lang('password')?>" value="" />
+				<input class="password-clear hidden" value="" />
 				<!-- Password Input Field -->
 				<input class="password input<?=(form_error('password') != null ? ' error' : ''); ?>" 
-				type="password" name="password" placeholder="password" value="<?=set_value('password')?>" />
+				type="password" name="password" placeholder="<?=lang('password')?>" value="" />
 			</div>
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- Submit Form -->

@@ -7,15 +7,15 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 <div class="perspective wrapper">
 	<div class="widget login">
 		<div class="card">
-			<div class="add-user side front">
+			<!-- <div class="add-user side front">
 				<div class="add-icon"></div>
-			</div>
+			</div> -->
 			<div class="widget-content side back">
 				<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 				<!-- User Image -->
 				<div class="user-image cms-profile">
 					<div class="overlay">
-						<div class="username"><?=$profiles['name']?></div>
+						<div class="fullname"><?=$profiles['name']?></div>
 					</div>
 					<img class="profile-image" src="<?=media('profiles/'.$profiles['image'], 'layout')?>">
 				</div>
@@ -62,12 +62,12 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 					<?} ?>
 					<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 					<!-- Show Password Icon -->
-					<div id="show_password" class="icon fade visible" style="display: none;"></div>
+					<div class="show-password icon fade visible" style="display: none;"></div>
 					<!-- Clear Text Input -->
-					<input id="password_clear" placeholder="<?=lang('password')?>" class="hidden" value="" />
+					<input class="password-clear hidden" value="" />
 					<!-- Password Input Field -->
-					<input class="input<?=(form_error('password') != null ? ' error' : ''); ?>" 
-					type="password" id="password" name="password" placeholder="password" value="<?=set_value('password')?>" />
+					<input class="password input<?=(form_error('password') != null ? ' error' : ''); ?>" 
+					type="password" name="password" placeholder="<?=lang('password')?>" value="" />
 				</div>
 				<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 				<!-- Submit Form -->

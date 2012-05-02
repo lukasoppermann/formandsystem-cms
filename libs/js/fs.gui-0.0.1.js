@@ -29,5 +29,37 @@ $(function(){
 			_input.parents('.form-element').removeClass('empty');
 		}
 	});
+	// --------------------------------------------------------------------
+	// placeholders
+	var _inputs = $("[placeholder]");
+	// add placeholders
+	_inputs.each(function()
+	{
+		var _this = $(this);
+		_this.after($('<div class="placeholder">'+_this.attr('placeholder')+'</div>')).css({'background':'transparent'}).attr('placeholder','');
+	});
+	// add placeholder events
+	_inputs.on({
+		keydown: function()
+		{
+			$(this).next('.placeholder').hide();
+		},
+		keyup: function()
+		{
+			var _this = $(this);
+			if( _this.val() == '' )
+			{
+				_this.next('.placeholder').fadeIn(200);
+			}
+		},
+		blur: function()
+		{
+			var _this = $(this);
+			if( _this.val() == '' )
+			{
+				_this.next('.placeholder').fadeIn(200);
+			}
+		}
+	});
 // end of jquery area
 });

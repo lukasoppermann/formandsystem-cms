@@ -18,9 +18,9 @@ $(function(){
 	var _retrieve_password 			= $('#retrieve_password');
 	var _user_blocked				= $('#user_blocked');
 	// user data
-	var _user_name					= $('.username');
-	var _user_image					= $('.profile-image');
-	var _user_image_wrapper			= $('.user-image');
+	// var _user_name					= $('.username');
+	// var _user_image					= $('.profile-image');
+	// var _user_image_wrapper			= $('.user-image');
 	// given information
 	var given_user					= null;
 	var	timer_user					= null;
@@ -353,20 +353,18 @@ $(function(){
 		}
 	}
 	// --------------------------------------------------------------------
-	// select active user
-	var _active_user = $(".active-user");
-	// add click event to active user cards
-	_active_user.on('mousedown', function()
+	// add click event to user cards
+	_widget.on('mousedown', function()
 	{	
 		// get clicked widget	
-		var _widget = $(this).children('.widget');
+		var _this_widget = $(this);
 		// check if widget is not active
-		if( !_widget.hasClass('active') )
+		if( !_this_widget.hasClass('active') )
 		{
 			// expand user widget
-			expand_user(_widget);
+			expand_user(_this_widget);
 			// contract active user
-			contract_user(_active_user.find('.active'));
+			contract_user(_widget.parents().find('.active'));
 		}
 	});
 	// ---------------------------
@@ -405,7 +403,9 @@ $(function(){
 		widget.find('.widget-content').animate({'height':'300', 'width':'260', 'padding': '5'}, 250, 'easeInOutQuart');
 		widget.find('.user-image').animate({'height':'250', 'width':'250'}, 250, 'easeInOutQuart');
 		// slide in password input
-		widget.find('.form-element').css({'display':'block'}).delay(50).animate({'marginTop': 5}, 160, 'easeInOutQuart');
+		widget.find('.form-element').css({'display':'block'}).delay(50).animate({'marginTop': 5}, 160, 'easeInOutQuart', function(){
+			$(this).find('.password').focus()
+		});
 	}
 // --------------------------------------------------------------------	
 // end of jquery area

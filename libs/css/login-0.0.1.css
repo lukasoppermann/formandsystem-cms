@@ -3,7 +3,7 @@
 #login{
 	float: left;
 	position: relative;
-	max-width: 1200px;
+	max-width: 1300px;
 	left: 50%;
 	top: 50%;
 	width: 100%;
@@ -199,13 +199,10 @@
 	width: 190px;
 	height: 190px;	
 }
-.active-user .form-element, .login .widget-content{
-	display: none;
-}
 .active-user .form-element{
 	margin-top: -35px;
 }
-.active-user .widget{
+.active-user .widget, .widget.login{
 	top: 50%;
 	left: 50%;
 	margin: -100px 0 0 -100px;
@@ -217,6 +214,7 @@
 	max-width: 300px;
 	width: 25%;
 	height: 400px;
+	background: rgb(255,255,255);
 }
 
 /*.active-user .active.widget{
@@ -232,7 +230,7 @@
 }*/
 
 
-
+/*
 
 .login .add-user{
 	width: 100px;
@@ -264,7 +262,7 @@
 	height: 100px;
 	background: url(../../media/layout/add-user.png);
 	opacity: 0.3;	
-}
+}*/
 /*.perspective {
 	overflow: hidden;
 	-webkit-perspective: 300px;
