@@ -28,6 +28,14 @@ $(function(){
 	// move login box to center	
 	_wrapper.css({'marginLeft':-_wrapper.width()/2, 'marginTop':-(_wrapper.height()/2)-50});
 	// --------------------------------------------------------------------
+	// submit form ajax
+	_wrapper.on('submit', function(e)
+	{
+		
+		// return false
+		return false;
+	});
+	// --------------------------------------------------------------------
 	// show user retrieve window on click
 	_btn_show_user.on('click', function()
 	{
@@ -324,7 +332,7 @@ $(function(){
 	// select active user
 	var _active_user = $(".active-user");
 	// add click event to active user cards
-	_active_user.on('click', function()
+	_active_user.on('mousedown', function()
 	{	
 		// get clicked widget	
 		var _widget = $(this).children('.widget');
@@ -377,18 +385,18 @@ $(function(){
 	}
 // --------------------------------------------------------------------	
 // end of jquery area
-$(".perspective").on('click', function(){
-	console.log( $(".card").attr('class') );
-	if( $(".card").hasClass('flipped') )
-	{
-		$(".card").addClass('unflipped').removeClass('flipped');			
-		$(".perspective").removeClass('active');
-	}
-	else
-	{
-		$(".card").addClass('flipped').removeClass('unflipped');
-		$(".perspective").addClass('active');
-	}
-});
+// $(".perspective").on('click', function(){
+// 	console.log( $(".card").attr('class') );
+// 	if( $(".card").hasClass('flipped') )
+// 	{
+// 		$(".card").addClass('unflipped').removeClass('flipped');			
+// 		$(".perspective").removeClass('active');
+// 	}
+// 	else
+// 	{
+// 		$(".card").addClass('flipped').removeClass('unflipped');
+// 		$(".perspective").addClass('active');
+// 	}
+// });
 
 });

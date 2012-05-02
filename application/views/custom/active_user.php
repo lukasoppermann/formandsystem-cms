@@ -31,7 +31,7 @@
 				<input id="password_clear" placeholder="<?=lang('password')?>" class="hidden" value="" />
 				<!-- Password Input Field -->
 				<input class="input<?=(form_error('password') != null ? ' error' : ''); ?>" 
-				type="password" class="password" id="password" name="password" placeholder="password" value="<?=set_value('password')?>" />
+				type="password" class="password" name="password" placeholder="password" value="<?=set_value('password')?>" />
 			</div>
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- Submit Form -->
