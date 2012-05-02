@@ -344,13 +344,14 @@ $(function(){
 		// define variables
 		var password = widget.find('.form-element');
 		// contract widget
-		widget.animate({'width': '200', 'height': '200', 'marginTop': '-100'}, 250, 'easeInOutQuart', function()
+		widget.animate({'width': '200', 'height': '200', 'marginTop': '-100', 'marginLeft': '-100'}, 250, 'easeInOutQuart', function()
 		{
 			// remove class 'active'
 			widget.removeClass('active');
 		});
 		// contract widget-content and remove padding
-		widget.find('.widget-content').animate({'height': '180', 'padding': '0'}, 250, 'easeInOutQuart');
+		widget.find('.widget-content').animate({'height': '190', 'width':'190', 'padding': '0'}, 250, 'easeInOutQuart');
+		widget.find('.user-image').animate({'height':'180', 'width':'180'}, 250, 'easeInOutQuart');
 		// slide away password input
 		password.animate({'marginTop': '-35'}, 250, 'easeInOutQuart', function()
 		{
@@ -363,13 +364,14 @@ $(function(){
 	function expand_user( widget )
 	{
 		// expand widget
-		widget.animate({'width': '290', 'height': '350', 'marginTop': '-160'}, 250, 'easeInOutQuart', function()
+		widget.animate({'width': '290', 'height': '350', 'marginTop': '-160', 'marginLeft': '-145'}, 250, 'easeInOutQuart', function()
 		{
 			// add class 'active'
 			widget.addClass('active');
 		});
 		// expand widget content
-		widget.find('.widget-content').animate({'height':'300', 'padding': '5'}, 250, 'easeInOutQuart');
+		widget.find('.widget-content').animate({'height':'300', 'width':'260', 'padding': '5'}, 250, 'easeInOutQuart');
+		widget.find('.user-image').animate({'height':'250', 'width':'250'}, 250, 'easeInOutQuart');
 		// slide in password input
 		widget.find('.form-element').css({'display':'block'}).delay(50).animate({'marginTop': 5}, 160, 'easeInOutQuart');
 	}
