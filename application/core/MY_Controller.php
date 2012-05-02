@@ -36,7 +36,7 @@ class MY_Controller extends CI_Controller {
 		css_add('libs/css/icons.css');
 		css_add('base,icons,gui');
 		js_add_lines('CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'";', 'default');
-		js_add('jquery, fs.gui', 'default');
+		js_add('jquery, jquery.effects.core.min, fs.gui', 'default');
 		$db = 'cms_entries';
 		$data = array('menu_id' => 5, 'title' => 'New Title', 'data' => array('user' => 'test', 'peter' => 'schmidt'));
 		$data = array($data, array('menu_id' => '16', 'title' => '3', 'data' => 'test'));

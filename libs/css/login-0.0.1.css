@@ -1,58 +1,15 @@
+/*------------------------*/
+/* General */
 #login{
-	width: 100%;
-	position: relative;
-	height: 100%;
-}
-.user-image{
-	position: relative;	
-	border-radius: 2px;
-	overflow: hidden;
 	float: left;
-	margin: 5px;
-}
-.user-image img{
 	position: relative;
-	z-index: 1;
-	border-radius: 2px;
-	overflow: hidden;
-	float: left;
-}
-.user-image .overlay{
-	position: absolute;
-	top: 0;
-	left: 0;
+	max-width: 1200px;
+	left: 50%;
+	top: 50%;
 	width: 100%;
-	height: 100%;
-	z-index: 2;
-	border-radius: 2px;	
-	box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.35);
-	-webkit-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.35);
-	-moz-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.35);
-	background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0.4) 0, rgba(0,0,0,0.1) 30px, rgba(0,0,0,0.0) 40px);
-	background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0.4) 0, rgba(0,0,0,0.1) 30px, rgba(0,0,0,0.0) 40px);
 }
-.user-image.cms-profile .overlay{
-	background-image: none;
-}
-.user-image .overlay .username{
-	display: block;
-	text-align: right;
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	padding: 5px;
-	color: rgb(255,255,255);
-	font-weight: bold;
-	text-shadow: rgba(0,0,0,0.25) 0px 1px 0px, rgba(0,0,0,0.5) 0px 0px 1px, rgba(0,0,0,0.35) 0px 0px 3px;
-}
-@-moz-keyframes errors-drop {
-    0% { margin-top: -35px; }
-    100% { margin-top: -15px; }
-}
-@-webkit-keyframes errors-drop {
-    0% { margin-top: -35px; }
-    100% { margin-top: -15px; }
-}
+/*------------------------*/
+/* Errors */
 .active .login-errors{
 	display: block;
 }
@@ -92,6 +49,45 @@
 .error p:last-child{
 	margin: 0;
 }
+/* Error Animation */
+@-moz-keyframes errors-drop {
+    0% { margin-top: -35px; }
+    100% { margin-top: -15px; }
+}
+@-webkit-keyframes errors-drop {
+    0% { margin-top: -35px; }
+    100% { margin-top: -15px; }
+}
+/* Error Links */
+#retrieve_user_link{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
+	height: 30px;
+	width: 20px;
+	background: rgb(235,235,235);
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	padding: 0;
+	box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
+	-webkit-box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
+	-moz-box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
+}
+#retrieve_user_link:hover{
+	box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);
+	-webkit-box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);	
+}
+#retrieve_user_link .icon{
+	position: absolute;
+	top: 4px;
+}
+#forgot_user_bubble{
+	top: -25px;
+}
+/*------------------------*/
+/* Form Data */
 #show_password, #show_forgot_user{
 	opacity: 0;
 	width: 20px;
@@ -124,53 +120,85 @@
 	background: rgb(245,245,245);
 }
 #password{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
+	width: 100%;
 	padding-right: 40px;
 	font-size: 12px;
 	line-height: 1;
 }
 .form-element{
-	width: 250px;
-}
-#retrieve_user_link{
+	width: 100%;
+	margin: 5px 0;
+	padding: 0 5px;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;	
-	height: 30px;
-	width: 20px;
-	background: rgb(235,235,235);
+}
+/*------------------------*/
+/* General */
+.user-image{
+	position: relative;	
+	border-radius: 2px;
+	overflow: hidden;
+	float: left;
+	margin: 5px;
+}
+.user-image img{
+	position: relative;
+	z-index: 1;
+	border-radius: 2px;
+	overflow: hidden;
+	float: left;
+}
+.user-image .overlay{
 	position: absolute;
-	top: 0px;
-	right: 0px;
-	padding: 0;
-	box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
-	-webkit-box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
-	-moz-box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	border-radius: 2px;	
+	box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.35);
+	-webkit-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.35);
+	-moz-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.35);
+	background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0.4) 0, rgba(0,0,0,0.1) 30px, rgba(0,0,0,0.0) 40px);
+	background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0.4) 0, rgba(0,0,0,0.1) 30px, rgba(0,0,0,0.0) 40px);
 }
-#retrieve_user_link:hover{
-	box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);
-	-webkit-box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);
-	-moz-box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);	
+.user-image.cms-profile .overlay{
+	background-image: none;
 }
-#retrieve_user_link .icon{
+.user-image .overlay .username{
+	display: block;
+	float: left;
+	text-align: right;
 	position: absolute;
-	top: 4px;
+	bottom: 0;
+	right: 0;
+	padding: 5px;
+	color: rgb(255,255,255);
+	font-weight: bold;
+	text-shadow: rgba(0,0,0,0.25) 0px 1px 0px, rgba(0,0,0,0.5) 0px 0px 1px, rgba(0,0,0,0.35) 0px 0px 3px;
 }
-#forgot_user_bubble{
-	top: -25px;
-}
-#login .widget{
+#login .widget {
+	float: left;
+	display: inline-block;
 	width: 210px;
-}
-#login img{
-	width: 180px;
-	height: 180px;
-}
-#login .widget.active img{
-	width: 250px;
-	height: 250px;
+	height: 210px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
 }
 #login .widget.active{
 	width: 290px;
+}
+#login img{
+	width: 100%;
+	height: 100%;
+}
+#login .active .widget-content{
+	padding: 5px;
 }
 #login .widget-content{
 	position: relative;
@@ -178,15 +206,38 @@
 	padding: 0px;
 	z-index: 1;
 }
-#login .active .widget-content{
-	padding: 5px;
-}
 .active-user .form-element, .login .widget-content{
 	display: none;
 }
-.active-user.active .form-element{
-	display: block;
+.active-user .form-element{
+	margin-top: -35px;
 }
+.active-user .active .form-element{
+	display: block;
+	margin-top: 5px;
+}
+.active-user .widget{
+	top: 50%;
+	margin-top: -100px;
+}
+.active-user .active.widget{
+	top: 50%;
+	margin-top: -155px;
+}
+.wrapper{
+	width: auto;
+	float: left;
+	text-align: center;
+	max-width: 300px;
+	width: 25%;
+	height: 400px;
+}
+
+
+
+
+
+
 .login .add-user{
 	width: 100px;
 	height: 100px;
@@ -202,13 +253,122 @@
 	-webkit-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.05);
 	-moz-box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.05);
 }
-.login .add-user:hover{
+.add-user:hover{
 	background-color: rgb(240,240,240);
 	box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.15);
 	-webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.15);
 	-moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.15);
 }
-.login .add-user .icon:before{
+.add-user{
 	width: 100px;
 	height: 100px;
 }
+.add-icon{
+	width: 100px;
+	height: 100px;
+	background: url(../../media/layout/add-user.png);
+	opacity: 0.3;	
+}
+/*.perspective {
+	overflow: hidden;
+	-webkit-perspective: 300px;
+	-moz-perspective: 300px;
+	-ms-perspective: 300px;
+	-o-perspective: 300px;
+	perspective: 300px;
+}
+
+.card {
+	float: left;
+	display: block;
+	-webkit-transition: -webkit-transform 0.35s;
+	-moz-transition: -moz-transform 0.35s;
+	-ms-transition: -ms-transform 1s;
+	-o-transition: -o-transform 1s;
+	transition: transform 1s;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	-o-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+
+.card.flipped {
+	-ms-transform: rotateY( 180deg );
+	-o-transform: rotateY( 180deg );
+	transform: rotateY( 180deg );
+    
+	-moz-transform: rotateY( 0deg ) scale(1, 1);
+	-moz-animation-name: errors-drop;
+	-moz-animation-iteration-count: 1;
+	-moz-animation-duration: .5s;
+	-moz-animation-delay: .2s;
+	-moz-animation-fill-mode: forwards;
+	
+	-webkit-transform: rotateY( 0deg ) scale(1, 1);
+	-webkit-animation-name: errors-drop;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-duration: .4s;
+	-webkit-animation-fill-mode: forwards;
+}
+
+.card.unflipped {				    
+	-moz-transform: rotateY( 180deg ) scale(1, 1);
+	-moz-animation-name: errors-drop-2;
+	-moz-animation-iteration-count: 1;
+	-moz-animation-duration: .5s;
+	-moz-animation-delay: .2s;
+	-moz-animation-fill-mode: forwards;
+	
+	-webkit-transform: rotateY( 180deg ) scale(1, 1);
+	-webkit-animation-name: errors-drop-2;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-duration: .4s;
+	-webkit-animation-fill-mode: forwards;
+}
+
+@-moz-keyframes errors-drop {
+	1% { -moz-transform: rotateY( 0deg ) scale(1, 1); }
+    50% { -moz-transform: rotateY( 90deg ) scale(1.4, 1.8); }
+    51% { -moz-transform: rotateY( 90deg ) scale(1, 1); }
+ 	100% { -moz-transform: rotateY( 180deg ) scale(1, 1); }
+}
+@-webkit-keyframes errors-drop {
+	1% { -webkit-transform: rotateY( 0deg ) scale(1, 1); }
+    50% { -webkit-transform: rotateY( 90deg ) scale(1.4, 1.8); }
+    51% { -webkit-transform: rotateY( 90deg ) scale(1, 1); }
+ 	100% { -webkit-transform: rotateY( 180deg ) scale(1, 1); }
+}
+@-webkit-keyframes errors-drop-2 {
+	1% { -webkit-transform: rotateY( 180deg ) scale(1, 1); }
+    50% { -webkit-transform: rotateY( 90deg ) scale(0.6, 0.8); }
+    51% { -webkit-transform: rotateY( 90deg ) scale(1, 1); }
+ 	100% { -webkit-transform: rotateY( 0deg ) scale(1, 1); }
+}
+@-moz-keyframes errors-drop-2 {
+	1% { -moz-transform: rotateY( 180deg ) scale(1, 1); }
+    50% { -moz-transform: rotateY( 90deg ) scale(0.6, 0.8); }
+    51% { -moz-transform: rotateY( 90deg ) scale(1, 1); }
+ 	100% { -moz-transform: rotateY( 0deg ) scale(1, 1); }
+}		
+.card .side {
+	display: block;
+	position: absolute;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+.card .front {
+	margin: 75px 0 0 50px;
+	height: 100px;
+	width: 100px;
+}
+.card .back {
+	-webkit-transform: rotateY( 180deg );
+	-moz-transform: rotateY( 180deg );
+	-ms-transform: rotateY( 180deg );
+	-o-transform: rotateY( 180deg );
+	transform: rotateY( 180deg );
+}*/

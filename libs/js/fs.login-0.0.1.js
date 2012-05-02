@@ -26,13 +26,7 @@ $(function(){
 	var	user_image_class			= 'cms-profile';
 	// --------------------------------------------------------------------
 	// move login box to center	
-	var _box_margin 				= (($(window).height()-$(".active").height())/2)-65;
-	if(_box_margin < 40)
-	{
-		_box_margin = 40;
-	}
-	$(".widget:not(.active)").animate({'marginTop':_box_margin+50}, 400);
-	$(".active").animate({'marginTop':_box_margin}, 300);
+	_wrapper.css({'marginLeft':-_wrapper.width()/2, 'marginTop':-(_wrapper.height()/2)-50});
 	// --------------------------------------------------------------------
 	// show user retrieve window on click
 	_btn_show_user.on('click', function()
@@ -114,7 +108,7 @@ $(function(){
 							_content.html(text);
 							bubble.css({'top': '+=' + ( (height - bubble.height()) / 2 )}).fadeIn(300);
 						});
-					}, 5000);
+					}, 3000);
 				}
 			});
 			// animate bubble position
@@ -275,7 +269,7 @@ $(function(){
 		{
 			// if user idle for 1.5 seconds request new data
 			get_user_data();
-		}, 1500);
+		}, 1300);
 	});
 	// ---------------------------
 	// fn get user data
@@ -326,6 +320,73 @@ $(function(){
 			});
 		}
 	}
+	// --------------------------------------------------------------------
+	// select active user
+	var _active_user = $(".active-user");
+	// add click event to active user cards
+	_active_user.on('click', function()
+	{	
+		// get clicked widget	
+		var _widget = $(this).children('.widget');
+		// check if widget is not active
+		if( !_widget.hasClass('active') )
+		{
+			// expand user widget
+			expand_user(_widget);
+			// contract active user
+			contract_user(_active_user.find('.active'));
+		}
+	});
+	// ---------------------------
+	// fn contract user
+	function contract_user( widget )
+	{
+		// define variables
+		var password = widget.find('.form-element');
+		// contract widget
+		widget.animate({'width': '200', 'height': '200', 'marginTop': '-100'}, 250, 'easeInOutQuart', function()
+		{
+			// remove class 'active'
+			widget.removeClass('active');
+		});
+		// contract widget-content and remove padding
+		widget.find('.widget-content').animate({'height': '180', 'padding': '0'}, 250, 'easeInOutQuart');
+		// slide away password input
+		password.animate({'marginTop': '-35'}, 250, 'easeInOutQuart', function()
+		{
+			// display none password input
+			password.css({'display':'none'});
+		});
+	}
+	// ---------------------------
+	// fn expand user
+	function expand_user( widget )
+	{
+		// expand widget
+		widget.animate({'width': '290', 'height': '350', 'marginTop': '-160'}, 250, 'easeInOutQuart', function()
+		{
+			// add class 'active'
+			widget.addClass('active');
+		});
+		// expand widget content
+		widget.find('.widget-content').animate({'height':'300', 'padding': '5'}, 250, 'easeInOutQuart');
+		// slide in password input
+		widget.find('.form-element').css({'display':'block'}).delay(50).animate({'marginTop': 5}, 160, 'easeInOutQuart');
+	}
 // --------------------------------------------------------------------	
 // end of jquery area
+$(".perspective").on('click', function(){
+	console.log( $(".card").attr('class') );
+	if( $(".card").hasClass('flipped') )
+	{
+		$(".card").addClass('unflipped').removeClass('flipped');			
+		$(".perspective").removeClass('active');
+	}
+	else
+	{
+		$(".card").addClass('flipped').removeClass('unflipped');
+		$(".perspective").addClass('active');
+	}
+});
+
 });

@@ -13,6 +13,7 @@ body{
 	float: left;
 	width: 100%;
 	overflow-y: scroll; /* Always show scroll bar*/
+	overflow-x: hidden;	
 }
 div, ul, li{
 	position: relative;
