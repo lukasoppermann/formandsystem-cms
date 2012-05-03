@@ -30,7 +30,12 @@ class Ajax extends CI_Controller {
 		// retrieve password & user data
 		if( $method == 'login' )
 		{
+			if($this->fs_authentication->login() == TRUE)
+			{
+				$output['success'] = 'TRUE';
+			}
 			
+ 			echo json_encode($output);
 		}
 		// --------------------------------------------------------------------
 		// retrieve password & user data

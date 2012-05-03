@@ -35,12 +35,11 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 						</div>
 					</div>
 					<!-- Blocked User Bubble -->
-					<div class="bubble right basic-shadow <?=((form_data('user_blocked') == 'TRUE' && 
-					form_error('username') != null) ? '' : ' hidden' )?>" id="blocked_user_bubble">
+					<div class="bubble right basic-shadow blocked-user-bubble <?=((form_data('user_blocked') == 'TRUE' && 
+					form_error('username') != null) ? '' : ' hidden' )?>">
 						<div class="bubble-content">
 							<?=lang('user_blocked')?>
-							<a data-url="blocked_user" data-post="username" class="retrieval-link"
-							 id="unblock_user_link"><?=lang('user_blocked_link')?></a>
+							<a data-url="blocked_user" data-post="username" class="retrieval-link unblock-user-link"><?=lang('user_blocked_link')?></a>
 						</div>
 					</div>
 					<!-- ////////////////////////////////////////////////////////////////////////////////// -->

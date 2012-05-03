@@ -12,6 +12,14 @@
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- User Name or Email -->
 			<input class="user" type="hidden" name="username" value="<?=$user?>" />
+			<!-- Blocked User Bubble -->
+			<div class="bubble right basic-shadow blocked-user-bubble <?=((form_data('user_blocked') == 'TRUE' && 
+			form_error('username') != null) ? '' : ' hidden' )?>">
+				<div class="bubble-content">
+					<?=lang('user_blocked')?>
+					<a data-url="blocked_user" data-post="username" class="retrieval-link unblock-user-link"><?=lang('user_blocked_link')?></a>
+				</div>
+			</div>
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- User Password -->
 			<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">

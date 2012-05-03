@@ -17,8 +17,8 @@ $(function(){
 	var _forgot_user_bubble			= $('#forgot_user_bubble');
 	var _forgot_password_bubble 	= $('#forgot_password_bubble');
 	// links
-	var _retrieve_password 			= $('#retrieve_password');
-	var _user_blocked				= $('#user_blocked');
+	var _retrieve_password 			= $('.retrieve-password');
+	var _user_blocked				= $('.user-blocked');
 	// given information
 	var given_user					= null;
 	var	timer_user					= null;
@@ -34,12 +34,19 @@ $(function(){
 		// submit form via ajax
 		$.ajax({
 			url: CI_BASE+'ajax/user/login/',
-			data: {'user':_active.find('.user').val(), 'password':_active.find('.password').val()},
+			data: {'username':_active.find('.user').val(), 'password':_active.find('.password').val()},
 			dataType: 'json',
 			type: 'POST',
 			success: function(response)
 			{
-				console.log(response);
+				if( response.success === 'TRUE')
+				{
+					window.location.reload();
+				}
+				else
+				{
+					
+				}
 			}
 		});
 		// return false
@@ -432,13 +439,6 @@ $(function(){
 			expand_new_user(_this_widget);
 			// contract active user
 			contract_user(_active_users.find('.active'));
-		}
-		else
-		{	
-			setTimeout(function()
-			{
-				_this_widget.find('.user').select();
-			}, 100);
 		}
 	});
 	// ---------------------------
