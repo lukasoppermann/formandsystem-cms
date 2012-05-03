@@ -287,7 +287,7 @@ $(function(){
 	// on blur of user name field
 	_input_user.on('blur', function()
 	{
-		get_user_data();
+		get_user_data( $(this).parents('.widget') );
 	});
 	// on key up in user field
 	_input_user.on('keyup', function()
@@ -298,16 +298,20 @@ $(function(){
 		timer_user = setTimeout(function()
 		{
 			// if user idle for 1.5 seconds request new data
-			get_user_data();
+			get_user_data( $(this).parents('.widget') );
 		}, 1300);
 	});
 	// ---------------------------
 	// fn get user data
-	function get_user_data()
+	function get_user_data( widget )
 	{
 		// check if user-name/email has changed since last request
 		if( given_user != _input_user.val() )
 		{
+			var _user_name 				= widget.find('.fullname');
+			var _user_image_wrapper		= widget.find('.user-image');
+			var _user_image				= _user_image_wrapper.find('.profile-image');
+
 			// set given user name or email
 			given_user = _input_user.val();
 			// get user information form database
