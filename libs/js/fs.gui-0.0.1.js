@@ -36,13 +36,28 @@ $(function(){
 	_inputs.each(function()
 	{
 		var _this = $(this);
-		_this.after($('<div class="placeholder">'+_this.attr('placeholder')+'</div>')).css({'background':'transparent'}).attr('placeholder','');
+		var _placeholder = $('<div class="placeholder">'+_this.attr('placeholder')+'</div>');
+		// check if input is full
+		if( _this.val() != '' )
+		{
+			// if so, hide placeholder
+			_placeholder.hide();
+		}
+		// add placeholder
+		_this.after(_placeholder).css({'background':'transparent'}).attr('placeholder','');
 	});
 	// add placeholder events
 	_inputs.on({
-		keydown: function()
+		keydown: function(e)
 		{
-			$(this).next('.placeholder').hide();
+			// grab pressed key
+			var keycode = (e.keyCode ? e.keyCode : e.which);		
+			// if pressed key == return
+			if(keycode != '9')
+			{
+				// hide placeholder
+				$(this).next('.placeholder').hide();
+			}
 		},
 		keyup: function()
 		{

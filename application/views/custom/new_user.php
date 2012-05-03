@@ -29,7 +29,8 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 							<p><?=lang('user_forgot')?></p>
 							<div class="form-element">
 								<input type="text" name="full_name" id="full_name" class="input" value="" placeholder="<?=lang('first_last_name')?>">
-								<a data-url="userdata" data-post="full_name" class="retrieval-link button" id="retrieve_user_link"><span class="fade icon submit"></span></a>
+								<a data-url="userdata" data-post="full_name" class="retrieval-link button" id="retrieve_user_link">
+								<span class="fade icon submit"></span></a>
 							</div>
 						</div>
 					</div>
@@ -38,15 +39,16 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 					form_error('username') != null) ? '' : ' hidden' )?>" id="blocked_user_bubble">
 						<div class="bubble-content">
 							<?=lang('user_blocked')?>
-							<a data-url="blocked_user" data-post="username" class="retrieval-link" id="unblock_user_link"><?=lang('user_blocked_link')?></a>
+							<a data-url="blocked_user" data-post="username" class="retrieval-link"
+							 id="unblock_user_link"><?=lang('user_blocked_link')?></a>
 						</div>
 					</div>
 					<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 					<!-- Help Icon -->
 					<div id="show_forgot_user" class="icon fade help"></div>
 					<!-- User Input Field -->
-					<input class="input<?=(form_error('username') != null ? ' error' : ''); ?>" 
-					type="text" id="username" name="username" placeholder="<?=lang('username')?> / <?=lang('email')?>" value="<?=set_value('username')?>" />
+					<input class="user input<?=(form_error('username') != null ? ' error' : ''); ?>" 
+					type="text" name="username" placeholder="<?=lang('username')?> / <?=lang('email')?>" value="<?=set_value('username')?>" />
 				</div>
 				<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 				<!-- User Password -->
