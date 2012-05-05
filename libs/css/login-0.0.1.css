@@ -3,6 +3,7 @@
 #login{
 	float: left;
 	position: relative;
+	text-align: center;
 	max-width: 1200px;
 	left: 50%;
 	top: 50%;
@@ -193,7 +194,7 @@
 }
 .wrapper{
 	width: auto;
-	float: left;
+	display: inline-block;
 	text-align: center;
 	max-width: 300px;
 	width: 25%;

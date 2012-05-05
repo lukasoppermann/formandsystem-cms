@@ -33,6 +33,55 @@ $(function(){
 		_wrapper.css({'marginLeft':-(_wrapper.outerWidth()/2+20), 'marginTop':-(_wrapper.height()/2)-50});	
 	});
 	// --------------------------------------------------------------------
+	// get users on load
+	var users = $.get_local('user',true);
+	// check if one or more users are stored 
+	if( users !== false )
+	{
+		// load template
+		$.ajax({
+			url: CI_BASE+"ajax/template", 
+			data: {template: 'custom/user_active'}, 
+			dataType: 'html',
+			type: 'POST',
+			success: function( data )
+			{
+				var active_user = $('<div>');
+				$.each(users, function( key, values )
+				{
+					var temp = $(data).css({'top':-(_window.height()/2+200)});
+					temp.find('.profile-image').attr('src',values.image);
+					temp.find('.username').val(values.user);
+					temp.find('.fullname').text(values.fullname);
+					active_user.prepend(temp);
+				});
+				//
+				_wrapper.prepend( active_user.html());
+				var _inputs = $("[placeholder]");
+				// add placeholders
+				_inputs.each(function()
+				{
+					var _this = $(this);
+					var _placeholder = $('<div class="placeholder">'+_this.attr('placeholder')+'</div>');
+					// check if input is full
+					if( _this.val().length != 0 )
+					{
+						// if so, hide placeholder
+						_placeholder.hide();
+					}
+					// add placeholder
+					_this.after(_placeholder).css({'background':'transparent'}).attr('placeholder','');
+				});
+				
+				$($('.active-user').get().reverse()).each(function( i ){
+					$(this).delay(150*i).animate({top: 0}, 900, 'easeInOutQuart');
+				});
+			}
+		});
+		//
+	}
+
+	// --------------------------------------------------------------------
 	// submit form ajax
 	_wrapper.on('submit', function(e)
 	{
@@ -56,7 +105,9 @@ $(function(){
 				{
 					if( response.success === 'TRUE')
 					{
-						_window.location.reload();
+						var timestamp = Math.round((new Date()).getTime() / 1000);
+						$.update_local('user', old_username, {user:old_username, fullname:_active.find('.fullname').text(), image: _active.find('.profile-image').attr('src'), time: timestamp});
+						window.location.reload();
 					}
 					else
 					{
@@ -438,7 +489,7 @@ $(function(){
 	}
 	// --------------------------------------------------------------------
 	// add click event to active user image
-	_active_users.on('mousedown', '.active .user-image', function()
+	_wrapper.on('mousedown', '.active-user .active .user-image', function()
 	{
 		var _this_widget = $(this).parents('.widget');
 		setTimeout(function()
@@ -449,7 +500,7 @@ $(function(){
 	});
 	// --------------------------------------------------------------------
 	// add click event to active user cards
-	_active_users.on('mousedown', function()
+	_wrapper.on('mousedown', '.active-user', function()
 	{	
 		// get clicked widget	
 		var _this_widget = $(this).find('.widget');
@@ -459,7 +510,7 @@ $(function(){
 			// expand user widget
 			expand_user(_this_widget);
 			// contract active user
-			contract_user(_active_users.find('.active'));
+			contract_user($('.active-user').find('.active'));
 			contract_new_user(_new_user);
 		}
 	});
@@ -526,7 +577,7 @@ $(function(){
 			// expand user widget
 			expand_new_user(_this_widget);
 			// contract active user
-			contract_user(_active_users.find('.active'));
+			contract_user($('.active-user').find('.active'));
 		}
 	});
 	// ---------------------------

@@ -208,4 +208,16 @@ class Ajax extends CI_Controller {
 			}
 		}
 	}
+	// --------------------------------------------------------------------
+	/**
+	 * user
+	 *
+	 * @description	ajax request for user
+	 * 
+	 */
+	function template( )
+	{
+		echo $this->load->view( $this->input->post('template'), $this->input->post('data'), TRUE );
+	}
+	// end of class
 }

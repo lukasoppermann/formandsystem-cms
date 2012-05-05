@@ -47,7 +47,7 @@ $(function(){
 		_this.after(_placeholder).css({'background':'transparent'}).attr('placeholder','');
 	});
 	// add placeholder events
-	_inputs.on({
+	$('body').on({
 		keydown: function(e)
 		{
 			// grab pressed key
@@ -75,6 +75,6 @@ $(function(){
 				_this.next('.placeholder').fadeIn(200);
 			}
 		}
-	});
+	}, "[placeholder]");
 // end of jquery area
 });
