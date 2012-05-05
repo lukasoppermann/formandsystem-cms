@@ -34,7 +34,18 @@ class Ajax extends CI_Controller {
 			{
 				$output['success'] = 'TRUE';
 			}
-			
+			else
+			{
+				// set succes False
+				$output['success'] = 'FALSE';
+				// get error message & field
+				foreach($this->form_validation->get_errors() as $key => $message)
+				{
+					$output['error'] 			= $key;
+					$output['message'] 			= $message;
+					$output['user_blocked'] 	= $this->form_validation->form_data('user_blocked');				
+				}
+			}
  			echo json_encode($output);
 		}
 		// --------------------------------------------------------------------
@@ -57,6 +68,8 @@ class Ajax extends CI_Controller {
 				$email['title']	  	= 'Recover your password';
 				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.base_url().'login/{key}';				
 				$email['content']	= 'To retrieve your password <a href="'.base_url().'login/{key}">follow this link</a>.';
+				// make user_data into array
+				$user_data = array($user_data);
 			}
 			// ----------------------------------------------------------------
 			// retrieve user data
@@ -101,13 +114,15 @@ class Ajax extends CI_Controller {
 				$email['subject'] 	= 'Reactivate your profile';
 				$email['title']	  	= 'Reactivate your profile';
 				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.current_url().'/{key}';
-				$email['content'] 	= 'To reactivate your profile <a href="'.base_url().'login/{key}">follow this link</a>.';				
+				$email['content'] 	= 'To reactivate your profile <a href="'.base_url().'login/{key}">follow this link</a>.';		
+				// make user_data into array
+				$user_data = array($user_data);		
 			}
 			// check if user exists
 			if( isset($user_data) )
 			{
 				// loop through all users to recieve emails
-				foreach( (array) $user_data as $user )
+				foreach( $user_data as $user )
 				{
 					// ----------------------------------------------------------------
 					// create retrieval key
@@ -116,7 +131,7 @@ class Ajax extends CI_Controller {
 					// ----------------------------------------------------------------
 					// add retrival key & timestamp to db
 					db_update(config('db_user'), array('id' => $user['id']), array('data/retrieval_key' => $retrieval_key, 
-							'data/retrieval_time' => (time()+config('retrieval_time')) ), TRUE, 'data' );
+							'data/retrieval_time' => (time()+config('retrieval_time')) ), TRUE, 'data' );		
 					// ----------------------------------------------------------------
 					// send retrieval email
 					//

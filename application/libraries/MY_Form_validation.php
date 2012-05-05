@@ -101,5 +101,19 @@ class MY_Form_validation extends CI_Form_validation
 		// return item or FALSE
 		return isset($this->form_data[$item]) ? $this->form_data[$item] : FALSE;
 	}
+	// --------------------------------------------------------------------
+	/**
+	 * Get Error array
+	 *
+	 * Get error messages
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	string
+	 */
+	function get_errors()
+	{
+		return $this->_error_array;
+	}
 // end of Class
 }

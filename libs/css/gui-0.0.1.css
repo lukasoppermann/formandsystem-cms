@@ -97,6 +97,8 @@
 
 }
 .form-element .placeholder{
+	z-index: 0;
+	pointer-events: none;
 	position: absolute;
 	top: 0px;
 	left: 5px;
@@ -147,11 +149,12 @@
 	border-radius: 3px;
 	padding: 10px;
 	position: absolute;
+	text-align: left;
 	right: -176px;
 	top: -10px;
 	opacity: 1;
 	width: 150px;
-	z-index: 50;
+	z-index: 900;
 	border: 1px solid rgb(200,200,200);
 	background-color: rgb(252,252,252);
 	background-image: -moz-linear-gradient(top, rgb(252,252,252), rgb(245,245,245));

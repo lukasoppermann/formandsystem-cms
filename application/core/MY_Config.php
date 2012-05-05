@@ -111,7 +111,7 @@ class MY_Config extends CI_Config {
 		// users
 		$this->config['user'] = $config['user'];
 		// -----------------------------------
-		// users
+		// compression
 		$this->config['compression'] = $config['settings']['compression'];
 		unset($config['settings']['compression']);
 		// -----------------------------------

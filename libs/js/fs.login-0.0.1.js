@@ -1,12 +1,13 @@
 $(function(){
 	// once jquery is loaded
 	// --------------------------------------------------------------------
+	var _window						= $(window);
 	var _wrapper 					= $('#login');
 	var _widget 					= $('.widget');
 	var _active_users 				= $('.active-user');
 	var _new_user					= $('.login');
 	// inputs
-	var _input_user 				= _new_user.find('.user');
+	var _input_user 				= _new_user.find('.username');
 	var _input_password 			= $('.password');
 	var _input_password_clear		= $('.password-clear');
 	var _input_full_name			= $('.full_name');
@@ -15,40 +16,113 @@ $(function(){
 	var _btn_show_user				= $('#show_forgot_user');
 	// buttons
 	var _forgot_user_bubble			= $('#forgot_user_bubble');
-	var _forgot_password_bubble 	= $('#forgot_password_bubble');
 	// links
-	var _retrieve_password 			= $('.retrieve-password');
 	var _user_blocked				= $('.user-blocked');
 	// given information
 	var given_user					= null;
 	var	timer_user					= null;
 	var	user_image_class			= 'cms-profile';
+	var pw_errors 					= 0;
+	var old_password				= null;
+	var old_username				= null;
 	// --------------------------------------------------------------------
 	// move login box to center	
-	_wrapper.css({'marginLeft':-_wrapper.width()/2, 'marginTop':-(_wrapper.height()/2)-50});
+	_wrapper.css({'marginLeft':-_wrapper.outerWidth()/2, 'marginTop':-(_wrapper.height()/2)-50});
+	// adjust position on resize
+	_window.resize(function(){
+		_wrapper.css({'marginLeft':-(_wrapper.outerWidth()/2+20), 'marginTop':-(_wrapper.height()/2)-50});	
+	});
 	// --------------------------------------------------------------------
 	// submit form ajax
 	_wrapper.on('submit', function(e)
 	{
+		// define variables
 		var _active = _wrapper.find('.active');
-		// submit form via ajax
-		$.ajax({
-			url: CI_BASE+'ajax/user/login/',
-			data: {'username':_active.find('.user').val(), 'password':_active.find('.password').val()},
-			dataType: 'json',
-			type: 'POST',
-			success: function(response)
-			{
-				if( response.success === 'TRUE')
+		var password = _active.find('.password').val();
+		var username = _active.find('.username').val();
+		//
+		if(old_password != password || old_username != username)
+		{
+			//
+			old_password = password;
+			old_username = username;
+			// submit form via ajax
+			$.ajax({
+				url: CI_BASE+'ajax/user/login/',
+				data: {'username':old_username, 'password':old_password},
+				dataType: 'json',
+				type: 'POST',
+				success: function(response)
 				{
-					window.location.reload();
-				}
-				else
-				{
+					if( response.success === 'TRUE')
+					{
+						_window.location.reload();
+					}
+					else
+					{
+						// set error message
+						_active.find('.login-errors').text(response.message).animate({'margin-top':-15, 'display':'block'}, 500);
+						//
+						console.log(response);
+						// check for type to show bubble
+						if( response.error == 'password' )
+						{
+							// add error class to input
+							_active.find('.password').addClass('error');
+							// remove error from username
+							_active.find('.username').removeClass('error');
+							// check for bubble
+							if( ++pw_errors > 2 )
+							{
+								_active.find('.forgot-password-bubble').css({'right':-100,'display':'block','opacity':'0'}).animate({'right':-172,'opacity':1});
+							}
+						}
+						else
+						{
+							_active.find('.forgot-password-bubble').css({'display':'none'});
+						}
 					
+						if( response.error == 'username' )
+						{
+							if( _active.find('.username').is(':hidden') )
+							{
+								// add error class to input
+								_active.find('.password').addClass('error');							
+							}	
+							else
+							{
+								// add error class to input
+								_active.find('.username').addClass('error');
+								// remove error from password
+								_active.find('.password').removeClass('error');
+							}
+							if( response.user_blocked == 'TRUE' )
+							{
+								_active.find('.blocked-user-bubble').css({'right':-100,'display':'block','opacity':'0'}).animate({'right':-172,'opacity':1});
+							}
+							else
+							{
+								_active.find('.blocked-user-bubble').css({'display':'none'});
+							}
+							//
+							if( response.user_blocked != 'TRUE' )
+							{
+								_active.find('#forgot_user_bubble').css({'right':-100,'display':'block','opacity':'0'}).animate({'right':-172,'opacity':1});
+							}
+							else
+							{
+								_active.find('#forgot_user_bubble').css({'display':'none'});
+							}
+						}
+						else
+						{
+								_active.find('.blocked-user-bubble').css({'display':'none'});
+								_active.find('#forgot_user_bubble').css({'display':'none'});						
+						}
+					}
 				}
-			}
-		});
+			});
+		}
 		// return false
 		return false;
 	});
@@ -80,7 +154,7 @@ $(function(){
 	_wrapper.on('click', '.retrieval-link', function()
 	{
 		var _this = $(this);
-		var user = _wrapper.find('#'+_this.data('post')).val();
+		var user = _this.parents('.widget').find('.'+_this.data('post')).val();
 		// check if retrival is pending
 		if(retrieval_pending == null && user != null && user != "")
 		{
@@ -305,7 +379,7 @@ $(function(){
 		timer_user = setTimeout(function()
 		{
 			// if user idle for 1.5 seconds request new data
-			get_user_data( $(this).parents('.widget') );
+			get_user_data( _input_user.parents('.widget') );
 		}, 1300);
 	});
 	// ---------------------------
@@ -315,8 +389,8 @@ $(function(){
 		// check if user-name/email has changed since last request
 		if( given_user != _input_user.val() )
 		{
-			var _user_name 				= widget.find('.fullname');
 			var _user_image_wrapper		= widget.find('.user-image');
+			var _user_name 				= _user_image_wrapper.find('.fullname');
 			var _user_image				= _user_image_wrapper.find('.profile-image');
 
 			// set given user name or email
@@ -329,6 +403,7 @@ $(function(){
 				type: 'POST',
 				success: function(response)
 				{
+					_user_name.fadeOut();
 					// if users full name differs from current name
 					if( _user_name.text() !== response.username )
 					{
@@ -362,6 +437,17 @@ $(function(){
 		}
 	}
 	// --------------------------------------------------------------------
+	// add click event to active user image
+	_active_users.on('mousedown', '.active .user-image', function()
+	{
+		var _this_widget = $(this).parents('.widget');
+		setTimeout(function()
+		{
+			_this_widget.find('.password').select();
+			_this_widget.find('.password-clear').select();
+		}, 100);
+	});
+	// --------------------------------------------------------------------
 	// add click event to active user cards
 	_active_users.on('mousedown', function()
 	{	
@@ -376,14 +462,6 @@ $(function(){
 			contract_user(_active_users.find('.active'));
 			contract_new_user(_new_user);
 		}
-		else
-		{	
-			setTimeout(function()
-			{
-				_this_widget.find('.password').select();
-				_this_widget.find('.password-clear').select();
-			}, 100);
-		}
 	});
 	// ---------------------------
 	// fn contract user
@@ -392,7 +470,7 @@ $(function(){
 		// define variables
 		var password = widget.find('.form-element');
 		// contract widget
-		widget.animate({'width': '200', 'height': '200', 'marginTop': '-100', 'marginLeft': '-100'}, 250, 'easeInOutQuart', function()
+		widget.animate({'width': '210', 'height': '210', 'marginTop': '-100', 'marginLeft': '-100'}, 250, 'easeInOutQuart', function()
 		{
 			// remove class 'active'
 			widget.removeClass('active');
@@ -401,11 +479,14 @@ $(function(){
 		widget.find('.widget-content').animate({'height': '190', 'width':'190', 'padding': '0'}, 250, 'easeInOutQuart');
 		widget.find('.user-image').animate({'height':'180', 'width':'180'}, 250, 'easeInOutQuart');
 		// slide away password input
-		password.animate({'marginTop': '-35'}, 250, 'easeInOutQuart', function()
+		password.animate({'marginTop': '-35', 'opacity': 0}, 250, 'easeInOutQuart', function()
 		{
 			// display none password input
 			password.css({'display':'none'});
 		});
+		// slide errors away
+		widget.find('.login-errors').animate({'margin-top':-150, 'display':'none'});
+		widget.find('.forgot-password-bubble').animate({'opacity':'0'}, 100);
 	}
 	// ---------------------------
 	// fn expand user
@@ -421,10 +502,17 @@ $(function(){
 		widget.find('.widget-content').animate({'height':'300', 'width':'260', 'padding': '5'}, 250, 'easeInOutQuart');
 		widget.find('.user-image').animate({'height':'250', 'width':'250'}, 250, 'easeInOutQuart');
 		// slide in password input
-		widget.find('.form-element').css({'display':'block'}).delay(50).animate({'marginTop': 5}, 160, 'easeInOutQuart', function(){
+		widget.find('.form-element').css({'display':'block'}).delay(50).animate({'marginTop': 5, 'opacity': 1}, 160, 'easeInOutQuart', function(){
 			$(this).find('.password').select();
 			$(this).find('.password-clear').select();
 		});
+		// slide errors in
+		var _errors = widget.find('.login-errors');
+		if( $.trim(_errors.text()).length != 0)
+		{
+			_errors.animate({'margin-top':-15, 'display':'block'}, 500);
+		}
+		widget.find('.forgot-password-bubble').delay(300).animate({'right':-172,'opacity':'1'});
 	}
 	// --------------------------------------------------------------------
 	// add click event to new user cards
@@ -451,7 +539,7 @@ $(function(){
 			// define variables
 			var password = widget.find('.form-element');
 			// contract widget
-			widget.animate({'width': '200', 'height': '200', 'marginTop': '-100', 'marginLeft': '-100'}, 250, 'easeInOutQuart', function()
+			widget.animate({'width': '210', 'height': '210', 'marginTop': '-100', 'marginLeft': '-100'}, 250, 'easeInOutQuart', function()
 			{
 				// remove class 'active'
 				widget.removeClass('active');

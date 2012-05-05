@@ -23,8 +23,7 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 				<!-- User Name or Email -->
 				<div class="form-element one-row<?=(set_value('username') == null ? ' empty' : '')?>">
 					<!-- Forgot User Bubble -->
-					<div class="bubble right basic-shadow <?=((form_data('user_blocked') != 'TRUE' && 
-					form_error('username') != null) ? '' : ' hidden' )?>" id="forgot_user_bubble">
+					<div class="bubble right basic-shadow" id="forgot_user_bubble" style="display: none;">
 						<div class="bubble-content">
 							<p><?=lang('user_forgot')?></p>
 							<div class="form-element">
@@ -35,8 +34,7 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 						</div>
 					</div>
 					<!-- Blocked User Bubble -->
-					<div class="bubble right basic-shadow blocked-user-bubble <?=((form_data('user_blocked') == 'TRUE' && 
-					form_error('username') != null) ? '' : ' hidden' )?>">
+					<div class="bubble right basic-shadow blocked-user-bubble" style="display: none;">
 						<div class="bubble-content">
 							<?=lang('user_blocked')?>
 							<a data-url="blocked_user" data-post="username" class="retrieval-link unblock-user-link"><?=lang('user_blocked_link')?></a>
@@ -46,21 +44,19 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 					<!-- Help Icon -->
 					<div id="show_forgot_user" class="icon fade help"></div>
 					<!-- User Input Field -->
-					<input class="user input<?=(form_error('username') != null ? ' error' : ''); ?>" 
+					<input class="username input<?=(form_error('username') != null ? ' error' : ''); ?>" 
 					type="text" name="username" placeholder="<?=lang('username')?> / <?=lang('email')?>" value="<?=set_value('username')?>" />
 				</div>
 				<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 				<!-- User Password -->
 				<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">
 					<!-- Forgot Password Bubble -->
-					<? if(form_data('fs_password_fails') >= 3 && set_value('username') != null && form_error('password') != null){?>
-						<div class="bubble right basic-shadow" id="forgot_password_bubble">
+						<div class="bubble right basic-shadow forgot-password-bubble" style="display:none;">
 							<div class="bubble-content">
 								<?=lang('password_forgot')?> 
 								<a data-url="password" data-post="username" class="retrieval-link" id="retrieve_password_link"><?=lang('password_forgot_link')?></a>
 							</div>
 						</div>
-					<?} ?>
 					<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 					<!-- Show Password Icon -->
 					<div class="show-password icon fade visible" style="display: none;"></div>

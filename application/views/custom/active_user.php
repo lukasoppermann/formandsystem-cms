@@ -11,21 +11,19 @@
 			</div>
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- User Name or Email -->
-			<input class="user" type="hidden" name="username" value="<?=$user?>" />
-			<!-- Blocked User Bubble -->
-			<div class="bubble right basic-shadow blocked-user-bubble <?=((form_data('user_blocked') == 'TRUE' && 
-			form_error('username') != null) ? '' : ' hidden' )?>">
-				<div class="bubble-content">
-					<?=lang('user_blocked')?>
-					<a data-url="blocked_user" data-post="username" class="retrieval-link unblock-user-link"><?=lang('user_blocked_link')?></a>
-				</div>
-			</div>
+			<input class="username" type="hidden" name="username" value="<?=$user?>" />
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- User Password -->
 			<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">
+				<!-- Blocked User Bubble -->
+				<div class="bubble right basic-shadow blocked-user-bubble" style="display: none;">
+					<div class="bubble-content">
+						<?=lang('user_blocked')?>
+						<a data-url="blocked_user" data-post="username" class="retrieval-link unblock-user-link"><?=lang('user_blocked_link')?></a>
+					</div>
+				</div>
 				<!-- Forgot Password Bubble -->
-				<? if(form_data('fs_password_fails') >= 3 && set_value('username') != null && form_error('password') != null){?>
-					<div class="bubble right basic-shadow" id="forgot_password_bubble">
+					<div class="bubble right basic-shadow forgot-password-bubble" style="display: none;">
 						<div class="bubble-content">
 							<?=lang('password_forgot')?> 
 							<a data-url="password" data-post="username" class="retrieval-link" id="retrieve_password_link">
@@ -33,7 +31,6 @@
 							</a>
 						</div>
 					</div>
-				<?} ?>
 				<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 				<!-- Show Password Icon -->
 				<div class="show-password icon fade visible" style="display: none;"></div>

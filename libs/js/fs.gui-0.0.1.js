@@ -38,7 +38,7 @@ $(function(){
 		var _this = $(this);
 		var _placeholder = $('<div class="placeholder">'+_this.attr('placeholder')+'</div>');
 		// check if input is full
-		if( _this.val() != '' )
+		if( _this.val().length != 0 )
 		{
 			// if so, hide placeholder
 			_placeholder.hide();
