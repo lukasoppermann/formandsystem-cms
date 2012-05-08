@@ -28,4 +28,5 @@
 .invisible:before{ background-position: -20px 0px; }
 .submit:before{ background-position: -40px 0px; }
 .help:before{ background-position: -60px 0px; }
-.add:before{ background-position: 100% 0%; }
+.add:before{ background-position: -80px 0px; }
+.logout:before{ background-position: 0px -20px; }

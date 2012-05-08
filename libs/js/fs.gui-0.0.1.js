@@ -4,7 +4,9 @@ $(function(){
 	var _sub_menu_bar = $("#sub_menu_bar");
 	if(	$.trim(_sub_menu_bar.text()) != '')
 	{
-		_sub_menu_bar.animate({'marginTop':'+='+45}, 500, 'swing');
+		_sub_menu_bar.animate({'marginTop':'+='+45}, 500, 'swing', function(){
+			_sub_menu_bar.find('ul').fadeIn(400)
+		});
 	}
 	// --------------------------------------------------------------------
 	// add focus to first failed field
