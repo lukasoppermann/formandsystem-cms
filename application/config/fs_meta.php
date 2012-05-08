@@ -21,8 +21,8 @@ $config['favorite_tags']['ipad'] 		= '<link rel="apple-touch-icon-precomposed" s
 | if set to false no icon tag will be added (browser default is to look for the favico.ico in root)
 */
 // defaults for browser
-$config['favorite_images']['browser']		= false;
-$config['favorite_images']['microsoft']		= false;
+$config['favorite_images']['browser']		= '';
+$config['favorite_images']['microsoft']		= '';
 // iphone and ipad
 $config['favorite_images']['iphone'] 		= '-iphone';
 $config['favorite_images']['ipad'] 			= '-ipad';
