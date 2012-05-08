@@ -34,9 +34,10 @@ class MY_Controller extends CI_Controller {
 		// --------------------------------------------------------------------	
 		// load assets
 		css_add('libs/css/icons.css');
-		css_add('base,icons,gui');
+		css_add('base,menu,icons,gui');
 		js_add_lines('CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'";', 'default');
-		js_add('jquery, jquery.effects.core.min, fs.local-storage, fs.gui', 'default');
+		js_add('jquery', 'jquery');
+		js_add('jquery.effects.core, fs.local-storage, fs.gui', 'default');
 		$db = 'cms_entries';
 		$data = array('menu_id' => 5, 'title' => 'New Title', 'data' => array('user' => 'test', 'peter' => 'schmidt'));
 		$data = array($data, array('menu_id' => '16', 'title' => '3', 'data' => 'test'));
@@ -50,17 +51,23 @@ class MY_Controller extends CI_Controller {
 		// --------------------------------------------------------------------
 		// Initialize Menus
 		// Main
+		
 		foreach($this->config->item('menu') as $menu)
 		{
 			$this->data['menu'][$menu['name']] = $this->fs_navigation->tree(array(
-				'menu' => $menu['menu_id'], 
-				'id' => $menu['name'].'_menu', 
-				'class_lvl_0' => variable($menu['class']), 
-				'start_lvl' => variable($menu['start_lvl']), 
-				'lvl' => variable($menu['lvl']), 
-				'hide' => variable($menu['hide']))
-			);	
+				'menu' 					=> $menu['menu_id'], 
+				'id' 					=> $menu['name'].'_menu', 
+				'class_lvl_0' 			=> variable($menu['class']),
+				'start_lvl' 			=> variable($menu['start_lvl']),
+				'item_class' 			=> variable($menu['item_class']),
+				'lvl' 					=> variable($menu['lvl']),
+				'hide' 					=> variable($menu['hide']),
+				'item_before' 			=> variable($menu['item_before']),
+				'item_after' 			=> variable($menu['item_after']),
+				'replace_label' 		=> array('[profil]' => ucfirst(user('firstname')).' '.ucfirst(user('lastname')))
+			));	
 		}
+		echo $this->fs_navigation->path();
 		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
 		// print_r();
 		// echo "</pre>";
@@ -82,11 +89,11 @@ class MY_Controller extends CI_Controller {
 		// // create system menu		
 		// $system_switch = $this->fs_navigation->tree(array('id' => 'system_switch', 'item_class' => 'system', 'class' => '', 'hide' => array(), 'active' => array($system), 'menu_data' => array(index_array($array, 'position'))));
 		// 		
-		// $this->data['menu']['system_menu'] = "<ul id='system_menu'>
-		// 		<li class='arrow-down-li'>
-		// 			<span class='arrow-down-span'></span>
-		// 			".$system_switch."
-		// 		</li>
+		$this->data['menu']['system_menu'] = "<ul id='system_menu'>
+				<li class='arrow-down-li'>
+					<span class='arrow-down-span'></span>
+					Form&System
+				</li></ul>";
 		// 		<li class='current-system' data-system='".$array[$system]['name']."'><a href='".$array[$system]['url']."' target='_blank'>".$array[$system]['label']."</a></li>
 		// 	</ul>";
 		// --------------------------------------------------------------------		
