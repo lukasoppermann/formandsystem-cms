@@ -18,7 +18,7 @@ echo title('All variables for title are missing | Form&amp;System');
 	</div>
 	<div id="sub_menu_bar">
 		<?=variable($menu['system_menu'])?>
-		<?=variable($menu['submenu'])?>
+		<?=variable($menu['sub'])?>
 	</div>
 	<!-- <div id="content" style="height:<?=get_cookie('content_height')?>px;"> -->
 		<div id="content">	
