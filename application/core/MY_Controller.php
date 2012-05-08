@@ -67,7 +67,6 @@ class MY_Controller extends CI_Controller {
 				'replace_label' 		=> array('[profil]' => ucfirst(user('firstname')).' '.ucfirst(user('lastname')))
 			));	
 		}
-		echo $this->fs_navigation->path();
 		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
 		// print_r();
 		// echo "</pre>";
@@ -102,7 +101,6 @@ class MY_Controller extends CI_Controller {
 		//
 		// echo trim(_sha512(salt('lukas', 'exj5IJxo4UJ')));
 		login($group);
-		$data['content'] = 'test';
 	}
 }
 /* End of file MY_Controller.php */

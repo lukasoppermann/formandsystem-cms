@@ -7,7 +7,7 @@
 | Link Tags for different favorite icon types
 */
 // defaults for browser
-$config['favorite_tags']['browser'] 	= '<link rel="shortcut icon" href="[file]" type="image/x-icon" />';
+$config['favorite_tags']['browser'] 	= '<link rel="icon" href="[file]" type="image/x-icon" />';
 $config['favorite_tags']['microsoft']	= '<link rel="icon" href="[file]" type="image/vnd.microsoft.icon" />';
 // iphone and ipad
 $config['favorite_tags']['iphone'] 		= '<link rel="apple-touch-icon-precomposed" href="[file]" />';
@@ -18,10 +18,11 @@ $config['favorite_tags']['ipad'] 		= '<link rel="apple-touch-icon-precomposed" s
 /*
 | Extension to be used as a suffix for favorite icon image if only one name is given, e.g. favicon
 | would be turned into e.g. favicon-iphone.png
+| if set to false no icon tag will be added (browser default is to look for the favico.ico in root)
 */
 // defaults for browser
-$config['favorite_images']['browser']		= '';
-$config['favorite_images']['microsoft']		= '';
+$config['favorite_images']['browser']		= false;
+$config['favorite_images']['microsoft']		= false;
 // iphone and ipad
 $config['favorite_images']['iphone'] 		= '-iphone';
 $config['favorite_images']['ipad'] 			= '-ipad';
