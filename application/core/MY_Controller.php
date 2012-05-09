@@ -97,9 +97,12 @@ class MY_Controller extends CI_Controller {
 		// 	</ul>";
 		// --------------------------------------------------------------------		
 		// check for sufficient rights
-		$group = current_nav('group', true);
+		$group = current_nav('group');
 		//
 		// echo trim(_sha512(salt('lukas', 'exj5IJxo4UJ')));
+		echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
+		print_r($group);
+		echo "</pre>";
 		login($group);
 	}
 }
