@@ -11,12 +11,12 @@
 
 // ------------------------------------------------------------------------
 /**
- * base_url - returns the base_url with the current language part
+ * base_url - returns the base_url with or without slash
  *
  * @param boolean 
  * @return string
  */
-function base_url($slash = TRUE)
+function base_url( $slash = TRUE )
 {
 	$CI =& get_instance();
 	
@@ -27,6 +27,26 @@ function base_url($slash = TRUE)
 	else
 	{
 		return $CI->config->unslash_item('base_url');		
+	}
+}
+// ------------------------------------------------------------------------
+/**
+ * Current URL - returns the current URL with or without slash
+ *
+ * @access	public
+ * @return	string
+ */
+function current_url( $slash = TRUE )
+{
+	$CI =& get_instance();
+
+	if($slash == TRUE)
+	{
+		return $CI->config->site_url($CI->uri->uri_string()).'/';
+	}
+	else
+	{
+		return trim('/',$CI->config->site_url($CI->uri->uri_string()));
 	}
 }
 // ------------------------------------------------------------------------
