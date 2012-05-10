@@ -9,7 +9,7 @@
  * @link		http://doc.formandsystem.com/helpers/date
  */
 
-function time_convert( $time = null, $output = 'hours', $input = 'seconds')
+function time_convert( $time = null, $output = 'hours', $input = 'seconds', $int = TRUE)
 {
 	// formats for converting
 	$formats['seconds'] = 1;
@@ -20,8 +20,17 @@ function time_convert( $time = null, $output = 'hours', $input = 'seconds')
 	$formats['years'] 	= 31536000;
 	// convert time to seconds
 	$time = $time * $formats[$input];
-	// convert time to output
-	return $time / $formats[$output];
+	// return as int or float
+	if( $int === TRUE )
+	{
+		// convert time to output
+		return ceil($time / $formats[$output]);
+	}
+	else
+	{
+		// convert time to output
+		return $time / $formats[$output];		
+	}
 }
 
 /* End of file MY_date_helper.php */
