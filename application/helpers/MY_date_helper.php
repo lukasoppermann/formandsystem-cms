@@ -34,7 +34,7 @@ function time_convert( $time = null, $output = 'hours', $input = 'seconds', $int
 	if( $int === TRUE )
 	{
 		// convert time to output
-		return ceil($time / $formats[$output]);
+		return floor($time / $formats[$output]);
 	}
 	else
 	{
@@ -52,6 +52,10 @@ function time_convert( $time = null, $output = 'hours', $input = 'seconds', $int
  */
 function time_ago( $time )
 {
+	//load assets
+	$CI = &get_instance();
+	$CI->lang->load('date');
+	$CI->load->helper('language');
 	// get time difference
 	$ago = time() - $time;
 	// if one minute ago
@@ -75,7 +79,7 @@ function time_ago( $time )
 		return sprintf(lang('hours_ago'), time_convert($ago, 'hours'));
 	}
 	// one day ago
-	elseif( $ago > 86000 && $ago < 170000)
+	elseif( $ago > 86000 && $ago < 172000)
 	{
 		return sprintf(lang('day_ago'), time_convert($ago, 'days'));
 	}
@@ -85,12 +89,12 @@ function time_ago( $time )
 		return sprintf(lang('days_ago'), time_convert($ago, 'days'));
 	}
 	// one month ago
-	elseif( $ago > 2592000 && $ago < 5180000 )
+	elseif( $ago > 2592000 && $ago < 5184000 )
 	{
 		return sprintf(lang('one_month_ago'), time_convert($ago, 'month'));
 	}
 	// month ago
-	elseif( $ago > 5180000 && $ago < 31530000 )
+	elseif( $ago > 5184000 && $ago < 31530000 )
 	{
 		return sprintf(lang('month_ago'), time_convert($ago, 'month'));
 	}
