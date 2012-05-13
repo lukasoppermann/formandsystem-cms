@@ -5,7 +5,7 @@ $(function(){
 	if(	$.trim(_sub_menu_bar.text()) != '')
 	{
 		_sub_menu_bar.animate({'marginTop':'+='+45}, 500, 'swing', function(){
-			_sub_menu_bar.find('ul').fadeIn(400)
+			_sub_menu_bar.find('.menu').fadeIn(400)
 		});
 	}
 	// --------------------------------------------------------------------

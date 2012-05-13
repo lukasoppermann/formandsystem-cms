@@ -1,4 +1,4 @@
-#header .menu{
+#header > .menu{
 	float: left;
 	list-style: none;
 	color: rgb(255,255,255);
@@ -11,11 +11,11 @@
 	-moz-box-shadow: 0px 0px 0px 1px rgb(70,70,70);
 	border-radius: 3px;
 }
-#header .menu li{
+#header > .menu li{
 	float: left;
 	z-index: 1;
 }
-#header .menu > li{
+#header > .menu > li{
 	height: 30px;
 	transition-property: box-shadow;  
 	transition-duration: .4s;  
@@ -27,19 +27,19 @@
 	-moz-transition-duration: .4s;
 	-moz-transition-delay: 0s;
 }
-#header .menu > li:first-child{
+#header > .menu > li:first-child{
 	-webkit-border-bottom-left-radius: 3px;
 	-moz-border-radius-bottomleft: 3px;
 	-webkit-border-top-left-radius: 3px;
 	-moz-border-radius-topleft: 3px;
 }
-#header .menu > li:last-child{
+#header > .menu > li:last-child{
 	-webkit-border-top-right-radius: 3px;
 	-moz-border-radius-topright: 3px;
 	-webkit-border-bottom-right-radius: 3px;
 	-moz-border-radius-bottomright: 3px;
 }
-#header .menu > li > a{
+#header > .menu > li > a{
 	height: 13px;
 	padding: 8px 10px 9px 10px;
 	background-color: rgb(70,70,70);
@@ -47,15 +47,15 @@
 	background-image: -webkit-linear-gradient(top, rgb(70,70,70), rgb(60,60,60));
 	border-right: 1px solid rgb(55,55,55);
 }
-#header .menu li:last-child a{
+#header > .menu li:last-child a{
 	border-right: 0px;
 }
-#header .menu li a{
+#header > .menu li a{
 	display: block;
 	color: inherit;
 	text-decoration: none;
 }
-#header .menu > li ul{
+#header > .menu > li ul{
 	position: absolute;
 	top: 31px;
 	left: -1px;
@@ -63,7 +63,7 @@
 #main_menu{
 	margin: 6px 0px 7px 20px;
 }
-#header .menu > li:hover{
+#header > .menu > li:hover{
 	border: 1px solid rgb(45,45,45);
 	margin: -1px 0px -1px -1px;
 	z-index: 5;
@@ -80,16 +80,16 @@
 	-moz-transition-duration: .6s;
 	-moz-transition-delay: 0s;
 }
-#header .menu > li:hover a{
+#header > .menu > li:hover a{
 	border: 0;
 }
-#header .menu > li:last-child:hover a{
+#header > .menu > li:last-child:hover a{
 	padding-right: 10px;
 }
-#header .menu > li:last-child:hover{
+#header > .menu > li:last-child:hover{
 	margin-right: -1px;
 }
-#header .menu > li.active > a{
+#header > .menu > li.active > a{
 	background-color: rgb(50,50,50);
 	background-image: -moz-linear-gradient(top, rgb(50,50,50), rgb(55,55,55));
 	background-image: -webkit-linear-gradient(top, rgb(50,50,50), rgb(55,55,55));
@@ -107,17 +107,17 @@
 	-moz-transition-duration: .5s;
 	-moz-transition-delay: 0s;
 }
-#header .menu > li.active{
+#header > .menu > li.active{
 	margin: -1px 0px -1px -1px;
 	border: 1px solid rgb(45,45,45);
 	z-index: 5;	
 }
-#header .menu > li.active:hover{
+#header > .menu > li.active:hover{
 	box-shadow: none;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 }
-#header .menu > li.active:hover > a{
+#header > .menu > li.active:hover > a{
 	box-shadow: inset 0px 1px 3px 0 rgba(0,0,0,0.6);
 	-webkit-box-shadow: inset 0px 1px 3px 0 rgba(0,0,0,0.6);
 	-moz-box-shadow: inset 0px 1px 3px 0 rgba(0,0,0,0.6);
@@ -154,7 +154,7 @@
 	-moz-transition-property: opacity;
 	-moz-transition-duration: .4s;
 }
-.has-submenu .main-submenu{
+.has-submenu .main-submenu, .has-submenu .meta-submenu{
 	display: none; 
 }
 .has-submenu:hover .main-submenu, .has-submenu:hover .meta-submenu{
@@ -250,7 +250,7 @@
 }
 /*------------------------*/
 /* seperator */
-#main_menu .main-submenu li.seperator, #meta_menu .meta-submenu li.seperator, #system_switch li.seperator{
+#main_menu .has-submenu .main-submenu li.seperator, #meta_menu .has-submenu .meta-submenu li.seperator{
 	height: 0;
 	width: 100%;
 	padding: 0;
@@ -309,7 +309,7 @@
 	-moz-transition-property: box-shadow, border;
 	-moz-transition-duration: .4s;
 }
-#sub_menu li a:hover .sub-item-span, #system_menu .system-current.active:hover{
+#sub_menu li a:hover .sub-item-span, #system_menu:hover .system-current.active{
 	border:  1px solid rgb(150,150,150);
 	box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.25);
 	-webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.25);
@@ -351,6 +351,9 @@
 	margin: 5px 0px;
 	padding-left: 25px;
 }
+#system_menu:hover .system-current.active{
+	cursor: pointer;
+}
 #system_menu .system-color{
 	display: block;
 	height: 11px;
@@ -364,10 +367,7 @@
 	-webkit-box-shadow: 0px 1px 0px 0px rgba(255,255,255,0.5);
 	-moz-box-shadow: 0px 1px 0px 0px rgba(255,255,255,0.5);
 }
-#system_menu .system-current.active:hover{
-	cursor: pointer;
-}
-#system_menu .active:hover .system-color{
+#system_menu:hover .system-color{
 	display: block;
 	height: 11px;
 	width: 11px;
@@ -375,7 +375,9 @@
 	left: 5px;
 	top: 5px;
 	border-radius: 4px;
-	border: 2.5px solid rgb(255,220,0);
+	border-width: 2.5px;
+	border-style: solid;
+	border-color: rgb(255,220,0);
 	box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.1), 
 				0px 1px 0px 0px rgba(255,255,255,0.15), 
 				inset 0px 1px 0px 0px rgba(255,255,255,0.15), 
@@ -389,8 +391,119 @@
 				inset 0px 1px 0px 0px rgba(255,255,255,0.15), 
 				inset 0px -1px 0px rgba(0,0,0,0.1);
 }
+#system_menu:hover .system-color
 #system_menu .systems{
+	display: none;
 	list-style: none;
+	width: 150px;
+}
+#system_menu .systems .system{
+	position: relative;
+	display: block;	
+	border: none;
+	float: left;
+	width: 100%;
+	min-width: 140px;
+	height: 27px;	
+}
+#system_menu .systems .system{
+	background: none;
+	border: none;
 	display: block;
-	width: 100px;
+	float: left;
+	position: relative;	
+	width: 100%;
+	line-height: 1;
+	padding: 8px 10px 8px 25px;
+	height: 27px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
+	text-shadow: rgb(255,255,255) 0px 1px 0;
+	background-color: rgba(255,225,25,0.0);	
+}
+#system_menu .system-wrapper{ 
+	opacity: 0;
+}
+#system_menu:hover .system-wrapper{
+	position: absolute;	
+	top: 31px;
+	left: 2px;
+	opacity: 1.0;
+	transition-property: opacity;  
+	transition-duration: .4s;  
+	-webkit-transition-property: opacity;
+	-webkit-transition-duration: .4s;
+	-moz-transition-property: opacity;
+	-moz-transition-duration: .4s;
+}
+#system_menu:hover .systems{
+	position: absolute;
+	display: block;
+	cursor: pointer;
+	left: -2px;
+	list-style: none;
+	font-size: 12px;
+	color: rgb(90,90,90);
+	background-color: rgb(250,250,250);	
+	border-radius: 3px;
+	box-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+	-moz-box-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+#system_menu:hover .systems .system:first-child:before{
+	content: "";
+	display: block;
+	height: 0;
+	width: 0;
+	position: absolute;
+	top: -8px;
+	left: 30px;
+	border: 4px solid rgb(255,255,255);
+	border-color: transparent transparent rgb(255,255,255) transparent;
+}
+#system_menu:hover .systems .system:first-child:hover:before{
+	border-color: transparent transparent rgb(255,225,25) transparent;	
+}
+#system_menu .system{
+	position: relative;
+	display: block;	border: none;
+	float: left;
+	width: 100%;
+	min-width: 140px;
+	height: 27px;	
+}
+#system_menu .system .system-color{
+	top: 6px;
+}
+#system_menu .system:hover{
+	color: rgba(50,50,50,0.9);
+	text-shadow: rgba(255,255,255,0.5) 0px 1px 0;
+	background-color: rgba(255,225,25,1.0);
+	background-image: -moz-linear-gradient(top, transparent 0%, rgba(250,200,35,0.0) 50%, rgba(250,200,35,0.1) 51%, rgba(250,200,35,1.0) 100%);	
+	background-image: -webkit-linear-gradient(top, transparent 0%, rgba(250,200,35,0.0) 50%, rgba(250,200,35,0.1) 51%, rgba(250,200,35,1.0) 100%);	
+	background-size: auto 60px;
+	background-position: top left;		
+	background-position: -60px -30px;
+	transition: background-color 0.6s, background-position 1.8s;
+	-webkit-transition: background-color 0.6s, background-position 1.8s;
+	-moz-transition: background-color 0.6s, background-position 1.8s;
+}
+#system_menu .system:hover .system-color{
+	border-color: rgb(50,50,50) !important;	
+}
+
+#main_menu .main-submenu li.last a, #meta_menu .meta-submenu li.last a,
+#main_menu .main-submenu li:last-child a, #meta_menu .meta-submenu li:last-child a{
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	-webkit-border-radius-bottom-left: 3px;
+	-webkit-border-radius-bottom-right: 3px;
+}
+#main_menu .has-submenu li span.shortcut{
+	color: rgb(150,150,150);
+	text-shadow: rgba(255,255,255,0.5) 0px 1px 0;
+}
+#main_menu .has-submenu li:hover span.shortcut{
+	color: rgba(50,50,50,0.9);	
 }

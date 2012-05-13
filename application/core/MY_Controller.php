@@ -54,18 +54,11 @@ class MY_Controller extends CI_Controller {
 		
 		foreach($this->config->item('menu') as $menu)
 		{
-			$this->data['menu'][$menu['name']] = $this->fs_navigation->tree(array(
+			$this->data['menu'][$menu['name']] = $this->fs_navigation->tree(array_merge($menu, array(
 				'menu' 					=> $menu['menu_id'], 
 				'id' 					=> $menu['name'].'_menu', 
-				'class_lvl_0' 			=> variable($menu['class']),
-				'start_lvl' 			=> variable($menu['start_lvl']),
-				'item_class' 			=> variable($menu['item_class']),
-				'lvl' 					=> variable($menu['lvl']),
-				'hide' 					=> variable($menu['hide']),
-				'item_before' 			=> variable($menu['item_before']),
-				'item_after' 			=> variable($menu['item_after']),
 				'replace_label' 		=> array('[profil]' => ucfirst(user('firstname')).' '.ucfirst(user('lastname')))
-			));	
+			)));	
 		}
 		// echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
 		// print_r();
@@ -94,9 +87,16 @@ class MY_Controller extends CI_Controller {
 						<span class='system-color'></span>
 						Form&System
 					</div>
-					<ul class='systems'>
-						<li class='system'><span class='system-color'></span>veare</li>
-					</ul>
+					<div class='system-wrapper'>
+						<ul class='systems'>
+							<li class='system'>
+								<span class='system-color' style='border-color:rgb(245,160,10);'></span>veare
+							</li>
+							<li class='system'>
+								<span class='system-color' style='border-color:rgb(225,80,0);'></span>lukasoppermann
+							</li>
+						</ul>
+					</div>
 				</li>
 				</ul>";
 		// 		<li class='current-system' data-system='".$array[$system]['name']."'><a href='".$array[$system]['url']."' target='_blank'>".$array[$system]['label']."</a></li>
