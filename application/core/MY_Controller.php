@@ -88,11 +88,17 @@ class MY_Controller extends CI_Controller {
 		// // create system menu		
 		// $system_switch = $this->fs_navigation->tree(array('id' => 'system_switch', 'item_class' => 'system', 'class' => '', 'hide' => array(), 'active' => array($system), 'menu_data' => array(index_array($array, 'position'))));
 		// 		
-		$this->data['menu']['system_menu'] = "<ul id='system_menu'>
-				<li class='arrow-down-li'>
-					<span class='arrow-down-span'></span>
-					Form&System
-				</li></ul>";
+		$this->data['menu']['system_menu'] = "<ul id='system_menu' class='menu'>
+				<li>
+					<div class='system-current active'>
+						<span class='system-color'></span>
+						Form&System
+					</div>
+					<ul class='systems'>
+						<li class='system'><span class='system-color'></span>veare</li>
+					</ul>
+				</li>
+				</ul>";
 		// 		<li class='current-system' data-system='".$array[$system]['name']."'><a href='".$array[$system]['url']."' target='_blank'>".$array[$system]['label']."</a></li>
 		// 	</ul>";
 		// --------------------------------------------------------------------		
@@ -100,9 +106,6 @@ class MY_Controller extends CI_Controller {
 		$group = current_nav('group');
 		//
 		// echo trim(_sha512(salt('lukas', 'exj5IJxo4UJ')));
-		echo "<pre style='text-align: left; margin: 5px; padding: 8px; border: 1px solid #aaa; background: #fff; float: left; width: 98%; white-space: pre-wrap;'>";
-		print_r($group);
-		echo "</pre>";
 		login($group);
 	}
 }
