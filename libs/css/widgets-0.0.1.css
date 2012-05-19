@@ -72,8 +72,12 @@
 #notes .notes{
 	position: relative;
 	list-style: none;
-	background-position: left -7px;
-	background-image: url('1px_note_line.png');
+    background: -webkit-linear-gradient(bottom, rgba(230,230,200,0.4) 0, transparent 1px) 0 17px;
+    background: -moz-linear-gradient(bottom, rgba(230,230,200,0.4) 0, transparent 1px) 0 17px;
+    background: linear-gradient(bottom, rgba(230,230,200,0.4) 0, transparent 1px) 0 17px;
+    -webkit-background-size: 100% 24px;
+    -moz-background-size: 100% 24px;
+    background-size: 100% 24px;
 	z-index: 2;
 }
 #notes .notes .note{
@@ -131,8 +135,8 @@
 	position: absolute;
 	top: 2px;
 	left: 6px;
-	background-image: url('formandsystem_icons.png');
-	background-position: -32px 320px;
+/*	background-image: url('formandsystem-icons.png');
+	background-position: -32px 320px;*/
 	opacity: 0.2;
 }
 #notes .notes .note.tick:before{

@@ -12,7 +12,7 @@ echo title('All variables for title are missing | Form&amp;System');
 <body<?=variable($body_id).variable($body_class); ?>>
 <div id="page_wrapper">
 	<div id="header">
-		<?=logo(array('file' => media('formandsystem_logo.png', 'layout'), 'alt' => 'Form and System', 'url' => active_url(TRUE).'dashboard'))."\n"; ?>
+		<?=logo(array('file' => media('formandsystem-icons.png', 'layout'), 'alt' => 'Form and System', 'url' => active_url(TRUE).'dashboard'))."\n"; ?>
 		<?=variable($menu['main'])?>
 		<?=variable($menu['meta'])?>
 	</div>

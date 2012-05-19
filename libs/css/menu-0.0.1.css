@@ -492,18 +492,9 @@
 #system_menu .system:hover .system-color{
 	border-color: rgb(50,50,50) !important;	
 }
-
-#main_menu .main-submenu li.last a, #meta_menu .meta-submenu li.last a,
-#main_menu .main-submenu li:last-child a, #meta_menu .meta-submenu li:last-child a{
+#system_menu .system:last-child{
 	border-bottom-left-radius: 3px;
 	border-bottom-right-radius: 3px;
 	-webkit-border-radius-bottom-left: 3px;
 	-webkit-border-radius-bottom-right: 3px;
-}
-#main_menu .has-submenu li span.shortcut{
-	color: rgb(150,150,150);
-	text-shadow: rgba(255,255,255,0.5) 0px 1px 0;
-}
-#main_menu .has-submenu li:hover span.shortcut{
-	color: rgba(50,50,50,0.9);	
 }

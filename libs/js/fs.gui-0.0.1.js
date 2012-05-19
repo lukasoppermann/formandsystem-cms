@@ -46,7 +46,7 @@ $(function(){
 			_placeholder.hide();
 		}
 		// add placeholder
-		_this.after(_placeholder).css({'background':'transparent'}).attr('placeholder','');
+		_this.after(_placeholder).css({'background':'transparent'}).attr('placeholder','').attr('autocomplete','off');
 	});
 	// add placeholder events
 	$('body').on({

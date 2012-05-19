@@ -41,7 +41,7 @@ $(function(){
 		// load template
 		$.ajax({
 			url: CI_BASE+"ajax/template", 
-			data: {template: 'custom/user_active'}, 
+			data: {template: 'login/user_active'}, 
 			dataType: 'html',
 			type: 'POST',
 			success: function( data )
@@ -57,7 +57,7 @@ $(function(){
 				});
 				//
 				_wrapper.prepend( active_user.html());
-				var _inputs = $("[placeholder]");
+				var _inputs = $("[placeholder]", $('.active-user'));
 				// add placeholders
 				_inputs.each(function()
 				{
@@ -70,7 +70,7 @@ $(function(){
 						_placeholder.hide();
 					}
 					// add placeholder
-					_this.after(_placeholder).css({'background':'transparent'}).attr('placeholder','');
+					_this.after(_placeholder).css({'background':'transparent'}).attr('placeholder','').attr('autocomplete','off');
 				});
 				
 				$($('.active-user').get().reverse()).each(function( i ){
@@ -80,7 +80,11 @@ $(function(){
 		});
 		//
 	}
-
+	// no user loaded from localStorage
+	else
+	{
+		$('.perspective').addClass('flip single active');
+	}
 	// --------------------------------------------------------------------
 	// submit form ajax
 	_wrapper.on('submit', function(e)
@@ -268,7 +272,7 @@ $(function(){
 	}
 	// --------------------------------------------------------------------
 	// hide ? on user input
-	if(_new_user.find('.user').val() != '')
+	if(_new_user.find('.username').val() != '')
 	{
 		// hide user button if input is not empty
 		_btn_show_user.animate({'opacity':0}, 100, function()
@@ -299,7 +303,7 @@ $(function(){
 	_input_user.on('blur', function()
 	{
 		// if input is empty
-		if(_input_user.val() == '')
+		if($(this).val() == '')
 		{
 			// fadein button
 			_btn_show_user.show().animate({'opacity':0.4}, 300);
@@ -309,66 +313,78 @@ $(function(){
 	// show/hide show password icon
 	// --------------------
 	// typing into password field
-	_input_password.on('keyup', function()
-	{
-		// assing variables
-		var _input_password = $(this);
-		var _btn_show_password = _input_password.siblings('.show-password');
-		// if field is emtpy
-		if(_input_password.val() == '')
+	_wrapper.on({
+		keyup: function()
 		{
-			// fade out button
-			_btn_show_password.animate({'opacity':0.0}, 300, function()
+			// assing variables
+			var _input_password = $(this);	
+			var _btn_show_password = _input_password.siblings('.show-password');
+			// if field is emtpy
+			if(_input_password.val() == '')
 			{
-				_btn_show_password.hide();
-			});
-		}
-		// if field is full
-		else
+				// fade out button
+				_btn_show_password.animate({'opacity':0.0}, 300, function()
+				{
+					_btn_show_password.hide();
+				});
+			}
+			// if field is full
+			else
+			{
+				// fade in button
+				_btn_show_password.show().animate({'opacity':0.4}, 300);
+			}
+		},
+		blur: function()
 		{
-			// fade in button
-			_btn_show_password.show().animate({'opacity':0.4}, 300);
+			// assing variables
+			var _input_password 			= $(this);
+			var _btn_show_password 			= _input_password.siblings('.show-password');		
+			// if password field is empty
+			if(_input_password.val() == '' && _btn_show_password.css('opacity') != 0)
+			{
+				// fade password button
+				_btn_show_password.animate({'opacity':0.0}, 300, function()
+				{
+					_btn_show_password.hide();
+				});
+			}	
 		}
-	});
+	},'.password');
 	// --------------------
-	// on blur password field
-	_input_password.on('blur', function()
-	{
-		// assing variables
-		var _input_password 			= $(this);
-		var _btn_show_password 			= _input_password.siblings('.show-password');		
-		// if password field is empty
-		if(_input_password.val() == '' && _btn_show_password.css('opacity') != 0)
+	// password clear field
+	_wrapper.on({
+		// on blur password clear field
+		blur: function()
 		{
-			// fade password button
-			_btn_show_password.animate({'opacity':0.0}, 300, function()
+			// assing variables
+			var _input_password_clear 		= $(this);
+			var _btn_show_password 			= _input_password.siblings('.show-password');
+			// if password field is empty
+			if(_input_password_clear.val() == '' && _btn_show_password.css('opacity') != 0)
 			{
-				_btn_show_password.hide();
-			});
-		}
-	});
-	// on blur password clear field
-	_input_password_clear.on('blur', function()
-	{
-		// assing variables
-		var _input_password_clear 		= $(this);
-		var _btn_show_password 			= _input_password.siblings('.show-password');
-		// if password field is empty
-		if(_input_password_clear.val() == '' && _btn_show_password.css('opacity') != 0)
+				// fade password button
+				_btn_show_password.animate({'opacity':0.0}, 300, function()
+				{
+					// hide password clear field 
+					_input_password_clear.addClass('hidden');
+					// reset password show button
+					_btn_show_password.hide().removeClass('active invisible').addClass('visible');
+				});
+			}
+		},
+		// if typing in clear password field
+		keyup: function()
 		{
-			// fade password button
-			_btn_show_password.animate({'opacity':0.0}, 300, function()
-			{
-				// hide password clear field 
-				_input_password_clear.addClass('hidden');
-				// reset password show button
-				_btn_show_password.hide().removeClass('active invisible').addClass('visible');
-			});
+			// assing variables
+			var _input_password_clear 			= $(this);
+			// update real password field
+			_input_password_clear.siblings('.password').val( _input_password_clear.val() );
 		}
-	});
+	}, '.password-clear');
 	// --------------------------------------------------------------------
 	// show / hide password clear text
-	_btn_show_password.on('click', function()
+	_wrapper.on('click', '.show-password', function()
 	{
 		// assing variables
 		var _btn_show_password 			= $(this);
@@ -380,7 +396,7 @@ $(function(){
 			// set button to "invisible" [icon] 
 			_btn_show_password.addClass('active invisible').removeClass('visible');
 			// assign password content to clear text field, and show
-			_input_password_clear.val( _input_password.val() ).removeClass('hidden');
+			_input_password_clear.val('').removeClass('hidden').focus().val( _input_password.val() );
 		}
 		// if clear password is active
 		else
@@ -388,18 +404,10 @@ $(function(){
 			// set button to "visible" [icon] 
 			_btn_show_password.removeClass('active invisible').addClass('visible');
 			// update real password field
-			_input_password.val( _input_password_clear.val() );
+			_input_password.val( _input_password_clear.val() ).focus();
 			// hide clear password field
 			_input_password_clear.addClass('hidden');
 		}
-	});
-	// if typing in clear password field
-	_input_password_clear.on('keyup', function()
-	{
-		// assing variables
-		var _input_password_clear 			= $(this);
-		// update real password field
-		_input_password_clear.siblings('.password').val( _input_password_clear.val() );
 	});
 	// --------------------------------------------------------------------
 	// user full name enter	
@@ -510,8 +518,8 @@ $(function(){
 			// expand user widget
 			expand_user(_this_widget);
 			// contract active user
-			contract_user($('.active-user').find('.active'));
-			contract_new_user(_new_user);
+			contract_user($('.active-user').find('.widget.active'));
+			_new_user.removeClass('active').parents('.perspective').removeClass('flip');
 		}
 	});
 	// ---------------------------
@@ -567,77 +575,83 @@ $(function(){
 	}
 	// --------------------------------------------------------------------
 	// add click event to new user cards
-	_new_user.on('mousedown', function()
-	{	
-		// get clicked widget	
-		var _this_widget = $(this);
-		// check if widget is not active
-		if( !_this_widget.hasClass('active') )
-		{
-			// expand user widget
-			expand_new_user(_this_widget);
-			// contract active user
-			contract_user($('.active-user').find('.active'));
-		}
-	});
+	// _new_user.on('mousedown', function()
+	// {	
+	// 	// get clicked widget	
+	// 	var _this_widget = $(this);
+	// 	// check if widget is not active
+	// 	if( !_this_widget.hasClass('active') )
+	// 	{
+	// 		// expand user widget
+	// 		expand_new_user(_this_widget);
+	// 		// contract active user
+	// 		contract_user($('.active-user').find('.active'));
+	// 	}
+	// });
 	// ---------------------------
 	// fn contract new user
-	function contract_new_user( widget )
+	// function contract_new_user( widget )
+	// {
+	// 	// only run if widget is active
+	// 	if( widget.hasClass('active') )
+	// 	{
+	// 		// define variables
+	// 		var password = widget.find('.form-element');
+	// 		// contract widget
+	// 		widget.animate({'width': '210', 'height': '210', 'marginTop': '-100', 'marginLeft': '-100'}, 250, 'easeInOutQuart', function()
+	// 		{
+	// 			// remove class 'active'
+	// 			widget.removeClass('active');
+	// 		});
+	// 		// contract widget-content and remove padding
+	// 		widget.find('.widget-content').animate({'height': '190', 'width':'190', 'padding': '0'}, 250, 'easeInOutQuart');
+	// 		widget.find('.user-image').animate({'height':'180', 'width':'180'}, 250, 'easeInOutQuart');
+	// 		// slide away password input
+	// 		password.animate({'marginTop': '-35'}, 250, 'easeInOutQuart', function()
+	// 		{
+	// 			// display none password input
+	// 			password.css({'display':'none'});
+	// 		});
+	// 	}
+	// }
+	// // ---------------------------
+	// // fn expand new user
+	// function expand_new_user( widget )
+	// {
+	// 	// expand widget
+	// 	widget.animate({'width': '290', 'height': '370', 'marginTop': '-160', 'marginLeft': '-145'}, 250, 'easeInOutQuart', function()
+	// 	{
+	// 		// add class 'active'
+	// 		widget.addClass('active');
+	// 	});
+	// 	// expand widget content
+	// 	widget.find('.widget-content').animate({'height':'340', 'width':'260', 'padding': '5'}, 250, 'easeInOutQuart');
+	// 	widget.find('.user-image').animate({'height':'250', 'width':'250'}, 250, 'easeInOutQuart');
+	// 	// slide in password input
+	// 	widget.find('.form-element').css({'display':'block'}).delay(50).animate({'marginTop': 5}, 160, 'easeInOutQuart', function(){
+	// 		$(this).find('.user').select();
+	// 	});
+	// }
+	// --------------------------------------------------------------------
+	// hover new user
+	$('.perspective').hover(function()
 	{
-		// only run if widget is active
-		if( widget.hasClass('active') )
+		$(this).addClass('flip');
+	},
+	function()
+	{
+		var _this = $(this);
+		if( _this.find('input:focus').size() <= 0 && !_this.hasClass('single') && !_new_user.hasClass('active'))
 		{
-			// define variables
-			var password = widget.find('.form-element');
-			// contract widget
-			widget.animate({'width': '210', 'height': '210', 'marginTop': '-100', 'marginLeft': '-100'}, 250, 'easeInOutQuart', function()
-			{
-				// remove class 'active'
-				widget.removeClass('active');
-			});
-			// contract widget-content and remove padding
-			widget.find('.widget-content').animate({'height': '190', 'width':'190', 'padding': '0'}, 250, 'easeInOutQuart');
-			widget.find('.user-image').animate({'height':'180', 'width':'180'}, 250, 'easeInOutQuart');
-			// slide away password input
-			password.animate({'marginTop': '-35'}, 250, 'easeInOutQuart', function()
-			{
-				// display none password input
-				password.css({'display':'none'});
-			});
+			_this.removeClass('flip');
 		}
-	}
-	// ---------------------------
-	// fn expand new user
-	function expand_new_user( widget )
+	});
+	
+	$('.perspective').on('click', 'input', function()
 	{
-		// expand widget
-		widget.animate({'width': '290', 'height': '370', 'marginTop': '-160', 'marginLeft': '-145'}, 250, 'easeInOutQuart', function()
-		{
-			// add class 'active'
-			widget.addClass('active');
-		});
-		// expand widget content
-		widget.find('.widget-content').animate({'height':'340', 'width':'260', 'padding': '5'}, 250, 'easeInOutQuart');
-		widget.find('.user-image').animate({'height':'250', 'width':'250'}, 250, 'easeInOutQuart');
-		// slide in password input
-		widget.find('.form-element').css({'display':'block'}).delay(50).animate({'marginTop': 5}, 160, 'easeInOutQuart', function(){
-			$(this).find('.user').select();
-		});
-	}
+		_new_user.addClass('active');
+		contract_user($('.active-user').find('.active'));
+	});
 // --------------------------------------------------------------------	
 // end of jquery area
-// $(".perspective").on('click', function(){
-// 	console.log( $(".card").attr('class') );
-// 	if( $(".card").hasClass('flipped') )
-// 	{
-// 		$(".card").addClass('unflipped').removeClass('flipped');			
-// 		$(".perspective").removeClass('active');
-// 	}
-// 	else
-// 	{
-// 		$(".card").addClass('flipped').removeClass('unflipped');
-// 		$(".perspective").addClass('active');
-// 	}
-// });
-
 });
