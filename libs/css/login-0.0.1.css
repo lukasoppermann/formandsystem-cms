@@ -73,6 +73,7 @@
 	position: absolute;
 	right: 10px;
 	top: 5px;
+	z-index: 5;
 }
 #show_forgot_user{
 	opacity: 0.4;

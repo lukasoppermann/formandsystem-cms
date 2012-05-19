@@ -116,9 +116,7 @@ $(function(){
 					else
 					{
 						// set error message
-						_active.find('.login-errors').text(response.message).animate({'margin-top':-15, 'display':'block'}, 500);
-						//
-						console.log(response);
+						_active.find('.login-errors').text(response.message).show().animate({'margin-top':-15}, 500);
 						// check for type to show bubble
 						if( response.error == 'password' )
 						{
@@ -189,7 +187,7 @@ $(function(){
 		if(_forgot_user_bubble.hasClass('hidden'))
 		{
 			// hide password bubble
-			_forgot_password_bubble.fadeOut(200);
+			_forgot_user_bubble.siblings('.forgot-password-bubble').fadeOut(200);
 			// show user bubble
 			_forgot_user_bubble.css({'right':'+=40','opacity':'0'}).removeClass('hidden').animate({'right':'-=35','opacity':'1.0'});
 		}
@@ -496,31 +494,30 @@ $(function(){
 		}
 	}
 	// --------------------------------------------------------------------
-	// add click event to active user image
-	_wrapper.on('mousedown', '.active-user .active .user-image', function()
+	// add click event to widgets
+	_wrapper.on('mousedown', '.user-image, .login .user-image', function()
 	{
-		var _this_widget = $(this).parents('.widget');
-		setTimeout(function()
-		{
-			_this_widget.find('.password').select();
-			_this_widget.find('.password-clear').select();
-		}, 100);
-	});
-	// --------------------------------------------------------------------
-	// add click event to active user cards
-	_wrapper.on('mousedown', '.active-user', function()
-	{	
-		// get clicked widget	
-		var _this_widget = $(this).find('.widget');
+		// get widget and set active
+		var _this_widget = $(this).parents('.widget').addClass('.active');
 		// check if widget is not active
 		if( !_this_widget.hasClass('active') )
 		{
+			// contract active widget
+			contract_user($('.active-user').find('.widget.active'));
+			// if clicked is not new user
+			if( !_this_widget.hasClass('login') )
+			{
 			// expand user widget
 			expand_user(_this_widget);
 			// contract active user
-			contract_user($('.active-user').find('.widget.active'));
 			_new_user.removeClass('active').parents('.perspective').removeClass('flip');
+			}
 		}
+		// select input field text
+		setTimeout(function()
+		{
+			_this_widget.find('input[type!=hidden]:visible:first').select();
+		}, 100);
 	});
 	// ---------------------------
 	// fn contract user
@@ -573,65 +570,6 @@ $(function(){
 		}
 		widget.find('.forgot-password-bubble').delay(300).animate({'right':-172,'opacity':'1'});
 	}
-	// --------------------------------------------------------------------
-	// add click event to new user cards
-	// _new_user.on('mousedown', function()
-	// {	
-	// 	// get clicked widget	
-	// 	var _this_widget = $(this);
-	// 	// check if widget is not active
-	// 	if( !_this_widget.hasClass('active') )
-	// 	{
-	// 		// expand user widget
-	// 		expand_new_user(_this_widget);
-	// 		// contract active user
-	// 		contract_user($('.active-user').find('.active'));
-	// 	}
-	// });
-	// ---------------------------
-	// fn contract new user
-	// function contract_new_user( widget )
-	// {
-	// 	// only run if widget is active
-	// 	if( widget.hasClass('active') )
-	// 	{
-	// 		// define variables
-	// 		var password = widget.find('.form-element');
-	// 		// contract widget
-	// 		widget.animate({'width': '210', 'height': '210', 'marginTop': '-100', 'marginLeft': '-100'}, 250, 'easeInOutQuart', function()
-	// 		{
-	// 			// remove class 'active'
-	// 			widget.removeClass('active');
-	// 		});
-	// 		// contract widget-content and remove padding
-	// 		widget.find('.widget-content').animate({'height': '190', 'width':'190', 'padding': '0'}, 250, 'easeInOutQuart');
-	// 		widget.find('.user-image').animate({'height':'180', 'width':'180'}, 250, 'easeInOutQuart');
-	// 		// slide away password input
-	// 		password.animate({'marginTop': '-35'}, 250, 'easeInOutQuart', function()
-	// 		{
-	// 			// display none password input
-	// 			password.css({'display':'none'});
-	// 		});
-	// 	}
-	// }
-	// // ---------------------------
-	// // fn expand new user
-	// function expand_new_user( widget )
-	// {
-	// 	// expand widget
-	// 	widget.animate({'width': '290', 'height': '370', 'marginTop': '-160', 'marginLeft': '-145'}, 250, 'easeInOutQuart', function()
-	// 	{
-	// 		// add class 'active'
-	// 		widget.addClass('active');
-	// 	});
-	// 	// expand widget content
-	// 	widget.find('.widget-content').animate({'height':'340', 'width':'260', 'padding': '5'}, 250, 'easeInOutQuart');
-	// 	widget.find('.user-image').animate({'height':'250', 'width':'250'}, 250, 'easeInOutQuart');
-	// 	// slide in password input
-	// 	widget.find('.form-element').css({'display':'block'}).delay(50).animate({'marginTop': 5}, 160, 'easeInOutQuart', function(){
-	// 		$(this).find('.user').select();
-	// 	});
-	// }
 	// --------------------------------------------------------------------
 	// hover new user
 	$('.perspective').hover(function()
