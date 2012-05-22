@@ -9,7 +9,23 @@ class User extends MY_Controller {
 	}
 	
 	function index()
-	{	
+	{
+			
+	}
+	
+	function add()
+	{
+		view('default', $this->data); // $this->data		
+	}
+	
+	function edit()
+	{
+		view('default', $this->data); // $this->data
+	}
+	
+	function groups()
+	{
+		view('default', $this->data); // $this->data
 	}
 	
 	function retrieve($method = null)

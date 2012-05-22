@@ -47,11 +47,11 @@ $route['(\w+)/(\w{2})/dashboard/?(.*)?'] = 'dashboard';
 // Menu
 $route['(\w+)/(\w{2})/navigation/?(.*)?'] = "menu";
 // Content
-$route['(\w+)/(\w{2})/content/?(.*)?/?(.*)?'] = "content/index/$3";
+$route['(\w+)/(\w{2})/content/?(.*)?/?(.*)?'] = "content/$3";
 // Media
 $route['(\w+)/(\w{2})/media/?(.*)?'] = 'media';
 // User
-$route['(\w+)/(\w{2})/user/?(.*)?'] = 'user/$3';
+$route['(\w+)/(\w{2})/user/?(.*)?'] = "user/$3";
 // Settings
 $route['(\w+)/(\w{2})/settings/?(.*)?'] = 'settings';
 // Profile

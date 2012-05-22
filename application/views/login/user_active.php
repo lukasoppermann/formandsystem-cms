@@ -16,14 +16,14 @@
 			<!-- User Password -->
 			<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">
 				<!-- Blocked User Bubble -->
-				<div class="bubble right basic-shadow blocked-user-bubble" style="display: none;">
+				<div class="bubble right basic-shadow blocked-user-bubble hidden">
 					<div class="bubble-content">
 						<?=lang('user_blocked')?>
 						<a data-url="blocked_user" data-post="username" class="retrieval-link unblock-user-link"><?=lang('user_blocked_link')?></a>
 					</div>
 				</div>
 				<!-- Forgot Password Bubble -->
-					<div class="bubble right basic-shadow forgot-password-bubble" style="display: none;">
+					<div class="bubble right basic-shadow forgot-password-bubble hidden">
 						<div class="bubble-content">
 							<?=lang('password_forgot')?> 
 							<a data-url="password" data-post="username" class="retrieval-link" id="retrieve_password_link">

@@ -23,7 +23,7 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 				<!-- User Name or Email -->
 				<div class="form-element one-row<?=(set_value('username') == null ? ' empty' : '')?>">
 					<!-- Forgot User Bubble -->
-					<div class="bubble right basic-shadow" id="forgot_user_bubble" style="display: none;">
+					<div class="bubble right basic-shadow hidden" id="forgot_user_bubble">
 						<div class="bubble-content">
 							<p><?=lang('user_forgot')?></p>
 							<div class="form-element">

@@ -63,6 +63,7 @@
 }
 #forgot_user_bubble{
 	top: -25px;
+	z-index: 99;
 }
 /*------------------------*/
 /* Form Data */

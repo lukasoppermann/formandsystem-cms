@@ -127,12 +127,12 @@ $(function(){
 							// check for bubble
 							if( ++pw_errors > 2 )
 							{
-								_active.find('.forgot-password-bubble').css({'right':-100,'display':'block','opacity':'0'}).animate({'right':-172,'opacity':1});
+								bubble(_active.find('.forgot-password-bubble'));
 							}
 						}
 						else
 						{
-							_active.find('.forgot-password-bubble').css({'display':'none'});
+							bubble(_active.find('.forgot-password-bubble'), true);
 						}
 					
 						if( response.error == 'username' )
@@ -140,7 +140,7 @@ $(function(){
 							if( _active.find('.username').is(':hidden') )
 							{
 								// add error class to input
-								_active.find('.password').addClass('error');							
+								_active.find('.password').addClass('error');
 							}	
 							else
 							{
@@ -151,26 +151,26 @@ $(function(){
 							}
 							if( response.user_blocked == 'TRUE' )
 							{
-								_active.find('.blocked-user-bubble').css({'right':-100,'display':'block','opacity':'0'}).animate({'right':-172,'opacity':1});
+								bubble(_active.find('.blocked-user-bubble'));
 							}
 							else
 							{
-								_active.find('.blocked-user-bubble').css({'display':'none'});
+								bubble(_active.find('.blocked-user-bubble'), true);
 							}
 							//
 							if( response.user_blocked != 'TRUE' )
 							{
-								_active.find('#forgot_user_bubble').css({'right':-100,'display':'block','opacity':'0'}).animate({'right':-172,'opacity':1});
+								bubble(_active.find('#forgot_user_bubble'));
 							}
 							else
 							{
-								_active.find('#forgot_user_bubble').css({'display':'none'});
+								bubble(_active.find('#forgot_user_bubble'), true);
 							}
 						}
 						else
 						{
-								_active.find('.blocked-user-bubble').css({'display':'none'});
-								_active.find('#forgot_user_bubble').css({'display':'none'});						
+								bubble(_active.find('.blocked-user-bubble'), true);
+								bubble(_active.find('#forgot_user_bubble'), true);
 						}
 					}
 				}
@@ -183,23 +183,7 @@ $(function(){
 	// show user retrieve window on click
 	_btn_show_user.on('click', function()
 	{
-		// if bubble is hidden
-		if(_forgot_user_bubble.hasClass('hidden'))
-		{
-			// hide password bubble
-			_forgot_user_bubble.siblings('.forgot-password-bubble').fadeOut(200);
-			// show user bubble
-			_forgot_user_bubble.css({'right':'+=40','opacity':'0'}).removeClass('hidden').animate({'right':'-=35','opacity':'1.0'});
-		}
-		// if bubble is visible
-		else
-		{
-			// hide user bubble
-			_forgot_user_bubble.fadeOut(300, function()
-			{
-				_forgot_user_bubble.addClass('hidden').show();
-			});			
-		}
+		bubble(_forgot_user_bubble);
 	});
 	// --------------------------------------
 	// fn for bubble link events
@@ -307,6 +291,30 @@ $(function(){
 			_btn_show_user.show().animate({'opacity':0.4}, 300);
 		}
 	});
+	// ---------------------------
+	// fn bubble
+	function bubble( bubble, hide )
+	{
+		if( hide !== true )
+		{
+			if( bubble.hasClass('hidden') )
+			{
+				bubble.css({'right':'+=35','opacity':'0'}).show().removeClass('hidden').animate({'right':'-=35','opacity':'1.0'});
+			}
+			else
+			{
+				bubble.animate({'opacity':'0'}, function(){
+					bubble.addClass('hidden').show();
+				});
+			}
+		}
+		else
+		{
+			bubble.animate({'opacity':'0'}, function(){
+				bubble.addClass('hidden');
+			});
+		}
+	}
 	// --------------------------------------------------------------------
 	// show/hide show password icon
 	// --------------------
@@ -498,19 +506,28 @@ $(function(){
 	_wrapper.on('mousedown', '.user-image, .login .user-image', function()
 	{
 		// get widget and set active
-		var _this_widget = $(this).parents('.widget').addClass('.active');
+		var _this_widget = $(this).parents('.widget');
 		// check if widget is not active
 		if( !_this_widget.hasClass('active') )
 		{
 			// contract active widget
-			contract_user($('.active-user').find('.widget.active'));
+			contract_user( $('.active-user').find('.widget.active') );
+			// add active class to widget
+			_this_widget.addClass('active');
 			// if clicked is not new user
 			if( !_this_widget.hasClass('login') )
 			{
-			// expand user widget
-			expand_user(_this_widget);
-			// contract active user
-			_new_user.removeClass('active').parents('.perspective').removeClass('flip');
+				// expand user widget
+				expand_user(_this_widget);
+				// contract active user
+				bubble(_new_user.find('.bubble'), true);
+				_new_user.find('.login-errors').animate({'margin-top':-150}, function(){
+					_new_user.find('.login-errors').hide();
+				});
+				setTimeout(function()
+				{
+					_new_user.removeClass('active').parents('.perspective').removeClass('flip');
+				}, 100);
 			}
 		}
 		// select input field text
@@ -525,24 +542,31 @@ $(function(){
 	{
 		// define variables
 		var password = widget.find('.form-element');
-		// contract widget
-		widget.animate({'width': '210', 'height': '210', 'marginTop': '-100', 'marginLeft': '-100'}, 250, 'easeInOutQuart', function()
+		var timeout = 0;
+		//
+		if( widget.find('.bubble:not(.hidden)').size() != 0 ){ timeout = 150; }
+		// remove bubble
+		bubble(widget.find('.bubble'), true);
+		setTimeout(function()
 		{
-			// remove class 'active'
-			widget.removeClass('active');
-		});
-		// contract widget-content and remove padding
-		widget.find('.widget-content').animate({'height': '190', 'width':'190', 'padding': '0'}, 250, 'easeInOutQuart');
-		widget.find('.user-image').animate({'height':'180', 'width':'180'}, 250, 'easeInOutQuart');
-		// slide away password input
-		password.animate({'marginTop': '-35', 'opacity': 0}, 250, 'easeInOutQuart', function()
-		{
-			// display none password input
-			password.css({'display':'none'});
-		});
-		// slide errors away
-		widget.find('.login-errors').animate({'margin-top':-150, 'display':'none'});
-		widget.find('.forgot-password-bubble').animate({'opacity':'0'}, 100);
+			// contract widget
+			widget.animate({'width': '210', 'height': '210', 'marginTop': '-100', 'marginLeft': '-100'}, 250, 'easeInOutQuart', function()
+			{
+				// remove class 'active'
+				widget.removeClass('active');
+			});
+			// contract widget-content and remove padding
+			widget.find('.widget-content').animate({'height': '190', 'width':'190', 'padding': '0'}, 250, 'easeInOutQuart');
+			widget.find('.user-image').animate({'height':'180', 'width':'180'}, 250, 'easeInOutQuart');
+			// slide away password input
+			password.animate({'marginTop': '-35', 'opacity': 0}, 250, 'easeInOutQuart', function()
+			{
+				// display none password input
+				password.css({'display':'none'});
+			});
+			// slide errors away
+			widget.find('.login-errors').animate({'margin-top':-150, 'display':'none'});
+		}, timeout);
 	}
 	// ---------------------------
 	// fn expand user
@@ -558,7 +582,7 @@ $(function(){
 		widget.find('.widget-content').animate({'height':'300', 'width':'260', 'padding': '5'}, 250, 'easeInOutQuart');
 		widget.find('.user-image').animate({'height':'250', 'width':'250'}, 250, 'easeInOutQuart');
 		// slide in password input
-		widget.find('.form-element').css({'display':'block'}).delay(50).animate({'marginTop': 5, 'opacity': 1}, 160, 'easeInOutQuart', function(){
+		widget.find('.form-element').show().delay(50).animate({'marginTop': 5, 'opacity': 1}, 160, 'easeInOutQuart', function(){
 			$(this).find('.password').select();
 			$(this).find('.password-clear').select();
 		});
@@ -568,7 +592,6 @@ $(function(){
 		{
 			_errors.animate({'margin-top':-15, 'display':'block'}, 500);
 		}
-		widget.find('.forgot-password-bubble').delay(300).animate({'right':-172,'opacity':'1'});
 	}
 	// --------------------------------------------------------------------
 	// hover new user
@@ -579,9 +602,17 @@ $(function(){
 	function()
 	{
 		var _this = $(this);
-		if( _this.find('input:focus').size() <= 0 && !_this.hasClass('single') && !_new_user.hasClass('active'))
+		if( _this.find('input:focus').size() <= 0 && !_this.hasClass('single') && (!_new_user.hasClass('active') ||
+			_this.find(":input[value='']").size() == _this.find('input').size()))
 		{
-			_this.removeClass('flip');
+			bubble(_this.find('.bubble'), true);
+			_this.find('.login-errors').animate({'margin-top':-150}, function(){
+				_this.find('.login-errors').hide();
+			});
+			setTimeout(function()
+			{
+				_this.removeClass('flip');
+			}, 400);
 		}
 	});
 	
