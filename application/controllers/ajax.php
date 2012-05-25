@@ -32,6 +32,28 @@ class Ajax extends CI_Controller {
 		{
 			if($this->fs_authentication->login() == TRUE)
 			{
+				// get user data
+				$user_data = db_select(config('db_user'), array( array('user' => $this->input->post('username'), 
+				'email' => $this->input->post('username')) ), array('select' => 'user, data', 'json' => 'data', 'limit' => 1, 'single' => TRUE));
+				// get user image
+				$db_images = db_select(config('db_files'), array( array('id' => variable($user_data['profile_image']), 
+				'filename' => array('default-profile')), 'status' => 1 ), array('select' => 'id, filename, data', 
+				'json' => 'data', 'single' => FALSE, 'index' => 'id'));
+				// index images
+				$images = index_array($db_images, 'filename');
+				// get user image
+				if( !isset($user_data['profile_image']) || $db_images[$user_data['profile_image']] == null )
+				{
+					$user_image = $images['default-profile'];
+				}
+				else
+				{
+					$user_image = $db_images[$user_data['profile_image']];
+				}
+				//
+				$output = array('user_image' => media($user_image['filename'].'.'.$user_image['ext'], 'images'), 
+				'username' => ucfirst($user_data['firstname']).' '.ucfirst($user_data['lastname']), 'user' => $user_data['user'], 'success' => TRUE, 'error' => FALSE);
+				//
 				$output['success'] = 'TRUE';
 			}
 			else
@@ -127,7 +149,7 @@ class Ajax extends CI_Controller {
 					// ----------------------------------------------------------------
 					// create retrieval key
 					$retrieval_key = random_string('alnum', mt_rand(75, 100));
-					$message = str_replace('{key}', $retrieval_key, $this->load->view('emails/email_template', $email, TRUE));
+					$message = str_replace('{key}', $user['user'].':'.$retrieval_key, $this->load->view('emails/email_template', $email, TRUE));
 					// ----------------------------------------------------------------
 					// add retrival key & timestamp to db
 					db_update(config('db_user'), array('id' => $user['id']), array('data/retrieval_key' => $retrieval_key, 
@@ -173,14 +195,19 @@ class Ajax extends CI_Controller {
 			// get user data
 			$user_data = db_select(config('db_user'), array( array('user' => $this->input->post('user'), 
 			'email' => $this->input->post('user')) ), array('select' => 'data', 'json' => 'data', 'limit' => 1, 'single' => TRUE));
+			// create where condition
+			if( isset($user_data['profile_image']) && $user_data['profile_image'] != null )
+			{
+				$where['id'] = $user_data['profile_image'];
+			}
+			$where['filename'] = array('default-profile');
 			// get user image
-			$db_images = db_select(config('db_files'), array( array('id' => variable($var = $user_data['profile_image']), 
-			'filename' => array('default-profile')), 'status' => 1 ), array('select' => 'id, filename, data', 
+			$db_images = db_select(config('db_files'), array( $where, 'status' => 1 ), array('select' => 'id, filename, data', 
 			'json' => 'data', 'single' => FALSE, 'index' => 'id'));
 			// index images
 			$images = index_array($db_images, 'filename');
 			// check if user exists
-			if( $user_data == null)
+			if( $user_data == null )
 			{
 				// get random profile
 				$this->lang->load('profiles');
@@ -194,15 +221,15 @@ class Ajax extends CI_Controller {
 			else
 			{
 				// get user image
-				//
 				if( !isset($user_data['profile_image']) || $db_images[$user_data['profile_image']] == null )
 				{
-					$user_image['filename'] = $images['default-profile'];
+					$user_image = $images['default-profile'];
 				}
 				else
 				{
 					$user_image = $db_images[$user_data['profile_image']];
 				}
+				//
 				echo json_encode(array('user_image' => media($user_image['filename'].'.'.$user_image['ext'], 'images'), 
 				'username' => ucfirst($user_data['firstname']).' '.ucfirst($user_data['lastname']), 'success' => TRUE, 'error' => FALSE));
 			}

@@ -27,63 +27,100 @@ $(function(){
 	var old_username				= null;
 	// --------------------------------------------------------------------
 	// move login box to center	
-	_wrapper.css({'marginLeft':-_wrapper.outerWidth()/2, 'marginTop':-(_wrapper.height()/2)-50});
+	_wrapper.css({'marginLeft':-_wrapper.outerWidth()/2, 'marginTop':-250});
 	// adjust position on resize
 	_window.resize(function(){
 		_wrapper.css({'marginLeft':-(_wrapper.outerWidth()/2+20), 'marginTop':-(_wrapper.height()/2)-50});	
 	});
 	// --------------------------------------------------------------------
-	// get users on load
-	var users = $.get_local('user',true);
-	// check if one or more users are stored 
-	if( users !== false )
+	// if load-user class is set, get users from localStorage
+	if( _wrapper.hasClass('load-user') )
 	{
-		// load template
-		$.ajax({
-			url: CI_BASE+"ajax/template", 
-			data: {template: 'login/user_active'}, 
-			dataType: 'html',
-			type: 'POST',
-			success: function( data )
-			{
-				var active_user = $('<div>');
-				$.each(users, function( key, values )
+		// get users on load
+		var users = $.get_local('user',true);
+		// check if one or more users are stored 
+		if( users !== false )
+		{
+			// load template
+			$.ajax({
+				url: CI_BASE+"ajax/template", 
+				data: {template: 'login/user_active'}, 
+				dataType: 'html',
+				type: 'POST',
+				success: function( data )
 				{
-					var temp = $(data).css({'top':-(_window.height()/2+200)});
-					temp.find('.profile-image').attr('src',values.image);
-					temp.find('.username').val(values.user);
-					temp.find('.fullname').text(values.fullname);
-					active_user.prepend(temp);
-				});
-				//
-				_wrapper.prepend( active_user.html());
-				var _inputs = $("[placeholder]", $('.active-user'));
-				// add placeholders
-				_inputs.each(function()
-				{
-					var _this = $(this);
-					var _placeholder = $('<div class="placeholder">'+_this.attr('placeholder')+'</div>');
-					// check if input is full
-					if( _this.val().length != 0 )
+					var active_user = $('<div>');
+					var active_time = 0;
+					var active = null;
+					var stored_users = {};
+					var timestamp = new Array();
+					$.each(users, function( key, values )
 					{
-						// if so, hide placeholder
-						_placeholder.hide();
-					}
-					// add placeholder
-					_this.after(_placeholder).css({'background':'transparent'}).attr('placeholder','').attr('autocomplete','off');
-				});
+						if( values.time > active_time )
+						{ 
+							active_time = values.time; 
+							active = key;
+						}
+						var temp = $(data).css({'top':-(_window.height()/2+200)});
+						temp.find('.profile-image').attr('src',values.image);
+						temp.find('.username').val(values.user);
+						temp.find('.fullname').text(values.fullname);
+						temp.find('.widget').addClass(key);
+						stored_users[values.time] = temp;
+						timestamp.push(values.time);
+					});
+					// sort users by timestamp
+					timestamp.sort();
+					timestamp.reverse();
+					$.each(timestamp, function(i, val){
+						active_user.prepend(stored_users[val]);
+					});
+					//
+					_wrapper.prepend( active_user.html());
+					var _inputs = $("[placeholder]", $('.active-user'));
+					// add placeholders
+					_inputs.each(function()
+					{
+						var _this = $(this);
+						var _placeholder = $('<div class="placeholder">'+_this.attr('placeholder')+'</div>');
+						// check if input is full
+						if( _this.val().length != 0 )
+						{
+							// if so, hide placeholder
+							_placeholder.hide();
+						}
+						// add placeholder
+						_this.after(_placeholder).css({'background':'transparent'}).attr('placeholder','').attr('autocomplete','off');
+					});
 				
-				$($('.active-user').get().reverse()).each(function( i ){
-					$(this).delay(150*i).animate({top: 0}, 900, 'easeInOutQuart');
-				});
-			}
-		});
-		//
-	}
-	// no user loaded from localStorage
-	else
-	{
-		$('.perspective').addClass('flip single active');
+					var count = $('.active-user').size();
+					$('.perspective').fadeIn();
+					$($('.active-user').get().reverse()).each(function( i )
+					{
+						$(this).delay(150*i).animate({top: 0}, 900, 'easeInOutQuart');
+						if (!--count)
+						{
+							setTimeout(function()
+							{
+								expand_user(_wrapper.find('.widget.'+active));
+								_wrapper.animate({'marginLeft':-_wrapper.outerWidth()/2, 'marginTop':-250});
+							}, 600+(150*i));
+						}
+					});
+				}
+			});
+			//
+		}
+		// no user loaded from localStorage
+		else
+		{
+			$('.perspective').addClass('flip single active').fadeIn();
+			// select input field text
+			setTimeout(function()
+			{
+				$('.perspective').find('input[type!=hidden]:visible:first').select();
+			}, 100);
+		}
 	}
 	// --------------------------------------------------------------------
 	// submit form ajax
@@ -109,8 +146,9 @@ $(function(){
 				{
 					if( response.success === 'TRUE')
 					{
+						console.log(response);
 						var timestamp = Math.round((new Date()).getTime() / 1000);
-						$.update_local('user', old_username, {user:old_username, fullname:_active.find('.fullname').text(), image: _active.find('.profile-image').attr('src'), time: timestamp});
+						$.update_local('user', old_username, {user:response.user, fullname:response.username, image: response.user_image, time: timestamp});
 						window.location.reload();
 					}
 					else
@@ -169,8 +207,8 @@ $(function(){
 						}
 						else
 						{
-								bubble(_active.find('.blocked-user-bubble'), true);
-								bubble(_active.find('#forgot_user_bubble'), true);
+							bubble(_active.find('.blocked-user-bubble'), true);
+							bubble(_active.find('#forgot_user_bubble'), true);
 						}
 					}
 				}
@@ -595,26 +633,28 @@ $(function(){
 	}
 	// --------------------------------------------------------------------
 	// hover new user
-	$('.perspective').hover(function()
-	{
-		$(this).addClass('flip');
-	},
-	function()
-	{
-		var _this = $(this);
-		if( _this.find('input:focus').size() <= 0 && !_this.hasClass('single') && (!_new_user.hasClass('active') ||
-			_this.find(":input[value='']").size() == _this.find('input').size()))
+	_wrapper.on({
+		mouseover: function()
 		{
-			bubble(_this.find('.bubble'), true);
-			_this.find('.login-errors').animate({'margin-top':-150}, function(){
-				_this.find('.login-errors').hide();
-			});
-			setTimeout(function()
+			$(this).addClass('flip');
+		},
+		mouseleave: function()
+		{
+			var _this = $(this);
+			if( _this.find('input:focus').size() <= 0 && !_this.hasClass('single') && (!_new_user.hasClass('active') ||
+				_this.find(":input[value='']").size() == _this.find('input').size()))
 			{
-				_this.removeClass('flip');
-			}, 400);
+				bubble(_this.find('.bubble'), true);
+				_this.find('.login-errors').animate({'margin-top':-150}, function(){
+					_this.find('.login-errors').hide();
+				});
+				setTimeout(function()
+				{
+					_this.removeClass('flip');
+				}, 400);
+			}
 		}
-	});
+	}, '.perspective');
 	
 	$('.perspective').on('click', 'input', function()
 	{

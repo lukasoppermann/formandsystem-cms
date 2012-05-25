@@ -41,13 +41,35 @@ class MY_Controller extends CI_Controller {
 		$db = 'cms_entries';
 		$data = array('menu_id' => 5, 'title' => 'New Title', 'data' => array('user' => 'test', 'peter' => 'schmidt'));
 		$data = array($data, array('menu_id' => '16', 'title' => '3', 'data' => 'test'));
-		// js_add('default', array('jquery', 'jquery.cookie', 'ui/minified/jquery.ui.core.min', 'ui/minified/jquery.ui.widget.min', 'ui/minified/jquery.ui.mouse.min', 'javascript'));	
 		// --------------------------------------------------------------------	
 		// check for Logout
-		if($this->fs_navigation->current('path') == '/logout')
+		if( $this->fs_navigation->current('path') == '/logout' )
 		{
 			logout();
-		}	
+		}
+		// check for restore
+		if( $this->fs_navigation->current('path') == '/login' )
+		{
+			list($user, $retrival_key, $retrival_reset) = explode(':',$this->fs_navigation->variables());
+			//
+			if( isset($user) && isset($retrival_key) )
+			{
+				// load assets
+				js_add('fs.login');
+				css_add('widgets, login');
+				// get user data
+				$user = $this->fs_authentication->_get_user($user);
+				// assign data for user card
+				$data['user'] = $user['user'];
+				$data['retrival_key'] = $retrival_key;
+				$data['full_name'] = ucfirst($user['firstname']).' '.ucfirst($user['lastname']);
+				// get user card
+				$data['users'] 	= $this->load->view('login/retrieve_user', $data, TRUE);
+				// assing data from login
+				$data['url'] 	= current_url();
+				return view('login/login', $data, TRUE);
+			}
+		}
 		// --------------------------------------------------------------------
 		// Initialize Menus
 		// Main

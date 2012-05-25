@@ -99,7 +99,7 @@
 .empty .password-clear{
 	background: rgb(245,245,245);
 }
-.password{
+.password, .username{
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;	

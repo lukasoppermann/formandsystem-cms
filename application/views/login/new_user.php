@@ -4,7 +4,7 @@ $this->lang->load('profiles');
 $profiles = array_values(lang('profiles'));
 $profiles = $profiles[rand(0, count($profiles)-1)];
 ?>
-<div class="perspective wrapper">
+<div class="perspective wrapper" style="display:none;">
 	<div class="widget login">
 		<div class="card">
 			<div class="add-user side front">

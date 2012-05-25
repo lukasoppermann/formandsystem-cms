@@ -88,13 +88,13 @@ $lang['email_not_sent_to_user']		= "Email could not be sent to your email addres
 // ---------------------------------------------
 // log messages
 
-$lang['password_recovery_request']	= "Password recovery key has been requested.";
+$lang['password_recovery_request']	= "Password reset key has been requested.";
 
-$lang['password_recovered']			= "Password has been recovered.";
+$lang['password_recovered']			= "Password has been reset.";
 
 $lang['user_unblock_request']		= "User unblock key has been requested.";
 
-$lang['user_unblocked']				= "User has been unblocked.";
+$lang['retrieval_login_successful']	= "User logged in using a retrieval key.";
 
 /* End of file gui_lang.php */
 /* Location: ./system/language/english/gui_lang.php */
