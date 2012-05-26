@@ -4,7 +4,7 @@
 <?
 echo favicon('favicon');
 echo meta();
-echo css('default', FALSE);
+echo css('default', TRUE);
 echo fs_debug_print_css();
 echo title('All variables for title are missing | Form&amp;System');
 ?>
