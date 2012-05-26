@@ -12,7 +12,6 @@ class MY_Controller extends CI_Controller {
 
 	var $data	= null;
 	var $system = null;
-	var $test = null;
 	//php 5 constructor
 	function __construct() 
  	{
@@ -30,7 +29,7 @@ class MY_Controller extends CI_Controller {
 		Header("Pragma: no-cache" ); // HTTP/1.0
 		// --------------------------------------------------------------------	
 		// DEVELOPEMENT		
-		$this->output->enable_profiler(TRUE);
+		fs_benchmark_init();
 		// --------------------------------------------------------------------	
 		// load assets
 		css_add('libs/css/icons.css');
@@ -38,9 +37,6 @@ class MY_Controller extends CI_Controller {
 		js_add_lines('CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'";', 'default');
 		js_add('jquery', 'jquery');
 		js_add('jquery.effects.core, fs.local-storage, fs.gui', 'default');
-		$db = 'cms_entries';
-		$data = array('menu_id' => 5, 'title' => 'New Title', 'data' => array('user' => 'test', 'peter' => 'schmidt'));
-		$data = array($data, array('menu_id' => '16', 'title' => '3', 'data' => 'test'));
 		// --------------------------------------------------------------------	
 		// check for Logout
 		if( $this->fs_navigation->current('path') == '/logout' )
@@ -48,11 +44,12 @@ class MY_Controller extends CI_Controller {
 			logout();
 		}
 		// check for restore
-		if( $this->fs_navigation->current('path') == '/login' )
+		if( $this->fs_navigation->current('path') == '/login' && !$this->fs_authentication->login() )
 		{
-			list($user, $retrival_key, $retrival_reset) = explode(':',$this->fs_navigation->variables());
-			//
-			if( isset($user) && isset($retrival_key) )
+			// get variables from url
+			$variables = explode(':',$this->fs_navigation->variables());
+			// check if user and key are set
+			if( ($user = $variables[0]) != null && ($retrival_key = $variables[1]) != null )
 			{
 				// load assets
 				js_add('fs.login');
@@ -60,9 +57,11 @@ class MY_Controller extends CI_Controller {
 				// get user data
 				$user = $this->fs_authentication->_get_user($user);
 				// assign data for user card
-				$data['user'] = $user['user'];
-				$data['retrival_key'] = $retrival_key;
-				$data['full_name'] = ucfirst($user['firstname']).' '.ucfirst($user['lastname']);
+				$data['user'] 				= $user['user'];
+				$data['retrieval_key'] 		= $retrival_key;
+				$data['retrieval_reset'] 	= (variable($variables[2]) == 'reset') ? 'TRUE' : 'FALSE';
+				$data['full_name'] 			= ucfirst($user['firstname']).' '.ucfirst($user['lastname']);
+				$data['image'] 				= $user['profile_image']['filename'].'.'.$user['profile_image']['ext'];
 				// get user card
 				$data['users'] 	= $this->load->view('login/retrieve_user', $data, TRUE);
 				// assing data from login

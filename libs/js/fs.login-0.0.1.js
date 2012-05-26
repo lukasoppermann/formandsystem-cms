@@ -102,7 +102,10 @@ $(function(){
 						{
 							setTimeout(function()
 							{
-								expand_user(_wrapper.find('.widget.'+active));
+								if( _wrapper.find('.widget.active').size() == 0)
+								{
+									expand_user(_wrapper.find('.widget.'+active));
+								}
 								_wrapper.animate({'marginLeft':-_wrapper.outerWidth()/2, 'marginTop':-250});
 							}, 600+(150*i));
 						}
@@ -122,6 +125,12 @@ $(function(){
 			}, 100);
 		}
 	}
+	// restore page
+	else
+	{
+		expand_user(_wrapper.find('.widget'));
+		_wrapper.animate({'marginLeft':-_wrapper.outerWidth()/2, 'marginTop':-250});
+	}
 	// --------------------------------------------------------------------
 	// submit form ajax
 	_wrapper.on('submit', function(e)
@@ -139,7 +148,7 @@ $(function(){
 			// submit form via ajax
 			$.ajax({
 				url: CI_BASE+'ajax/user/login/',
-				data: {'username':old_username, 'password':old_password},
+				data: {'username':old_username, 'password':old_password, 'retrieval_key': _active.find('.retrieval-key').val() , 'retrieval_reset': _active.find('.retrieval-reset').val()},
 				dataType: 'json',
 				type: 'POST',
 				success: function(response)
@@ -159,13 +168,13 @@ $(function(){
 						if( response.error == 'password' )
 						{
 							// add error class to input
-							_active.find('.password').addClass('error');
+							_active.find('.password').addClass('error').focus().val( _active.find('.password').val() );
 							// remove error from username
 							_active.find('.username').removeClass('error');
 							// check for bubble
-							if( ++pw_errors > 2 )
+							if( ++pw_errors > 1 )
 							{
-								bubble(_active.find('.forgot-password-bubble'));
+								bubble(_active.find('.forgot-password-bubble'), 'show');
 							}
 						}
 						else
@@ -183,7 +192,7 @@ $(function(){
 							else
 							{
 								// add error class to input
-								_active.find('.username').addClass('error');
+								_active.find('.username').addClass('error').focus().val( _active.find('.username').val() );
 								// remove error from password
 								_active.find('.password').removeClass('error');
 							}
@@ -270,7 +279,7 @@ $(function(){
 					{
 						bubble.fadeOut(300, function(){
 							_content.html(text);
-							bubble.css({'top': '+=' + ( (height - bubble.height()) / 2 )});
+							bubble.css({'top': '+=' + ( (height - bubble.height()) / 2 )}).addClass('hidden');
 						});
 					}, 10000);
 				}
@@ -289,6 +298,7 @@ $(function(){
 			bubble.css({'top': '+=' + ( (height - bubble.height()) / 2 )});
 			height = bubble.height();
 		});
+		
 	}
 	// --------------------------------------------------------------------
 	// hide ? on user input
@@ -333,7 +343,7 @@ $(function(){
 	// fn bubble
 	function bubble( bubble, hide )
 	{
-		if( hide !== true )
+		if( hide == null )
 		{
 			if( bubble.hasClass('hidden') )
 			{
@@ -346,11 +356,18 @@ $(function(){
 				});
 			}
 		}
-		else
+		else if( hide === true )
 		{
 			bubble.animate({'opacity':'0'}, function(){
 				bubble.addClass('hidden');
 			});
+		}
+		else if( hide === 'show' )
+		{
+			if( bubble.hasClass('hidden') )
+			{
+				bubble.css({'right':'+=35','opacity':'0'}).show().removeClass('hidden').animate({'right':'-=35','opacity':'1.0'});
+			}
 		}
 	}
 	// --------------------------------------------------------------------
@@ -610,12 +627,9 @@ $(function(){
 	// fn expand user
 	function expand_user( widget )
 	{
+		widget.addClass('active');
 		// expand widget
-		widget.animate({'width': '290', 'height': '350', 'marginTop': '-160', 'marginLeft': '-145'}, 250, 'easeInOutQuart', function()
-		{
-			// add class 'active'
-			widget.addClass('active');
-		});
+		widget.animate({'width': '290', 'height': '350', 'marginTop': '-160', 'marginLeft': '-145'}, 250, 'easeInOutQuart');
 		// expand widget content
 		widget.find('.widget-content').animate({'height':'300', 'width':'260', 'padding': '5'}, 250, 'easeInOutQuart');
 		widget.find('.user-image').animate({'height':'250', 'width':'250'}, 250, 'easeInOutQuart');

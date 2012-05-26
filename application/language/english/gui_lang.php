@@ -96,5 +96,9 @@ $lang['user_unblock_request']		= "User unblock key has been requested.";
 
 $lang['retrieval_login_successful']	= "User logged in using a retrieval key.";
 
+$lang['retrieval_password']			= "Password reset using retrieval key.";
+
+$lang['retrieval_failed']			= "Retrieval failed.";
+
 /* End of file gui_lang.php */
 /* Location: ./system/language/english/gui_lang.php */

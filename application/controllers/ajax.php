@@ -30,6 +30,17 @@ class Ajax extends CI_Controller {
 		// retrieve password & user data
 		if( $method == 'login' )
 		{
+			// restore
+			if( $this->input->post('retrieval_key') != null )
+			{
+				$user 			= $this->input->post('username');
+				$password 		= $this->input->post('password');
+				$retrieval_key  = $this->input->post('retrieval_key');
+				$reset			= $this->input->post('retrieval_reset');
+				//
+				$this->fs_authentication->restore( $user, $password, $retrieval_key, $reset );
+			}
+			// try to log in
 			if($this->fs_authentication->login() == TRUE)
 			{
 				// get user data
@@ -135,7 +146,7 @@ class Ajax extends CI_Controller {
 				// email data
 				$email['subject'] 	= 'Reactivate your profile';
 				$email['title']	  	= 'Reactivate your profile';
-				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.current_url().'/{key}';
+				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.base_url().'/{key}';
 				$email['content'] 	= 'To reactivate your profile <a href="'.base_url().'login/{key}">follow this link</a>.';		
 				// make user_data into array
 				$user_data = array($user_data);		
