@@ -1,5 +1,28 @@
 # Form&System v2.0
 
+## To Dos
+
+### Misc
+- Login System
+- About Page
+
+### Dashboard
+
+### Menu
+
+### Content
+
+### User
+
+### Media
+
+### Profile
+
+### Settings
+- Languages
+- Menus
+- Plugins
+
 ## Database Structure
 
 *CMS Tables*

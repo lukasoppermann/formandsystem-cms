@@ -5,6 +5,7 @@
 	position: relative;
 	text-align: center;
 	max-width: 1200px;
+	height: 400px;
 	left: 50%;
 	top: 50%;
 	width: 100%;
@@ -92,6 +93,7 @@
 	border: none;
 	font-size: 12px;
 	line-height: 1;
+	z-index: 2;
 }
 .password-clear:focus{
 	color: rgb(50,50,50);	
@@ -243,6 +245,11 @@
 	-moz-perspective: 600px;
 	perspective: 600px;
 }		
+.single .card .side{
+	-webkit-transition: all .0s cubic-bezier(.8,.1,.3,.9);
+	-moz-transition: all .0s cubic-bezier(.8,.1,.3,.9);
+	transition: all .0s cubic-bezier(.8,.1,.3,.9);	
+}
 .card .side {
 	display: block;
 	position: absolute;

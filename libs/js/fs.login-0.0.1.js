@@ -22,16 +22,12 @@ $(function(){
 	var given_user					= null;
 	var	timer_user					= null;
 	var	user_image_class			= 'cms-profile';
-	var pw_errors 					= 0;
 	var old_password				= null;
 	var old_username				= null;
 	// --------------------------------------------------------------------
 	// move login box to center	
-	_wrapper.css({'marginLeft':-_wrapper.outerWidth()/2, 'marginTop':-250});
-	// adjust position on resize
-	_window.resize(function(){
-		_wrapper.css({'marginLeft':-(_wrapper.outerWidth()/2+20), 'marginTop':-(_wrapper.height()/2)-50});	
-	});
+	_wrapper.fs_center();
+	// find_position();
 	// --------------------------------------------------------------------
 	// if load-user class is set, get users from localStorage
 	if( _wrapper.hasClass('load-user') )
@@ -107,6 +103,10 @@ $(function(){
 									expand_user(_wrapper.find('.widget.'+active));
 								}
 								_wrapper.animate({'marginLeft':-_wrapper.outerWidth()/2, 'marginTop':-250});
+								setTimeout(function(){
+									_wrapper.find('.bubble').fs_position({'positions':["left","right","top"]});
+									console.log(_wrapper.find('.bubble').fs_position({'position':'right','positions':["left","right","bottom"]}));	
+								}, 600);
 							}, 600+(150*i));
 						}
 					});
@@ -117,7 +117,7 @@ $(function(){
 		// no user loaded from localStorage
 		else
 		{
-			$('.perspective').addClass('flip single active').fadeIn();
+			$('.perspective').addClass('flip single active').fadeIn(0);
 			// select input field text
 			setTimeout(function()
 			{
@@ -133,6 +133,8 @@ $(function(){
 	}
 	// --------------------------------------------------------------------
 	// submit form ajax
+	var pw_errors = 0;
+	// submit event
 	_wrapper.on('submit', function(e)
 	{
 		// define variables
@@ -155,7 +157,6 @@ $(function(){
 				{
 					if( response.success === 'TRUE')
 					{
-						console.log(response);
 						var timestamp = Math.round((new Date()).getTime() / 1000);
 						$.update_local('user', old_username, {user:response.user, fullname:response.username, image: response.user_image, time: timestamp});
 						window.location.reload();
@@ -297,8 +298,7 @@ $(function(){
 			// animate bubble position
 			bubble.css({'top': '+=' + ( (height - bubble.height()) / 2 )});
 			height = bubble.height();
-		});
-		
+		});	
 	}
 	// --------------------------------------------------------------------
 	// hide ? on user input

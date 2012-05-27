@@ -46,7 +46,7 @@ class Ajax extends CI_Controller {
 				// get user data
 				$user_data = db_select(config('db_user'), array( array('user' => $this->input->post('username'), 
 				'email' => $this->input->post('username')) ), array('select' => 'user, data', 'json' => 'data', 'limit' => 1, 'single' => TRUE));
-				// get user image
+				// get user images
 				$db_images = db_select(config('db_files'), array( array('id' => variable($user_data['profile_image']), 
 				'filename' => array('default-profile')), 'status' => 1 ), array('select' => 'id, filename, data', 
 				'json' => 'data', 'single' => FALSE, 'index' => 'id'));
@@ -61,11 +61,10 @@ class Ajax extends CI_Controller {
 				{
 					$user_image = $db_images[$user_data['profile_image']];
 				}
-				//
+				// set output
 				$output = array('user_image' => media($user_image['filename'].'.'.$user_image['ext'], 'images'), 
-				'username' => ucfirst($user_data['firstname']).' '.ucfirst($user_data['lastname']), 'user' => $user_data['user'], 'success' => TRUE, 'error' => FALSE);
-				//
-				$output['success'] = 'TRUE';
+				'username' => ucfirst($user_data['firstname']).' '.ucfirst($user_data['lastname']), 'user' => $user_data['user'], 
+				'success' => TRUE, 'error' => FALSE);
 			}
 			else
 			{
@@ -79,6 +78,7 @@ class Ajax extends CI_Controller {
 					$output['user_blocked'] 	= $this->form_validation->form_data('user_blocked');				
 				}
 			}
+			// return output to js fn as json
  			echo json_encode($output);
 		}
 		// --------------------------------------------------------------------
@@ -103,6 +103,8 @@ class Ajax extends CI_Controller {
 				$email['content']	= 'To retrieve your password <a href="'.base_url().'login/{key}">follow this link</a>.';
 				// make user_data into array
 				$user_data = array($user_data);
+				// set reset TRUE
+				$retrieval_reset = 'TRUE';
 			}
 			// ----------------------------------------------------------------
 			// retrieve user data
@@ -131,6 +133,8 @@ class Ajax extends CI_Controller {
 				$email['title']	  	= 'Recover your password';
 				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.base_url().'login/{key}';
 				$email['content'] 	= 'To retrieve your password <a href="'.base_url().'login/{key}">follow this link</a>.';
+				// set reset FALSE
+				$retrieval_reset = 'FALSE';
 			}
 			// ----------------------------------------------------------------
 			// activate blocked user
@@ -149,7 +153,9 @@ class Ajax extends CI_Controller {
 				$email['teaser']	= 'If you can not read this email, copy the following link into your browser and hit return. '.base_url().'/{key}';
 				$email['content'] 	= 'To reactivate your profile <a href="'.base_url().'login/{key}">follow this link</a>.';		
 				// make user_data into array
-				$user_data = array($user_data);		
+				$user_data = array($user_data);	
+				// set reset FALSE
+				$retrieval_reset = 'FALSE';	
 			}
 			// check if user exists
 			if( isset($user_data) )
@@ -164,7 +170,7 @@ class Ajax extends CI_Controller {
 					// ----------------------------------------------------------------
 					// add retrival key & timestamp to db
 					db_update(config('db_user'), array('id' => $user['id']), array('data/retrieval_key' => $retrieval_key, 
-							'data/retrieval_time' => (time()+config('retrieval_time')) ), TRUE, 'data' );		
+							'data/retrieval_time' => (time()+config('retrieval_time')), 'data/retrieval_reset' => variable($retrieval_reset) ), TRUE, 'data' );		
 					// ----------------------------------------------------------------
 					// send retrieval email
 					//
