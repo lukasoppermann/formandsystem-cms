@@ -45,17 +45,17 @@ $route['(\w+)/(\w{2})/ajax/?(.*)?'] = 'ajax/$3';
 // Dashboard
 $route['(\w+)/(\w{2})/dashboard/?(.*)?'] = 'dashboard';
 // Menu
-$route['(\w+)/(\w{2})/navigation/?(.*)?'] = "menu";
+$route['(\w+)/(\w{2})/navigation/?(.*)?'] = "menu/index/$3";
 // Content
-$route['(\w+)/(\w{2})/content/?(.*)?/?(.*)?'] = "content/$3";
+$route['(\w+)/(\w{2})/content/?(.*)?/?(.*)?'] = "content/index/$3";
 // Media
-$route['(\w+)/(\w{2})/media/?(.*)?'] = 'media';
+$route['(\w+)/(\w{2})/media/?(.*)?'] = 'media/index/$3';
 // User
-$route['(\w+)/(\w{2})/user/?(.*)?'] = "user/$3";
+$route['(\w+)/(\w{2})/user/?(.*)?'] = "user/index/$3";
 // Settings
-$route['(\w+)/(\w{2})/settings/?(.*)?'] = 'settings';
+$route['(\w+)/(\w{2})/settings/?(.*)?'] = 'settings/index/$3';
 // Profile
-$route['(\w+)/(\w{2})/profile/?(.*)?'] = 'profile';
+$route['(\w+)/(\w{2})/profile/?(.*)?'] = 'profile/index/$3';
 // if nothing else works
 $route['(\w+)/(\w{2})/?(.*)?'] = $route['default_controller']."/index/$3";
 $route['(.*)'] = $route['default_controller']."/index/$1";

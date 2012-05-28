@@ -27,7 +27,6 @@ $(function(){
 	// --------------------------------------------------------------------
 	// move login box to center	
 	_wrapper.fs_center();
-	// find_position();
 	// --------------------------------------------------------------------
 	// if load-user class is set, get users from localStorage
 	if( _wrapper.hasClass('load-user') )

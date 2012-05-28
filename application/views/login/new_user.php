@@ -23,7 +23,7 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 				<!-- User Name or Email -->
 				<div class="form-element one-row<?=(set_value('username') == null ? ' empty' : '')?>">
 					<!-- Forgot User Bubble -->
-					<div class="bubble right basic-shadow hidden" id="forgot_user_bubble">
+					<div class="bubble basic-shadow hidden" id="forgot_user_bubble">
 						<div class="bubble-content">
 							<p><?=lang('user_forgot')?></p>
 							<div class="form-element">
@@ -34,7 +34,7 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 						</div>
 					</div>
 					<!-- Blocked User Bubble -->
-					<div class="bubble right basic-shadow blocked-user-bubble" style="display: none;">
+					<div class="bubble basic-shadow blocked-user-bubble" style="display: none;">
 						<div class="bubble-content">
 							<?=lang('user_blocked')?>
 							<a data-url="blocked_user" data-post="username" class="retrieval-link unblock-user-link"><?=lang('user_blocked_link')?></a>
@@ -51,7 +51,7 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 				<!-- User Password -->
 				<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">
 					<!-- Forgot Password Bubble -->
-						<div class="bubble right basic-shadow forgot-password-bubble" style="display:none;">
+						<div class="bubble basic-shadow forgot-password-bubble" style="display:none;">
 							<div class="bubble-content">
 								<?=lang('password_forgot')?> 
 								<a data-url="password" data-post="username" class="retrieval-link" id="retrieve_password_link"><?=lang('password_forgot_link')?></a>

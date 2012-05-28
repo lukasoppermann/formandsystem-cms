@@ -21,7 +21,7 @@
 				_this.animate({'marginLeft':-_this.outerWidth()/2, 'marginTop':-_this.outerHeight()/2}, 200);
 			});
 			// adjust position on resize
-			_window.resize(function(){
+			_window.fs_resize(function(){
 				_this.css({'marginLeft':-(_this.outerWidth()/2), 'marginTop':-_this.outerHeight()/2});	
 			});
 		});
@@ -53,11 +53,13 @@
 		// cache selections
 		var _this 			= this;
 		var _window			= $(window);
+		// check if element is visible
+		// if( display none) make visibility hidden, get offset, hide
+		
 		// define vars
 		var offset 			= _this.offset();
 		var final_position	= new Array();
 		// check positions
-			console.log(opts);
 		// left	
 		if( $.inArray('left', opts.positions) != -1 && offset['left'] > _this.outerWidth()+10 )
 		{
@@ -106,7 +108,17 @@
 		});
 		// return output
 		return position;
-	}	
+	}
+	// ----------------------------------------------------
+	// debounced resize event (fires once every 100ms)
+	$.fn.fs_resize = function( c, t )
+	{
+		onresize = function(){
+			clearTimeout( t );
+			t = setTimeout( c, 100)
+		};
+		return c;
+	};	
 	// ----------------------------------------------------
 // add jquery to scope	
 })( jQuery, window, document);

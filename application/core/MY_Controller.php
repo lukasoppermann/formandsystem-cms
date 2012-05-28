@@ -10,8 +10,9 @@
  */
 class MY_Controller extends CI_Controller {
 
-	var $data	= null;
-	var $system = null;
+	var $data		= null;
+	var $system 	= null;
+	var $methods 	= null;
 	//php 5 constructor
 	function __construct() 
  	{
@@ -36,7 +37,7 @@ class MY_Controller extends CI_Controller {
 		css_add('base,menu,icons,gui');
 		js_add_lines('CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'";', 'default');
 		js_add('jquery', 'jquery');
-		js_add('jquery.effects.core, fs.local-storage, fs.gui', 'default');
+		js_add('jquery.effects.core, fs.local-storage, fs.gui, fs.bubble', 'default');
 		// --------------------------------------------------------------------	
 		// check for Logout
 		if( $this->fs_navigation->current('path') == '/logout' )
@@ -128,6 +129,31 @@ class MY_Controller extends CI_Controller {
 		//
 		// echo trim(_sha512(salt('lukas', 'exj5IJxo4UJ')));
 		login($group);
+	}
+	
+	// --------------------------------------------------------------------
+	/**
+	 * direct_call
+	 *
+	 * @description	directs calls
+	 * 
+	 */
+	function direct_call( $controller, $method = null )
+	{
+		// load config with calls
+		$this->config->load('fs_controller_calls');
+		$methods = $this->config->item($controller, 'methods');
+		// if method exists
+		if( isset($method) && in_array($method, $methods) )
+		{
+			// call method
+			$this->$methods[$method]();
+		}
+		else
+		{
+			// else call default
+			$this->$methods['default']( $method );
+		}
 	}
 }
 /* End of file MY_Controller.php */
