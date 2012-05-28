@@ -7,12 +7,24 @@ class User extends MY_Controller {
  	{
 		parent::__construct();
 	}
-	
-	function index()
+	// --------------------------------------------------------------------
+	/**
+	 * index
+	 *
+	 * @description	directs calls
+	 * 
+	 */
+	function index( $method = null )
 	{
-			
+		$this->direct_call('settings', $method);
 	}
-	
+	// --------------------------------------------------------------------
+	/**
+	 * index
+	 *
+	 * @description	directs calls
+	 * 
+	 */
 	function add()
 	{
 		view('default', $this->data); // $this->data		
