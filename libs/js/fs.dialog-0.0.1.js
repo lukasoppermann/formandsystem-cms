@@ -154,6 +154,8 @@
 			{
 				_inner_wrapper.on('click', function(){
 					methods.hide();
+				}).children().on('click', function( e ){
+					e.stopPropagation();
 				});
 			}
 			$('.close').on('click', function(){
