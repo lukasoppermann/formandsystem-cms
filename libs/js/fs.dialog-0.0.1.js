@@ -191,10 +191,8 @@
 		// show dialog box
 	    show: function( fn, args, cache_name, settings ) 
 		{
-			if( args.refresh == true )
-			{
-				var content = '';
-			}
+			// reset content
+			var content = '';
 			// check for cache
 			if( !methods.cache[cache_name] || methods.cache[cache_name] == null || args.refresh == true )
 			{
@@ -232,7 +230,7 @@
 				&& typeof args === 'object' && methods.fn[fn] )
 				{
 					_this.addClass(methods.settings.loading);
-				}≤
+				}
 				// replace content
 				_dialog_content.html( content );
 			}
