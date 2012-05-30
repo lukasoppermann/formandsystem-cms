@@ -47,7 +47,7 @@
 				{
 					if( opts.fns.success )
 					{
-						methods.update(opts.fns.success( response ), cache_name);
+						methods.update(response, cache_name, opts.fns.success);
 					}
 					else
 					{
@@ -169,6 +169,11 @@
 		update: function(content, cache_name)
 		{
 			_dialog_content.html( content );
+			// run function
+			if( fn )
+			{
+				fn();
+			}
 			// reposition
 			methods.position( true );
 			// remove loading class
