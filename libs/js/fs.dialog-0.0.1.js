@@ -232,7 +232,7 @@
 				&& typeof args === 'object' && methods.fn[fn] )
 				{
 					_this.addClass(methods.settings.loading);
-				}
+				}≤
 				// replace content
 				_dialog_content.html( content );
 			}
