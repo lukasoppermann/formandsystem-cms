@@ -191,6 +191,10 @@
 		// show dialog box
 	    show: function( fn, args, cache_name, settings ) 
 		{
+			if( args.refresh == true )
+			{
+				var content = '';
+			}
 			// check for cache
 			if( !methods.cache[cache_name] || methods.cache[cache_name] == null || args.refresh == true )
 			{
@@ -214,13 +218,21 @@
 				var arg = [ settings, content ];
 				methods.init.apply(this, arg);
 				// add loading class
-				_this.addClass(methods.settings.loading);
+				if( (!methods.cache[cache_name] || methods.cache[cache_name] == null || args.refresh == true) 
+				&& typeof args === 'object' && methods.fn[fn] )
+				{
+					_this.addClass(methods.settings.loading);
+				}
 			}
 			// if already initialized
 			else
 			{
 				// add loading class
-				_this.addClass(methods.settings.loading);
+				if( (!methods.cache[cache_name] || methods.cache[cache_name] == null || args.refresh == true) 
+				&& typeof args === 'object' && methods.fn[fn] )
+				{
+					_this.addClass(methods.settings.loading);
+				}
 				// replace content
 				_dialog_content.html( content );
 			}
