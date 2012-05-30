@@ -20,56 +20,56 @@ class Profile extends MY_Controller {
 	}
 	// --------------------------------------------------------------------
 	/**
-	 * general
+	 * profile
 	 *
-	 * @description	ajax request for user
+	 * @description	user profile
 	 * 
 	 */
-	function general()
+	function profile()
 	{
 		view('default', $this->data);
 	}
 	// --------------------------------------------------------------------
 	/**
-	 * user
+	 * settings
 	 *
-	 * @description	ajax request for user
+	 * @description	user specific settings
 	 * 
 	 */
-	function languages()
+	function settings()
 	{
 		view('default', $this->data);
 	}
 	// --------------------------------------------------------------------
 	/**
-	 * user
+	 * messages
 	 *
-	 * @description	ajax request for user
+	 * @description	sending and receiving messages
 	 * 
 	 */
-	function seo()
+	function messages()
 	{
 		view('default', $this->data);
 	}
 	// --------------------------------------------------------------------
 	/**
-	 * user
+	 * calendar
 	 *
-	 * @description	ajax request for user
+	 * @description	user specific calendar
 	 * 
 	 */
-	function search()
+	function calendar()
 	{
 		view('default', $this->data);
 	}			
 	// --------------------------------------------------------------------
 	/**
-	 * user
+	 * public profile
 	 *
-	 * @description	ajax request for user
+	 * @description	view and edit public profile
 	 * 
 	 */
-	function cms()
+	function public_profile()
 	{
 		view('default', $this->data);
 	}

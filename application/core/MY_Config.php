@@ -42,6 +42,7 @@ class MY_Config extends CI_Config {
 		$db == null ? $db = $this->item('db_prefix').$this->item('db_data') : '';
 		// load database library
 		$this->CI->load->database();
+		// $this->CI->db->cache_on();
 		// get data from db
 		$this->CI->db->select('id, key, type, data');
 		$this->CI->db->from($db);

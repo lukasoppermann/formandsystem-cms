@@ -40,6 +40,7 @@ class MY_Controller extends CI_Controller {
 		js_add('jquery.effects.core, fs.local-storage, fs.gui, fs.bubble', 'default');
 		// --------------------------------------------------------------------	
 		// check for Logout
+				
 		if( $this->fs_navigation->current('path') == '/logout' )
 		{
 			logout();

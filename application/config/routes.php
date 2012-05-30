@@ -37,13 +37,23 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-
-$route['default_controller'] = "dashboard";
+$route['default_controller'] = "content";
 $route['404_override'] = '';
+
+if( !file_exists(APPPATH.'config/fs_dynamic_routes.php'))
+{
+	$myFile = APPPATH."config/fs_dynamic_routes.php";
+	$fh = fopen($myFile, 'w');
+	$stringData = '<?php  if ( ! defined(\'BASEPATH\')) exit(\'No direct script access allowed\');'."\n";
+	$stringData .= '$route[\'(\w+)/(\w{2})/dashboard/?(.*)?\'] = "dashboard";';
+	fwrite($fh, $stringData);
+	fclose($fh);
+}
+include('fs_dynamic_routes.php');
 // Ajax
 $route['(\w+)/(\w{2})/ajax/?(.*)?'] = 'ajax/$3';
 // Dashboard
-$route['(\w+)/(\w{2})/dashboard/?(.*)?'] = 'dashboard';
+// $route['(\w+)/(\w{2})/dashboard/?(.*)?'] = 'dashboard';
 // Menu
 $route['(\w+)/(\w{2})/navigation/?(.*)?'] = "menu/index/$3";
 // Content

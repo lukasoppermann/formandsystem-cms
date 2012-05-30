@@ -13,6 +13,8 @@ class Dashboard extends MY_Controller {
 	function index()
 	{	
 		//
+		$this->data['content'] = 'DB Cache: Caching frequently used, but not often changed db queries (need to clear cache on changes)<br /><br />';
+		$this->data['content'] .= 'Dynamic routes. Write fs_dynamic_routes.php from cms for page';
 		// $data['username'] = ucfirst(user('firstname')).' '.ucfirst(user('lastname'));
 		// $data['login_log'] = $this->session->userdata('time_log');
 		// $this->data['content'] = '<div id="user" class="widget">'.$this->load->view('widgets/user', $data, TRUE).'</div>';
