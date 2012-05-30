@@ -167,7 +167,10 @@
 		update: function(content, cache_name)
 		{
 			_dialog_content.html( content );
+			// reposition
 			methods.position( true );
+			// remove loading class
+			_this.removeClass(methods.settings.loading);
 			// set cache
 			if( content != false && cache_name != null && cache_name != '' )
 			{
@@ -210,10 +213,14 @@
 			{
 				var arg = [ settings, content ];
 				methods.init.apply(this, arg);
+				// add loading class
+				_this.addClass(methods.settings.loading);
 			}
 			// if already initialized
 			else
 			{
+				// add loading class
+				_this.addClass(methods.settings.loading);
 				// replace content
 				_dialog_content.html( content );
 			}
@@ -315,6 +322,7 @@
 		wrapper: 			'.dialog-wrapper',
 		inner_wrapper: 		'.dialog-inner-wrapper',
 		dialog_content: 	'.dialog-content',
+		loading: 			'loading',
 		overlay: 			'.dialog-overlay',
 		overlay_close: 		true,
 		speed: 				500,
