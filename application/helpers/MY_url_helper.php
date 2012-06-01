@@ -46,7 +46,7 @@ function current_url( $slash = TRUE )
 	}
 	else
 	{
-		return trim('/',$CI->config->site_url($CI->uri->uri_string()));
+		return trim($CI->config->site_url($CI->uri->uri_string()),'/');
 	}
 }
 // ------------------------------------------------------------------------
