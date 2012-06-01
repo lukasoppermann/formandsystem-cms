@@ -7,7 +7,7 @@
 _*/
 logs/
 log-
-cache/
+cache/*
 
 # Packages #
 ############
