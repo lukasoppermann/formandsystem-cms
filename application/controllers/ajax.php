@@ -26,6 +26,7 @@ class Ajax extends CI_Controller {
 	 */
 	function user( $method = null, $key = null )
 	{
+		$this->load->library('form_validation');
 		// --------------------------------------------------------------------
 		// retrieve password & user data
 		if( $method == 'login' )
@@ -33,8 +34,8 @@ class Ajax extends CI_Controller {
 			// restore
 			if( $this->input->post('retrieval_key') != null )
 			{
-				$user 			= $this->input->post('username');
-				$password 		= $this->input->post('password');
+				$user 			= $this->input->post('fs_username');
+				$password 		= $this->input->post('fs_password');
 				$retrieval_key  = $this->input->post('retrieval_key');
 				$reset			= $this->input->post('retrieval_reset');
 				//
@@ -44,8 +45,8 @@ class Ajax extends CI_Controller {
 			if($this->fs_authentication->login() == TRUE)
 			{
 				// get user data
-				$user_data = db_select(config('db_user'), array( array('user' => $this->input->post('username'), 
-				'email' => $this->input->post('username')) ), array('select' => 'user, data', 'json' => 'data', 'limit' => 1, 'single' => TRUE));
+				$user_data = db_select(config('db_user'), array( array('user' => $this->input->post('fs_username'), 
+				'email' => $this->input->post('fs_username')) ), array('select' => 'user, data', 'json' => 'data', 'limit' => 1, 'single' => TRUE));
 				// get user images
 				$db_images = db_select(config('db_files'), array( array('id' => variable($user_data['profile_image']), 
 				'filename' => array('default-profile')), 'status' => 1 ), array('select' => 'id, filename, data', 

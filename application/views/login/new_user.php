@@ -45,7 +45,7 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 					<div id="show_forgot_user" class="icon fade help"></div>
 					<!-- User Input Field -->
 					<input class="username input<?=(form_error('username') != null ? ' error' : ''); ?>" 
-					type="text" name="username" placeholder="<?=lang('username')?> / <?=lang('email')?>" value="<?=set_value('username')?>" />
+					type="text" name="fs_username" placeholder="<?=lang('username')?> / <?=lang('email')?>" value="<?=set_value('username')?>" />
 				</div>
 				<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 				<!-- User Password -->
@@ -64,7 +64,7 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 					<input class="password-clear hidden" value="" />
 					<!-- Password Input Field -->
 					<input class="password input<?=(form_error('password') != null ? ' error' : ''); ?>" 
-					type="password" name="password" placeholder="<?=lang('password')?>" value="" />
+					type="password" name="fs_password" placeholder="<?=lang('password')?>" value="" />
 				</div>
 				<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 				<!-- Submit Form -->

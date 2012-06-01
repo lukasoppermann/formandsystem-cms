@@ -11,7 +11,7 @@
 			</div>
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- User Name or Email -->
-			<input class="username" type="hidden" name="username" value="" />
+			<input class="username" type="hidden" name="fs_username" value="" />
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- User Password -->
 			<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">
@@ -38,7 +38,7 @@
 				<input class="password-clear hidden" value="" />
 				<!-- Password Input Field -->
 				<input class="password input<?=(form_error('password') != null ? ' error' : ''); ?>" 
-				type="password" name="password" placeholder="<?=lang('password')?>" value="" />
+				type="password" name="fs_password" placeholder="<?=lang('password')?>" value="" />
 			</div>
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- Submit Form -->

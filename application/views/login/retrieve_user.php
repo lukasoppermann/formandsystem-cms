@@ -15,7 +15,7 @@
 			<input class="retrieval-reset" type="hidden" name="retrieval_reset" value="<?=$retrieval_reset?>" />
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- User Name or Email -->
-			<input class="username" type="hidden" name="username" value="<?=$user?>" />
+			<input class="username" type="hidden" name="fs_username" value="<?=$user?>" />
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- User Password -->
 			<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">
@@ -42,7 +42,7 @@
 				<input class="password-clear hidden" value="" />
 				<!-- Password Input Field -->
 				<input class="password input<?=(form_error('password') != null ? ' error' : ''); ?>" 
-				type="password" name="password" placeholder="<?=lang('password')?>" value="" />
+				type="password" name="fs_password" placeholder="<?=lang('password')?>" value="" />
 			</div>
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- Submit Form -->

@@ -29,6 +29,8 @@ $config['reset_attempts'] = 3600; // 1 hour = 3600
 $config['ip_lockout'] = 50; // should be >= attempts
 // attempts
 $config['retrieval_time'] = 7200; // 1 hour = 3600
+// keep login time
+$config['keep_login_time'] = 346000; // 96 hours
 /*
 |--------------------------------------------------------------------------
 | Database Prefix

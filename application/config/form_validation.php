@@ -7,12 +7,12 @@
 | Login Form
 */
 $config['login'][] = array(
-        'field' => 'username',
+        'field' => 'fs_username',
         'label' => 'lang:username',
         'rules' => 'trim|xss_clean|required'
      );
 $config['login'][] = array(
-        'field' => 'password',
+        'field' => 'fs_password',
         'label' => 'lang:password',
         'rules' => 'trim|xss_clean|required'
      );

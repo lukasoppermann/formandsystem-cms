@@ -149,7 +149,7 @@ $(function(){
 			// submit form via ajax
 			$.ajax({
 				url: CI_BASE+'ajax/user/login/',
-				data: {'username':old_username, 'password':old_password, 'retrieval_key': _active.find('.retrieval-key').val() , 'retrieval_reset': _active.find('.retrieval-reset').val()},
+				data: {'fs_username':old_username, 'fs_password':old_password, 'retrieval_key': _active.find('.retrieval-key').val() , 'retrieval_reset': _active.find('.retrieval-reset').val()},
 				dataType: 'json',
 				type: 'POST',
 				success: function(response)
