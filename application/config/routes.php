@@ -48,7 +48,7 @@ $route['(\w+)/(\w{2})/dashboard/?(.*)?'] = 'dashboard';
 // Menu
 $route['(\w+)/(\w{2})/navigation/?(.*)?'] = "menu/index/$3";
 // Content
-$route['(\w+)/(\w{2})/content/?(.*)?/?(.*)?'] = "content/index/$3";
+$route['(\w+)/(\w{2})/content/?(.*)?'] = "content/index/$3";
 // Media
 $route['(\w+)/(\w{2})/media/?(.*)?'] = 'media/index/$3';
 // User
