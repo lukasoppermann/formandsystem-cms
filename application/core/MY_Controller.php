@@ -149,12 +149,13 @@ class MY_Controller extends CI_Controller {
 		if( isset($method) && in_array($method, $methods) )
 		{
 			// call method
-			$this->$methods[$method]();
+			call_user_func_array(array($this,$methods[$method]), explode('/', $this->fs_navigation->variables()));
+			// $this->$methods[$method]( explode('/', $this->fs_navigation->variables()) );
 		}
 		else
 		{
 			// else call default
-			$this->$methods['default']( $method );
+			$this->$methods['default']( explode('/', $this->fs_navigation->variables()) );
 		}
 	}
 }
