@@ -16,7 +16,7 @@ class Media extends MY_Controller {
 	 */
 	function index( $method = null )
 	{
-		$this->direct_call('media', $method);
+		$this->direct_call(strtolower(get_class($this)), $method);
 	}
 	// --------------------------------------------------------------------
 	/**

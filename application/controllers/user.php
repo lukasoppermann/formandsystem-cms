@@ -16,7 +16,18 @@ class User extends MY_Controller {
 	 */
 	function index( $method = null )
 	{
-		$this->direct_call('settings', $method);
+		$this->direct_call(strtolower(get_class($this)), $method);
+	}
+	// --------------------------------------------------------------------
+	/**
+	 * view
+	 *
+	 * @description	shows all users
+	 * 
+	 */
+	function view()
+	{
+		view('default', $this->data); // $this->data		
 	}
 	// --------------------------------------------------------------------
 	/**

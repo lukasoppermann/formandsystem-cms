@@ -182,8 +182,8 @@
 	border: 4px solid rgb(255,255,255);
 	border-color: transparent transparent rgb(255,255,255) transparent;
 }
-.has-submenu .main-submenu li.first:hover:before, .has-submenu .meta-submenu li.first:hover:before{
-	border-color: transparent transparent rgb(255,225,25) transparent;	
+.has-submenu .main-submenu li.first :hover:before, .has-submenu .main-submenu li.first.active:hover:before, .has-submenu .meta-submenu li.first:hover:before, .has-submenu .meta-submenu li.first.active:hover:before{
+	border-color: transparent transparent rgb(255,225,25) transparent !important;	
 }
 #main_menu .has-submenu .main-submenu li, #meta_menu .has-submenu .meta-submenu li{
 	position: relative;
@@ -209,7 +209,7 @@
 	text-shadow: rgb(255,255,255) 0px 1px 0;
 	background-color: rgba(255,225,25,0.0);	
 }
-#main_menu .main-submenu li a:hover, #meta_menu .meta-submenu li a:hover, #main_menu .main-submenu li.active a:hover, #meta_menu .meta-submenu li a.active:hover{
+#main_menu .main-submenu li:hover a, #meta_menu .meta-submenu li:hover a, #main_menu .main-submenu li.active:hover a, #meta_menu .meta-submenu li.active:hover a{
 	color: rgba(50,50,50,0.9);
 	text-shadow: rgba(255,255,255,0.5) 0px 1px 0;
 	background-color: rgba(255,225,25,1.0);
@@ -226,6 +226,9 @@
 	text-shadow: rgb(255,255,255) 0px 1px 0;
 	color: rgb(50,50,50);
 	background-color: rgb(235,235,235);	
+}
+.has-submenu .main-submenu li.first.active:before, .has-submenu .meta-submenu li.first.active:before{
+	border-color: transparent transparent rgb(235,235,235) transparent;	
 }
 #main_menu .main-submenu li.first a, #meta_menu .meta-submenu li.first a,
 #main_menu .main-submenu li:first-child a, #meta_menu .meta-submenu li:first-child a{

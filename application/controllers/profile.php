@@ -16,7 +16,7 @@ class Profile extends MY_Controller {
 	 */
 	function index( $method = null )
 	{
-		$this->direct_call('settings', $method);
+		$this->direct_call(strtolower(get_class($this)), $method);
 	}
 	// --------------------------------------------------------------------
 	/**

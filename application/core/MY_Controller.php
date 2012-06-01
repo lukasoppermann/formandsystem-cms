@@ -146,13 +146,17 @@ class MY_Controller extends CI_Controller {
 		$this->config->load('fs_controller_calls');
 		$methods = $this->config->item($controller, 'methods');
 		// if method exists
-		if( isset($method) && in_array($method, $methods) )
+		if( method_exists($this, $method) )
+		{
+			// call method
+			call_user_func_array(array($this,$method), explode('/', $this->fs_navigation->variables()));			
+		}
+		elseif( isset($method) && in_array($method, $methods) )
 		{
 			// call method
 			call_user_func_array(array($this,$methods[$method]), explode('/', $this->fs_navigation->variables()));
-			// $this->$methods[$method]( explode('/', $this->fs_navigation->variables()) );
 		}
-		else
+		elseif( in_array('default', $methods) )
 		{
 			// else call default
 			$this->$methods['default']( explode('/', $this->fs_navigation->variables()) );
