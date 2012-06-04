@@ -97,7 +97,7 @@ function closetags($html)
 }
 // ------------------------------------------------------------------------
 /**
- * close all open xhtml tags at the end of the string
+ * strip all characters apart from alphanum
  *
  * @param string
  * @param string
