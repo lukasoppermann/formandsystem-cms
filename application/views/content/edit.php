@@ -35,6 +35,11 @@
 		</div>
 	</div>
 	<div class="form-field half">
-		<input type="submit" value="save changs" />
+		<div>
+			<input type="text" name="date" value="<?=$date?>" />
+		</div>
+		<div>
+			<input type="submit" value="save changs" />
+		</div>
 	</div>
 </form>

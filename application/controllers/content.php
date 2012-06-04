@@ -78,7 +78,7 @@ class Content extends MY_Controller {
 	 */
 	function save( )
 	{
-		$fields = array('title','data/meta_title' => 'meta_title','data/excerpt'=>'excerpt','text','permalink','tags','status');
+		$fields = array('title','date','data/meta_title' => 'meta_title','data/excerpt'=>'excerpt','text','permalink','tags','status');
 		//
 		foreach($fields as $key => $field)
 		{
