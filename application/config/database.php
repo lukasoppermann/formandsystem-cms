@@ -74,6 +74,7 @@ $config['db_data'] 				= 'data';
 $config['db_user'] 				= 'users';
 //
 $config['db_log'] 				= 'log';
-
+//
+$config['db_short_url'] 		= 'short_url';
 /* End of file database.php */
 /* Location: ./application/config/database.php */
