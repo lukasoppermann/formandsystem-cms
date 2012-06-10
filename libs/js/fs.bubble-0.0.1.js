@@ -14,7 +14,6 @@
 		settings: {},
 	    init : function( options ) 
 		{ 
-			console.log(methods.settings);
 			// Extend default options with those provided
 			methods.settings = $.extend({}, $.fn.fs_bubble.defaults, options);
 			//
@@ -153,6 +152,5 @@
 // --------------------------------
 // once jquery is loaded
 $(function(){
-	console.log($('.bubble'));
-	$('.bubble').fs_bubble();
+	// $('.bubble').fs_bubble();
 });

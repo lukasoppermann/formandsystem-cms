@@ -149,76 +149,75 @@ $(function(){
 			// submit form via ajax
 			$.ajax({
 				url: CI_BASE+'ajax/user/login/',
-				data: {'fs_username':old_username, 'fs_password':old_password, 'retrieval_key': _active.find('.retrieval-key').val() , 'retrieval_reset': _active.find('.retrieval-reset').val()},
+				data: {'fs_username':old_username, 'fs_password':old_password, 'retrieval_key': _active.find('.retrieval-key').val(), 'retrieval_reset': _active.find('.retrieval-reset').val()},
 				dataType: 'json',
-				type: 'POST',
-				success: function(response)
+				type: 'POST'
+			}).done(function( response )
+			{
+				if( response.success == true)
 				{
-					if( response.success === 'TRUE')
+					var timestamp = Math.round((new Date()).getTime() / 1000);
+					$.update_local('user', old_username, {user:response.user, fullname:response.username, image: response.user_image, time: timestamp});
+					window.location.reload();
+				}
+				else
+				{
+					// set error message
+					_active.find('.login-errors').text(response.message).show().animate({'margin-top':-15}, 500);
+					// check for type to show bubble
+					if( response.error == 'password' )
 					{
-						var timestamp = Math.round((new Date()).getTime() / 1000);
-						$.update_local('user', old_username, {user:response.user, fullname:response.username, image: response.user_image, time: timestamp});
-						window.location.reload();
+						// add error class to input
+						_active.find('.password').addClass('error').focus().val( _active.find('.password').val() );
+						// remove error from username
+						_active.find('.username').removeClass('error');
+						// check for bubble
+						if( ++pw_errors > 1 )
+						{
+							bubble(_active.find('.forgot-password-bubble'), 'show');
+						}
 					}
 					else
 					{
-						// set error message
-						_active.find('.login-errors').text(response.message).show().animate({'margin-top':-15}, 500);
-						// check for type to show bubble
-						if( response.error == 'password' )
+						bubble(_active.find('.forgot-password-bubble'), true);
+					}
+				
+					if( response.error == 'username' )
+					{
+						if( _active.find('.username').is(':hidden') )
 						{
 							// add error class to input
-							_active.find('.password').addClass('error').focus().val( _active.find('.password').val() );
-							// remove error from username
-							_active.find('.username').removeClass('error');
-							// check for bubble
-							if( ++pw_errors > 1 )
-							{
-								bubble(_active.find('.forgot-password-bubble'), 'show');
-							}
-						}
+							_active.find('.password').addClass('error');
+						}	
 						else
 						{
-							bubble(_active.find('.forgot-password-bubble'), true);
+							// add error class to input
+							_active.find('.username').addClass('error').focus().val( _active.find('.username').val() );
+							// remove error from password
+							_active.find('.password').removeClass('error');
 						}
-					
-						if( response.error == 'username' )
+						if( response.user_blocked == 'TRUE' )
 						{
-							if( _active.find('.username').is(':hidden') )
-							{
-								// add error class to input
-								_active.find('.password').addClass('error');
-							}	
-							else
-							{
-								// add error class to input
-								_active.find('.username').addClass('error').focus().val( _active.find('.username').val() );
-								// remove error from password
-								_active.find('.password').removeClass('error');
-							}
-							if( response.user_blocked == 'TRUE' )
-							{
-								bubble(_active.find('.blocked-user-bubble'));
-							}
-							else
-							{
-								bubble(_active.find('.blocked-user-bubble'), true);
-							}
-							//
-							if( response.user_blocked != 'TRUE' )
-							{
-								bubble(_active.find('#forgot_user_bubble'));
-							}
-							else
-							{
-								bubble(_active.find('#forgot_user_bubble'), true);
-							}
+							bubble(_active.find('.blocked-user-bubble'));
 						}
 						else
 						{
 							bubble(_active.find('.blocked-user-bubble'), true);
+						}
+						//
+						if( response.user_blocked != 'TRUE' )
+						{
+							bubble(_active.find('#forgot_user_bubble'));
+						}
+						else
+						{
 							bubble(_active.find('#forgot_user_bubble'), true);
 						}
+					}
+					else
+					{
+						bubble(_active.find('.blocked-user-bubble'), true);
+						bubble(_active.find('#forgot_user_bubble'), true);
 					}
 				}
 			});
