@@ -41,13 +41,13 @@ class MY_Form_validation extends CI_Form_validation
 	function add_form_data( $item = null, $value = null )
 	{
 		// check if item is string
-		if( !is_array($item) )
+		if(isset($item) && !is_array($item) )
 		{
 			// set item
 			$this->form_data[$item] = $value;
 		}
 		// if item is array
-		else
+		elseif( isset($item) )
 		{
 			// loop through array
 			foreach($item as $key => $value)
@@ -70,13 +70,13 @@ class MY_Form_validation extends CI_Form_validation
 	function delete_form_data( $item = null )
 	{
 		// check if item is string
-		if( !is_array($item) )
+		if( isset($item) && !is_array($item) )
 		{
 			// unset item
 			unset($this->form_data[$item]);
 		}
 		// if item is array
-		else
+		elseif( isset($item) )
 		{
 			// loop through array values
 			foreach($item as $key)

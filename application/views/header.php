@@ -6,7 +6,7 @@ echo favicon('favicon');
 echo meta();
 echo css('default', TRUE);
 echo fs_debug_print_css();
-echo title('All variables for title are missing | Form&amp;System');
+echo title(variable($meta_title, 'All variables for title are missing').' | Form&amp;System');
 ?>
 </head>
 <body<?=variable($body_id).variable($body_class); ?>>

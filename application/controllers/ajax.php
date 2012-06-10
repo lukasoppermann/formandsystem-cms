@@ -31,52 +31,55 @@ class Ajax extends CI_Controller {
 		// retrieve password & user data
 		if( $method == 'login' )
 		{
-			// restore
-			if( $this->input->post('retrieval_key') != null )
+			if( $this->input->post('fs_username') != null )
 			{
-				$user 			= $this->input->post('fs_username');
-				$password 		= $this->input->post('fs_password');
-				$retrieval_key  = $this->input->post('retrieval_key');
-				$reset			= $this->input->post('retrieval_reset');
-				//
-				$this->fs_authentication->restore( $user, $password, $retrieval_key, $reset );
-			}
-			// try to log in
-			if($this->fs_authentication->login() == TRUE)
-			{
-				// get user data
-				$user_data = db_select(config('db_user'), array( array('user' => $this->input->post('fs_username'), 
-				'email' => $this->input->post('fs_username')) ), array('select' => 'user, data', 'json' => 'data', 'limit' => 1, 'single' => TRUE));
-				// get user images
-				$db_images = db_select(config('db_files'), array( array('id' => variable($user_data['profile_image']), 
-				'filename' => array('default-profile')), 'status' => 1 ), array('select' => 'id, filename, data', 
-				'json' => 'data', 'single' => FALSE, 'index' => 'id'));
-				// index images
-				$images = index_array($db_images, 'filename');
-				// get user image
-				if( !isset($user_data['profile_image']) || $db_images[$user_data['profile_image']] == null )
+				// restore
+				if( $this->input->post('retrieval_key') != null )
 				{
-					$user_image = $images['default-profile'];
+					$user 			= $this->input->post('fs_username');
+					$password 		= $this->input->post('fs_password');
+					$retrieval_key  = $this->input->post('retrieval_key');
+					$reset			= $this->input->post('retrieval_reset');
+					//
+					$this->fs_authentication->restore( $user, $password, $retrieval_key, $reset );
+				}
+				// try to log in
+				if($this->fs_authentication->login() == TRUE)
+				{
+					// get user data
+					$user_data = db_select(config('db_user'), array( array('user' => $this->input->post('fs_username'), 
+					'email' => $this->input->post('fs_username')) ), array('select' => 'user, data', 'json' => 'data', 'limit' => 1, 'single' => TRUE));
+					// get user images
+					$db_images = db_select(config('db_files'), array( array('id' => variable($user_data['profile_image']), 
+					'filename' => array('default-profile')), 'status' => 1 ), array('select' => 'id, filename, data', 
+					'json' => 'data', 'single' => FALSE, 'index' => 'id'));
+					// index images
+					$images = index_array($db_images, 'filename');
+					// get user image
+					if( !isset($user_data['profile_image']) || $db_images[$user_data['profile_image']] == null )
+					{
+						$user_image = $images['default-profile'];
+					}
+					else
+					{
+						$user_image = $db_images[$user_data['profile_image']];
+					}
+					// set output
+					$output = array('user_image' => media($user_image['filename'].'.'.$user_image['ext'], 'images'), 
+					'username' => ucfirst($user_data['firstname']).' '.ucfirst($user_data['lastname']), 'user' => $user_data['user'], 
+					'success' => TRUE, 'error' => FALSE);
 				}
 				else
 				{
-					$user_image = $db_images[$user_data['profile_image']];
-				}
-				// set output
-				$output = array('user_image' => media($user_image['filename'].'.'.$user_image['ext'], 'images'), 
-				'username' => ucfirst($user_data['firstname']).' '.ucfirst($user_data['lastname']), 'user' => $user_data['user'], 
-				'success' => TRUE, 'error' => FALSE);
-			}
-			else
-			{
-				// set succes False
-				$output['success'] = 'FALSE';
-				// get error message & field
-				foreach($this->form_validation->get_errors() as $key => $message)
-				{
-					$output['error'] 			= $key;
-					$output['message'] 			= $message;
-					$output['user_blocked'] 	= $this->form_validation->form_data('user_blocked');				
+					// set succes False
+					$output['success'] = 'FALSE';
+					// get error message & field
+					foreach($this->form_validation->get_errors() as $key => $message)
+					{
+						$output['error'] 			= $key;
+						$output['message'] 			= $message;
+						$output['user_blocked'] 	= $this->form_validation->form_data('user_blocked');				
+					}
 				}
 			}
 			// return output to js fn as json

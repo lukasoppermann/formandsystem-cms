@@ -14,7 +14,7 @@
 			<input class="username" type="hidden" name="fs_username" value="<?=$user?>" />
 			<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 			<!-- User Password -->
-			<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">
+			<div class="form-element one-row<?=(set_value('fs_password') == null ? ' empty' : '')?>">
 				<!-- Blocked User Bubble -->
 				<div class="bubble right basic-shadow blocked-user-bubble hidden">
 					<div class="bubble-content">

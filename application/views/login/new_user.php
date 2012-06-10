@@ -21,7 +21,7 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 				</div>
 				<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 				<!-- User Name or Email -->
-				<div class="form-element one-row<?=(set_value('username') == null ? ' empty' : '')?>">
+				<div class="form-element one-row<?=(set_value('fs_username') == null ? ' empty' : '')?>">
 					<!-- Forgot User Bubble -->
 					<div class="bubble basic-shadow hidden" id="forgot_user_bubble">
 						<div class="bubble-content">
@@ -45,11 +45,11 @@ $profiles = $profiles[rand(0, count($profiles)-1)];
 					<div id="show_forgot_user" class="icon fade help"></div>
 					<!-- User Input Field -->
 					<input class="username input<?=(form_error('username') != null ? ' error' : ''); ?>" 
-					type="text" name="fs_username" placeholder="<?=lang('username')?> / <?=lang('email')?>" value="<?=set_value('username')?>" />
+					type="text" name="fs_username" placeholder="<?=lang('username')?> / <?=lang('email')?>" value="<?=set_value('fs_username')?>" />
 				</div>
 				<!-- ////////////////////////////////////////////////////////////////////////////////// -->
 				<!-- User Password -->
-				<div class="form-element one-row<?=(set_value('password') == null ? ' empty' : '')?>">
+				<div class="form-element one-row<?=(set_value('fs_password') == null ? ' empty' : '')?>">
 					<!-- Forgot Password Bubble -->
 						<div class="bubble basic-shadow forgot-password-bubble" style="display:none;">
 							<div class="bubble-content">

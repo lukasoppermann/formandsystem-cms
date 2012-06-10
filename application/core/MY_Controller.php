@@ -124,7 +124,6 @@ class MY_Controller extends CI_Controller {
 				</ul>";
 		// 		<li class='current-system' data-system='".$array[$system]['name']."'><a href='".$array[$system]['url']."' target='_blank'>".$array[$system]['label']."</a></li>
 		// 	</ul>";
-		
 		// --------------------------------------------------------------------		
 		// check for sufficient rights
 		$group = current_nav('group');

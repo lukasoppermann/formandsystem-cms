@@ -31,6 +31,9 @@ $config['ip_lockout'] = 50; // should be >= attempts
 $config['retrieval_time'] = 7200; // 1 hour = 3600
 // keep login time
 $config['keep_login_time'] = 346000; // 96 hours
+// short urk
+$config['short_url'] = TRUE; // activate short_url system
+$config['short_url_length'] = 30;
 /*
 |--------------------------------------------------------------------------
 | Database Prefix
