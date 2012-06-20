@@ -7,7 +7,12 @@
 _*/
 logs/
 log-
-cache/*
+0*_*/
+images/
+movies/
+files/
+*cache*/
+config/database.php
 
 # Packages #
 ############
