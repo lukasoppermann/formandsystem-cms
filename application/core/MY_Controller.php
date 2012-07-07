@@ -30,7 +30,7 @@ class MY_Controller extends CI_Controller {
 		Header("Pragma: no-cache" ); // HTTP/1.0
 		// --------------------------------------------------------------------	
 		// DEVELOPEMENT		
-		fs_benchmark_init();
+		fs_benchmark_init(FALSE);
 		// --------------------------------------------------------------------	
 		// load assets
 		css_add('libs/css/icons.css');
