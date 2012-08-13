@@ -10,6 +10,11 @@ echo title(variable($meta_title, 'All variables for title are missing').' | Form
 ?>
 </head>
 <body<?=variable($body_id).variable($body_class); ?>>
+<div id="loader">
+	<div class="and"></div>
+	<div class="form"></div>
+	<div class="system"></div>
+</div>
 <div id="page_wrapper">
 	<div id="header">
 		<?=logo(array('file' => media('formandsystem-icons.png', 'layout'), 'alt' => 'Form and System', 'url' => active_url(TRUE).'dashboard'))."\n"; ?>

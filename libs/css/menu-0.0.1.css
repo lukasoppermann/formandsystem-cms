@@ -182,7 +182,7 @@
 	border: 4px solid rgb(255,255,255);
 	border-color: transparent transparent rgb(255,255,255) transparent;
 }
-.has-submenu .main-submenu li.first :hover:before, .has-submenu .main-submenu li.first.active:hover:before, .has-submenu .meta-submenu li.first:hover:before, .has-submenu .meta-submenu li.first.active:hover:before{
+.has-submenu .main-submenu li.first:hover:before, .has-submenu .main-submenu li.first.active:hover:before, .has-submenu .meta-submenu li.first:hover:before, .has-submenu .meta-submenu li.first.active:hover:before{
 	border-color: transparent transparent rgb(255,225,25) transparent !important;	
 }
 #main_menu .has-submenu .main-submenu li, #meta_menu .has-submenu .meta-submenu li{

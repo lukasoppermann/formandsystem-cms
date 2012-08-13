@@ -235,7 +235,7 @@ class MY_Config extends CI_Config {
 			// check if item exists
 			if(isset($this->config[$item]))
 			{
-				log_message('debug','Overwriting '.$item.' ('.$this->config[$item].') with '.$value);
+				log_message('debug','Overwriting '.$item.' ('.implode((array) $this->config[$item], ', ').') with '.implode((array) $value, ', '));
 			}
 			// set item
 			$this->config[$item] = $value;

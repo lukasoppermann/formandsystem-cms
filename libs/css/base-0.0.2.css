@@ -87,6 +87,7 @@ a{
 #header{
 	z-index: 55;
 	height: 45px;
+	margin-top: -50px;
 	background-color: rgb(70,70,70);
 	background-image: -moz-linear-gradient(top, rgb(70,70,70), rgb(60,60,60));
 	background-image: -webkit-linear-gradient(top, rgb(70,70,70), rgb(60,60,60));
@@ -142,4 +143,43 @@ a{
 	padding: 6px 10px;
 	height: 15px;
 	overflow: hidden;	
+}
+/*------------------------*/
+/* loader */
+#loader{
+	opacity: 0;
+	z-index: 10;
+	position: absolute;
+	display: block;
+	bottom: 50%;
+	left: 50%;
+	margin: 0 0 -75px -125px;
+	height: 150px;
+	width: 250px;
+}
+#loader div{
+	display: block;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	background-image: url(../../media/layout/formandsystem-loader.png);
+}
+#loader .and{
+	height: 150px;
+	width: 80px;
+}
+#loader .form, #loader .system{
+	opacity: 0;
+	position: absolute;
+	left: 90px;
+	height: 40px;
+	width: 170px;
+	top: 10px;
+	background-position: -90px -10px;
+}
+#loader .system{
+	top: 50px;
+	background-position: -90px -50px;	
+}
+#content{
+	display: none;
 }
