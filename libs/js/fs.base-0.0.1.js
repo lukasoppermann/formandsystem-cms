@@ -2,6 +2,33 @@
 // Base functions used in all or many files
 // ----------------------------------------------------
 // define functions 
+function pulse(elem, duration, easing, prop_from, prop_to, until)
+{
+	elem.animate(prop_to, duration, easing, function(){
+		if( until() == false )
+		{
+			pulse(elem, duration, easing, prop_to, prop_from, until);	
+		}
+	});	
+}
+
+$('#loader').css({'bottom':'50%', 'left':'-120%'}).animate({'left':'50%', 'opacity':1}, 750, 'swing', function(){
+	$('#loader').find('.form').css({'left':'+=50'}).animate({'opacity':0.8, 'left' : '-=40' }, 400, function(){
+		$('#loader').find('.form').animate({'opacity':1, 'left' : '-=10' }, 100);
+		$('#loader').find('.system').css({'left':'+=50'}).animate({'opacity':1, 'left' : '-=50' }, 500, function(){
+			setTimeout(function(){
+				pulse($('#loader'), 1800, 'swing', {'opacity':1}, {'opacity':0.5}, function(){if(!$('#loader').hasClass('done')){return false;}});
+				setTimeout(function(){
+					$('#loader').addClass('done');
+					$('#loader').animate({'bottom':'-120%','opacity':0}, 600, function(){
+						$('#header').animate({'marginTop':0}, 300);
+						$('#content').fadeIn();
+					});
+				}, 10000);
+			}, 1500);
+		});
+	});
+});
 ;(function( $, window, document )
 {
 	// ----------------------------------------------------
@@ -115,7 +142,7 @@
 	{
 		onresize = function(){
 			clearTimeout( t );
-			t = setTimeout( c, 100)
+			t = setTimeout( c, 100);
 		};
 		return c;
 	};	
