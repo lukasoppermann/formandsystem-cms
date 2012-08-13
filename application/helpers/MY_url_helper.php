@@ -19,15 +19,10 @@
 function base_url( $slash = TRUE )
 {
 	$CI =& get_instance();
-	
-	if($slash == TRUE)
-	{
-		return $CI->config->slash_item('base_url');
-	}
-	else
-	{
-		return $CI->config->unslash_item('base_url');		
-	}
+	// add slash
+	$slash = ($slash == TRUE ? '/' : '');
+	// return url
+	return $CI->config->unslash_item('base_url').$slash;
 }
 // ------------------------------------------------------------------------
 /**
@@ -39,15 +34,10 @@ function base_url( $slash = TRUE )
 function current_url( $slash = TRUE )
 {
 	$CI =& get_instance();
-
-	if($slash == TRUE)
-	{
-		return $CI->config->site_url($CI->uri->uri_string()).'/';
-	}
-	else
-	{
-		return trim($CI->config->site_url($CI->uri->uri_string()),'/');
-	}
+	// add slash
+	$slash = ($slash == TRUE ? '/' : '');
+	// return url
+	return trim($CI->config->site_url($CI->uri->uri_string()),'/').$slash;
 }
 // ------------------------------------------------------------------------
 /**
@@ -59,14 +49,10 @@ function current_url( $slash = TRUE )
 function active_url($slash = TRUE)
 {
 	$CI =& get_instance();
-	if($slash == TRUE)
-	{
-		return $CI->config->slash_item('base_url').variable($CI->config->slash_item('url_parts'));
-	}
-	else
-	{
-		return $CI->config->slash_item('base_url').variable($CI->config->slash_item('url_parts'));
-	}
+	// add slash
+	$slash = ($slash == TRUE ? '/' : '');
+	// return url
+	return $CI->config->slash_item('base_url').($CI->config->unslash_item('url_parts') != null ? $CI->config->unslash_item('url_parts') : '').$slash;
 }
 // ------------------------------------------------------------------------
 /**
@@ -79,15 +65,10 @@ function page_url($slash = TRUE)
 {
 	$CI =& get_instance();
 	$CI->load->library('fs_navigation');
-	
-	if($slash == TRUE)
-	{
-		return $CI->config->slash_item('base_url').variable($CI->config->unslash_item('url_parts')).$CI->fs_navigation->current('path').'/';
-	}
-	else
-	{
-		return $CI->config->slash_item('base_url').variable($CI->config->unslash_item('url_parts')).$CI->fs_navigation->current('path');
-	}
+	// add slash
+	$slash = ($slash == TRUE ? '/' : '');
+	// return url
+	return $CI->config->slash_item('base_url').($CI->config->unslash_item('url_parts') != null ? $CI->config->unslash_item('url_parts') : '').$CI->fs_navigation->current('path').$slash;
 }
 // ------------------------------------------------------------------------
 /**
