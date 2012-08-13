@@ -11,7 +11,6 @@ function pulse(elem, duration, easing, prop_from, prop_to, until)
 		}
 	});	
 }
-
 $('#loader').css({'bottom':'50%', 'left':'-120%'}).animate({'left':'50%', 'opacity':1}, 750, 'swing', function(){
 	$('#loader').find('.form').css({'left':'+=50'}).animate({'opacity':0.8, 'left' : '-=40' }, 400, function(){
 		$('#loader').find('.form').animate({'opacity':1, 'left' : '-=10' }, 100);
@@ -29,6 +28,7 @@ $('#loader').css({'bottom':'50%', 'left':'-120%'}).animate({'left':'50%', 'opaci
 		});
 	});
 });
+
 ;(function( $, window, document )
 {
 	// ----------------------------------------------------

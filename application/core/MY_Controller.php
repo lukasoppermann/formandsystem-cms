@@ -37,10 +37,9 @@ class MY_Controller extends CI_Controller {
 		css_add('base,menu,icons,gui');
 		js_add_lines('CI_ROOT = "'.base_url().'"; CI_BASE = "'.active_url().'";', 'default');
 		js_add('jquery', 'jquery');
-		js_add('jquery.effects.core, fs.local-storage, fs.gui, fs.bubble', 'default');
+		js_add('jquery.effects.core, fs.local-storage, fs.gui, fs.bubble, fs.base', 'default');
 		// --------------------------------------------------------------------	
 		// check for Logout
-				
 		if( $this->fs_navigation->current('path') == '/logout' )
 		{
 			logout();

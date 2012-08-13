@@ -35,7 +35,7 @@ function sort_array($array, $subkey, $params = array())
 		}
 		else
 		{
-			$rest[$key] = strtolower(variable($value[$subkey]));
+			$rest[$key] = $value;
 		}
 	}
 	// sort array depending on param
@@ -223,6 +223,7 @@ function delete_array($array)
  */
 function _delete_array($array, $keys, $key = '')
 {
+	$new_array = false;
 	// loop through array
 	foreach($array as $k => $value)
 	{
@@ -242,7 +243,7 @@ function _delete_array($array, $keys, $key = '')
 		$key = trim($key, '/');
 	}
 	// return new array
-	return variable($new_array);
+	return $new_array;
 }
 // ------------------------------------------------------------------------
 /**

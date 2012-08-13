@@ -56,6 +56,23 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
+
+// $db['formandsystem']['hostname'] = 'nepuweb15.net-publics.de';
+// $db['formandsystem']['username'] = 'web166';
+// $db['formandsystem']['password'] = 'johanna';
+// $db['formandsystem']['database'] = 'usr_web166_1';
+// $db['formandsystem']['dbdriver'] = 'mysql';
+// $db['formandsystem']['dbprefix'] = '';
+// $db['formandsystem']['pconnect'] = TRUE;
+// $db['formandsystem']['db_debug'] = TRUE;
+// $db['formandsystem']['cache_on'] = FALSE;
+// $db['formandsystem']['cachedir'] = APPPATH.'cache';
+// $db['formandsystem']['char_set'] = 'utf8';
+// $db['formandsystem']['dbcollat'] = 'utf8_general_ci';
+// $db['formandsystem']['swap_pre'] = '';
+// $db['formandsystem']['autoinit'] = TRUE;
+// $db['formandsystem']['stricton'] = FALSE;
+
 /*
 |--------------------------------------------------------------------------
 | Database
