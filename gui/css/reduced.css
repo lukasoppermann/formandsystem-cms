@@ -1278,9 +1278,9 @@ input.seo-headline::-webkit-input-placeholder{ color: rgb(200,200,200); }
 	position: fixed;
 	top: 45px;
 	right: 0;
-	box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.15);
-	-webkit-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.15);
-	-moz-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.15);
+	box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.15);
+	-webkit-box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.15);
+	-moz-box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.15);
 }
 .user-data{
 	float: left;
