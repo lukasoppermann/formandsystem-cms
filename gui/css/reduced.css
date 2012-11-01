@@ -22,9 +22,10 @@ input, textarea{
 	float: left;
 	height: 100%;
 	width: 205px;
-	border-right: 1px solid rgb(210,210,210);
-	box-shadow: inset -1px 0px 0px 0px rgb(225,225,225), inset -3px 0px 0px 0px rgb(230,230,230);
-	-webkit-box-shadow: inset -1px 0px 0px 0px rgb(225,225,225), inset -3px 0px 0px 0px rgb(230,230,230);
+	z-index: 15;
+/*	border-right: 1px solid rgb(210,210,210);
+	box-shadow: inset -1px 0px 0px 0px rgb(225,225,225), inset -2px 0px 0px 0px rgb(230,230,230);
+	-webkit-box-shadow: inset -1px 0px 0px 0px rgb(225,225,225), inset -2px 0px 0px 0px rgb(230,230,230);*/
 }
 h3{
 	font-size: 14px;
@@ -179,12 +180,12 @@ h3{
 	content: "";
 	position: absolute;
 	right: 0px;
-	top: -4px;
+	top: -2px;
 	display: block;
 	width: 0px;
 	height: 0px;
 	border-style: solid;
-	border-width: 16px;
+	border-width: 14px;
 	border-color: transparent rgb(230,230,230) transparent transparent;
 	transition: all .4s ease;   
 	-webkit-transition: all .4s ease;
@@ -354,15 +355,28 @@ h3{
 /*------------------------------------*/
 /* Page */
 #page{
+	width: 700px;
 	position: relative;
 	float: left;
-	padding: 0 30px;
+	padding: 0;
+	height: 100%;
+	z-index: 2;
+}
+#page .page-content{
+	position: relative;
+	float: left;
+	padding: 0 0;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	height: 100%;
-	width: 700px;
+	width: 100%;
 	background: rgb(255,255,255);
+	border: 1px solid rgb(210,210,210);
+	box-shadow: 0px 0px 0px 2px rgb(230,230,230), 0px 0px 0px 1px rgb(225,225,225);
+	-webkit-box-shadow: 0px 0px 0px 2px rgb(225,225,225), 0px 0px 0px 1px rgb(225,225,225);
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
 }
 input.reduced{
 	font-family: "Open Sans";
@@ -769,10 +783,10 @@ input.seo-headline::-webkit-input-placeholder{ color: rgb(200,200,200); }
 	float: left;
 	height: 100%;
 	width: 215px;
-	background: rgb(235,235,235);
+/*	background: rgb(235,235,235);*/
 	border-right: 1px solid rgb(210,210,210);
-	box-shadow: inset -1px 0px 0px 0px rgb(225,225,225), inset -5px 0px 0px 0px rgb(230,230,230), inset 1px 0px 0px 0px rgb(210,210,210), inset 3px 0px 0px 0px rgb(235,235,235);
-	-webkit-box-shadow: inset -1px 0px 0px 0px rgb(225,225,225), inset -5px 0px 0px 0px rgb(230,230,230), inset 1px 0px 0px 0px rgb(210,210,210), inset 3px 0px 0px 0px rgb(235,235,235);
+/*	box-shadow: inset -1px 0px 0px 0px rgb(225,225,225), inset -5px 0px 0px 0px rgb(230,230,230), inset 1px 0px 0px 0px rgb(210,210,210), inset 3px 0px 0px 0px rgb(235,235,235);
+	-webkit-box-shadow: inset -1px 0px 0px 0px rgb(225,225,225), inset -5px 0px 0px 0px rgb(230,230,230), inset 1px 0px 0px 0px rgb(210,210,210), inset 3px 0px 0px 0px rgb(235,235,235);*/
 }
 #versioning h3{
 	position: relative;
@@ -1331,29 +1345,25 @@ body.settings-page{
 /* posts */
 .text-content{
 	float: left;
-	background: rgb(255,255,255);
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	width: 700px;
-	background: rgb(255,255,255);
 	padding: 0 30px 30px 30px;
 }
-#page{
-	position: relative;
-	float: left;
-	padding: 0;
-	height: 100%;
-	background: rgb(250,250,250);
-}
 .posts{
-	border-top: 1px solid rgb(210,210,210);
+/*	border-top: 1px solid rgb(210,210,210);
 	box-shadow: inset 0px 1px 0px 0px rgb(235,235,235), inset 0px 5px 0px 0px rgb(240,240,240);
-	-webkit-box-shadow: inset 0px 1px 0px 0px rgb(235,235,235), inset 0px 5px 0px 0px rgb(240,240,240);
+	-webkit-box-shadow: inset 0px 1px 0px 0px rgb(235,235,235), inset 0px 5px 0px 0px rgb(240,240,240);*/
+	background: rgb(250,250,250);
+	border: 1px solid rgb(210,210,210);
+	box-shadow: 0px 0px 0px 2px rgba(230,230,230,0.8), 0px 0px 0px 1px rgba(225,225,225,0.8);
+	-webkit-box-shadow: 0px 0px 0px 2px rgba(230,230,230,0.8), 0px 0px 0px 1px rgba(225,225,225,0.8);
 	float: left;
 	width: 100%;
-	background: rgb(250,250,250);
-	padding-top: 1%;
+/*	background: rgb(250,250,250);*/
+	padding: 2% 0;
+	z-index: 1;
 }
 .post{
 	width: 44.5%;
@@ -1405,14 +1415,16 @@ body.settings-page{
 /*------------------------------------*/
 /* tabs */
 .tabs{
+	margin: 0 0 -1px -3px;
 	height: 34px;
 	width: 100%;
 	float: left;
 	list-style: none;
-	background: rgb(240,240,240);
-	border-bottom: 1px solid rgb(205,205,205);
+	overflow: hidden;
+	padding: 3px 3px 0 3px ;
+/*	border-bottom: 1px solid rgb(205,205,205);
 	box-shadow: inset 0px -1px 0px 0px rgb(220,220,220), inset 0px -3px 0px 0px rgb(230,230,230);
-	-webkit-box-shadow: inset 0px -1px 0px 0px rgb(220,220,220), inset 0px -3px 0px 0px rgb(230,230,230);
+	-webkit-box-shadow: inset 0px -1px 0px 0px rgb(220,220,220), inset 0px -3px 0px 0px rgb(230,230,230);*/
 }
 .tabs:before, .tabs:after{
 	content: "";
@@ -1433,11 +1445,11 @@ body.settings-page{
 	top: 8px;
 	left: -4px;
 }*/
-.tab.active{
+.tab:not(.add).active{
 	z-index: 12;
 	background: rgb(255,255,255);
 }
-.tab{
+.tab:not(.add){
 	float: left;
 	height: 25px;
 	-moz-box-sizing: border-box;
@@ -1445,25 +1457,40 @@ body.settings-page{
 	box-sizing: border-box;	
 	font-size: 13px;
 	color: rgb(100,100,100);
-	background-color: rgb(220,220,220);
-	background-image: -moz-linear-gradient(left, rgb(220,220,220) 40px, rgb(225,225,225));
-	background-image: -webkit-linear-gradient(left, rgb(220,220,220) 40px, rgb(225,225,225));
+	background-color: rgb(240,240,240);
+/*	background-image: -moz-linear-gradient(left, rgb(215,215,215) 40px, rgb(225,225,225));
+	background-image: -webkit-linear-gradient(left, rgb(215,215,215) 40px, rgb(225,225,225));*/
 /*	border-top-right-radius: 4px;*/
+	border: 1px solid rgb(210,210,210);
+	border-bottom: 0px ;
+	box-shadow: 0px 0px 0px 2px rgb(230,230,230), 0px 0px 0px 1px rgb(225,225,225);
+	-webkit-box-shadow: 0px 0px 0px 2px rgb(230,230,230), 0px 0px 0px 1px rgb(225,225,225);
 	border-top-left-radius: 4px;
 	padding: 3px 15px;
-	margin: 10px 10px 0 0;
+	margin: 10px 15px 0 0;
 	z-index: 1;
 /*	border: 1px solid rgb(205,205,205);
 	border-bottom: 0px;*/
 }
-.tab:not(.active):hover{
-	background: rgb(215,215,215);
+.tab:not(.active) .inset-shadow{
+	position: absolute;
+	bottom: 1px;
+	z-index: 40;
+	height: 2px;
+	width: 100%;
+	padding-right: 20px;
+	border-bottom: 1px solid rgb(225,225,225);
+	background: rgba(210,210,210,0.35);
+}
+.tab:not(.active):hover, .tab:not(.active):hover:after, .tab:not(.active):hover:before{
+	background-color: rgb(240,240,240);
 	cursor: pointer;
 }
-.tab:not(.active):hover:after{
-	background: url('../media/tab-passive-hover.png');
+.tab:not(.active):hover, .tab:not(.active):hover:after, .tab:not(.active):hover:before{
+	background-image: -moz-linear-gradient(top, rgb(250,250,250), rgb(240,240,240) 30%);
+	background-image: -webkit-linear-gradient(top, rgb(250,250,250), rgb(240,240,240) 30%);
 }
-.tab:after{
+/*.tab:after{
 	content: "";
 	display: block;
 	position: absolute;
@@ -1474,14 +1501,143 @@ body.settings-page{
 	background: url('../media/tab-passive-2.png');
 	background-repeat: no-repeat;
 	z-index: 3;
+}*/
+.tab:not(.add):after{
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: 3;
+	top: 4px;
+	right: -25px;
+	height: 30px;
+	width: 40px;
+	border-top-left-radius: 14px;
+	background: rgb(240,240,240);
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	border: 1px solid rgb(210,210,210);
+	border-bottom: 0px;
+	box-shadow: 0px 0px 0px 2px rgb(230,230,230), 0px 0px 0px 1px rgb(225,225,225);
+	-webkit-box-shadow: 0px 0px 0px 2px rgb(230,230,230), 0px 0px 0px 1px rgb(225,225,225);
 }
-.tab.active:after{
-	background: url('../media/tab.png');
-	background-repeat: no-repeat;
+.tab:not(.add).active:after{
+	background: rgb(255,255,255);
+}
+.tab:not(.add):before{
+	content: "";
+	display: block;
+	position: absolute;
+	height: 100%;
+	width: 30px;
+	background: rgb(240,240,240);
+	border-top: 1px solid rgb(210,210,210);
+	box-shadow: 0px -2px 0px 0px rgb(230,230,230), 0px -1px 0px 0px rgb(225,225,225);
+	-webkit-box-shadow: 0px -2px 0px 0px rgb(230,230,230), 0px -1px 0px 0px rgb(225,225,225);
+	right: -1px;
+	top: -1px;
+	z-index: 4;
+}
+.tab:not(.add).active:before{
+	background: rgb(255,255,255);
+}
+.tab .label{
+	position: relative;
+	z-index: 10;
+}
+.tab:not(.add) .end{
+	height: 9px;
+	width: 10px;
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	right: -34px;
+	bottom: 0px;
+	z-index: 20;
+	background: rgb(240,240,240);
+}
+.tab:not(.add).active .end{
+	background: rgb(255,255,255);	
+}
+.tab:not(.add) .end:before{
+	content: "";
+	display: block;
+	position: absolute;
+	right: -20px;
+	bottom: 0px;
+	height: 20px;
+	width: 20px;
+	background: rgb(240,240,240);
+	z-index: 1;
+}
+.tab:not(.add) .end:after{
+	content: "";
+	display: block;
+	position: absolute;
+	right: -30px;
+	bottom: 0px;
+	height: 40px;
+	width: 45px;
+	background: rgb(240,240,240);
+	border: 1px solid rgb(210,210,210);
+	box-shadow: inset 0px -1px 0px 0px rgb(225,225,225), inset 0px -2px 0px 0px rgb(230,230,230);
+	-webkit-box-shadow: inset 0px -1px 0px 0px rgb(225,225,225), inset 0px -2px 0px 0px rgb(230,230,230);
+	border-radius: 45px;
+	z-index: 2;
 }
 .tab.add{
+	margin: 11px 0 0 0;
+	height: 18px;
+	width: 50px;
+	overflow: hidden;
 	padding: 0px 0 0 3px;
+	position: relative;
+	z-index: 90;
+	background: transparent;
+}
+.tab.add:hover{
+	background: transparent;
+}
+.tab.add .bg{
+	background: rgb(225,225,225);
+	position: absolute;
+	top: 0;
+	left: 0px;
+	display: block;
+	height: 20px;
+	width: 50px;
+	z-index: 20;
+	transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+}
+.tab.add:hover .bg{
+	background: rgb(255,255,255);
+	box-shadow: 0px 0px 0px 1px rgb(210,210,210);
+	-webkit-box-shadow: 0px 0px 0px 1px rgb(210,210,210);
+	-moz-box-shadow: 0px 0px 0px 1px rgb(210,210,210);
 }
 .tab.add .icon{
-	margin-top: 2px;
+	position: absolute;
+	left: 10px;
+	top: -5px;
+	z-index: 25;
+}
+.tab.add .icon.add{
+	background: transparent;
+}
+.tab.add .icon.add:before, .tab.add .icon.add:after{
+	content: "";
+	display: block;
+	top: 50%;
+	left: 50%;
+	margin: -2px 0 0 -6px;
+	position: absolute;
+	z-index: 110;
+	height: 3px;
+	width: 11px;
+	background: rgb(125,125,125);
+}
+.tab.add .icon.add:after{
+	width: 3px;
+	height: 11px;
+	margin: -6px 0 0 -2px;
 }
