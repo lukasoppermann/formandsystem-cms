@@ -151,18 +151,22 @@
 		</div>
 		<div id="page">
 			<ul class="tabs">
-				<li class="tab active"><span class="label">English</span><span class="end"></span></li>
-				<li class="tab" style="z-index:5">
+				<li class="tab">
+					<span class="label">English</span>
+					<span class="inset-shadow"></span>
+					<span class="end"></span>
+				</li>
+				<li class="tab">
 					<span class="label">German</span>
 					<span class="inset-shadow"></span>
 					<span class="end"></span>
 				</li>
-				<li class="tab" style="z-index:4">
+				<li class="tab active">
 					<span class="label">French</span>
 					<span class="inset-shadow"></span>
-					<span class="end"></span>
+					<span class="end last"></span>
 				</li>
-				<li class="tab add"><span class="icon add"></span><span class="bg"></span></li>
+				<li class="add-tab"><span class="icon add"></span><span class="bg"></span></li>
 			</ul>
 			<div class="page-content">
 				<div class="text-content">
@@ -360,6 +364,17 @@
 			$(this).attr('contenteditable', false).removeClass('editable');
 		});
 		$('#page, #versioning').height($('#sidebar').outerHeight()+96);
+		$('.tabs').on('mouseover', '.tab', function(){
+			$('.tabs').find('.before-hover').removeClass('before-hover');
+			$(this).prev('.tab').addClass('before-hover');
+		});
+		$('.tabs').on('mouseleave', '.tab', function(){
+			$('.tabs').find('.before-hover').removeClass('before-hover');
+		});
+		$('.tabs').on('click', '.tab', function(){
+			$('.tabs').find('.active').removeClass('active');
+			$(this).addClass('active');
+		});
 	</script>
 </body>
 </html>
