@@ -233,6 +233,7 @@
 							<div class="url setting"><span class="label">Description</span><span>description</span></div>
 							<div class="url setting"><span class="label">Summary</span><span>Summary</span></div> -->
 						</div>
+						<div class="delete-page">delete page</div>
 					</div>
 				</div>
 				<div class="wysiwyg" contenteditable="true">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts – it is an almost unorthographic life.</div>
@@ -379,6 +380,9 @@
 		});
 		$('.notice').on('click','a',function(){
 			$('.notice').removeClass('error warning general success').addClass($(this).data('notice'));
+		});
+		$('.delete-page').on('click', function(){
+			$('.page-options-box, .publishing-options').addClass('deleting');
 		});
 	</script>
 </body>

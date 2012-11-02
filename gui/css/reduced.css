@@ -548,6 +548,9 @@ input.seo-headline::-webkit-input-placeholder{ color: rgb(200,200,200); }
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;	
 }
+.page-options-box.deleting .page-options, .publishing-options.deleting .gear:after{
+	background: rgb(225,120,80); 
+}
 .page-options:before{
 /*	content: "";
 	display: block;
@@ -558,6 +561,15 @@ input.seo-headline::-webkit-input-placeholder{ color: rgb(200,200,200); }
 	top: 1px;
 	left: -2px;
 	position: absolute;	*/
+}
+.page-options .delete-page{
+	margin: 10px;
+	float: left;
+	padding: 10px;
+	cursor: hover;
+	background: rgb(255,255,255);
+	box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.1), 0px 0px 1px rgba(100,100,100,0.1);
+	-webkit-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.1), 0px 0px 1px rgba(100,100,100,0.1);	
 }
 .page-options-box{
 	float: left;
