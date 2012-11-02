@@ -79,6 +79,8 @@
 	</div>
 	<!-- =============================================== -->
 	<div id="content">
+		<div class="notice error"><a data-notice="error">Error</a> | <a data-notice="warning">Warning</a> | <a data-notice="general">Notice</a> | 
+			<a data-notice="success">Success</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; This is a message.</div>
 		<div id="sidebar">
 			<div id='system_menu'>
 				<div class='system-current active'>
@@ -102,7 +104,7 @@
 					<li class="icon-pseudo page"><span>Start</span><span class="delete"></span></li>
 					<li class="icon-pseudo page has-submenu active"><span class="text">Klima</span><span class="delete"></span></li>
 					<ul>
-						<li class="icon-pseudo page"><span class="text">Anwendungsgebiete</span><span class="delete"></span></li>
+						<li class="icon-pseudo empty page"><span class="text">Anwendungsgebiete</span><span class="delete"></span></li>
 						<li class="icon-pseudo page"><span class="text">Dampfbefeuchter</span><span class="delete"></span></li>
 						<li class="icon-pseudo page"><span class="text">Zerstäubungsbefeuchter</span><span class="delete"></span></li>
 						<li class="icon-pseudo page"><span class="text">Zubehör</span><span class="delete"></span></li>						
@@ -212,13 +214,6 @@
 								</table>
 							</div>
 						</div>
-						<ul class="languages">
-							<lh>Translations</lh>
-							<li class="active">English</li>
-							<li>German</li>
-							<li class="empty">French</li>
-							<li class="add-language">add new language</li>
-						</ul>
 						<div class="settings">
 							<div class="type setting">
 								<span class="label">Type</span>
@@ -381,6 +376,9 @@
 		$('.tabs').on('click', '.tab', function(){
 			$('.tabs').find('.active').removeClass('active');
 			$(this).addClass('active');
+		});
+		$('.notice').on('click','a',function(){
+			$('.notice').removeClass('error warning general success').addClass($(this).data('notice'));
 		});
 	</script>
 </body>

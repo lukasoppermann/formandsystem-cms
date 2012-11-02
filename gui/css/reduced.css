@@ -175,6 +175,12 @@ h3{
 	-o-transition: all .4s ease;
 	-ms-transition: all .4s ease;	
 }
+#sidebar .nav span.text, #sidebar .nav ul ul span.text{
+	display: block;
+	width: 110px;
+	overflow: hidden;
+}
+#sidebar .nav span.text{ width: 130px; }
 #sidebar .nav .active span.text:after{
 	z-index: 1;
 	content: "";
@@ -219,6 +225,9 @@ h3{
 }
 #sidebar .nav li.editable{
 	text-decoration: underline;
+}
+#sidebar .nav .icon-pseudo.empty:before{
+	background-position: -240px 0;
 }
 /* ---------------------------------------------------------------- */
 /* System Menu */
@@ -533,14 +542,11 @@ input.seo-headline::-webkit-input-placeholder{ color: rgb(200,200,200); }
 .page-options{
 	z-index: 10;
 	position: absolute;
-	width: 700px;
+	width: 698px;
 	background: rgb(210,230,230);
-/*	box-shadow: 1px 0px 0px 0px rgb(225,225,225), 
-		inset 0px 1px 0px 0px rgb(210,210,210), inset 0px 2px 0px 0px rgb(235,235,235),
-		inset 0px -1px 0px 0px rgb(210,210,210), inset 0px -2px 0px 0px rgb(235,235,235);
-	-webkit-box-shadow: 1px 0px 0px 0px rgb(225,225,225), 
-		inset 0px 1px 0px 0px rgb(210,210,210), inset 0px 2px 0px 0px rgb(235,235,235),
-		inset 0px -1px 0px 0px rgb(210,210,210), inset 0px -2px 0px 0px rgb(235,235,235);*/
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
 }
 .page-options:before{
 /*	content: "";
@@ -636,7 +642,7 @@ input.seo-headline::-webkit-input-placeholder{ color: rgb(200,200,200); }
 	-webkit-box-shadow: none;
 	cursor: default;	
 }
-.languages{
+/*.languages{
 	float: left;
 	width: 160px;
 	list-style: none;
@@ -709,7 +715,7 @@ input.seo-headline::-webkit-input-placeholder{ color: rgb(200,200,200); }
 }
 .languages li.add-language:hover:before{
 	opacity: 0.4;	
-}
+}*/
 /*------------------------------------*/
 /* settings */
 .settings{
@@ -717,7 +723,7 @@ input.seo-headline::-webkit-input-placeholder{ color: rgb(200,200,200); }
 	margin: 10px 0;
 	float: left;
 }
-.settings .setting{
+.page-options .settings .setting{
 	float: left;
 	margin: 5px 0;
 	padding: 5px;
@@ -1475,8 +1481,8 @@ body.settings-page{
 .tab:hover .end{ background: rgb(250,250,250); }
 .tab.active .end:after{
 	background: rgb(225,225,225);
-	box-shadow: inset 0px -1px 0px 0px rgb(210,210,210), inset 0px -3px 0px 0px rgb(230,230,230);
-	-webkit-box-shadow: inset 0px -1px 0px 0px rgb(210,210,210), inset 0px -3px 0px 0px rgb(230,230,230);
+	box-shadow: inset 0px -1px 0px 0px rgb(210,210,210), inset 0px -3px 0px 0px rgba(210,210,210,.35);
+	-webkit-box-shadow: inset 0px -1px 0px 0px rgb(210,210,210), inset 0px -3px 0px 0px rgba(210,210,210,.35);
 }
 .tab:not(.active):hover .end:after{
 	box-shadow: none;
@@ -1522,8 +1528,8 @@ body.settings-page{
 	border-top-left-radius: 16px;
 	background: rgb(255,255,255);
 	border-bottom: 0px;
-	box-shadow: 0px 0px 0px 1px rgb(210,210,210), 0px 0px 0px 3px rgb(230,230,230);
-	-webkit-box-shadow: 0px 0px 0px 1px rgb(210,210,210), 0px 0px 0px 3px rgb(230,230,230);
+	box-shadow: 0px 0px 0px 1px rgb(210,210,210), 0px 0px 0px 3px rgba(210,210,210,.35);
+	-webkit-box-shadow: 0px 0px 0px 1px rgb(210,210,210), 0px 0px 0px 3px rgba(210,210,210,.35);
 }
 .tab.active:before{
 	top: -1px;
@@ -1709,5 +1715,20 @@ body.settings-page{
 	right: -2px;
 	left: auto;
 }
-.add-tab:hover .top:before, .add-tab:hover .top:after, .add-tab:hover .top, .add-tab:hover .bg,
+.add-tab:hover .top:before, .add-t ab:hover .top:after, .add-tab:hover .top, .add-tab:hover .bg,
 .add-tab:hover .bottom:before, .add-tab:hover .bottom:after, .add-tab:hover .bottom{ background: rgb(250,250,250); }
+/*------------------------------------*/
+/* notice */
+.notice{
+	font-size: 16px;
+	color: (120,130,130);
+	padding: 10px;
+	background: rgb(210,230,230);
+	color: rgb(90,100,100);
+	box-shadow: inset 0 -2px 0 0 rgba(0,0,0,0.1);
+	-webkit-box-shadow: inset 0 -2px 0 0 rgba(0,0,0,0.1);
+}
+.notice a{ text-decoration: underline; }
+.notice.error{ background: rgb(225,120,80); color: rgb(255,255,255); }
+.notice.warning{ background: rgb(255,225,25); color: rgb(25,25,0); }
+.notice.success{ background: rgb(170,225,80); color: rgb(30,105,0);}
