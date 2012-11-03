@@ -331,7 +331,16 @@
 			</div>
 		</div>
 	</div>
-</div>	
+</div>
+<div class="overlay" style="display: none;">
+	<div class="dialog error">
+		<p>Are you sure you want to delete the page Klima in all languages (English, German & French)?</p>
+		<div class="dialog-options">
+			<div class="button">Delete</div>
+			<div class="button">Cancel</div>
+		</div>
+	</div>
+</div>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		$('.gear').on('click', function(){
@@ -383,6 +392,12 @@
 		});
 		$('.delete-page').on('click', function(){
 			$('.page-options-box, .publishing-options').addClass('deleting');
+		});
+		$('.nav').find('.delete').on('click', function(){
+			$('.overlay').fadeIn(300);
+		});
+		$('.dialog').find('.button').on('click', function(){
+			$('.overlay').fadeOut(300);
 		});
 	</script>
 </body>
