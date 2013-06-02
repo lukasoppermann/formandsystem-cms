@@ -1,0 +1,207 @@
+.form-element{
+	position: relative;
+	float: left;
+	width: 100%;
+	line-height: 1;
+	margin: 5px;
+}
+.form-element.one-row{
+	display: block;
+	height: 30px;
+}
+::-webkit-input-placeholder {
+    font-family: "helvetica", "arial", sans-serif;
+	font-size: 12px;
+	text-shadow: none !important;
+}
+:-moz-placeholder {
+    font-family: "helvetica", "arial", sans-serif;
+	font-size: 12px;
+	text-shadow: none !important;
+}
+.form-element .input{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
+	width: 100%;
+	padding: 7px;
+	font-size: 12px;
+	height: 30px;
+	border-radius: 3px;
+	background: rgb(250,250,250);
+	color: rgb(100,100,100);
+	border: 1px solid rgb(200,200,200);
+	box-shadow: inset 0px 0px 0px 1px rgb(235,235,235);
+	-webkit-box-shadow: inset 0px 0px 0px 1px rgb(235,235,235);
+	-moz-box-shadow: inset 0px 0px 0px 1px rgb(235,235,235);
+	transition-property: color, border, box-shadow, background;  
+	transition-duration: .25s;  
+	-webkit-transition-property: color, border, box-shadow, background;
+	-webkit-transition-duration: .25s;
+	-moz-transition-property: color, border, box-shadow, background;
+	-moz-transition-duration: .25s;
+}
+.form-element.empty .input{
+	border: 1px solid rgb(220,220,220);
+	background: rgb(245,245,245);
+}
+.form-element:hover .input{
+	border: 1px solid rgb(200,200,200);
+}
+.form-element .input:focus, .form-element .input:active{
+	text-shadow: none;
+	color: rgb(50,50,50);
+	background: rgb(250,250,250);
+	border: 1px solid rgb(200,200,200);
+	box-shadow: inset 0px 1px 0px 0px rgb(230,230,230), inset 0px 0px 0px 1px rgb(240,240,240);
+	-webkit-box-shadow: inset 0px 1px 0px 0px rgb(230,230,230), inset 0px 0px 0px 1px rgb(240,240,240);
+	-moz-box-shadow: inset 0px 1px 0px 0px rgb(230,230,230), inset 0px 0px 0px 1px rgb(240,240,240);
+}
+.form-element .error, .form-element:hover .error, .form-element:hover .error:focus, .form-element:hover .error:active{
+	border: 1px solid rgb(230,50,50) !important;
+	box-shadow: 0px -1px 0px 0px rgb(250,100,100), 
+				0px -2px 0px 0px rgb(250,140,140), 
+				0px 1px 0px 0px rgb(230,50,50), 
+				0px 2px 0px 0px rgb(200,25,25), 
+				0px 0px 0px 1px rgb(255,60,60), 
+				0px 0px 0px 2px rgb(230,50,50), 
+				0px 0px 2px 1px rgba(0,0,0,0.75), 
+				0px 2px 0px 1px rgba(0,0,0,0.1), 
+				inset 0px 1px 0px 0px rgb(200,200,200), 
+				inset 0px 0px 0px 1px rgb(215,215,215), 
+				inset 0px 0px 0px 2px rgb(230,230,230) !important;
+	-webkit-box-shadow: 0px -1px 0px 0px rgb(250,100,100),
+				0px -2px 0px 0px rgb(250,140,140), 
+				0px 1px 0px 0px rgb(230,50,50), 
+				0px 2px 0px 0px rgb(200,25,25), 
+				0px 0px 0px 1px rgb(255,60,60), 
+				0px 0px 0px 2px rgb(230,50,50), 
+				0px 0px 2px 1px rgba(0,0,0,0.75), 
+				0px 2px 0px 1px rgba(0,0,0,0.1), 
+				inset 0px 1px 0px 0px rgb(200,200,200), 
+				inset 0px 0px 0px 1px rgb(215,215,215), 
+				inset 0px 0px 0px 2px rgb(230,230,230) !important;
+	-moz-box-shadow: 0px -1px 0px 0px rgb(250,100,100), 
+				0px -2px 0px 0px rgb(250,140,140), 
+				0px 1px 0px 0px rgb(230,50,50), 
+				0px 2px 0px 0px rgb(200,25,25), 
+				0px 0px 0px 1px rgb(255,60,60), 
+				0px 0px 0px 2px rgb(230,50,50), 
+				0px 0px 2px 1px rgba(0,0,0,0.75), 
+				0px 2px 0px 1px rgba(0,0,0,0.1), 
+				inset 0px 1px 0px 0px rgb(200,200,200), 
+				inset 0px 0px 0px 1px rgb(215,215,215), 
+				inset 0px 0px 0px 2px rgb(230,230,230) !important;
+}
+.form-element .required{
+
+}
+.form-element .placeholder{
+	z-index: 0;
+	pointer-events: none;
+	position: absolute;
+	top: 0px;
+	left: 5px;
+	height: 12px;
+	padding: 9px;
+    font-family: "helvetica", "arial", sans-serif;	
+	font-size: 12px;
+	color: rgb(150,150,150);
+	text-align: left;
+	transition-property: color;  
+	transition-duration: .4s;  
+	-webkit-transition-property: color;
+	-webkit-transition-duration: .4s;
+	-moz-transition-property: color;
+	-moz-transition-duration: .4s;
+}
+.form-element :focus ~ .placeholder{
+	color: rgb(180,180,180);	
+}
+/*------------------------*/
+/* button */
+.button{
+	border:  1px solid rgb(200,200,200);
+	border-radius: 2px;
+	display: inline-block;
+	padding: 5px 7px;
+	box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.15);
+	-webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.15);
+	-moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.15);
+	background-color: rgb(240,240,240);
+	background-image: -moz-linear-gradient(top, rgb(240,240,240), rgb(230,230,230));
+	background-image: -webkit-linear-gradient(top, rgb(240,240,240), rgb(230,230,230));
+	cursor: pointer;
+	transition-property: color, border-color, box-shadow;  
+	transition-duration: .4s;  
+	-webkit-transition-property: color, border-color, box-shadow;
+	-webkit-transition-duration: .4s;
+	-moz-transition-property: color, border-color, box-shadow;
+	-moz-transition-duration: .4s;
+}
+.button:hover{
+	border:  1px solid rgb(150,150,150);
+}
+/*------------------------*/
+/* bubble */
+.bubble{
+	display: block;
+	border-radius: 3px;
+	padding: 10px;
+	position: absolute;
+	text-align: left;
+	right: -176px;
+	top: -10px;
+	opacity: 1;
+	width: 150px;
+	z-index: 900;
+	border: 1px solid rgb(200,200,200);
+	background-color: rgb(252,252,252);
+	background-image: -moz-linear-gradient(top, rgb(252,252,252), rgb(245,245,245));
+	background-image: -webkit-linear-gradient(top, rgb(252,252,252), rgb(245,245,245));	
+}
+.bubble.right:before, .bubble.right:after{
+	content: "";
+	display: block;
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	top: 50%;	
+}
+.bubble.right:before{
+	border-color: transparent rgb(250,250,250) transparent transparent;
+	border-width: 6px;
+	left: -12px;
+	margin-top: -6px;
+	z-index: 2;
+}
+.bubble.right:after{
+	border-color: transparent rgba(0,0,0,0.1) transparent transparent;
+	border-width: 7px;
+	left: -15px;
+	margin-top: -7px;	
+	z-index: 1;	
+}
+.bubble a{
+	color: rgb(50,150,200);
+	text-decoration: underline;
+	transition-property: color, text-decoration;  
+	transition-duration: .4s;  
+	-webkit-transition-property: color, text-decoration;
+	-webkit-transition-duration: .4s;
+	-moz-transition-property: color, text-decoration;
+	-moz-transition-duration: .4s;
+}
+.bubble a:hover{
+	color: rgb(25,125,175);
+	text-decoration: none;
+}
+.bubble p{
+	display: block;
+	margin: 0 0 3px 0;
+}
+.bubble .form-element{
+	width: 150px;
+	margin: 5px 0;
+}

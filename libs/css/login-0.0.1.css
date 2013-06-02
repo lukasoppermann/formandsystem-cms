@@ -1,0 +1,290 @@
+/*------------------------*/
+/* General */
+#login{
+	float: left;
+	position: relative;
+	text-align: center;
+	max-width: 1200px;
+	height: 400px;
+	left: 50%;
+	top: 50%;
+	width: 100%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
+}
+/*------------------------*/
+/* Errors */
+.login-errors{
+	position: relative;	
+	float: left;
+	padding: 12px 2% 7px 2%;
+	width: 80%;
+	margin: -150px 8% 0;
+	border-radius: 3px;
+	background: rgb(255,235,235);
+	border: 1px solid rgb(200,125,125);
+	color: rgb(150,35,35);
+	z-index: 0;
+	box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.2);
+}
+.error p{
+	line-height: 13px;
+	margin: 0 0 5px;
+}
+.error p:last-child{
+	margin: 0;
+}
+/* Error Links */
+#retrieve_user_link{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
+	height: 30px;
+	width: 20px;
+	background: rgb(235,235,235);
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	padding: 0;
+	box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
+	-webkit-box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
+	-moz-box-shadow: -1px 0px 1px 0px rgba(0,0,0,0.1);
+}
+#retrieve_user_link:hover{
+	box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);
+	-webkit-box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);
+	-moz-box-shadow: -1px 0px 2px 0px rgba(0,0,0,0.25);	
+}
+#retrieve_user_link .icon{
+	position: absolute;
+	top: 4px;
+}
+#forgot_user_bubble{
+	top: -25px;
+	z-index: 99;
+}
+/*------------------------*/
+/* Form Data */
+.show-password, #show_forgot_user{
+	opacity: 0;
+	width: 20px;
+	height: 20px;	
+	position: absolute;
+	right: 10px;
+	top: 5px;
+	z-index: 5;
+}
+#show_forgot_user{
+	opacity: 0.4;
+}
+.password-clear{
+	position: absolute;
+	top: 5px;
+	left: 10px;
+	display: block;
+	width: 198px;
+	height: 14px;
+	padding: 3px 10px 3px 3px;
+	color: rgb(100,100,100);	
+	background: rgb(250,250,250);
+	border: none;
+	font-size: 12px;
+	line-height: 1;
+	z-index: 2;
+}
+.password-clear:focus{
+	color: rgb(50,50,50);	
+}
+.empty .password-clear{
+	background: rgb(245,245,245);
+}
+.password, .username{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
+	width: 100%;
+	padding-right: 40px;
+	font-size: 12px;
+	line-height: 1;
+}
+.form-element{
+	width: 100%;
+	margin: 5px 0;
+	padding: 0 5px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;	
+}
+/*------------------------*/
+/* Card General */
+.user-image{
+	position: relative;	
+	border-radius: 2px;
+	overflow: hidden;
+	float: left;
+	margin: 5px;
+	width: 180px;
+	height: 180px;
+}
+.user-image .profile-image{
+	position: relative;
+	z-index: 1;
+	border-radius: 2px;
+	overflow: hidden;
+	float: left;
+	width: 100%;
+	height: 100%;
+}
+.user-image .overlay{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	border-radius: 2px;	
+	box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.35);
+	-webkit-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.35);
+	-moz-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.35);
+	background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0.4) 0, rgba(0,0,0,0.1) 30px, rgba(0,0,0,0.0) 40px);
+	background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0.4) 0, rgba(0,0,0,0.1) 30px, rgba(0,0,0,0.0) 40px);
+}
+.user-image.cms-profile .overlay{
+	background-image: none;
+}
+.user-image .overlay .fullname{
+	display: block;
+	float: left;
+	text-align: right;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	padding: 5px;
+	color: rgb(255,255,255);
+	font-weight: bold;
+	text-shadow: rgba(0,0,0,0.25) 0px 1px 0px, rgba(0,0,0,0.5) 0px 0px 1px, rgba(0,0,0,0.35) 0px 0px 3px;
+}
+#login .widget{
+	width: 210px;
+	height: 210px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	z-index: 1;
+}
+#login .widget.active{
+	z-index: 2;	
+}
+#login .widget-content{
+	position: relative;
+	float: left;
+	padding: 0px;
+	z-index: 1;
+	width: 190px;
+	height: 190px;	
+}
+.wrapper{
+	width: auto;
+	display: inline-block;
+	text-align: center;
+	max-width: 300px;
+	width: 25%;
+	height: 400px;
+}
+/* Active User */
+.active-user .form-element{
+	margin-top: -35px;
+}
+.active-user .widget{
+	top: 50%;
+	left: 50%;
+	margin: -100px 0 0 -100px;
+}
+/* ----------------------- */
+/* New User */
+#login .login .widget-content{
+	height: 340px;
+	width: 260px;
+	padding: 5px;
+}
+#login .login .widget-content .user-image{
+	height: 250px;
+	width: 250px;
+	margin: 5px;
+}
+.login .login-errors{
+	display: none;
+}
+/* Card Flip */
+.add-user{
+	width: 60px;
+	height: 60px;
+	background-color: transparent;
+	border-radius: 3px;
+}
+.add-user:hover{
+	background-color: rgb(240,240,240);
+	box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.15);
+	-webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.15);
+	-moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.15);
+}
+.add-user .add-icon{
+	width: 60px;
+	height: 60px;
+	background: url(../../media/layout/formandsystem-icons.png);
+	background-position: -280px 0;
+	opacity: 0.1;	
+}
+.card {
+	float: left;
+	display: block;
+	-webkit-perspective: 600px;
+	-moz-perspective: 600px;
+	perspective: 600px;
+}		
+.single .card .side{
+	-webkit-transition: all .0s cubic-bezier(.8,.1,.3,.9);
+	-moz-transition: all .0s cubic-bezier(.8,.1,.3,.9);
+	transition: all .0s cubic-bezier(.8,.1,.3,.9);	
+}
+.card .side {
+	display: block;
+	position: absolute;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;				    
+	-webkit-transition: all .5s cubic-bezier(.8,.1,.3,.9);
+	-moz-transition: all .5s cubic-bezier(.8,.1,.3,.9);
+	transition: all .5s cubic-bezier(.8,.1,.3,.9);
+}
+.card div, .card .profile-image, .card input, .card a, .card span{
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+	opacity: 0.99;
+}
+.front {
+	margin: 160px 0 0 -30px;
+	left: 50%;
+}
+.flip .front {
+	-webkit-transform: rotateY( 180deg );
+	-moz-transform: rotateY( 180deg );
+	transform: rotateY( 180deg );
+}
+.back {
+	-webkit-transform: rotateY( -180deg );
+	-moz-transform: rotateY( -180deg );
+	transform: rotateY( -180deg );
+}
+.flip .back {
+	-webkit-transform: rotateY( 0deg );
+	-moz-transform: rotateY( 0deg );
+	transform: rotateY( 0deg );
+}
