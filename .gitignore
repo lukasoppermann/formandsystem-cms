@@ -4,15 +4,23 @@
 *.psd
 *.ai
 *.orig
+_*.*
 _*/
 logs/
 log-
 0*_*/
+*cache*/*.php
+sessions/
+storage/
 images/
+media/
 movies/
 files/
-*cache*/
-config/database.php
+
+# db files #
+############
+database.php
+
 
 # Packages #
 ############
