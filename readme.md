@@ -3,6 +3,7 @@
 
 ## Milestone v.1
 - Mark markdown editor
+based on (mark)[https://github.com/lukasoppermann/mark]
 
 ## Milestone v.2
 - Setup Laravel
