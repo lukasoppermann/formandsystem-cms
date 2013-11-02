@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'http://www',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -113,8 +113,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-        'Lukasoppermann\Optimization\OptimizationServiceProvider'
-
+        'Lukasoppermann\Optimization\OptimizationServiceProvider',
 	),
 
 	/*
@@ -179,6 +178,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
+
 	),
 
 );
