@@ -21,6 +21,9 @@ files/
 ############
 database.php
 
+# laravel #
+############
+vendor/
 
 # Packages #
 ############
