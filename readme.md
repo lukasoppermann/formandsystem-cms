@@ -1,15 +1,15 @@
 # Form&System MVP
 
 ## Data Model
-0:{
-	type: 'image',
-	column: 3
-	content: imagefile.png,
-	class: 'optional-classes'
-},
-1:{
+0:{  
+	type: 'image', 
+	column: 3,  
+	content: imagefile.png,  
+	class: 'optional-classes'  
+},  
+1:{  
 
-}
+}  
 
 
 ## Milestone v.1
