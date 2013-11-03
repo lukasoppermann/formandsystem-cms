@@ -15,7 +15,7 @@
 	column: 2,  
 	content: "#Headline 
 		content is in markdown",  
-	class: 'optional-classes' 
+	class: 'optional-classes'  
 }  
 
 
