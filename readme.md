@@ -4,9 +4,9 @@
 0:{  
 	type: 'image',  
 	column: 3,  
-	content: {
-		src: "imagefile.png",
-		description: "Some optional text"
+	content: {  
+		src: "imagefile.png",  
+		description: "Some optional text"  
 	},  
 	class: 'optional-classes'  
 },  
