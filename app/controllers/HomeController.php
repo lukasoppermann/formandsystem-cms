@@ -4,7 +4,7 @@ class HomeController extends BaseController {
 	/**
 	* The layout that should be used for responses.
 	*/
-	protected $layout = 'home.index';
+	protected $layout = 'content.index';
 	
 	/**
 	* Show the homepage
@@ -13,16 +13,8 @@ class HomeController extends BaseController {
 	{
 		$this->layout->title = 'Test';
 		
-		// load about page
-		$this->layout->about = View::make('home.about');
-		// load portfolio
-		$this->layout->portfolio = $this->portfolio();
-		// load expertise
-		$this->layout->expertise = View::make('home.expertise');
-		// load philosophy
-		$this->layout->philosophy = View::make('home.philosophy');
-		// load contact
-		$this->layout->contact = View::make('home.contact');
+		// load overview
+		$this->layout->content = View::make('content.overview');
 	}
 	
 	public function portfolio()
