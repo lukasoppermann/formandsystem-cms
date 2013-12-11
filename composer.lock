@@ -733,12 +733,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "1973197d53c9daaf65c54c4c872669e787a408d3"
+                "reference": "426c9e0e39915eedd2861b147ba6701443136e3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/1973197d53c9daaf65c54c4c872669e787a408d3",
-                "reference": "1973197d53c9daaf65c54c4c872669e787a408d3",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/426c9e0e39915eedd2861b147ba6701443136e3d",
+                "reference": "426c9e0e39915eedd2861b147ba6701443136e3d",
                 "shasum": ""
             },
             "require": {
@@ -838,7 +838,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2013-12-03 02:09:00"
+            "time": "2013-12-06 01:42:26"
         },
         {
             "name": "lukasoppermann/optimization",
@@ -1047,16 +1047,16 @@
         },
         {
             "name": "patchwork/utf8",
-            "version": "v1.1.15",
+            "version": "v1.1.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nicolas-grekas/Patchwork-UTF8.git",
-                "reference": "2b13126f572501ce9806846349344f1c6b20b545"
+                "reference": "bc719e850b57791c1024d06f9fe7d474348e7ba6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/2b13126f572501ce9806846349344f1c6b20b545",
-                "reference": "2b13126f572501ce9806846349344f1c6b20b545",
+                "url": "https://api.github.com/repos/nicolas-grekas/Patchwork-UTF8/zipball/bc719e850b57791c1024d06f9fe7d474348e7ba6",
+                "reference": "bc719e850b57791c1024d06f9fe7d474348e7ba6",
                 "shasum": ""
             },
             "require": {
@@ -1094,7 +1094,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2013-11-23 12:47:40"
+            "time": "2013-12-07 12:20:20"
         },
         {
             "name": "predis/predis",
@@ -1102,12 +1102,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nrk/predis.git",
-                "reference": "381023ad8f019eb4859550538e4affdb5bb9a68b"
+                "reference": "09cb6677e241feecb165f417e1b3ea9709e1b173"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/381023ad8f019eb4859550538e4affdb5bb9a68b",
-                "reference": "381023ad8f019eb4859550538e4affdb5bb9a68b",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/09cb6677e241feecb165f417e1b3ea9709e1b173",
+                "reference": "09cb6677e241feecb165f417e1b3ea9709e1b173",
                 "shasum": ""
             },
             "require": {
@@ -1141,7 +1141,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2013-12-02 10:44:40"
+            "time": "2013-12-11 12:10:05"
         },
         {
             "name": "psr/log",
