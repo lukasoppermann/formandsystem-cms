@@ -18,12 +18,11 @@ class BaseController extends Controller {
 		Header("Cache-Control: post-check=0, pre-check=0", FALSE); 
 		Header("Pragma: no-cache" ); // HTTP/1.0
 		// add css resources
-		// Optimization::css(array('reset','gui','typography','base','colors','layout','gridified','animations','browser','icons',
-		// 						'responsiveness','menu','homepage','portfolio'));
-		// // add js resources
+		Optimization::css(array('reset', 'layout', 'nav', 'icons', 'contentediting'));
+		// add js resources
 		// Optimization::js('minified, fs.media_queries, offset, viewport, onScroll, scrollPercent, scrollOffset, base');
-		//         // google analytics
-		//         Optimization::add_lines('js',"var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-7074034-1']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();");
+		// google analytics
+		// Optimization::add_lines('js',"var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-7074034-1']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();");
 	}
 
 	/**

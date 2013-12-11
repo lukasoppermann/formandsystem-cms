@@ -1,0 +1,23 @@
+#content .content-wrapper{
+	margin: 6em 2em 0 8em;
+	width: calc(100% - 10em);
+	width: -webkit-calc(100% - 10em);
+	background-color:red;
+}
+#content .headline{
+	font-size: 4em;
+	font-weight: 600;
+	font-family: "Gotham", "Helvetica Neue", Helvetica, Sans-serif;
+	border: 0;
+	outline: none;
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box;
+}
+
+#content .mark{
+	font-size: 1.2em;
+	margin: 1.6em .4em 0 2em;
+	width: calc(100% - 2.4em);
+	width: -webkit-calc(100% - 2.4em);
+}

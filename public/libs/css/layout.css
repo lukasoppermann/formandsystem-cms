@@ -1,0 +1,9 @@
+body{
+    display: -webkit-flex;
+    display: flex;
+	 font-family: "Helvetica Neue", Helvetica, Sans-serif;
+}
+#content{
+	-webkit-flex: 1;
+	flex: 1;
+}
