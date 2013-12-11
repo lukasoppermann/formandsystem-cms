@@ -14,6 +14,7 @@ class CreateNavigationTable extends Migration {
 		Schema::create('fs_navigation', function($table)
 		{
 			$table->increments('id');
+			$table->integer('parent_id');
 			$table->timestamps();
 		});
 	}
