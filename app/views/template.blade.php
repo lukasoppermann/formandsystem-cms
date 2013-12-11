@@ -13,47 +13,90 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1,maximum-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 </head>
-<body style="background-color: rgb(105, 195, 160);">
-	<div id="header" class="">
-		<a href="{{URL::to('/')}}" id="logo_small" class="white-logo no-flicker ajax-link span-2">
-			<img class="async-img loaded" data-src-x2="{{URL::to('/')}}/layout/veare-icons@2x.png" data-src-x1="{{URL::to('/')}}/layout/veare-icons.png" src="{{URL::to('/')}}/layout/veare-icons.png"  alt="veare - visionary design, interface design, iOS, webdesign" />
-		</a> 
-		<ul id="nav" class="montserrat">
-			<li class="nav-item anchor active" data-section="about">
-				<div class="label">
-					<span class="text">About</span>
-					<span class="percent"></span>
-				</div>
+<body>
+	<nav>
+		<ul id="mainnav">
+			<li>
+				<a class="nav-link" href="#">Dashboard</a>
+				<a href="#search" class="search"><span class="icon icon-search"></span></a>
 			</li>
-			<li class="nav-item anchor" data-section="expertise">
-				<div class="label">
-					<span class="text">Expertise</span>
-					<span class="percent"></span>
-				</div>
-			</li>
-			<li class="nav-item anchor" data-section="portfolio">
-				<div class="label">
-					<span class="text">Portfolio</span>
-					<span class="percent"></span>
-				</div>
-			</li>
-			<li class="nav-item anchor" data-section="philosophy">
-				<div class="label">
-					<span class="text">Philosophy</span>
-					<span class="percent"></span>
-				</div>
-			</li>
-			<li class="nav-item anchor" data-section="contact">
-				<div class="label">
-					<span class="text">Contact</span>
-					<span class="percent"></span>
-				<div>
+			<li>
+				<a class="nav-link" href="#">Lukas Oppermann</a>
+				<a href="#settings" class="settings"><span class="icon icon-settings"></span></a>
 			</li>
 		</ul>
+		<ul id="contentnav">
+			
+			<li class="nav-list-item">
+				
+				<div class="nav-item">
+					
+					<a class="nav-link" href="#"><span class="icon icon-page"></span>Home</a>
+					
+					<a href="#visible" class="edit-tool status"><span class="active icon icon-eye"></span></a>
+					
+					<div class="edit-tool page-link-container">
+						<span class="icon icon-link"></span>
+						<input class="page-link" type="text" value="" placeholder="/link-to-page" />
+					</div>
+					
+					<div class="edit-tool delete"><a href="#delete">delete</a></div>
+					
+				</div>
+				
+				<ul>
+					<li>
+						
+						<div class="nav-item">
+							<a class="nav-link" href="#"><span class="icon icon-page"></span>Portfolio</a>
+							<a href="#visible" class="edit-tool status"><span class="active icon icon-eye"></span></a>
+							<div class="edit-tool page-link-container">
+								<span class="icon icon-link"></span>
+								<input class="page-link" type="text" value="" placeholder="/link-to-page" />
+							</div>
+							<div class="edit-tool delete"><a href="#delete">delete</a></div>
+						</div>
+						
+						<ul>
+							<li>
+								<div class="nav-item active">
+									<a class="nav-link" href="#"><span class="icon icon-page"></span>Portfolio</a>
+									<a href="#visible" class="edit-tool status"><span class="icon icon-eye"></span></a>
+									<div class="edit-tool page-link-container">
+										<span class="icon icon-link"></span>
+										<input class="page-link" type="text" value="" placeholder="/link-to-page" />
+									</div>
+									<div class="edit-tool delete"><a href="#delete">delete</a></div>
+								</div>
+							</li>
+						</ul>
+						
+					</li>
+				</ul>
+				
+			</li>
+			
+			<li class="contentnav-item active">
+				<div class="nav-item">
+					
+					<a class="nav-link" href="#"><span class="icon icon-stack"></span>Blog</a>
+					
+					<a href="#visible" class="edit-tool status"><span class="active icon icon-eye"></span></a>
+					
+					<div class="edit-tool page-link-container">
+						<span class="icon icon-link"></span>
+						<input class="page-link" type="text" value="" placeholder="/link-to-page" />
+					</div>
+					
+					<div class="edit-tool delete"><a href="#delete">delete</a></div>
+					
+				</div>
+			</li>
+		</ul>
+	</nav>
+	<div id="content">
+    	@yield('content')
 	</div>
-	
-    @yield('content')
-	
 	{{Optimization::js('default',false);}}
 </body>
 </html>

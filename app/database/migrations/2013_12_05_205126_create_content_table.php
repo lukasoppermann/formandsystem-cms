@@ -15,8 +15,10 @@ class CreateContentTable extends Migration {
 		{
 			$table->increments('id');
 			$table->smallInteger('menu_id');
+			$table->string('menu_label');
 			$table->boolean('status');
 			$table->string('language', 2);
+			$table->smallInteger('type');
 			$table->string('title');
 			$table->text('content');
 			$table->timestamps();

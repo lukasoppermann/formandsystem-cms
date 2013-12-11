@@ -1,0 +1,342 @@
+.icon{
+	display: block;
+	position: relative;
+	height: 20px;
+	width: 20px;
+}
+/* Page icon */
+.icon-page:after{
+	height: 18px;
+	width: 16px;
+	border: 2px solid rgb(255,255,255);
+	position: absolute;
+	background-image: linear-gradient(rgb(255, 255, 255) 2px, transparent 2px, transparent 4px, rgb(255, 255, 255) 4px, rgb(255, 255, 255) 6px, transparent 6px);
+	background-size: 8px 14px;
+	background-repeat: no-repeat;
+	background-position: 2px 2px;	
+}
+.icon-page:before{
+	position: absolute;
+	background-color: rgb(255,255,255);
+	width: 5px;
+	height: 2px;
+	margin: 12px 0 0 4px;
+}
+/* Link icon */
+.icon-link:after{
+	position: absolute;
+	bottom: 2px;
+	transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	height: 10px;
+	width: 14px;
+	border-radius: 5px;
+	border: 2px solid rgb(255,255,255);
+}
+.icon-link:before{
+	position: absolute;
+	top: 2px;
+	right: 0;
+	transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	height: 10px;
+	width: 14px;
+	border-radius: 5px;
+	border: 2px solid rgb(255,255,255);
+}
+/* Settings icon */
+.icon-settings{
+	top: 0;
+	left: 0;
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	background-image: linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255)),
+	linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255)),
+	linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255)),
+	linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255));
+	background-size: 4px 4px;
+	background-repeat: no-repeat;
+	background-position: 8px 0, 0 8px, 8px 16px, 16px 8px;
+}
+.icon-settings:after{
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	border: 4px solid rgb(255,255,255);
+}
+.icon-settings:before{
+	top: 0;
+	left: 0;
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	background-image: linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255)),
+	linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255)),
+	linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255)),
+	linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255));
+	background-size: 4px 4px;
+	background-repeat: no-repeat;
+	background-position: 8px 0, 0 8px, 8px 16px, 16px 8px;
+}
+/* Search icon */
+.icon-search:after{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	border: 3px solid rgb(255,255,255);
+}
+.icon-search:before{
+	position: absolute;
+	bottom: 0;
+	right: 3px;
+	width: 3px;
+	height: 8px;
+	background: rgb(255,255,255);
+	transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+}
+/* eye icon */
+.icon-eye{
+	width: 20px;
+	height: 20px;
+	position: relative;
+	border-radius: 85% 0 / 85% 0;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	background-image: radial-gradient(circle closest-side at center, transparent 65%, rgb(255,255,255) 65%, rgb(255,255,255));
+}
+.icon-eye:after {
+	position: absolute;
+	top: 3px;
+	left: 3px;
+	width: 14px;
+	height: 14px;
+	border: 1px solid rgb(255,255,255);
+	border-radius: 50%;
+}
+.icon-eye.active:before{
+	position: absolute;
+	top: 7px;
+	left: 7px;
+	width: 6px;
+	height: 6px;
+	background: rgb(255,255,255);
+	border-radius: 50%;
+}
+/* add icon */
+.icon-add:before{
+	width: 20px;
+	height: 4px;
+	background-color: rgb(255,255,255);
+	position: absolute;
+	top: 8px;
+}
+.icon-add:after{
+	height: 20px;
+	width: 4px;
+	background-color: rgb(255,255,255);
+	position: absolute;
+	left: 8px;
+}
+/* close icon */
+.icon-close{
+	width: 20px;
+	height: 20px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+.icon-close:before{
+	width: 20px;
+	height: 4px;
+	background-color: rgb(255,255,255);
+	position: absolute;
+	top: 8px;
+}
+.icon-close:after{
+	height: 20px;
+	width: 4px;
+	background-color: rgb(255,255,255);
+	position: absolute;
+	left: 8px;
+}
+/* save icon */
+.icon-save{
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+.icon-save:before{
+	position: absolute;
+	height: 20px;
+	width: 4px;
+	left: 8px;
+	background-color: rgb(255,255,255);
+}
+.icon-save:after{
+	position: absolute;
+	height: 4px;
+	width: 8px;
+	left: 1px;
+	bottom: 0;
+	background-color: rgb(255,255,255);
+}
+/* delete icon */
+.icon-delete{
+	width: 14px;
+	height: 16px;
+	border: 2px solid rgb(255,255,255);
+	background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)), linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
+	background-size: 2px 8px;
+	background-repeat: no-repeat;
+	background-position: 2px 2px, 6px 2px;
+}
+.icon-delete:before{
+	position: absolute;
+	left: -4px;
+	top: -5px;
+	width: 18px;
+	height: 2px;
+	background-color: rgb(255,255,255);
+}
+.icon-delete:after{
+	position: absolute;
+	left: 2px;
+	top: -7px;
+	width: 6px;
+	height: 2px;
+	background-color: rgb(255,255,255);
+}
+/* menu icon */
+.icon-menu{
+	background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)), 
+	linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)),
+	linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));	
+	background-size: 20px 3px;
+	background-repeat: no-repeat;
+	background-position: 0px 0px, 0px 7px, 0px 14px;
+}
+/* stats icon */
+.icon-stats{
+	background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)), 
+	linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)),
+	linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));		
+	background-size: 3px 14px, 3px 8px, 3px 16px;
+	background-repeat: no-repeat;
+	background-position: 2px 8px, 8px 12px, 14px 4px;	
+}
+/* arrow-up icon */
+.icon-arrow-up{
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+.icon-arrow-up:before{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 12px;
+	height: 4px;
+	background-color: rgb(255,255,255);
+}
+.icon-arrow-up:after{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 4px;
+	height: 12px;
+	background-color: rgb(255,255,255);
+}
+/* arrow-up icon */
+.icon-arrow-back{
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+.icon-arrow-back:before{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 12px;
+	height: 4px;
+	background-color: rgb(255,255,255);
+}
+.icon-arrow-back:after{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	width: 4px;
+	height: 12px;
+	background-color: rgb(255,255,255);
+}
+/* logout icon */
+.icon-logout{
+	width: 19px;
+	height: 19px;
+	border: 3px solid rgb(255,255,255);
+	border-color: transparent rgb(255,255,255) rgb(255,255,255) rgb(255,255,255);
+	border-radius: 50%;
+}
+.icon-logout:before{
+	position: absolute;
+	top: -2px;
+	left: 5px;
+	width: 3px;
+	height: 10px;
+	background-color: rgb(255,255,255);
+}
+/* stack icon */
+.icon-stack{
+	width: 16px;
+	height: 16px;
+	border: 2px solid rgb(255,255,255);
+	border-color: transparent rgb(255,255,255) rgb(255,255,255) transparent; 
+	background-image: linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255)),
+	linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255));
+	background-size: 2px 5px, 5px 2px;
+	background-repeat: no-repeat;
+	background-position: -2px 9px, 9px -2px;
+	-webkit-transform: rotateZ(50deg) skew(0deg, -10deg);
+	transform: rotateZ(50deg) skew(0deg, -10deg);
+}
+.icon-stack:before{
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	width: 16px;
+	height: 16px;
+	border: 2px solid rgb(255,255,255);
+	border-color: transparent rgb(255,255,255) rgb(255,255,255) transparent; 
+	background-image: linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255)),
+	linear-gradient(0deg, rgb(255, 255, 255), rgb(255, 255, 255));
+	background-size: 2px 5px, 5px 2px;
+	background-repeat: no-repeat;
+	background-position: -2px 9px, 9px -2px;
+}
+.icon-stack:after{
+	display: block;
+	position: absolute;
+	top: -6px;
+	left: -6px;
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	border: 2px solid rgb(255,255,255);
+}
