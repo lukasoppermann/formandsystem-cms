@@ -24,7 +24,6 @@ class BaseController extends Controller {
 		// google analytics
 		// Optimization::add_lines('js',"var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-7074034-1']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();");
 	}
-
 	/**
 	 * Setup the layout used by the controller.
 	 *
@@ -32,6 +31,9 @@ class BaseController extends Controller {
 	 */
 	protected function setupLayout()
 	{
+		$navi = new Navigation;
+		echo("<pre>");print_r($navi->getNavArray());echo("</pre>");
+
 		if ( ! is_null($this->layout))
 		{
 			$this->layout = View::make($this->layout);
