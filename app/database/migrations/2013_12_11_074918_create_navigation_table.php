@@ -15,6 +15,7 @@ class CreateNavigationTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('parent_id');
+			$table->integer('position');
 			$table->timestamps();
 		});
 	}
