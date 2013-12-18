@@ -1103,12 +1103,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nrk/predis.git",
-                "reference": "bd48225edcf73ca82edf97abf420b82d9df4e292"
+                "reference": "87ca5a1a49737e15c1b4b429f7a21a5682bb62f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/bd48225edcf73ca82edf97abf420b82d9df4e292",
-                "reference": "bd48225edcf73ca82edf97abf420b82d9df4e292",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/87ca5a1a49737e15c1b4b429f7a21a5682bb62f7",
+                "reference": "87ca5a1a49737e15c1b4b429f7a21a5682bb62f7",
                 "shasum": ""
             },
             "require": {
@@ -1142,7 +1142,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2013-12-14 19:47:23"
+            "time": "2013-12-16 10:45:50"
         },
         {
             "name": "psr/log",

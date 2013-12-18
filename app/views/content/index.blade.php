@@ -1,4 +1,5 @@
 @extends('template')
+@include('content.menu')
 
 @section('content')
 

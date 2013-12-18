@@ -25,7 +25,7 @@
 				<a href="#settings" class="settings"><span class="icon icon-settings"></span></a>
 			</li>
 		</ul>
-		<ul id="contentnav">
+		<!-- <ul id="contentnav">
 			
 			<li class="nav-list-item">
 				
@@ -92,7 +92,8 @@
 					
 				</div>
 			</li>
-		</ul>
+		</ul> -->
+		@yield('contentMenu')
 	</nav>
 	<div id="content">
     	@yield('content')

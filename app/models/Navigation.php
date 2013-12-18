@@ -10,11 +10,42 @@ class Navigation extends Eloquent {
 	protected $table = 'fs_navigation';
 
 	/**
+	 * The nav array
+	 *
+	 * @var array
+	 */
+	protected $nav = array();
+	
+	/**
 	 * Get full navigation
 	 *
 	 * @return mixed
 	 */
-	public function getNavArray()
+	public function content()
+	{
+		return $this->hasMany('Content', 'menu_id', 'id');
+	}
+
+	/**
+	 * Get nav array
+	 *
+	 * @return mixed
+	 */
+	public function getArray()
+	{
+		if(count($this->nav) <= 0)
+		{
+			$this->buildArray();
+		}
+		//
+		return $this->nav;
+	}
+	/**
+	 * Get full navigation
+	 *
+	 * @return mixed
+	 */
+	private function buildArray( )
 	{
 		// loop through db data
 		foreach($this->get() as $item) 
@@ -41,7 +72,7 @@ class Navigation extends Eloquent {
 			$nav[$item['position']+$i]['children'] = $this->_loop($key, $items);
 		}
 		// return array
-		return $nav;
+		$this->nav = $nav;
 	}
 	
 	/**

@@ -31,13 +31,33 @@ class BaseController extends Controller {
 	 */
 	protected function setupLayout()
 	{
-		$navi = new Navigation;
-		echo("<pre>");print_r($navi->getNavArray());echo("</pre>");
-
+		
 		if ( ! is_null($this->layout))
 		{
-			$this->layout = View::make($this->layout);
+			$this->layout = View::make($this->layout)->with('nav', $this->navigation() );
 		}
+	}
+	
+	protected function navigation()
+	{
+		$navi = new Navigation;
+		$nav = $navi->getArray();
+		
+		$cont = new Content;
+		$content = $cont->getArray();
+		$contentByMenu = $cont->byMenu();
+		
+		$language = 'en';
+		
+		foreach($nav as $key => $item)
+		{	
+			if( isset($contentByMenu[$key]) && isset($contentByMenu[$key]['language'][$language]) )
+			{
+				$nav[$key]['content'] = $contentByMenu[$key]['language'][$language];
+			}
+		}
+		
+		return $nav;
 	}
 
 }
