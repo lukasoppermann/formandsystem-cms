@@ -60,8 +60,7 @@ class Content extends Eloquent{
 	{
 		foreach($this->content as $key => $item)
 		{
-			$tmp[$item['menu_id']]['items'][$key] = $item;
-			$tmp[$item['menu_id']]['language'][$item['language']] = &$tmp[$item['menu_id']]['items'][$key];
+			$tmp[$item['menu_id']][$item['language']] = $item;
 		}
 		$this->contentByMenu = $tmp;
 	}

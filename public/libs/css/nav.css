@@ -31,6 +31,32 @@ nav li ul .nav-link{ padding: 1em 1.2em 1em 2.2em; }
 /* 3nd lvl item link */
 nav li ul ul .nav-link{ padding: 1em 1.2em 1em 3.2em; }
 
+nav .nav-link.missing{
+	color: rgba(255,255,255,0.3);
+}
+nav .nav-link.missing .icon{
+	opacity: 0.3;
+}
+nav .nav-link.missing:before{
+	content: "[";
+	display: inline-block;
+	top: -55px;
+	opacity: 0.25;
+}
+nav .nav-link.missing:after{
+	content: "]";
+	display: inline-block;
+	opacity: 0.25;
+}
+nav .nav-link.missing:hover .icon{
+	opacity: 1;
+	transition: opacity .5s ease;
+}
+nav .nav-link.missing:hover{
+	color: rgba(255,255,255,1);
+	transition: color .5s ease;
+}
+
 nav .nav-item{
 	float: left;
 	width: 100%;

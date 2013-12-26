@@ -1,5 +1,4 @@
 <?php
-
 class BaseController extends Controller {
 
 	/**
@@ -31,7 +30,6 @@ class BaseController extends Controller {
 	 */
 	protected function setupLayout()
 	{
-		
 		if ( ! is_null($this->layout))
 		{
 			$this->layout = View::make($this->layout)->with('nav', $this->navigation() );
@@ -39,24 +37,26 @@ class BaseController extends Controller {
 	}
 	
 	protected function navigation()
-	{
-		$navi = new Navigation;
-		$nav = $navi->getArray();
-		
+	{		
 		$cont = new Content;
 		$content = $cont->getArray();
 		$contentByMenu = $cont->byMenu();
 		
+		$navi = new Navigation;
+		$nav = $navi->getArray( $cont->byMenu() );
+		
+		// echo("<pre>");print_r($nav);echo("</pre>");
+		
 		$language = 'en';
 		
-		foreach($nav as $key => $item)
-		{	
-			if( isset($contentByMenu[$key]) && isset($contentByMenu[$key]['language'][$language]) )
-			{
-				$nav[$key]['content'] = $contentByMenu[$key]['language'][$language];
-			}
-		}
-		
+		// foreach($nav as $key => $item)
+		// {	
+		// 	if( isset($contentByMenu[$key]) && isset($contentByMenu[$key]['language'][$language]) )
+		// 	{
+		// 		$nav[$key]['content'] = $contentByMenu[$key]['language'][$language];
+		// 	}
+		// }
+		// 
 		return $nav;
 	}
 
