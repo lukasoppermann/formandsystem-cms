@@ -62,6 +62,16 @@ class ContentTableSeeder extends Seeder {
 				'title' => 'Entry',
 				'content' => '{"1":{"class":"section-01","content":{"0":{"type": "image","column": 3,"content": {"src": "imagefile.png","description": "Some optional text"},"class": "optional-classes"},"2":{"type": "text","column": 2,"content": "#Headline content is in markdown","class": "optional-classes"}}}}'
 			),
+			array(
+				'menu_id' => '4',
+				'menu_label' => 'Kontakt',
+				'link' => '/kontakt',
+				'status' => '1',
+				'language' => 'de',
+				'type' => '1',
+				'title' => 'Entry',
+				'content' => '{"1":{"class":"section-01","content":{"0":{"type": "image","column": 3,"content": {"src": "imagefile.png","description": "Some optional text"},"class": "optional-classes"},"2":{"type": "text","column": 2,"content": "#Headline content is in markdown","class": "optional-classes"}}}}'
+			),
 		));
 	}
     

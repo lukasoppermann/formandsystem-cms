@@ -13,6 +13,8 @@
 
 Route::get('/', 'HomeController@index');
 
+Route::get('/content/{lang?}/{link?}', 'ContentController@index');
+
 Route::get('users', function()
 {
     $users = User::all();

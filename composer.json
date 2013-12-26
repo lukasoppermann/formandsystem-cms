@@ -6,13 +6,18 @@
       {
           "type": "vcs",
           "url": "https://github.com/lukasoppermann/optimization"
+      },
+      {
+          "type": "vcs",
+          "url": "https://github.com/lukasoppermann/php-utilities"
       }
 	],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.0.*",
-    "vtalbot/markdown": "1.4.*@dev",
-    "lukasoppermann/optimization": "*@dev"
+		"laravel/framework": "4.1.*",
+
+    "lukasoppermann/optimization": "*@dev",
+    "lukasoppermann/utilities": "*@dev"
 	},
 	"autoload": {
 		"classmap": [

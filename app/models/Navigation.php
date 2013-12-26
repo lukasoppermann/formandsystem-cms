@@ -31,11 +31,11 @@ class Navigation extends Eloquent {
 	 *
 	 * @return mixed
 	 */
-	public function getArray()
+	public function getArray( $content = null )
 	{
 		if(count($this->nav) <= 0)
 		{
-			$this->buildArray();
+			$this->buildArray( $content );
 		}
 		//
 		return $this->nav;
@@ -45,7 +45,7 @@ class Navigation extends Eloquent {
 	 *
 	 * @return mixed
 	 */
-	private function buildArray( )
+	private function buildArray( $content = null )
 	{
 		// loop through db data
 		foreach($this->get() as $item) 
@@ -55,6 +55,11 @@ class Navigation extends Eloquent {
 				 'parent_id' => $item->parent_id,
 				 'position' => $item->position
 			);
+			// add content
+			if(isset($content) && isset($content[$item->id]) )
+			{
+				$items[$item->parent_id][$item->id]['content'] = $content[$item->id];
+			}
 		}
 		// build tree
 		foreach($items[0] as $key => $item) 
