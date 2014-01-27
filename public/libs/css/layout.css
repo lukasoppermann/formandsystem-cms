@@ -7,3 +7,15 @@ body{
 	-webkit-flex: 1;
 	flex: 1;
 }
+
+/* messages */
+.message{
+	padding: 10px;
+	margin: 10px;
+	border-radius: 4px;
+}
+
+.message.error{
+	background: rgb(200,80,70);
+	color: rgb(255,255,255);
+}

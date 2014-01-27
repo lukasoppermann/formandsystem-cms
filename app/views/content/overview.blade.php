@@ -1,5 +1,7 @@
 @if (isset($errorCode))
-
-@lang()
+	<div class="message error">
+		@lang('errors.'.$errorCode)
+	</div>
 
 @endif
+

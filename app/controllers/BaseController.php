@@ -1,4 +1,16 @@
 <?php
+/**
+* Utility FN
+*/
+function variable( &$var = null )
+{ 
+	if( isset($var) )
+	{
+		return $var;
+	}
+	return false; 
+}
+
 class BaseController extends Controller {
 
 	/**

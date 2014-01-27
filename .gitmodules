@@ -1,0 +1,3 @@
+[submodule "public/libs/js/mark"]
+	path = public/libs/js/mark
+	url = https://github.com/lukasoppermann/mark
