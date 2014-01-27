@@ -15,7 +15,7 @@ function loop( $nav, $lang){
 			
 			echo '<li class="nav-list-item">
 				<div class="nav-item">
-					<a class="nav-link '.$missing.'" rel="dns-prefetch" href="'.url('/content/'.$lang.'/'.$content['menu_label']).'">
+					<a class="nav-link '.$missing.'" rel="dns-prefetch" href="'.url('/content/'.$lang.'/'.trim($content['link'], '/')).'">
 						<span class="icon '.$pageIcon.'"></span>
 							'.$content['menu_label'].$ma.'
 					</a>

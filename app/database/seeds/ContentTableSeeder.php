@@ -20,7 +20,34 @@ class ContentTableSeeder extends Seeder {
 				'language' => 'de',
 				'type' => '1',
 				'title' => 'Entry',
-				'content' => '{"1":{"class":"section-01","content":{"0":{"type": "image","column": 3,"content": {"src": "imagefile.png","description": "Some optional text"},"class": "optional-classes"},"2":{"type": "text","column": 2,"content": "#Headline content is in markdown","class": "optional-classes"}}}}'
+				'content' => json_encode(array(
+					"1" => array(
+						"class" => "section-01",
+						"content" => array(
+							"1" => array(
+								"type" => "image",
+								"column" => 3,
+								"content" => array(
+									"src" => "imagefile.png",
+									"description" => "Some optional text"
+								),
+								"class" => "optional-classes"
+							),
+							"2" => array(
+								"type" => "text",
+								"column" => 2,
+								"content" => "#Headline content is in markdown",
+								"class" => "optional-classes"
+							),
+							"3" => array(
+								"type" => "text",
+								"column" => 2,
+								"content" => "This is real **markdown** copy.",
+								"class" => "optional-classes"
+							)
+						)
+					)
+				))
 			),
 			array(
 				'menu_id' => '1',
@@ -30,7 +57,34 @@ class ContentTableSeeder extends Seeder {
 				'language' => 'en',
 				'type' => '1',
 				'title' => 'Entry',
-				'content' => '{"1":{"class":"section-01","content":{"0":{"type": "image","column": 3,"content": {"src": "imagefile.png","description": "Some optional text"},"class": "optional-classes"},"2":{"type": "text","column": 2,"content": "#Headline content is in markdown","class": "optional-classes"}}}}'
+				'content' => json_encode(array(
+					"1" => array(
+						"class" => "section-01",
+						"content" => array(
+							"1" => array(
+								"type" => "image",
+								"column" => 3,
+								"content" => array(
+									"src" => "imagefile.png",
+									"description" => "Some optional text"
+								),
+								"class" => "optional-classes"
+							),
+							"2" => array(
+								"type" => "text",
+								"column" => 2,
+								"content" => "#Headline content is in markdown",
+								"class" => "optional-classes"
+							),
+							"3" => array(
+								"type" => "text",
+								"column" => 2,
+								"content" => "This is real **markdown** copy.",
+								"class" => "optional-classes"
+							)
+						)
+					)
+				))
 			),
 			array(
 				'menu_id' => '2',

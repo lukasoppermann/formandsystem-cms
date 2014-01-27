@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'ContentController@index'); // replace with dashboard
 
 Route::get('/content/{lang?}/{link?}', 'ContentController@index');
 
@@ -21,3 +21,5 @@ Route::get('users', function()
     
     return View::make('users')->with('users', $users);
 });
+
+Route::get('/{lang?}/{link?}', 'ContentController@index');

@@ -21,6 +21,12 @@ class Content extends Eloquent{
 	 */
 	var $contentByMenu = array();
 	/**
+	 * Get content items sorted by menu-link & language
+	 *
+	 * @var array
+	 */
+	var $contentByLink = array();
+	/**
 	 * Get content
 	 *
 	 * @return mixed
@@ -58,11 +64,18 @@ class Content extends Eloquent{
 	
 	function getByMenu()
 	{
+		if(count($this->content) <= 0)
+		{
+			$this->getContent();
+		}
+		//
 		foreach($this->content as $key => $item)
 		{
 			$tmp[$item['menu_id']][$item['language']] = $item;
+			$tmpLink[$item['link']][$item['language']] = $item;
 		}
 		$this->contentByMenu = $tmp;
+		$this->contentByLink = $tmpLink;
 	}
 	
 	function byMenu()
@@ -73,6 +86,26 @@ class Content extends Eloquent{
 		}
 		//
 		return $this->contentByMenu;
+	}
+	
+	function getByLink( $link = null, $lang = null )
+	{
+		if(count($this->contentByLink) <= 0)
+		{
+			$this->getByMenu();
+		}
+		//
+		if( $link !== null && isset($this->contentByLink['/'.trim($link, '/')]) )
+		{
+			$link = '/'.trim($link, '/');
+			if( $lang === null )
+			{
+				return reset($this->contentByLink[$link]);
+			}
+			return $this->contentByLink[$link][$lang];
+		}
+		// no menu item exists
+		return false;
 	}
 	
 }
