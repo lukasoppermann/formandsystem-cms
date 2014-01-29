@@ -1,23 +1,84 @@
 #content .content-wrapper{
-	margin: 6em 2em 0 8em;
-	width: calc(100% - 10em);
-	width: -webkit-calc(100% - 10em);
-	background-color:red;
+	margin: 9.6em 3.2em 0 12.8em;
+	width: calc(100% - 16em);
+	width: -webkit-calc(100% - 16em);
 }
 #content .headline{
-	font-size: 4em;
+	font-size: 6.4em;
 	font-weight: 600;
 	font-family: "Gotham", "Helvetica Neue", Helvetica, Sans-serif;
 	border: 0;
+	width: 100%;
 	outline: none;
 	-moz-box-sizing: border-box; 
 	-webkit-box-sizing: border-box; 
 	box-sizing: border-box;
 }
-
 #content .mark{
-	font-size: 1.2em;
-	margin: 1.6em .4em 0 2em;
-	width: calc(100% - 2.4em);
-	width: -webkit-calc(100% - 2.4em);
+	font-size: 2em;
+	width: 100%;
+	border: none;
+}
+#content .mark:focus{
+	outline: none;
+}
+/* options */
+.options{
+	position: absolute;
+	top: 0;
+	right: 1em;
+	padding: 1em;
+}
+.settings{
+	height: 4em;
+	width: 4em;
+	position: relative;
+}
+.settings .icon{
+	top: 1em;
+	left: 1em;
+}
+/* blocks */
+.block{
+	padding: 5px;
+	position: relative;
+	width: calc(100% - 3.8em);
+	width: -webkit-calc(100% - 3.8em);
+	border-radius: 4px;
+	transition: box-shadow .4s ease .0s;
+	box-shadow: 0 0 0 3px rgba(65,125,225,0);
+	margin: 0 0 10px -5px;
+}
+.block:hover{
+	transition: box-shadow .4s ease .0s;
+	box-shadow: 0 0 0 3px rgba(65,125,225,1);
+}
+.block .handle{
+	opacity: 0;
+	position: absolute;
+	right: -.7em;
+	top: 50%;
+	margin-top: -1.2em;
+	height: 2.4em;
+	width: 1.2em;
+	background-color: rgba(65,125,225,1);
+	border-radius: 4px;
+	transition: opacity .4s ease .0s;
+}
+.block:hover .handle{ 
+	opacity: 1;
+	transition: opacity .4s ease .0s;
+}
+.block .handle:before, .block .handle:after{
+	content: "";
+	display: block;
+	height: 1.6em;
+	width: .2em;
+	position: absolute;
+	top: .4em;
+	left: .3em;
+	background-color: rgba(255,255,255,0.35);
+}
+.block .handle:after{
+	left: .7em;
 }

@@ -12,9 +12,8 @@ function loop( $nav, $lang){
 				$missing = 'missing';
 				$pageIcon = 'icon-page-add';
 			}
-			
 			echo '<li class="nav-list-item">
-				<div class="nav-item">
+				<div class="nav-item'.('content/'.$lang.'/'.trim($content['link'], '/') == Request::path() ? ' active' : '').'"> 
 					<a class="nav-link '.$missing.'" rel="dns-prefetch" href="'.url('/content/'.$lang.'/'.trim($content['link'], '/')).'">
 						<span class="icon '.$pageIcon.'"></span>
 							'.$content['menu_label'].$ma.'
@@ -69,7 +68,11 @@ function checkLanguage($item, $lang)
 <div>
 @stop
 
-<!-- <ul id="contentnav">
+<!-- 
+
+
+
+<ul id="contentnav">
 	
 	<li class="nav-list-item">
 		

@@ -24,18 +24,18 @@ class NavigationTableSeeder extends Seeder {
 			),
 			array(
 				'id' => '3',
-				'parent_id' => '0',
-				'position' => 2
+				'parent_id' => '2',
+				'position' => 1
 			),
 			array(
 				'id' => '4',
-				'parent_id' => '0',
-				'position' => 3
+				'parent_id' => '3',
+				'position' => 1
 			),
 			array(
 				'id' => '5',
-				'parent_id' => '2',
-				'position' => 1
+				'parent_id' => '3',
+				'position' => 2
 			),
 			array(
 				'id' => '6',

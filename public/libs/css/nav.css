@@ -1,11 +1,9 @@
 /* general nav */
 nav{
 	float: left;
-	width: 17em;
+	width: 27em;
 	background: rgb(35,35,35);
 	color: rgb(255,255,255);
-	font-size: 1em;
-	line-height: 1.2em;
 }
 nav li{
 	position: relative;
@@ -22,14 +20,18 @@ nav li .nav-link{
 	width: 100%;
 	text-decoration: none;
 	padding: 1em 3.6em 1em 1.2em;
+	font-size: 1.6em;
+	line-height: 1.2em;
 	-moz-box-sizing: border-box; 
 	-webkit-box-sizing: border-box; 
 	box-sizing: border-box;
 }
 /* 2nd lvl item link */
-nav li ul .nav-link{ padding: 1em 1.2em 1em 2.2em; }
+nav li ul .nav-link{ padding: 1em 2em 1em 2.2em; }
 /* 3nd lvl item link */
-nav li ul ul .nav-link{ padding: 1em 1.2em 1em 3.2em; }
+nav li ul ul .nav-link{ padding: 1em 2em 1em 3em; }
+/* 4th lvl item link */
+nav li ul ul ul .nav-link{ padding: 1em 2em 1em 3.6em; }
 
 nav .nav-link.missing{
 	color: rgba(255,255,255,0.3);
@@ -56,25 +58,33 @@ nav .nav-link.missing:hover{
 	color: rgba(255,255,255,1);
 	transition: color .5s ease;
 }
-
 nav .nav-item{
 	float: left;
 	width: 100%;
+	transition: background .3s ease .0s;
 }
 nav .nav-item:hover{
 	float: left;
-	background-color: rgb(55,115,215);
+	background-color: rgba(55,115,215,0.75);
 }
 nav .nav-item.active{
 	background-color: rgb(55,115,215);
+}
+@keyframes fadeBlue{
+	0%{
+		background-color: rgba(55,115,215,0.75);
+	}
+	100{
+		background-color: rgba(55,115,215,1);		
+	}
 }
 nav .status{
 	position: absolute;
 	top: 0;
 	right: 0;
-	padding: 1em 1.2em;
-	width: 1.2em;
-	height: 1.2em;
+	padding: 1.6em 1.9em;
+	width: 1.9em;
+	height: 1.9em;
 	-moz-box-sizing: content-box; 
 	-webkit-box-sizing: content-box; 
 	box-sizing: content-box;
@@ -82,6 +92,9 @@ nav .status{
 nav .edit-tool{
 	float: left;
 	display: none;
+}
+nav .edit-tool input{
+	padding: 1px 0;
 }
 nav .nav-item.active .edit-tool{
 	display: block;
@@ -91,39 +104,35 @@ nav .edit-tool.delete{
 	float: left;
 	text-align: right;
 	color: rgb(255,255,255);
-	font-size: .8em;
+	font-size: 1.3em;
 }
 nav .edit-tool.delete a{
 	text-decoration: underline;
-	padding: .2em 1.2em .3em;
+	padding: .3em 2em .5em;
 }
 nav .page-link-container{
 	position: relative;
 	float: left;
 	width: 100%;
-	padding: 0 1.2em .2em;
+	padding: 0 2em .3em;
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box;
 }
 nav .page-link-container .icon{
 	opacity: 0.5;
 	position: absolute;
-	left: 1.2em;
+	left: 2em;
 	top: 0;
 }
-/* 2nd lvl item link */
-nav li ul .page-link-container{ padding: 0em 1.2em .2em 2.2em; }
-nav li ul .page-link-container .icon{ left: 2.2em; }
-/* 3nd lvl item link */
-nav li ul ul .page-link-container{ padding: 0em 1.2em .2em 3.2em; }
-nav li ul ul .page-link-container .icon{ left: 3.2em; }
 nav .page-link-container .page-link{
 	float: left;
 	width: 100%;
-	padding-left: calc( 20px + .6em);
-	padding-left: -webkit-calc( 20px + .6em);
+	padding-left: 25px;
 	border: 0;
 	background: transparent;
 	color: rgba(255,255,255,0.5);
-	font-size: .9em;
+	font-size: 1.6em;
 	transition: color .5s ease;
 }
 nav .page-link-container .page-link::-webkit-input-placeholder{
@@ -148,9 +157,9 @@ nav .page-link-container .page-link:focus{
 	position: absolute;
 	right: 0;
 	top: 0;
-	width: 3.5em;
-	height: 1.2em;
-	padding: 1em 0;
+	width: 5.6em;
+	height: 2em;
+	padding: 1.6em 0;
 	display: block;
 	-moz-box-sizing: content-box; 
 	-webkit-box-sizing: content-box; 

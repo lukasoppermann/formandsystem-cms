@@ -2,6 +2,8 @@ body{
     display: -webkit-flex;
     display: flex;
 	 font-family: "Helvetica Neue", Helvetica, Sans-serif;
+	 font-size: 0.625em;
+	 line-height: 130%;
 }
 #content{
 	-webkit-flex: 1;
@@ -18,4 +20,17 @@ body{
 .message.error{
 	background: rgb(200,80,70);
 	color: rgb(255,255,255);
+}
+
+/* button */
+.button{
+	border: 2px solid rgb(0,10,0);
+	font-size: 1.6em;
+	line-height: 1.6em;
+	padding: .2em 1.4em;
+	border-radius: .4em;
+}
+.button.blue{
+	border-color: rgb(55,115,215);
+	color: rgb(55,115,215);
 }
