@@ -20,6 +20,10 @@ time, mark, audio, video {
 	vertical-align: baseline;
 	font-weight: inherit;
 }
+input, input[type="password"]{
+	padding: 0; 
+	margin: 0;
+}
 html, body{
 	padding: 0;
 	margin: 0;
@@ -51,10 +55,6 @@ p{
 	display: inline-block;
 	margin: 0;
 	padding: 0;
-}
-:before, :after{ 
-	display: block;
-	content: ""; 
 }
 input:focus{
 	outline: none;
