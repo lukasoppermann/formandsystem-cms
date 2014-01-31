@@ -1,7 +1,9 @@
 <div class="content-wrapper">
+	<div class="page-settings">
+		<span class="icon icon-settings"></span>
+	</div>
 	<div class="options">
 		<div class="button blue save">Save</div>
-		<div class="settings"><span class="icon icon-settings-black"></span></div>
 	</div>
 	<input class="headline" type="text" placeholder="Type your title" value="{{$content['title']}}" />
 	
