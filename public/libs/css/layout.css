@@ -6,6 +6,7 @@ body{
 	 line-height: 130%;
 }
 #content{
+	position: relative;
 	-webkit-flex: 1;
 	flex: 1;
 }
