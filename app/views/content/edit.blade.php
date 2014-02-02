@@ -1,6 +1,6 @@
 <div class="content-wrapper">
 	<div class="page-settings">
-		<span class="icon icon-settings"></span>
+		<div class="settings-wrap"><span class="icon icon-settings"></span></div>
 	</div>
 	<div class="options">
 		<div class="button blue save">Save</div>
