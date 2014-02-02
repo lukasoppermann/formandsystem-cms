@@ -230,12 +230,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "cb243b54de5c195d5425435f5cf454a75b1b8c1a"
+                "reference": "c9eaecb03832603fee8bca3cbae500501e55c9bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/cb243b54de5c195d5425435f5cf454a75b1b8c1a",
-                "reference": "cb243b54de5c195d5425435f5cf454a75b1b8c1a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/c9eaecb03832603fee8bca3cbae500501e55c9bd",
+                "reference": "c9eaecb03832603fee8bca3cbae500501e55c9bd",
                 "shasum": ""
             },
             "require": {
@@ -339,7 +339,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-01-30 22:10:43"
+            "time": "2014-01-31 21:38:47"
         },
         {
             "name": "lukasoppermann/optimization",

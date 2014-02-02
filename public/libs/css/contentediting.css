@@ -42,6 +42,20 @@
 	transition: border .5s ease .0s;
 	cursor: pointer;
 }
+.settings-wrap{
+	position: relative;
+	overflow: hidden;
+	height: 0;
+	height: 3em;
+	width: 3em;
+	left: -3em;
+	top: -3em;
+	opacity: 0;
+	transition: opacity .4s ease .1s;
+}
+.page-settings:hover .settings-wrap{
+	opacity: 1;
+}
 .page-settings:before, .page-settings:after{
 	content: "";
 	display: block;
@@ -60,8 +74,8 @@
 	border-color: transparent rgb(65,125,225) rgb(65,125,225) transparent;
 }
 .page-settings .icon{
-	top: -2.2em;
-	left: -2.2em;
+	top: .8em;
+	left: .8em;
 	z-index: 1;
 }
 .page-settings:hover:before, .page-settings:hover:after{
