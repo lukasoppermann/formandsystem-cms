@@ -13,6 +13,7 @@ class ContentController extends BaseController {
 		{
 			$cont = new Content;
 			$content = $cont->getByLink($link, $lang);
+			Optimization::js(array('codemirror','mark'));
 			// $this->layout->title = "Editing: $content['title']";
 			$this->layout->content = View::make('content.edit')->with('content', $content);
 		}
