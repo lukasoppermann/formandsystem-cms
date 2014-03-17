@@ -1,12 +1,14 @@
 # Form&System MVP
 
 ### TODO:
-– [x]fix optimiztaion:js
 - finish html5nestable
 - integrate mark
 - saving changes
 - add content block
 - add user management
+
+#### Done:
+– fix optimiztaion:js
 
 
 ## Data Model
