@@ -6,6 +6,7 @@
 - saving changes
 - add content block
 - add user management
+- use iconfont/svg for icons
 
 #### Done:
 – fix optimiztaion:js
@@ -24,8 +25,7 @@
 1:{  
 	type: 'text',  
 	column: 2,  
-	content: "#Headline 
+	content: "#Headline
 		content is in markdown",  
-	class: 'optional-classes'  
+	class: 'optional-classes'
 }  
-
