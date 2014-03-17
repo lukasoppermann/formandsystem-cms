@@ -22,8 +22,8 @@ nav li .nav-link{
 	padding: 1em 3.6em 1em 1.2em;
 	font-size: 1.6em;
 	line-height: 1.2em;
-	-moz-box-sizing: border-box; 
-	-webkit-box-sizing: border-box; 
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 /* 2nd lvl item link */
@@ -52,15 +52,18 @@ nav .nav-link.missing:after{
 }
 nav .nav-link.missing:hover .icon{
 	opacity: 1;
+	-webkit-transition: opacity .5s ease;
 	transition: opacity .5s ease;
 }
 nav .nav-link.missing:hover{
 	color: rgba(255,255,255,1);
+	-webkit-transition: color .5s ease;
 	transition: color .5s ease;
 }
 nav .nav-item{
 	float: left;
 	width: 100%;
+	-webkit-transition: background .3s ease .0s;
 	transition: background .3s ease .0s;
 }
 nav .nav-item:hover{
@@ -70,12 +73,20 @@ nav .nav-item:hover{
 nav .nav-item.active{
 	background-color: rgb(55,115,215);
 }
+@-webkit-keyframes fadeBlue{
+	0%{
+		background-color: rgba(55,115,215,0.75);
+	}
+	100{
+		background-color: rgba(55,115,215,1);
+	}
+}
 @keyframes fadeBlue{
 	0%{
 		background-color: rgba(55,115,215,0.75);
 	}
 	100{
-		background-color: rgba(55,115,215,1);		
+		background-color: rgba(55,115,215,1);
 	}
 }
 nav .status{
@@ -85,8 +96,8 @@ nav .status{
 	padding: 1.6em 1.9em;
 	width: 1.9em;
 	height: 1.9em;
-	-moz-box-sizing: content-box; 
-	-webkit-box-sizing: content-box; 
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
 	box-sizing: content-box;
 }
 nav .edit-tool{
@@ -115,8 +126,8 @@ nav .page-link-container{
 	float: left;
 	width: 100%;
 	padding: 0 2em .3em;
-	-moz-box-sizing: border-box; 
-	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 nav .page-link-container .icon{
@@ -133,6 +144,7 @@ nav .page-link-container .page-link{
 	background: transparent;
 	color: rgba(255,255,255,0.5);
 	font-size: 1.6em;
+	-webkit-transition: color .5s ease;
 	transition: color .5s ease;
 }
 nav .page-link-container .page-link::-webkit-input-placeholder{
@@ -145,6 +157,7 @@ nav .page-link-container .page-link::-moz-placeholder{
 }
 nav .page-link-container .page-link:focus{
 	color: rgba(255,255,255,1.0);
+	-webkit-transition: color .5s ease;
 	transition: color .5s ease;
 }
 /* main nav */
@@ -161,8 +174,8 @@ nav .page-link-container .page-link:focus{
 	height: 2em;
 	padding: 1.6em 0;
 	display: block;
-	-moz-box-sizing: content-box; 
-	-webkit-box-sizing: content-box; 
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
 	box-sizing: content-box;
 }
 #mainnav .search .icon, #mainnav .settings .icon{
@@ -171,4 +184,3 @@ nav .page-link-container .page-link:focus{
 	top: 50%;
 	margin: -10px 0 0 -10px;
 }
-

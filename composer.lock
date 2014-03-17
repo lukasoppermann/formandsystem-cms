@@ -230,12 +230,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "16542f7a37ae7636f665ace09cfa98d9f260b711"
+                "reference": "85428c311b38cf91d6a80a22712a65643920fed4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/16542f7a37ae7636f665ace09cfa98d9f260b711",
-                "reference": "16542f7a37ae7636f665ace09cfa98d9f260b711",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/85428c311b38cf91d6a80a22712a65643920fed4",
+                "reference": "85428c311b38cf91d6a80a22712a65643920fed4",
                 "shasum": ""
             },
             "require": {
@@ -339,7 +339,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-03-07 14:46:07"
+            "time": "2014-03-09 03:15:08"
         },
         {
             "name": "lukasoppermann/optimization",
@@ -441,12 +441,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "0ac27c8089d0ec41728d96b5aa0dcad18fb0d459"
+                "reference": "fab2a2deef59b08f8acbd26b23660e0ed32b7802"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/0ac27c8089d0ec41728d96b5aa0dcad18fb0d459",
-                "reference": "0ac27c8089d0ec41728d96b5aa0dcad18fb0d459",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/fab2a2deef59b08f8acbd26b23660e0ed32b7802",
+                "reference": "fab2a2deef59b08f8acbd26b23660e0ed32b7802",
                 "shasum": ""
             },
             "require": {
@@ -468,6 +468,7 @@
                 "ext-mongo": "Allow sending log messages to a MongoDB server",
                 "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
                 "raven/raven": "Allow sending log messages to a Sentry server",
+                "rollbar/rollbar": "Allow sending log messages to Rollbar",
                 "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
             },
             "type": "library",
@@ -500,7 +501,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-02-26 12:30:17"
+            "time": "2014-03-08 16:45:09"
         },
         {
             "name": "nesbot/carbon",
@@ -1045,12 +1046,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "ed1d61b2e23a0fd5dba0b20651258c4633d3e3a7"
+                "reference": "76ce933792a3b4fcb8ea9b017081327c2dc3c65b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/ed1d61b2e23a0fd5dba0b20651258c4633d3e3a7",
-                "reference": "ed1d61b2e23a0fd5dba0b20651258c4633d3e3a7",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/76ce933792a3b4fcb8ea9b017081327c2dc3c65b",
+                "reference": "76ce933792a3b4fcb8ea9b017081327c2dc3c65b",
                 "shasum": ""
             },
             "require": {
@@ -1089,7 +1090,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-03-01 17:35:04"
         },
         {
             "name": "symfony/debug",
