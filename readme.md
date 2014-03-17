@@ -1,7 +1,7 @@
 # Form&System MVP
 
-TODO:
-- fix optimiztaion:js
+### TODO:
+– [x]fix optimiztaion:js
 - finish html5nestable
 - integrate mark
 - saving changes
