@@ -1,5 +1,14 @@
 # Form&System MVP
 
+TODO:
+- fix optimiztaion:js
+- finish html5nestable
+- integrate mark
+- saving changes
+- add content block
+- add user management
+
+
 ## Data Model
 0:{  
 	type: 'image',  
