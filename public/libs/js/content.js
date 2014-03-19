@@ -1,8 +1,7 @@
-'use strict'
+'use strict';
 
 // run codemirror on every instance of .mark
 Array.prototype.slice.call(document.getElementsByClassName('mark'),0).forEach(function(editor){
-
 	options.cm = CodeMirror.fromTextArea(editor, {
 		theme: "mark",
     // value: "function myScript(){return 100;}\n",
@@ -10,7 +9,7 @@ Array.prototype.slice.call(document.getElementsByClassName('mark'),0).forEach(fu
 			name: "gfm",
 			highlightFormatting: true
 		},
-		lineNumbers: true,
+		lineNumbers: false,
 		addModeClass: false,
 		lineWrapping: true,
 		flattenSpans: true,
@@ -23,7 +22,7 @@ Array.prototype.slice.call(document.getElementsByClassName('mark'),0).forEach(fu
 		styleSelectedText: false,
 		styleActiveLine: true,
 		placeholder: "",
-      tabMode: 'indent',
+		tabMode: 'indent',
 		tabindex: "2",
 		dragDrop: false,
 		extraKeys: {
@@ -48,5 +47,4 @@ Array.prototype.slice.call(document.getElementsByClassName('mark'),0).forEach(fu
 		// options.fn.inlineFormat({'format':'em'});
 						// console.log( '##'+options.cm.getSelection().match( /(?:^|[^_*])_*([*](?:[*]{2})*)?[^*_]+\1_*(?:[^*_]|$)/gm )+'##' );
 	});
-
 });

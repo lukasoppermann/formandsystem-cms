@@ -10,17 +10,20 @@
 	border: 0;
 	width: 100%;
 	outline: none;
-	-moz-box-sizing: border-box; 
-	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
-#content .mark{
+#content .cm-s-mark{
 	font-size: 2em;
 	width: 100%;
 	border: none;
 }
-#content .mark:focus{
+#content .cm-s-mark:focus{
 	outline: none;
+}
+#content .cm-s-mark .CodeMirror-cursor {
+	background-color: rgb(65,125,225);
 }
 /* options */
 .options{
@@ -64,7 +67,7 @@
 	left: -3em;
 	height: 0;
 	width: 0;
-	border-width: 0em;
+	border-width: 0;
 	border-style: solid;
 	border-color: rgb(0,10,0) transparent transparent rgb(0,10,0);
 	transition: border .5s ease .0s;
@@ -86,45 +89,53 @@
 }
 /* blocks */
 .block{
-	padding: 5px;
+	padding: .5em;
 	position: relative;
 	width: calc(100% - 3.8em);
 	width: -webkit-calc(100% - 3.8em);
-	border-radius: 4px;
-	transition: box-shadow .4s ease .0s;
-	box-shadow: 0 0 0 3px rgba(65,125,225,0);
-	margin: 0 0 10px -5px;
+/*	border-radius: 4px;*/
+/*	transition: box-shadow .4s ease .0s;
+	box-shadow: 0 0 0 3px rgba(65,125,225,0);*/
+	border-right: .1em solid rgb(235,235,235);
+	margin: 0 0 1em -.5em;
 }
-.block:hover{
+/*.block:hover{
 	transition: box-shadow .4s ease .0s;
 	box-shadow: 0 0 0 3px rgba(65,125,225,1);
-}
+}*/
 .block .handle{
-	opacity: 0;
+	width: 2em;
+	height: 100%;
+	top: 0;
+	right: -1em;
+	display: block;
 	position: absolute;
-	right: -.7em;
-	top: 50%;
-	margin-top: -1.2em;
-	height: 2.4em;
-	width: 1.2em;
-	background-color: rgba(65,125,225,1);
-	border-radius: 4px;
-	transition: opacity .4s ease .0s;
 }
-.block:hover .handle{ 
-	opacity: 1;
-	transition: opacity .4s ease .0s;
-}
-.block .handle:before, .block .handle:after{
+.block .handle:before{
 	content: "";
 	display: block;
+	position: absolute;
+	left: .8em;
+	top: 50%;
+	margin-top: -.8em;
 	height: 1.6em;
+	width: .5em;
+	background-color: rgb(235,235,235);
+	border-radius: .4em;
+}
+.block .handle:hover{
+	cursor: pointer;
+}
+/*.block .handle:before, .block .handle:after{
+	content: "";
+	display: block;
+	height: 1em;
 	width: .2em;
 	position: absolute;
-	top: .4em;
-	left: .3em;
+	top: -.4em;
+	left: -1.3em;
 	background-color: rgba(255,255,255,0.35);
 }
 .block .handle:after{
-	left: .7em;
-}
+	left: -1em;
+}*/
