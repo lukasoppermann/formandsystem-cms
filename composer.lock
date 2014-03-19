@@ -230,12 +230,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "88e341dcd1c3d393fe097de939c0523c1bbb58ef"
+                "reference": "4f69e545e0ca19b54010ca4c68a66ba6de6e853c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/88e341dcd1c3d393fe097de939c0523c1bbb58ef",
-                "reference": "88e341dcd1c3d393fe097de939c0523c1bbb58ef",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4f69e545e0ca19b54010ca4c68a66ba6de6e853c",
+                "reference": "4f69e545e0ca19b54010ca4c68a66ba6de6e853c",
                 "shasum": ""
             },
             "require": {
@@ -339,7 +339,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-03-17 01:12:51"
+            "time": "2014-03-17 15:49:21"
         },
         {
             "name": "lukasoppermann/optimization",
@@ -347,12 +347,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lukasoppermann/optimization.git",
-                "reference": "d1c2c4ff672c052617669c808ab42db5bc553e6c"
+                "reference": "93bd39643466edbd37cdf52944cf802066d8ffd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lukasoppermann/optimization/zipball/d1c2c4ff672c052617669c808ab42db5bc553e6c",
-                "reference": "d1c2c4ff672c052617669c808ab42db5bc553e6c",
+                "url": "https://api.github.com/repos/lukasoppermann/optimization/zipball/93bd39643466edbd37cdf52944cf802066d8ffd6",
+                "reference": "93bd39643466edbd37cdf52944cf802066d8ffd6",
                 "shasum": ""
             },
             "require": {
@@ -386,7 +386,7 @@
                 "source": "https://github.com/lukasoppermann/optimization/tree/master",
                 "issues": "https://github.com/lukasoppermann/optimization/issues"
             },
-            "time": "2014-03-17 08:27:43"
+            "time": "2014-03-18 07:06:52"
         },
         {
             "name": "lukasoppermann/utilities",
