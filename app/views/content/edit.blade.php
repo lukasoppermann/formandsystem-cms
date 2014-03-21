@@ -15,6 +15,7 @@
 				<textarea class="mark">{{ variable($block['content']) }}</textarea>
 			@endif
 				<div class="handle"></div>
+				<div class="move"></div>
 			</div>
 		@endforeach
 	@endforeach
