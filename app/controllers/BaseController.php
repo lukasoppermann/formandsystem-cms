@@ -32,23 +32,8 @@ class BaseController extends Controller {
 		Optimization::css(array('reset', 'layout', 'nav', 'icons', 'contentediting','../js/codemirror/lib/codemirror', '../js/mark/mark'));
 		// add js resources
 		// TODO: Fix Optimization js
-		Optimization::js(array('codemirror','xml','markdown','gfm','overlay','mark', 'content'));
-	// 	<script src="./codemirror/mode/xml/xml.js"></script>
-	// <script src="./codemirror/mode/markdown/markdown.js"></script>
-	// <script src="./codemirror/mode/gfm/gfm.js"></script>
-	// <script src="./codemirror/mode/javascript/javascript.js"></script>
-	// <script src="./codemirror/mode/css/css.js"></script>
-	// <script src="./codemirror/mode/htmlmixed/htmlmixed.js"></script>
-	// <script src="./codemirror/addon/fold/xml-fold.js"></script>
-	// <script src="./codemirror/addon/edit/continuelist.js"></script>
-	// <script src="./codemirror/addon/edit/matchbrackets.js"></script>
-	// <script src="./codemirror/addon/edit/closebrackets.js"></script>
-	// <script src="./codemirror/addon/edit/matchtags.js"></script>
-	// <script src="./codemirror/addon/edit/trailingspace.js"></script>
-	// <script src="./codemirror/addon/edit/closetag.js"></script>
-	// <script src="./codemirror/addon/selection/active-line.js"></script>
-	// <script src="./codemirror/addon/display/placeholder.js"></script>
-	// <script src="./codemirror/addon/mode/overlay.js"></script>
+		Optimization::js(array('codemirror','xml','markdown','gfm','javascript','css','htmlmixed','xml-fold','continuelist','matchbrackets','closebrackets',
+			'matchtags','trailingspace','closetag','placeholder','overlay','mark', 'content'));
 		// google analytics
 		// Optimization::add_lines('js',"var _gaq = _gaq || [];_gaq.push(['_setAccount', 'UA-7074034-1']);_gaq.push(['_trackPageview']);(function() {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);})();");
 	}
