@@ -28,23 +28,21 @@ Array.prototype.slice.call(document.getElementsByClassName('mark'),0).forEach(fu
 		extraKeys: {
 			"Enter": "newlineAndIndentContinueMarkdownList",
 			"Cmd-B": function(){
-				options.fn.inlineFormat({'format':'strong'});
+				options.fn.toggleFormat('strong');
 			},
 			"Ctrl-B": function(){
-				options.fn.inlineFormat({'format':'strong'});
+				options.fn.toggleFormat('strong');
 			},
-			"Cmd-I": function(){
-				options.fn.inlineFormat({'format':'em'});
+			'Cmd-I': function(){
+				options.fn.toggleFormat('em');
 			},
 			"Ctrl-I": function(){
-				options.fn.toggleFormat('quote', {"level":2});
+				options.fn.toggleFormat('em');
 			}
 		}
 	});
 	// add edit Options
 	options.cm.on("cursorActivity", function(){
 		editOptions();
-		// options.fn.inlineFormat({'format':'em'});
-						// console.log( '##'+options.cm.getSelection().match( /(?:^|[^_*])_*([*](?:[*]{2})*)?[^*_]+\1_*(?:[^*_]|$)/gm )+'##' );
 	});
 });
