@@ -22,6 +22,7 @@ Array.prototype.slice.call(document.getElementsByClassName('mark'),0).forEach(fu
 		styleSelectedText: false,
 		styleActiveLine: true,
 		placeholder: "",
+		excludePanel: ['code'],
 		tabMode: 'indent',
 		tabindex: "2",
 		dragDrop: false,

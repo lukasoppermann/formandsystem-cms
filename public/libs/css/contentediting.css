@@ -14,17 +14,67 @@
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
+/*--------------------------*/
+/* MARK EDITOR */
 #content .cm-s-mark{
 	font-size: 2em;
 	width: 100%;
+	min-height: 6em;
 	border: none;
 }
-#content .cm-s-mark:focus{
-	outline: none;
+#content .CodeMirror-scroll{
+	min-height: 6em;
 }
 #content .cm-s-mark .CodeMirror-cursor {
 	background-color: rgb(65,125,225);
 }
+#content #editOptions{
+	font-size: 0.5em;
+	background-color: rgb(35,35,35);
+	height: auto;
+}
+#content #editOptions:before{
+	border-color: rgb(35,35,35) transparent transparent transparent;
+	border-width: .8em .8em;
+	bottom: -1.6em;
+}
+#content #editOptions.from-top:before{
+	border-color: transparent transparent rgb(35,35,35) transparent;
+	bottom: auto;
+	top: -1.6em;
+}
+#content #editOptions .mark-button{
+	width: 1.875em;
+	height: 2.4em;
+	margin: 1em;
+}
+#content #editOptions .mark-button:first-child{
+	margin-left: 1.25em;
+}
+#content #editOptions .mark-button:last-child{
+	margin-right: 1.25em;
+}
+#content #editOptions .mark-icon{
+	/* default color */
+	fill: rgb(200,200,200);
+}
+#content #editOptions .strong.mark-button{ width: 1.92em; }
+#content #editOptions .em.mark-button{ width: 1.08em; }
+#content #editOptions .header1.mark-button, #content #editOptions .header2.mark-button{ width: 3.4em; }
+#content #editOptions .quote.mark-button{ width: 2.6em; }
+#content #editOptions .link.mark-button{ width: 2.64em; }
+#content #editOptions .code.mark-button{ width: 2.76em; }
+#content #editOptions .mark-button:hover .mark-icon{
+	/* hover color */
+	fill: rgb(255,255,255);
+}
+#editOptions.strong .strong .mark-icon, #editOptions.em .em .mark-icon, #editOptions.header1 .header1 .mark-icon,
+#editOptions.header2 .header2 .mark-icon, #editOptions.quote-1 .quote .mark-icon .quote-part-1, #editOptions.quote-2 .quote .mark-icon,
+#editOptions.link .link .mark-icon, #editOptions.code-1 .code .mark-icon .code-part-1, #editOptions.code-2 .code .mark-icon{
+	/* active color */
+	fill: rgb(65,125,225) !important;
+}
+/*--------------------------*/
 /* options */
 .options{
 	position: absolute;
