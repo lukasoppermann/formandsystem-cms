@@ -28,26 +28,26 @@
 #content .cm-s-mark .CodeMirror-cursor {
 	background-color: rgb(65,125,225);
 }
-#content #editOptions{
+#content .edit-options{
 	background-color: rgb(35,35,35);
 }
-#content #editOptions:before{
+#content .edit-options:before{
 	border-color: rgb(35,35,35) transparent transparent transparent;
 }
-#content #editOptions.from-top:before{
+#content .edit-options.from-top:before{
 	border-color: transparent transparent rgb(35,35,35) transparent;
 }
-#content #editOptions .mark-icon{
+#content .edit-options .mark-icon{
 	/* default color */
 	fill: rgb(200,200,200);
 }
-#content #editOptions .mark-button:hover .mark-icon{
+#content .edit-options .mark-button:hover .mark-icon{
 	/* hover color */
 	fill: rgb(255,255,255);
 }
-#editOptions.strong .strong .mark-icon, #editOptions.em .em .mark-icon, #editOptions.header1 .header1 .mark-icon,
-#editOptions.header2 .header2 .mark-icon, #editOptions.quote-1 .quote .mark-icon .quote-part-1, #editOptions.quote-2 .quote .mark-icon,
-#editOptions.link .link .mark-icon, #editOptions.code-1 .code .mark-icon .code-part-1, #editOptions.code-2 .code .mark-icon{
+.edit-options.strong .strong .mark-icon, .edit-options.em .em .mark-icon, .edit-options.header1 .header1 .mark-icon,
+.edit-options.header2 .header2 .mark-icon, .edit-options.quote-1 .quote .mark-icon .quote-part-1, .edit-options.quote-2 .quote .mark-icon,
+.edit-options.link .link .mark-icon, .edit-options.code-1 .code .mark-icon .code-part-1, .edit-options.code-2 .code .mark-icon{
 	/* active color */
 	fill: rgb(65,125,225) !important;
 }
