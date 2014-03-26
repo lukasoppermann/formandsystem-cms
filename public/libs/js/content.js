@@ -1,8 +1,10 @@
 'use strict';
 
 // run codemirror on every instance of .mark
+var i = 0;
+options.cm = {};
 Array.prototype.slice.call(document.getElementsByClassName('mark'),0).forEach(function(editor){
-	options.cm = CodeMirror.fromTextArea(editor, {
+	options.cm[i] = CodeMirror.fromTextArea(editor, {
 		theme: "mark",
     // value: "function myScript(){return 100;}\n",
 		mode: {
@@ -43,7 +45,8 @@ Array.prototype.slice.call(document.getElementsByClassName('mark'),0).forEach(fu
 		}
 	});
 	// add edit Options
-	options.cm.on("cursorActivity", function(){
-		editOptions();
+	options.cm[i].on("cursorActivity", function(){
+		editOptions(editor);
 	});
+	i++;
 });
