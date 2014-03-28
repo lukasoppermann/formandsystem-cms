@@ -555,12 +555,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "118f28344daf154e47e73e79779a60bc7430a40f"
+                "reference": "8429157ab5478408606ee29e118c5f7db74c8afe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/118f28344daf154e47e73e79779a60bc7430a40f",
-                "reference": "118f28344daf154e47e73e79779a60bc7430a40f",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8429157ab5478408606ee29e118c5f7db74c8afe",
+                "reference": "8429157ab5478408606ee29e118c5f7db74c8afe",
                 "shasum": ""
             },
             "require": {
@@ -592,7 +592,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2014-02-12 19:19:48"
+            "time": "2014-03-27 11:51:13"
         },
         {
             "name": "patchwork/utf8",
@@ -936,12 +936,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/BrowserKit.git",
-                "reference": "a2b2aff53640fd2fa34b7c176f46d8ff392a785d"
+                "reference": "1f5e42db799e05e85d03fe8504c5b1c92c46968d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/a2b2aff53640fd2fa34b7c176f46d8ff392a785d",
-                "reference": "a2b2aff53640fd2fa34b7c176f46d8ff392a785d",
+                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/1f5e42db799e05e85d03fe8504c5b1c92c46968d",
+                "reference": "1f5e42db799e05e85d03fe8504c5b1c92c46968d",
                 "shasum": ""
             },
             "require": {
@@ -984,7 +984,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-12 18:29:58"
+            "time": "2014-03-27 14:53:17"
         },
         {
             "name": "symfony/console",
@@ -1424,12 +1424,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "f1c3db26afca1bd7709668b302a9c81e04103eb6"
+                "reference": "7cfb85005383ba5b0a11154b1de5d4b5e8a8e40b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/f1c3db26afca1bd7709668b302a9c81e04103eb6",
-                "reference": "f1c3db26afca1bd7709668b302a9c81e04103eb6",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/7cfb85005383ba5b0a11154b1de5d4b5e8a8e40b",
+                "reference": "7cfb85005383ba5b0a11154b1de5d4b5e8a8e40b",
                 "shasum": ""
             },
             "require": {
@@ -1488,7 +1488,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "http://symfony.com",
-            "time": "2014-03-26 11:35:33"
+            "time": "2014-03-27 14:53:17"
         },
         {
             "name": "symfony/process",
