@@ -31,10 +31,10 @@
 #content .edit-options{
 	background-color: rgb(35,35,35);
 }
-#content .edit-options:before{
+#content .edit-options .panel-arrow:before{
 	border-color: rgb(35,35,35) transparent transparent transparent;
 }
-#content .edit-options.from-top:before{
+#content .edit-options.from-top .panel-arrow:before{
 	border-color: transparent transparent rgb(35,35,35) transparent;
 }
 #content .edit-options .mark-icon{
