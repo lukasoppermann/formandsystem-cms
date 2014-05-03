@@ -411,3 +411,7 @@
 	position: absolute;
 	border: 2px solid rgb(255,255,255);
 }
+
+#svg_sprite{
+	display: none;
+}

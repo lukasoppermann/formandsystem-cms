@@ -22,8 +22,6 @@ nav li .nav-link{
 	padding: 1em 3.6em 1em 1.2em;
 	font-size: 1.6em;
 	line-height: 1.2em;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 /* 2nd lvl item link */
@@ -52,7 +50,6 @@ nav .nav-link.missing:after{
 }
 nav .nav-link.missing:hover .icon{
 	opacity: 1;
-	-webkit-transition: opacity .5s ease;
 	transition: opacity .5s ease;
 }
 nav .nav-link.missing:hover{

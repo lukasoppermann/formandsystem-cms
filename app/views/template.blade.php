@@ -14,6 +14,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 </head>
 <body>
+	<?include("./layout/icons/svg-defs.svg")?>
 	<nav>
 		<ul id="mainnav">
 			<li>
@@ -25,6 +26,9 @@
 				<a href="#settings" class="settings"><span class="icon icon-settings"></span></a>
 			</li>
 		</ul>
+		<!-- <svg viewBox="0 0 100 100" class="icon shape-page">
+		  <use xlink:href="#shape-page"></use>
+		</svg> -->
 		<!-- <ul id="contentnav">
 			
 			<li class="nav-list-item">
