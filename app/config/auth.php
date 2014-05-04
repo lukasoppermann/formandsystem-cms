@@ -62,7 +62,7 @@ return array(
 
 		'email' => 'emails.auth.reminder',
 
-		'table' => 'password_reminders',
+		'table' => 'fs_password_reminders',
 
 		'expire' => 20,
 
