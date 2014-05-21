@@ -15,13 +15,13 @@ class CreateContentTable extends Migration {
 		{
 			$table->increments('id');
 			$table->smallInteger('menu_id');
-			$table->string('menu_label');
-			$table->string('link');
-			$table->boolean('status');
+			$table->string('menu_label')->nullable();
+			$table->string('link')->index()->nullable();
+			$table->boolean('status')->nullable();
 			$table->string('language', 2);
 			$table->smallInteger('type');
-			$table->string('title');
-			$table->text('content');
+			$table->string('title')->nullable();
+			$table->text('data')->nullable();
 			$table->timestamps();
 		});
 	}

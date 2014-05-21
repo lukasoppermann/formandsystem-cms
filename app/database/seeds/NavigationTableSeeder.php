@@ -11,6 +11,8 @@ class NavigationTableSeeder extends Seeder {
 	{
 		DB::table('fs_navigation')->delete();
 		
+		DB::statement("ALTER TABLE `fs_navigation` AUTO_INCREMENT = 1;");
+		
 		DB::table('fs_navigation')->insert(array(
 			array(
 				'id' => '1',
@@ -45,7 +47,12 @@ class NavigationTableSeeder extends Seeder {
 			array(
 				'id' => '7',
 				'parent_id' => '0',
-				'position' => 4
+				'position' => 2
+			),
+			array(
+				'id' => '8',
+				'parent_id' => '0',
+				'position' => 3
 			)
 		));
 	}
