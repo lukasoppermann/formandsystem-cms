@@ -169,8 +169,8 @@
 	position: absolute;
 	border: 1em solid transparent;
 	border-color: transparent transparent transparent rgb(65,125,225);
-	transform: rotate(45deg);
 	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
 	bottom: 0;
 	right: 0;
 	transition: opacity .5s ease;

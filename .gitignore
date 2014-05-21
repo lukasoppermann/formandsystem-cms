@@ -1,6 +1,5 @@
 # Project Files #
 #################
-*.tmproj
 *.psd
 *.ai
 *.orig
@@ -16,7 +15,10 @@ images/
 media/
 movies/
 files/
-artisan
+
+# Grunt #
+############
+node_modules/
 
 # db files #
 ############
@@ -25,6 +27,8 @@ database.php
 # laravel #
 ############
 vendor/
+artisan
+composer.lock
 
 # Packages #
 ############

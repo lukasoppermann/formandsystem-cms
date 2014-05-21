@@ -15,18 +15,26 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-
+		"laravelbook/ardent": "dev-master",
+		"mockery/mockery": "dev-master",
+		"phpunit/phpunit": "dev-master",
+		"way/generators": "dev-master",
+		"guzzlehttp/guzzle": "~4.0",
     "lukasoppermann/optimization": "*@dev",
     "lukasoppermann/utilities": "*@dev"
 	},
 	"autoload": {
+		"psr-4": {
+		    "App\\": "app/"
+		},
 		"classmap": [
 			"app/commands",
 			"app/controllers",
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
-			"app/tests/TestCase.php"
+			"app/tests/TestCase.php",
+			"app/facades"
 		]
 	},
 	"scripts": {
