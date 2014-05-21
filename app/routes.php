@@ -11,15 +11,51 @@
 |
 */
 
-Route::get('/', 'ContentController@index'); // replace with dashboard
-
-Route::get('/content/{lang?}/{link?}', 'ContentController@index');
-
-Route::get('users', function()
+/*
+* Login Form
+*/
+Route::get('/login', function()
 {
-    $users = User::all();
-    
-    return View::make('users')->with('users', $users);
+		Optimization::css(array('reset', 'layout'));
+		return View::make('user.login'); //, array('title' => "Please login")
+});
+/*
+* Login request
+*/
+Route::post('/login', function()
+{
+	if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password'))))
+	{
+	  return Redirect::intended('dashboard');
+	}
+	else
+	{
+		return Redirect::to('/login')->width(array('error' => 'Wrong email address or password', 'email' => Input::get('email')));
+	}
+});
+/*
+* Logout route
+*/
+Route::get('/logout', function()
+{
+	Auth::logout();
+	return Redirect::to('/');
 });
 
-Route::get('/{lang?}/{link?}', 'ContentController@index');
+Route::group(array('before' => 'auth'), function()
+{
+	Route::get('/', 'DashboardController@index'); // replace with dashboard
+	Route::get('/dashboard', 'DashboardController@index'); // replace with dashboard
+
+	Route::resource('/content', 'contentController', 
+					array( 'except' => array('edit') ) );
+	// Route::get('/content/{lang?}/{link?}', 'ContentController@index');
+	// 
+	// Route::post('/content/{lang?}/{link?}', 'ContentController@store');
+
+	Route::controller('users', 'UsersController');
+
+	// Route::get('/{lang?}/{link?}', 'ContentController@index');
+});
+
+

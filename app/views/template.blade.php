@@ -14,94 +14,38 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 </head>
 <body>
-	<?include("./layout/icons/svg-defs.svg")?>
+	<?include("./layout/svg-sprite.svg")?>
+	@if( isset($error) )
+		@include('misc.error', array('error' => $error))
+	@endif
 	<nav>
 		<ul id="mainnav">
 			<li>
-				<a class="nav-link" href="#">Dashboard</a>
-				<a href="#search" class="search"><span class="icon icon-search"></span></a>
+				<a class="nav-link" href="#">
+					<svg viewBox="0 0 512 512" class="icon-formandsystem">
+					  <use xlink:href="#icon-formandsystem"></use>
+					</svg>
+					Dashboard</a>
+				<a href="#search" class="search">
+					<svg viewBox="0 0 512 512" class="icon-search">
+					  <use xlink:href="#icon-search"></use>
+					</svg>
+				</a>
 			</li>
 			<li>
 				<a class="nav-link" href="#">Lukas Oppermann</a>
-				<a href="#settings" class="settings"><span class="icon icon-settings"></span></a>
+				<a href="#settings" class="settings">
+					<svg viewBox="0 0 512 512" class="icon-settings">
+					  <use xlink:href="#icon-settings"></use>
+					</svg>
+				</a>
 			</li>
 		</ul>
-		<!-- <svg viewBox="0 0 100 100" class="icon shape-page">
-		  <use xlink:href="#shape-page"></use>
-		</svg> -->
-		<!-- <ul id="contentnav">
-			
-			<li class="nav-list-item">
-				
-				<div class="nav-item">
-					
-					<a class="nav-link" href="#"><span class="icon icon-page"></span>Home</a>
-					
-					<a href="#visible" class="edit-tool status"><span class="active icon icon-eye"></span></a>
-					
-					<div class="edit-tool page-link-container">
-						<span class="icon icon-link"></span>
-						<input class="page-link" type="text" value="" placeholder="/link-to-page" />
-					</div>
-					
-					<div class="edit-tool delete"><a href="#delete">delete</a></div>
-					
-				</div>
-				
-				<ul>
-					<li>
-						
-						<div class="nav-item">
-							<a class="nav-link" href="#"><span class="icon icon-page"></span>Portfolio</a>
-							<a href="#visible" class="edit-tool status"><span class="active icon icon-eye"></span></a>
-							<div class="edit-tool page-link-container">
-								<span class="icon icon-link"></span>
-								<input class="page-link" type="text" value="" placeholder="/link-to-page" />
-							</div>
-							<div class="edit-tool delete"><a href="#delete">delete</a></div>
-						</div>
-						
-						<ul>
-							<li>
-								<div class="nav-item active">
-									<a class="nav-link" href="#"><span class="icon icon-page"></span>Portfolio</a>
-									<a href="#visible" class="edit-tool status"><span class="icon icon-eye"></span></a>
-									<div class="edit-tool page-link-container">
-										<span class="icon icon-link"></span>
-										<input class="page-link" type="text" value="" placeholder="/link-to-page" />
-									</div>
-									<div class="edit-tool delete"><a href="#delete">delete</a></div>
-								</div>
-							</li>
-						</ul>
-						
-					</li>
-				</ul>
-				
-			</li>
-			
-			<li class="contentnav-item active">
-				<div class="nav-item">
-					
-					<a class="nav-link" href="#"><span class="icon icon-stack"></span>Blog</a>
-					
-					<a href="#visible" class="edit-tool status"><span class="active icon icon-eye"></span></a>
-					
-					<div class="edit-tool page-link-container">
-						<span class="icon icon-link"></span>
-						<input class="page-link" type="text" value="" placeholder="/link-to-page" />
-					</div>
-					
-					<div class="edit-tool delete"><a href="#delete">delete</a></div>
-					
-				</div>
-			</li>
-		</ul> -->
-		@yield('contentMenu')
+		@yield('contentMenu','')
 	</nav>
 	<div id="content">
-    	@yield('content')
+    	@yield('content','')
 	</div>
-	{{Optimization::js('default',false);}}
+	{{ Optimization::js('default',false) }}
 </body>
 </html>

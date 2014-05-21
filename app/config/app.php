@@ -107,6 +107,7 @@ return array(
       'Illuminate\Workbench\WorkbenchServiceProvider',
       'Lukasoppermann\Optimization\OptimizationServiceProvider',
       'Lukasoppermann\Utilities\UtilitiesServiceProvider',
+      'App\Serviceproviders\FormandsystemServiceProvider',
 	),
 
 	/*

@@ -1,9 +1,9 @@
 body{
-    display: -webkit-flex;
-    display: flex;
-	 font-family: "Helvetica Neue", Helvetica, Sans-serif;
-	 font-size: 0.625em;
-	 line-height: 130%;
+	display: -webkit-flex;
+	display: flex;
+	font-family: "Helvetica Neue", Helvetica, Sans-serif;
+	font-size: 0.625em;
+	line-height: 130%;
 }
 #content{
 	position: relative;
@@ -30,6 +30,7 @@ body{
 	line-height: 1.6em;
 	padding: .2em 1.4em;
 	border-radius: .4em;
+	background: none;
 }
 .button.blue{
 	border-color: rgb(55,115,215);
