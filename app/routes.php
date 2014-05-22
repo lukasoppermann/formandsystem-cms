@@ -30,7 +30,7 @@ Route::post('/login', function()
 	}
 	else
 	{
-		return Redirect::to('/login')->width(array('error' => 'Wrong email address or password', 'email' => Input::get('email')));
+		return Redirect::to('/login')->with(array('error' => 'Wrong email address or password', 'email' => Input::get('email')));
 	}
 });
 /*

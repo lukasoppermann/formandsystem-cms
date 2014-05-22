@@ -20,6 +20,7 @@ function loop( $nav, $lang){
 					{
 						$itemContent = $item['content'][array_values(Config::get('content.languages'))[$i]];
 						$itemContent['missing'] = 'missing';
+						$itemContent['language'] = array_values(Config::get('content.languages'))[$i];
 					}
 					$i++;
 				}
@@ -31,10 +32,11 @@ function loop( $nav, $lang){
 			{
 				$missing = 'missing';
 				$pageIcon = 'page-add';
+				$itemContent['menu_label'] = $itemContent['menu_label'].' ['.$itemContent['language'].']';
 			}
 			
 			echo '<li class="nav-list-item">
-				<div class="nav-item'.('content/'.$lang.'/'.trim($itemContent['link'], '/') == Request::path() ? ' active' : '').'">
+				<div class="nav-item'.('content/'.trim($itemContent['link'], '/') == Request::path() ? ' active' : '').'">
 					<a class="nav-link '.$missing.'" rel="dns-prefetch" data-id="'.$itemContent['id'].'" href="'.url('/content/'.trim($itemContent['link'], '/')).'">
 						<svg viewBox="0 0 512 512" class="icon-'.$pageIcon.'">
 					  	<use xlink:href="#icon-'.$pageIcon.'"></use>
