@@ -1,5 +1,7 @@
 /* general nav */
 nav{
+	position: fixed;
+	height: 100%;
 	float: left;
 	width: 27em;
 	background: rgb(35,35,35);
@@ -35,8 +37,20 @@ nav li ul ul ul .nav-link{ padding: 1em 2em 1em 5em; }
 
 /* structure */
 #contentnav{
+	float: left;
 	display: block;
-	position: relative;
+	position: absolute;
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box;
+	margin-top: 10.4em;
+	height: calc(100% - 60.4em);
+	overflow-y: scroll;
+	overflow-x: hidden;
+	width: 27em;
+}
+#contentnav::-webkit-scrollbar{
+	display: none;
 }
 nav ul{
 	position: relative;
@@ -192,7 +206,21 @@ nav .page-link-container .page-link:focus{
 	width: 100%;
 	float: left;
 	background: rgb(0,10,0);
+	z-index: 1;
+/*	box-shadow: 0 .1em 0 rgba(55,115,215,.35);	*/
 }
+/*nav:before{
+	position: absolute;
+	content: "";
+	top: 9.4em;
+	left: 1em;
+	display: block;
+	width: 25em;
+	height: 1em;
+	border-radius: 100%;
+	box-shadow: 0 .3em .5em rgba(55,115,215,.35);
+	z-index: 0;
+}*/
 #mainnav li .search, #mainnav li .settings{
 	position: absolute;
 	right: 0;
