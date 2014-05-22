@@ -8,3 +8,6 @@
 [submodule "public/libs/js/html5nestable"]
 	path = public/libs/js/html5nestable
 	url = https://github.com/lukasoppermann/html5nestable.git
+[submodule "public/libs/js/engine"]
+	path = public/libs/js/engine
+	url = https://github.com/lukasoppermann/engine.git
