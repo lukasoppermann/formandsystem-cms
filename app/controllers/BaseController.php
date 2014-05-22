@@ -32,7 +32,7 @@ class BaseController extends Controller {
 		Optimization::css(array('reset', 'layout', 'nav', 'icons', 'contentediting','../js/codemirror/lib/codemirror', '../js/mark/mark'));
 		// add js resources
 		// TODO: Fix Optimization js
-		Optimization::js(array('codemirror','xml','markdown','gfm','javascript','css','htmlmixed','xml-fold','continuelist','matchbrackets','closebrackets',
+		Optimization::js(array('engine','codemirror','xml','markdown','gfm','javascript','css','htmlmixed','xml-fold','continuelist','matchbrackets','closebrackets',
 			'matchtags','trailingspace','closetag','placeholder','overlay','mark', 'content'));
 
 		// prepare local
