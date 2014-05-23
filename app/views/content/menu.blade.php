@@ -28,16 +28,18 @@ function loop( $nav, $lang){
 			
 			$pageIcon = 'page';
 			$missing = '';
+			$link = url('/content/'.trim($itemContent['link'], '/'));
 			if(isset($itemContent['missing']))
 			{
 				$missing = 'missing';
 				$pageIcon = 'page-add';
 				$itemContent['menu_label'] = $itemContent['language'].': '.$itemContent['menu_label'];
+				$link = url('/content/create/');
 			}
 			
 			echo '<li class="nav-list-item">
 				<div class="nav-item'.('content/'.trim($itemContent['link'], '/') == Request::path() ? ' active' : '').'">
-					<a class="nav-link '.$missing.'" rel="dns-prefetch" data-id="'.$itemContent['id'].'" href="'.url('/content/'.trim($itemContent['link'], '/')).'">
+					<a class="nav-link '.$missing.'" rel="dns-prefetch" data-id="'.$itemContent['id'].'" href="'.$link.'">
 						<svg viewBox="0 0 512 512" class="icon-'.$pageIcon.'">
 					  	<use xlink:href="#icon-'.$pageIcon.'"></use>
 						</svg>
@@ -54,7 +56,7 @@ function loop( $nav, $lang){
 						</label>
 					</div>
 
-					<a class="edit-tool delete" href="#delete">delete</a>
+					<a class="edit-tool delete" href="'.url('/content/destroy/'.$itemContent['id']).'">delete</a>
 				</div>';
 				if ( isset($item['children']) && is_array($item['children']) ){
 					loop($item['children'], $lang);
