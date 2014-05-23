@@ -5,6 +5,7 @@ nav{
 	float: left;
 	width: 27em;
 	background: rgb(35,35,35);
+	background: rgb(40,40,40);
 	color: rgb(255,255,255);
 }
 nav li{
@@ -44,13 +45,21 @@ nav li ul ul ul .nav-link{ padding: 1em 2em 1em 5em; }
 	-webkit-box-sizing: border-box; 
 	box-sizing: border-box;
 	margin-top: 10.4em;
-	height: calc(100% - 60.4em);
-	overflow-y: scroll;
+	height: calc(100% - 50.4em);
+	overflow-y: auto;
 	overflow-x: hidden;
 	width: 27em;
 }
 #contentnav::-webkit-scrollbar{
+	width: 6px;
+	background-color: rgba(255,255,255,0.1);
+}
+#contentnav::-webkit-scrollbar-track{
 	display: none;
+}
+#contentnav::-webkit-scrollbar-thumb{
+	background-color: rgba(255,255,255,0.25);
+	border-radius: 5px;
 }
 #contentnav.scrollable #scroll_indicator{
 	display: block;
@@ -215,11 +224,11 @@ nav .page-link-container .page-link:focus{
 #mainnav{
 	width: 100%;
 	float: left;
-	background: rgb(0,10,0);
+	background: rgb(30,30,30);
 	z-index: 1;
-/*	box-shadow: 0 .1em 0 rgba(55,115,215,.35);	*/
+	box-shadow: 0 .1em 0 rgba(55,115,215,.15);	
 }
-/*nav:before{
+nav:before{
 	position: absolute;
 	content: "";
 	top: 9.4em;
@@ -228,9 +237,9 @@ nav .page-link-container .page-link:focus{
 	width: 25em;
 	height: 1em;
 	border-radius: 100%;
-	box-shadow: 0 .3em .5em rgba(55,115,215,.35);
+	box-shadow: 0 .3em .5em rgba(55,115,215,.15);
 	z-index: 0;
-}*/
+}
 #mainnav li .search, #mainnav li .settings{
 	position: absolute;
 	right: 0;
@@ -277,7 +286,4 @@ nav .page-link-container .page-link:focus{
 }
 .page-outline{
 	opacity: 0.25;
-}
-.nav-link:hover use {
-	opacity: 1;
 }

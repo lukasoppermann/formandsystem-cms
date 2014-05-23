@@ -32,7 +32,7 @@ function loop( $nav, $lang){
 			{
 				$missing = 'missing';
 				$pageIcon = 'page-add';
-				$itemContent['menu_label'] = $itemContent['menu_label'].' ['.$itemContent['language'].']';
+				$itemContent['menu_label'] = $itemContent['language'].': '.$itemContent['menu_label'];
 			}
 			
 			echo '<li class="nav-list-item">
