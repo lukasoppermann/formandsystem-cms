@@ -49,7 +49,8 @@ Route::group(array('before' => 'auth'), function()
 	//
 	// Content Controller
 	Route::resource('/content', 'contentController', 
-					array( 'except' => array('edit') ) );
+					array( 'except' => array('edit') ) 
+	);
 	
 	// Route::get('/content/{lang?}/{link?}', 'ContentController@index');
 	// 
