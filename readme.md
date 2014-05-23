@@ -1,15 +1,16 @@
 # Form&System MVP
 
 ### TODO:
+- use requires
 - finish html5nestable
-- integrate mark
 - saving changes
 - add content block
 - add user management
-- use iconfont/svg for icons
 
 #### Done:
 – fix optimiztaion:js
+	- integrate mark
+	- use svg for icons
 
 
 ## Data Model
