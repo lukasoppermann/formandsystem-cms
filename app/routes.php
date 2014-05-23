@@ -46,9 +46,11 @@ Route::group(array('before' => 'auth'), function()
 {
 	Route::get('/', 'DashboardController@index'); // replace with dashboard
 	Route::get('/dashboard', 'DashboardController@index'); // replace with dashboard
-
+	//
+	// Content Controller
 	Route::resource('/content', 'contentController', 
 					array( 'except' => array('edit') ) );
+	
 	// Route::get('/content/{lang?}/{link?}', 'ContentController@index');
 	// 
 	// Route::post('/content/{lang?}/{link?}', 'ContentController@store');

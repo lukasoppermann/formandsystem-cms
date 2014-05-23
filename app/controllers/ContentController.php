@@ -27,7 +27,7 @@ class ContentController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create( $id = null )
 	{
 		$this->layout->content = View::make('content.create');
 	}

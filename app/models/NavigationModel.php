@@ -65,6 +65,7 @@ class NavigationModel extends Ardent{
 				$navArray[$item->parent_id][$item->id]['languages'][] = $c->language;
 				$navArray[$item->parent_id][$item->id]['content'][$c->language] = array(
 					'id' 					=> $c->id,
+					'menu_id' 		=> $item->id,
 					'menu_label' 	=> $c->menu_label,
 					'link' 				=> $c->link,
 					'title' 			=> $c->title,
