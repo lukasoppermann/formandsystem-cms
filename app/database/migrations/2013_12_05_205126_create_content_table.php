@@ -23,6 +23,7 @@ class CreateContentTable extends Migration {
 			$table->string('title')->nullable();
 			$table->text('data')->nullable();
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

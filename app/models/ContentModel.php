@@ -11,6 +11,12 @@ class ContentModel extends Ardent{
 	 */
 	protected $table = 'fs_content';
 	/**
+	 * Enable soft deleteing
+	 *
+	 * @var string
+	 */
+	protected $softDelete = true;
+	/**
 	 * Ardent validation rules
 	 */
 	public static $rules = array(
