@@ -1,7 +1,9 @@
 {
-  "name": "Test",
-  "description": "The best project ever.",
+  "name": "FromandSystem",
+  "description": "Form and System cms",
   "version": "0.3.0",
+	"repository": "https://github.com/lukasoppermann/formandsystem/",
+	"readme": "https://github.com/lukasoppermann/formandsystem/blob/mvp/readme.md",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -11,7 +13,7 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-autoprefixer": "~0.7.3",
     "grunt-contrib-csslint": "~0.2.0",
-    "grunt-svgstore": ">=0.0.4",
+    "grunt-svgstore": "~0.0.4",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-uglify": "~0.2.7",
     "grunt-contrib-cssmin": "~0.9.0",
