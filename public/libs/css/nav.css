@@ -45,12 +45,12 @@ nav li ul ul ul .nav-link{ padding: 1em 2em 1em 5em; }
 	-webkit-box-sizing: border-box; 
 	box-sizing: border-box;
 	margin-top: 10.4em;
-	height: calc(100% - 50.4em);
+	height: calc(100% - 50.3em);
 	overflow-y: auto;
 	overflow-x: hidden;
 	width: 27em;
 }
-#contentnav::-webkit-scrollbar{
+/*#contentnav::-webkit-scrollbar{
 	width: 6px;
 	background-color: rgba(255,255,255,0.1);
 }
@@ -60,17 +60,7 @@ nav li ul ul ul .nav-link{ padding: 1em 2em 1em 5em; }
 #contentnav::-webkit-scrollbar-thumb{
 	background-color: rgba(255,255,255,0.25);
 	border-radius: 5px;
-}
-#contentnav.scrollable #scroll_indicator{
-	display: block;
-	position: absolute;
-	top: 0;
-	right: .1em;
-	width: .6em;
-	height: 3em;
-	border-radius: 1em;
-	background-color: rgba(255,255,255,0.25);
-}
+}*/
 nav ul{
 	position: relative;
 	float: left;
@@ -226,9 +216,9 @@ nav .page-link-container .page-link:focus{
 	float: left;
 	background: rgb(30,30,30);
 	z-index: 1;
-	box-shadow: 0 .1em 0 rgba(55,115,215,.15);	
+/*	box-shadow: 0 .1em 0 rgba(55,115,215,.15);	*/
 }
-nav:before{
+/*nav:before{
 	position: absolute;
 	content: "";
 	top: 9.4em;
@@ -239,6 +229,17 @@ nav:before{
 	border-radius: 100%;
 	box-shadow: 0 .3em .5em rgba(55,115,215,.15);
 	z-index: 0;
+}*/
+nav #scroll_indicator{
+	display: block;
+	position: absolute;
+	top: 10.3em;
+	left: 0;
+	width: 20%;
+	height: .2em;
+	background-color: rgb(255,255,255);
+	background-color: rgb(55,115,215);
+	z-index: 10;
 }
 #mainnav li .search, #mainnav li .settings{
 	position: absolute;
