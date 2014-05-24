@@ -70,8 +70,8 @@ function loop( $nav, $lang){
 
 ?>
 @section('contentMenu')
+<div id="scroll_indicator"></div>
 <div id="contentnav">
-	<div id="scroll_indicator"></div>
 	<? loop($nav, 'en'); ?>
 <div>
 @stop
