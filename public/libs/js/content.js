@@ -9,10 +9,12 @@ mark(document.getElementsByClassName('mark'), {
 
 // scroll
 (function(document){
-	var scroll_indicator = _('#scroll_indicator');
-	var contentnav = _('#contentnav');
 	
 	// scrollTop
-	console.log(contentnav[0].scrollTop);
+	_('#contentnav').on('scroll', function(){
+		console.log(this);
+		console.log(_('#contentnav').css('height'));
+		_('#scroll_indicator')[0].style.width = ((_('#contentnav').css('height')/100)*this.scrollTop)+'%';
+	});
 	
 })(document);

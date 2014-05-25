@@ -45,7 +45,7 @@ nav li ul ul ul .nav-link{ padding: 1em 2em 1em 5em; }
 	-webkit-box-sizing: border-box; 
 	box-sizing: border-box;
 	margin-top: 10.4em;
-	height: calc(100% - 50.3em);
+	height: calc(100% - 30.3em);
 	overflow-y: auto;
 	overflow-x: hidden;
 	width: 27em;
@@ -236,7 +236,7 @@ nav #scroll_indicator{
 	top: 10.3em;
 	left: 0;
 	width: 20%;
-	height: .2em;
+	height: 2px;
 	background-color: rgb(255,255,255);
 	background-color: rgb(55,115,215);
 	z-index: 10;

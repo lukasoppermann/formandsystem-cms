@@ -11,3 +11,9 @@
 [submodule "public/libs/js/engine"]
 	path = public/libs/js/engine
 	url = https://github.com/lukasoppermann/engine.git
+[submodule "public/libs/js/requirejs"]
+	path = public/libs/js/requirejs
+	url = https://github.com/jrburke/requirejs.git
+[submodule "public/libs/js/domReady"]
+	path = public/libs/js/domReady
+	url = https://github.com/requirejs/domReady

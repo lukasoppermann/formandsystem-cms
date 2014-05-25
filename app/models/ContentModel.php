@@ -15,7 +15,10 @@ class ContentModel extends Ardent{
 	 *
 	 * @var string
 	 */
-	protected $softDelete = true;
+	// protected $softDelete = true;
+  use SoftDeletingTrait;
+
+  protected $dates = ['deleted_at'];
 	/**
 	 * Ardent validation rules
 	 */
