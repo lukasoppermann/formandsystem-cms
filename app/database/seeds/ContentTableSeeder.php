@@ -17,6 +17,7 @@ class ContentTableSeeder extends Seeder {
 		DB::table('fs_content')->insert(array(
 			array(
 				'menu_id' => '1',
+				'article_id' => '1',
 				'menu_label' => 'Start',
 				'link' => 'start',
 				'status' => '1',
@@ -54,6 +55,7 @@ class ContentTableSeeder extends Seeder {
 			),
 			array(
 				'menu_id' => '6',
+				'article_id' => '2',
 				'menu_label' => 'Home',
 				'link' => 'home',
 				'status' => '1',
@@ -91,6 +93,7 @@ class ContentTableSeeder extends Seeder {
 			),
 			array(
 				'menu_id' => '2',
+				'article_id' => '3',
 				'menu_label' => 'Blog',
 				'link' => 'blog',
 				'status' => '1',
@@ -101,6 +104,7 @@ class ContentTableSeeder extends Seeder {
 			),
 			array(
 				'menu_id' => '3',
+				'article_id' => '4',
 				'menu_label' => 'Portfolio',
 				'link' => 'portfolio',
 				'status' => '1',
@@ -111,6 +115,7 @@ class ContentTableSeeder extends Seeder {
 			),
 			array(
 				'menu_id' => '4',
+				'article_id' => '5',
 				'menu_label' => 'Contact',
 				'link' => 'contact',
 				'status' => '1',
@@ -121,6 +126,7 @@ class ContentTableSeeder extends Seeder {
 			),
 			array(
 				'menu_id' => '5',
+				'article_id' => '6',
 				'menu_label' => 'Kontakt',
 				'link' => 'kontakt',
 				'status' => '1',
@@ -131,6 +137,7 @@ class ContentTableSeeder extends Seeder {
 			),
 			array(
 				'menu_id' => '7',
+				'article_id' => '7',
 				'menu_label' => 'Kontakt',
 				'link' => 'kontakt',
 				'status' => '1',

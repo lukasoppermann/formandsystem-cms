@@ -2,7 +2,11 @@
 
 <div class="content-wrapper">
 	<div class="page-settings">
-		<div class="settings-wrap"><span class="icon icon-settings"></span></div>
+		<a href="#settings" class="settings">
+			<svg viewBox="0 0 512 512" class="icon-settings">
+			  <use xlink:href="#icon-settings"></use>
+			</svg>
+		</a>
 	</div>
 	<div class="options">
 		{{ Form::submit('Create', array('class'=>'button blue save'))}}

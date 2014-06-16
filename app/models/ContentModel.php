@@ -1,6 +1,7 @@
 <?php
 
 use LaravelBook\Ardent\Ardent;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class ContentModel extends Ardent{
 
@@ -15,10 +16,8 @@ class ContentModel extends Ardent{
 	 *
 	 * @var string
 	 */
-	// protected $softDelete = true;
-  use SoftDeletingTrait;
-
-  protected $dates = ['deleted_at'];
+	use SoftDeletingTrait;
+	protected $dates = ['deleted_at'];
 	/**
 	 * Ardent validation rules
 	 */

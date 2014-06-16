@@ -6,22 +6,17 @@
       {
           "type": "vcs",
           "url": "https://github.com/lukasoppermann/optimization"
-      },
-      {
-          "type": "vcs",
-          "url": "https://github.com/lukasoppermann/php-utilities"
       }
 	],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*",
+		"laravel/framework": "4.2.*",
 		"laravelbook/ardent": "dev-master",
 		"mockery/mockery": "dev-master",
 		"phpunit/phpunit": "dev-master",
 		"way/generators": "dev-master",
 		"guzzlehttp/guzzle": "~4.0",
-    "lukasoppermann/optimization": "*@dev",
-    "lukasoppermann/utilities": "*@dev"
+    "lukasoppermann/optimization": "*@dev"
 	},
 	"autoload": {
 		"psr-4": {

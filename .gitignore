@@ -28,7 +28,7 @@ database.php
 ############
 vendor/
 artisan
-composer.lock
+# composer.lock
 
 # Packages #
 ############

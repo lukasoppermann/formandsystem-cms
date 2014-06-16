@@ -46,6 +46,15 @@
 	<div id="content">
     	@yield('content','')
 	</div>
-	{{ Optimization::js('default',false) }}
+  <script data-main="{{asset('/libs/js/main')}}" src="{{asset('/libs/js/requirejs/require.js')}}"></script>
+  <!--<script type="text/javascript" src="{{asset('libs/js/engine/engine.js')}}"></script>
+  <script type="text/javascript" src="{{asset('libs/js/engine/functions/css.js')}}"></script>
+  <script type="text/javascript" src="{{asset('libs/js/engine/functions/on.js')}}"></script>
+  <script type="text/javascript" src="{{asset('libs/js/engine/functions/off.js')}}"></script>
+  <script type="text/javascript" src="{{asset('libs/js/engine/functions/addclass.js')}}"></script>
+  <script type="text/javascript" src="{{asset('libs/js/engine/functions/removeclass.js')}}"></script>
+  <script type="text/javascript" src="{{asset('libs/js/engine/functions/children.js')}}"></script>
+  <script type="text/javascript" src="{{asset('libs/js/engine/functions/parents.js')}}"></script>
+  <script type="text/javascript" src="{{asset('libs/js/engine/plugins/serialize.js')}}"></script>-->
 </body>
 </html>

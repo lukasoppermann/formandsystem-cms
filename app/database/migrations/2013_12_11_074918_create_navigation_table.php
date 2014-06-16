@@ -13,10 +13,13 @@ class CreateNavigationTable extends Migration {
 	{
 		Schema::create('fs_navigation', function($table)
 		{
+			// storage engine
+			$table->engine = 'MyISAM';
+			// fields
 			$table->increments('id');
 			$table->integer('parent_id');
 			$table->integer('position');
-			$table->timestamps();
+			$table->integer('article_id');
 		});
 	}
 
