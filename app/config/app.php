@@ -66,6 +66,15 @@ return array(
 	*/
 
 	'key' => 'sGzGgkjlUAw5MaCIebWj9AkM1HDFefuf',
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Cipher
+	|--------------------------------------------------------------------------
+	|
+	*/
+	
+	'cipher' => MCRYPT_RIJNDAEL_256,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -106,7 +115,6 @@ return array(
       'Illuminate\View\ViewServiceProvider',
       'Illuminate\Workbench\WorkbenchServiceProvider',
       'Lukasoppermann\Optimization\OptimizationServiceProvider',
-      'Lukasoppermann\Utilities\UtilitiesServiceProvider',
       'App\Serviceproviders\FormandsystemServiceProvider',
 	),
 

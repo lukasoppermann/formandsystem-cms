@@ -13,8 +13,12 @@ class CreateContentTable extends Migration {
 	{
 		Schema::create('fs_content', function($table)
 		{
+			// storage engine
+			$table->engine = 'MyISAM';
+			// fields
 			$table->increments('id');
 			$table->smallInteger('menu_id');
+			$table->integer('article_id');
 			$table->string('menu_label')->nullable();
 			$table->string('link')->index()->nullable();
 			$table->boolean('status')->nullable();

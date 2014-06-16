@@ -4,9 +4,9 @@ function loop( $nav, $lang){
 	echo '<ul>';
 	foreach ($nav as $item)
 	{
-			// $content = checkLanguage($item, Config::get('content.locale'));
+		// $content = checkLanguage($item, Config::get('content.locale'));
 		if( isset($item['content']) )
-		{	
+		{
 			if( array_key_exists(Config::get('content.locale'), $item['content']) )
 			{
 				$itemContent = $item['content'][Config::get('content.locale')];
@@ -25,7 +25,7 @@ function loop( $nav, $lang){
 					$i++;
 				}
 			}
-			
+
 			$pageIcon = 'page';
 			$missing = '';
 			$link = url('/content/'.trim($itemContent['link'], '/'));
@@ -36,7 +36,7 @@ function loop( $nav, $lang){
 				$itemContent['menu_label'] = $itemContent['language'].': '.$itemContent['menu_label'];
 				$link = url('/content/create/');
 			}
-			
+
 			echo '<li class="nav-list-item">
 				<div class="nav-item'.('content/'.trim($itemContent['link'], '/') == Request::path() ? ' active' : '').'">
 					<a class="nav-link '.$missing.'" rel="dns-prefetch" data-id="'.$itemContent['id'].'" href="'.$link.'">

@@ -72,19 +72,21 @@
 	transition: border .5s ease .0s;
 	cursor: pointer;
 }
-.settings-wrap{
+.page-settings .icon-settings{
 	position: relative;
 	overflow: hidden;
 	height: 0;
 	height: 3em;
 	width: 3em;
-	left: -3em;
-	top: -3em;
+	left: -1.2em;
+	top: -1.2em;
 	opacity: 0;
-	transition: opacity .4s ease .1s;
+	transition: opacity .4s ease .1s, left .4s ease .1s, top .4s ease .1s;	
 }
-.page-settings:hover .settings-wrap{
+.page-settings:hover .icon-settings{
 	opacity: 1;
+	top: -2.2em;
+	left: -2.2em;
 }
 .page-settings:before, .page-settings:after{
 	content: "";
@@ -96,17 +98,17 @@
 	width: 0;
 	border-width: 0;
 	border-style: solid;
-	border-color: rgb(0,10,0) transparent transparent rgb(0,10,0);
+	border-color: rgb(30,30,30) transparent transparent rgb(30,30,30);
 	transition: border .5s ease .0s;
 }
 .page-settings:after{
 	z-index: 1;
 	border-color: transparent rgb(65,125,225) rgb(65,125,225) transparent;
 }
-.page-settings .icon{
-	top: .8em;
-	left: .8em;
+.page-settings .icon-settings{
 	z-index: 1;
+	width: 2em;
+	height: 2em;
 }
 .page-settings:hover:before, .page-settings:hover:after{
 	border-width: 3em;

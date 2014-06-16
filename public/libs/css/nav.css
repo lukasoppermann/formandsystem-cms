@@ -41,11 +41,11 @@ nav li ul ul ul .nav-link{ padding: 1em 2em 1em 5em; }
 	float: left;
 	display: block;
 	position: absolute;
-	-moz-box-sizing: border-box; 
-	-webkit-box-sizing: border-box; 
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	margin-top: 10.4em;
-	height: calc(100% - 30.3em);
+	height: calc(100% - 10.3em);
 	overflow-y: auto;
 	overflow-x: hidden;
 	width: 27em;
@@ -69,7 +69,7 @@ nav ul{
 	z-index: 10;
 	display: block;
 	content: "";
-	position: absolute;	
+	position: absolute;
 	border: 1px dotted rgba(255,255,255,0.1);
 	border-width: 0 0 0 1px;
 	top: -.5em;
@@ -136,7 +136,7 @@ nav .nav-item.active{
 	0%{
 		background-color: rgba(55,115,215,0.75);
 	}
-	100{
+	100%{
 		background-color: rgba(55,115,215,1);
 	}
 }
@@ -216,20 +216,7 @@ nav .page-link-container .page-link:focus{
 	float: left;
 	background: rgb(30,30,30);
 	z-index: 1;
-/*	box-shadow: 0 .1em 0 rgba(55,115,215,.15);	*/
 }
-/*nav:before{
-	position: absolute;
-	content: "";
-	top: 9.4em;
-	left: 1em;
-	display: block;
-	width: 25em;
-	height: 1em;
-	border-radius: 100%;
-	box-shadow: 0 .3em .5em rgba(55,115,215,.15);
-	z-index: 0;
-}*/
 nav #scroll_indicator{
 	display: block;
 	position: absolute;

@@ -17,42 +17,44 @@ class NavigationTableSeeder extends Seeder {
 			array(
 				'id' => '1',
 				'parent_id' => '0',
-				'position' => 1
+				'position' => 1,
+				'article_id' => 8
 			),
 			array(
 				'id' => '2',
 				'parent_id' => '1',
-				'position' => 1
+				'position' => 1,
+				'article_id' => 1
 			),
 			array(
 				'id' => '3',
 				'parent_id' => '2',
-				'position' => 1
+				'position' => 1,
+				'article_id' => 2
 			),
 			array(
 				'id' => '4',
 				'parent_id' => '3',
-				'position' => 1
+				'position' => 1,
+				'article_id' => 3
 			),
 			array(
 				'id' => '5',
 				'parent_id' => '3',
-				'position' => 2
+				'position' => 2,
+				'article_id' => 4
 			),
 			array(
 				'id' => '6',
 				'parent_id' => '2',
-				'position' => 2
+				'position' => 2,
+				'article_id' => 5
 			),
 			array(
 				'id' => '7',
 				'parent_id' => '0',
-				'position' => 2
-			),
-			array(
-				'id' => '8',
-				'parent_id' => '0',
-				'position' => 3
+				'position' => 2,
+				'article_id' => 6
 			)
 		));
 	}
