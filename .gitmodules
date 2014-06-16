@@ -17,3 +17,9 @@
 [submodule "public/libs/js/domReady"]
 	path = public/libs/js/domReady
 	url = https://github.com/requirejs/domReady
+[submodule "public/libs/js/serialize"]
+	path = public/libs/js/serialize
+	url = https://github.com/lukasoppermann/serialize.git
+[submodule "public/libs/js/marked"]
+	path = public/libs/js/marked
+	url = https://github.com/chjj/marked.git
