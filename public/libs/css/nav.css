@@ -49,16 +49,22 @@ nav li ul ul ul .nav-link{ padding: 1em 2em 1em 5em; }
 	overflow-x: hidden;
 	width: 27em;
 }
-nav.scrolled:before{
+nav:before{
 	content: "";
 	display: block;
 	width: 100%;
 	height: .5em;
 	border-radius: 30%;
 	position: absolute;
+	pointer-events: none;
 	top: 9.8em;
-	box-shadow: 0 0 2em rgba(0,0,0,1);
+	box-shadow: 0 0 2em rgba(0,0,0,0);
 	z-index: 4;
+	transition: box-shadow .5s ease .0s;
+	-webkit-transition: box-shadow .5s ease .0s;	
+}
+nav.scrolled:before{
+	box-shadow: 0 0 2em rgba(0,0,0,1);
 }
 nav ul{
 	position: relative;
