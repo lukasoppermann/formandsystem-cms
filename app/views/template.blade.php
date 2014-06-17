@@ -47,7 +47,11 @@
     	@yield('content','')
 	</div>
   <script data-main="{{asset('/libs/js/main')}}" src="{{asset('/libs/js/requirejs/require.js')}}"></script>
-  <!--<script type="text/javascript" src="{{asset('libs/js/engine/engine.js')}}"></script>
+  <!--
+  <script type="text/javascript" src="{{asset('libs/js/codemirror/lib/codemirror.js')}}"></script>
+  <script type="text/javascript" src="{{asset('libs/js/engine/engine.js')}}"></script>
+  <script type="text/javascript" src="{{asset('libs/js/engine/functions/each.js')}}"></script>
+  <script type="text/javascript" src="{{asset('libs/js/mark/mark.js')}}"></script>
   <script type="text/javascript" src="{{asset('libs/js/engine/functions/css.js')}}"></script>
   <script type="text/javascript" src="{{asset('libs/js/engine/functions/on.js')}}"></script>
   <script type="text/javascript" src="{{asset('libs/js/engine/functions/off.js')}}"></script>
