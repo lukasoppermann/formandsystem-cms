@@ -50,6 +50,7 @@
   <!--
   <script type="text/javascript" src="{{asset('libs/js/codemirror/lib/codemirror.js')}}"></script>
   <script type="text/javascript" src="{{asset('libs/js/engine/engine.js')}}"></script>
+  <script type="text/javascript" src="{{asset('libs/js/engine/functions/children.js')}}"></script>
   <script type="text/javascript" src="{{asset('libs/js/engine/functions/each.js')}}"></script>
   <script type="text/javascript" src="{{asset('libs/js/mark/mark.js')}}"></script>
   <script type="text/javascript" src="{{asset('libs/js/engine/functions/css.js')}}"></script>
@@ -57,7 +58,6 @@
   <script type="text/javascript" src="{{asset('libs/js/engine/functions/off.js')}}"></script>
   <script type="text/javascript" src="{{asset('libs/js/engine/functions/addclass.js')}}"></script>
   <script type="text/javascript" src="{{asset('libs/js/engine/functions/removeclass.js')}}"></script>
-  <script type="text/javascript" src="{{asset('libs/js/engine/functions/children.js')}}"></script>
   <script type="text/javascript" src="{{asset('libs/js/engine/functions/parents.js')}}"></script>
   <script type="text/javascript" src="{{asset('libs/js/engine/plugins/serialize.js')}}"></script>-->
 </body>
