@@ -4,8 +4,7 @@ nav{
 	height: 100%;
 	float: left;
 	width: 27em;
-	background: rgb(35,35,35);
-	background: rgb(40,40,40);
+	background: rgb(44,50,57);
 	color: rgb(255,255,255);
 }
 nav li{
@@ -50,17 +49,17 @@ nav li ul ul ul .nav-link{ padding: 1em 2em 1em 5em; }
 	overflow-x: hidden;
 	width: 27em;
 }
-/*#contentnav::-webkit-scrollbar{
-	width: 6px;
-	background-color: rgba(255,255,255,0.1);
+nav.scrolled:before{
+	content: "";
+	display: block;
+	width: 100%;
+	height: .5em;
+	border-radius: 30%;
+	position: absolute;
+	top: 9.8em;
+	box-shadow: 0 0 2em rgba(0,0,0,1);
+	z-index: 4;
 }
-#contentnav::-webkit-scrollbar-track{
-	display: none;
-}
-#contentnav::-webkit-scrollbar-thumb{
-	background-color: rgba(255,255,255,0.25);
-	border-radius: 5px;
-}*/
 nav ul{
 	position: relative;
 	float: left;
@@ -214,19 +213,8 @@ nav .page-link-container .page-link:focus{
 #mainnav{
 	width: 100%;
 	float: left;
-	background: rgb(30,30,30);
-	z-index: 1;
-}
-nav #scroll_indicator{
-	display: block;
-	position: absolute;
-	top: 10.3em;
-	left: 0;
-	width: 20%;
-	height: 2px;
-	background-color: rgb(255,255,255);
-	background-color: rgb(55,115,215);
-	z-index: 10;
+	background: rgb(35,40,45);
+	z-index: 5;
 }
 #mainnav li .search, #mainnav li .settings{
 	position: absolute;

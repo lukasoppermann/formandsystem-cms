@@ -98,7 +98,7 @@
 	width: 0;
 	border-width: 0;
 	border-style: solid;
-	border-color: rgb(30,30,30) transparent transparent rgb(30,30,30);
+	border-color: rgb(35,40,45) transparent transparent rgb(35,40,45);
 	transition: border .5s ease .0s;
 }
 .page-settings:after{

@@ -70,7 +70,6 @@ function loop( $nav, $lang){
 
 ?>
 @section('contentMenu')
-<div id="scroll_indicator"></div>
 <div id="contentnav">
 	<? loop($nav, 'en'); ?>
 <div>
