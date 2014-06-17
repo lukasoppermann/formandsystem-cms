@@ -7,7 +7,7 @@
 		</svg>
 	</div>
 	<div class="options">
-		{{ Form::submit('Save', array('class'=>'button blue save'))}}
+		{{ Form::button('Save', array('class'=>'button blue save'))}}
 	</div>
 		<input class="headline" type="text" name="title" placeholder="Type your title" value="{{$content->title}}" />
 		

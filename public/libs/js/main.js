@@ -1,6 +1,7 @@
 'use strict';
 require(['mark/mark'], function(mark){
 	// run codemirror on every instance of .mark
+	window.mark = mark;
 	mark('.mark', {
 		excludePanel: ['code'],
 		lineNumbers: false
@@ -9,18 +10,21 @@ require(['mark/mark'], function(mark){
 
 
 
-require(['engine/engine','engine/functions/children','engine/functions/css','engine/functions/addclass','engine/plugins/serialize'], function(_){
+require(['engine/engine', 'engine/plugins/serialize','engine/functions/on','engine/functions/parents','engine/functions/ajax'], function(_){
 	window._ = _;
-	window.engine = _;
-	// var thedata = _('.page-content').serialize({'item':'.block-content', 
-	// 	serialize: function(item, obj){
-	// 		if(obj.type === 'text')
-	// 		{
-	// 			console.log(item);
-	// 		}
-	// 	}
-	// });
-	// console.log(JSON.parse(thedata));
+	// save json
+	_('.save').on('click', function(){
+		var data = _('.page-content').serialize({'item':'.block-content', 
+			serialize: function(item, obj){
+				if(obj.type === 'text')
+				{
+					console.log(item);
+				}
+			}
+		});
+		// send ajax
+		_.post(_(this).parents('form')[0].getAttribute('action'), data);
+	});
 })
 
 require(['engine/engine','engine/functions/on','engine/functions/addclass','engine/functions/removeclass'],function(_) {
