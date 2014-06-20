@@ -3,6 +3,13 @@ module.exports = function(grunt) {
 	var pkg = grunt.file.readJSON('package.json');
   // Project configuration.
   grunt.initConfig({
+		globalConfig = {
+			layout: 'layout',
+			images: 'images',
+			css: 'css',
+			js: 'js',
+			bower_path: 'bower_components'
+		},
     meta: {
 			version: '0.3.0',
 			project: 'Test',
