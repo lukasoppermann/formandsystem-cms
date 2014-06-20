@@ -3,12 +3,12 @@
 require.config({
 	baseUrl: "js/bower_components",
 	paths:{
-		dev: "..",
-		old: "../../libs/js",
+		"dev": "../dev",
+		'mark': "../dev/mark/"
 	}
 });
  
-require(["old/mark/mark"], function(mark){
+require(["mark/mark"], function(mark){
 	// run codemirror on every instance of .mark
 	mark('.mark', {
 		excludePanel: ['code'],
@@ -16,7 +16,7 @@ require(["old/mark/mark"], function(mark){
 	});
 })
 
-require(['engine/engine','mark/mark', 'engine/plugins/serialize','engine/functions/on','engine/functions/parents','engine/functions/request'], function(_, mark){
+require(['engine/engine',"mark/mark", 'engine/plugins/serialize','engine/functions/on','engine/functions/parents','engine/functions/request'], function(_, mark){
 	window._ = _;
 	// save json
 	_('.save').on('click', function(){
@@ -81,15 +81,14 @@ require(['engine/engine','engine/functions/on','engine/functions/addclass','engi
 
 require.config({
 	paths: {
-		jquery: '../jquery-sortable/jquery',
-		'jquery-sortable': '../jquery-sortable/jquery.sortable'
+		'sortable': "../dev/jquery-sortable/jquery.sortable"
 	},
 	shim: {
-    'jquery-sortable': ['jquery'],
+    'sortable': ["../dev/jquery-sortable/jquery"],
 	}
 });
 
-require(['jquery','jquery-sortable'],function($) {
+require(["dev/jquery-sortable/jquery","sortable"],function($) {
 	$('.content-section').sortable({
 		items: '.block',
 		forcePlaceholderSize: true
