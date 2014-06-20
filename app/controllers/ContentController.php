@@ -84,20 +84,12 @@ class ContentController extends \BaseController {
 		$content = Content::getContent($id);
 
 		$content->title = Input::get('title');
-		$content->data = json_encode( 
-			array( "1" => array(
-				"content" => array( 
-					"1" => array(
-						"type" => "text", 
-						"content" => Input::get('text')
-						)
-					)
-				)
-			));
+		$content->data = Input::get('content');
 		
-		$content->save();
-			
-		return Redirect::to('content/'.$id);
+    $content->save();
+    
+    return json_encode(array('message' => 'saved', 'status' => '200'));
+    // Redirect::to('content/'.$id);
 	}
 
 
