@@ -16,9 +16,10 @@ media/
 movies/
 files/
 
-# Grunt #
-############
+# Workflow Grunt, Bower, Node, ... #
+####################################
 node_modules/
+bower_components/
 
 # db files #
 ############
