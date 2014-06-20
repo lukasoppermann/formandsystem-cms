@@ -1,9 +1,6 @@
 {
-  "name": "FromandSystem",
-  "description": "Form and System cms",
-  "version": "0.3.0",
-	"repository": "https://github.com/lukasoppermann/formandsystem/",
-	"readme": "https://github.com/lukasoppermann/formandsystem/blob/mvp/readme.md",
+  "name": "My default grunt",
+  "description": "My grunt setup to use for my projects",
   "engines": {
     "node": ">= 0.10.0"
   },

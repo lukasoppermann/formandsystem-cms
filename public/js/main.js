@@ -1,5 +1,14 @@
 'use strict';
-require(['mark/mark'], function(mark){
+
+require.config({
+	baseUrl: "js/bower_components",
+	paths:{
+		dev: "..",
+		old: "../../libs/js",
+	}
+});
+ 
+require(["old/mark/mark"], function(mark){
 	// run codemirror on every instance of .mark
 	mark('.mark', {
 		excludePanel: ['code'],
@@ -11,7 +20,7 @@ require(['engine/engine','mark/mark', 'engine/plugins/serialize','engine/functio
 	window._ = _;
 	// save json
 	_('.save').on('click', function(){
-		var data = _('.page-content').serialize({'item':'.block-content', 
+		var data = _('.page-content').serialize({'item':'.block-content',
 			serialize: function(item, obj){
 				if(obj.type === 'text')
 				{
@@ -27,23 +36,23 @@ require(['engine/engine','mark/mark', 'engine/plugins/serialize','engine/functio
 		.success(function(r){
 		}).error().fail();
 	});
-	
-	_('.block').on('dblclick', function(){
-		if( _('.block-content',this)[0].getAttribute('data-type') === 'text' )
-		{
-			var range = mark(_('.block-content',this)[0])[0].doc.sel.ranges[0];
-			console.log(mark(_('.block-content',this)[0])[0].doc);
-			if( range.head.ch-range.anchor.ch > 1 )
-			{
-				return;
-			}
-		}
-		alert('settings');
-	},'.block-content');
-	
-	// add content 
+
+	// _('.block').on('dblclick', function(){
+	// 	if( _('.block-content',this)[0].getAttribute('data-type') === 'text' )
+	// 	{
+	// 		var range = mark(_('.block-content',this)[0])[0].doc.sel.ranges[0];
+	// 		console.log(mark(_('.block-content',this)[0])[0].doc);
+	// 		if( range.head.ch-range.anchor.ch > 1 )
+	// 		{
+	// 			return;
+	// 		}
+	// 	}
+	// 	alert('settings');
+	// },'.block-content');
+
+	// add content
 	_('.add-block').on('click', function(e){
-		console.log(e.target);
+		// console.log(e.target);
 		if( this.getAttribute('data-type') === 'text' )
 		{
 			var n = document.createElement("section");
@@ -69,12 +78,18 @@ require(['engine/engine','engine/functions/on','engine/functions/addclass','engi
 		}
 	});
 })
+
 require.config({
-	'paths': {
-		'jquery' : 'jquery-sortable/jquery'
+	paths: {
+		jquery: '../jquery-sortable/jquery',
+		'jquery-sortable': '../jquery-sortable/jquery.sortable'
+	},
+	shim: {
+    'jquery-sortable': ['jquery'],
 	}
 });
-require(['jquery','jquery-sortable/jquery.sortable'],function($) {
+
+require(['jquery','jquery-sortable'],function($) {
 	$('.content-section').sortable({
 		items: '.block',
 		forcePlaceholderSize: true

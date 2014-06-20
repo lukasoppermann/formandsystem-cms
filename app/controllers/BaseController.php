@@ -29,11 +29,11 @@ class BaseController extends Controller {
 		Header("Cache-Control: post-check=0, pre-check=0", FALSE);
 		Header("Pragma: no-cache" ); // HTTP/1.0
 		// add css resources
-		Optimization::css(array('reset', 'layout', 'nav', 'icons', 'contentediting','../js/codemirror/lib/codemirror', '../js/mark/mark'));
+		Optimization::css(array('reset', 'layout', 'nav', 'icons', 'contentediting','../js/bower_components/codemirror/lib/codemirror', '../js/bower_components/mark/mark'));
 		// add js resources
 		// TODO: Fix Optimization js
-		Optimization::js(array('codemirror','xml','markdown','gfm','javascript','css','htmlmixed','xml-fold','continuelist',
-		'matchbracket', 'closebrackets','matchtags','trailingspace','closetag','placeholder','overlay','mark', 'content'));
+    // Optimization::js(array('codemirror','xml','markdown','gfm','javascript','css','htmlmixed','xml-fold','continuelist',
+    // 'matchbracket', 'closebrackets','matchtags','trailingspace','closetag','placeholder','overlay','mark', 'content'));
 
 		// prepare local
 		Config::set('content.languages', array('en','de','fr'));	

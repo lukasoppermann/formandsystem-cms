@@ -16,12 +16,12 @@
     "test",
     "tests"
   ],
-	"dependencies": {
-	    "engine": "*",
-	    "requirejs": "*",
-	    "require-css": "*"
-	  },
-  "devDependencies": {
-
-  }
+  "dependencies": {
+    "engine": "*",
+    "requirejs": "*",
+    "require-css": "*",
+    "codemirror": "~4.2.*",
+    "mark": "*"
+  },
+  "devDependencies": {}
 }
