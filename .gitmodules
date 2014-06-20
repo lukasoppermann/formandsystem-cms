@@ -2,6 +2,3 @@
 [submodule "public/libs/js/mark"]
 	path = public/libs/js/mark
 	url = https://github.com/lukasoppermann/mark.git
-[submodule "public/libs/js/engine"]
-	path = public/libs/js/engine
-	url = https://github.com/lukasoppermann/engine.git
