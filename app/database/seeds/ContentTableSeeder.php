@@ -25,10 +25,10 @@ class ContentTableSeeder extends Seeder {
 				'type' => '1',
 				'title' => 'Entry',
 				'data' => json_encode(array(
-					"1" => array(
+					array(
 						"class" => "section-01",
-						"content" => array(
-							"1" => array(
+						"children" => array(
+              array(
 								"type" => "image",
 								"column" => 3,
 								"content" => array(
@@ -37,13 +37,13 @@ class ContentTableSeeder extends Seeder {
 								),
 								"class" => "optional-classes"
 							),
-							"2" => array(
+							array(
 								"type" => "text",
 								"column" => 2,
 								"content" => "#Headline content is in markdown",
 								"class" => "optional-classes"
 							),
-							"3" => array(
+							array(
 								"type" => "text",
 								"column" => 2,
 								"content" => "This is real **markdown** copy.",

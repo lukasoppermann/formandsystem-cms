@@ -114,28 +114,6 @@ module.exports = function(grunt) {
     qunit: {
       files: ['test/**/*_test.js']
     },
-		svgsprite: {
-			spriteCSS: {
-			  src: 'layout/icons/',
-			  dest: 'layout',
-				options: {
-			        render: {
-			          css: {
-		
-						}
-			        },
-					common: 'icon',
-			        maxwidth: 50,
-			        maxheight: 50,
-			        padding: 10,
-					sprite: 'svg-icon-sprite',
-					spritedir: '',
-			        keep: false,
-			        dims: false,
-					cleanwith: 'NULL'
-			      }
-			}
-		},
 		svgstore: {
 	    options: {
 	      prefix : 'icon-', // This will prefix each ID

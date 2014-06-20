@@ -45,7 +45,7 @@ class ContentModel extends Ardent{
   public function getDataAttribute($value)
 	{
 		$data = json_decode($value);
-		if( is_object($data) )
+		if( is_object($data) || is_array($data) )
 		{
 			return $data;
 		}
