@@ -9,15 +9,12 @@ module.exports = function(grunt) {
 			website: 'http://vea.re',
 			dev_name: 'Lukas',
     },
-		
     // Metadata.
     banner: '/*! <%= meta.project %> - v<%= meta.version %> - ' +
       '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
       '* <%= meta.website %>\n' +
       '* Copyright (c) <%= grunt.template.today("yyyy") %> ' +
       '<%= meta.dev_name %>; Licensed MIT */\n',
-
-		
     // Task configuration.
     concat: {
       options: {
