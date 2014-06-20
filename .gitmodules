@@ -2,24 +2,6 @@
 [submodule "public/libs/js/mark"]
 	path = public/libs/js/mark
 	url = https://github.com/lukasoppermann/mark.git
-[submodule "public/libs/js/codemirror"]
-	path = public/libs/js/codemirror
-	url = https://github.com/marijnh/CodeMirror.git
-[submodule "public/libs/js/html5nestable"]
-	path = public/libs/js/html5nestable
-	url = https://github.com/lukasoppermann/html5nestable.git
 [submodule "public/libs/js/engine"]
 	path = public/libs/js/engine
 	url = https://github.com/lukasoppermann/engine.git
-[submodule "public/libs/js/requirejs"]
-	path = public/libs/js/requirejs
-	url = https://github.com/jrburke/requirejs.git
-[submodule "public/libs/js/domReady"]
-	path = public/libs/js/domReady
-	url = https://github.com/requirejs/domReady
-[submodule "public/libs/js/serialize"]
-	path = public/libs/js/serialize
-	url = https://github.com/lukasoppermann/serialize.git
-[submodule "public/libs/js/marked"]
-	path = public/libs/js/marked
-	url = https://github.com/chjj/marked.git
