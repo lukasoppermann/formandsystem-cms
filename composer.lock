@@ -356,12 +356,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "4dd748b84b187295a0cec373d5be7190109600bf"
+                "reference": "4812cb6dfe407926d5d0d67363bedf0a2dfaa890"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/4dd748b84b187295a0cec373d5be7190109600bf",
-                "reference": "4dd748b84b187295a0cec373d5be7190109600bf",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4812cb6dfe407926d5d0d67363bedf0a2dfaa890",
+                "reference": "4812cb6dfe407926d5d0d67363bedf0a2dfaa890",
                 "shasum": ""
             },
             "require": {
@@ -465,7 +465,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-06-18 21:38:58"
+            "time": "2014-06-19 22:01:30"
         },
         {
             "name": "laravelbook/ardent",
@@ -855,12 +855,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "9716d9b7e5db7a42275fbc09f9558240098f2f18"
+                "reference": "709c7c4d4818b2ee42df9bfaaf2aa0c4434d9e3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/9716d9b7e5db7a42275fbc09f9558240098f2f18",
-                "reference": "9716d9b7e5db7a42275fbc09f9558240098f2f18",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/709c7c4d4818b2ee42df9bfaaf2aa0c4434d9e3c",
+                "reference": "709c7c4d4818b2ee42df9bfaaf2aa0c4434d9e3c",
                 "shasum": ""
             },
             "require": {
@@ -944,7 +944,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2014-06-17 09:37:36"
+            "time": "2014-06-19 14:08:59"
         },
         {
             "name": "phpunit/php-code-coverage",
