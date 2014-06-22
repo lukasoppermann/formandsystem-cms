@@ -15,6 +15,7 @@ images/
 media/
 movies/
 files/
+dev/
 
 # Workflow Grunt, Bower, Node, ... #
 ####################################
