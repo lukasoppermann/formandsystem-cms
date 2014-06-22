@@ -14,7 +14,7 @@
 		<div class="page-content">
 		@if( is_array($content->data) )
 			@foreach ( $content['data'] as $section )
-				<section class="block-content content-section" data-class="{{{ variable($section->class) }}}">
+				<section class="block-content content-section grid" data-class="{{{ variable($section->class) }}}">
 					<div class="settings">
 						<svg viewBox="0 0 512 512" class="icon-settings">
 						  <use xlink:href="#icon-settings"></use>
@@ -23,7 +23,7 @@
 					<div class="section-drag-handle"></div>
 					@foreach ( $section->children as $block )
 
-						<div class="block">
+						<div class="block column-{{{$block->column}}}of12">
 							<div class="settings">
 								<svg viewBox="0 0 512 512" class="icon-settings">
 								  <use xlink:href="#icon-settings"></use>

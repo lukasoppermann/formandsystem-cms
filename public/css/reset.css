@@ -19,7 +19,6 @@ time, mark, audio, video {
 	vertical-align: baseline;
 	font-weight: inherit;
 	-moz-box-sizing: border-box; 
-	-webkit-box-sizing: border-box; 
 	box-sizing: border-box;
 }
 input, input[type="password"]{

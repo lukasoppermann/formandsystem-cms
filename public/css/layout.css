@@ -1,14 +1,10 @@
 body{
-	display: -webkit-flex;
-	display: flex;
 	font-family: "Helvetica Neue", Helvetica, Sans-serif;
 	font-size: 0.625em;
 	line-height: 130%;
 }
 #content{
 	position: relative;
-	-webkit-flex: 1;
-	flex: 1;
 	margin-left: 27em;
 }
 
@@ -22,6 +18,7 @@ body{
 .message.error{
 	background: rgb(200,80,70);
 	color: rgb(255,255,255);
+
 }
 
 /* button */
