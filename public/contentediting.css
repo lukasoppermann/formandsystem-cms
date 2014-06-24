@@ -145,8 +145,7 @@
 }
 #content .block > .settings{
 	left: auto;	
-	right: 1px;
-	top: 1px;
+	right: 0;
 	background-image: -webkit-linear-gradient(top right, rgba(255,255,255,1), rgba(255,255,255,0) 70%);
 	background-image: linear-gradient( top right, rgba(255,255,255,1), rgba(255,255,255,0) 70%);
 	background-image: -webkit-linear-gradient( top right, rgba(255,255,255,1), rgba(255,255,255,0) 70%);
@@ -180,7 +179,7 @@
 	transform: translate(.5em,.5em);
 	-webkit-transform: translate(.5em,.5em);	
 }
-#content .block:not(.resizing):hover > .settings .icon-settings{
+#content .block:hover > .settings .icon-settings{
 	-ms-transform: translate(-.5em,.5em);
 	transform: translate(-.5em,.5em);
 	-webkit-transform: translate(-.5em,.5em);	
@@ -196,7 +195,7 @@
 	box-sizing: border-box;
 	padding: 1em 3.2em 1em 12.8em;
 }
-.content-section:after{
+.content-section:before, .content-section:after{
 	top: 0;
 	left: 0;
 	display: block;
@@ -207,28 +206,13 @@
 	z-index: 1;
 	background-image: -webkit-linear-gradient(top left, rgba(245,245,245,1), rgba(245,245,245,0) 45%);
 	background-image: linear-gradient( top left, rgba(245,245,245,1), rgba(245,245,245,0) 45%);
+	background-image: -webkit-linear-gradient( top left, rgba(245,245,245,1), rgba(245,245,245,0) 45%);
 }
-.content-section:before{
-	top: 0;
-	left: 0;
-	display: block;
-	position: absolute;
-	content: "";
-	z-index: 0;
-	opacity: 0;
-	background-size: 8.333333% 1px;
-	background-position: 0px 0px;
-	background-image: -webkit-linear-gradient(0, rgba(225,225,225,.45) 1px, transparent 1px);
-	width: calc(100% - 16em);
-	height: 100%;
-	-moz-box-sizing: border-box; 
-	box-sizing: border-box;
-	margin: 0 3.2em 0 12.8em;
-	-webkit-transition: opacity .25s ease .0s;
-	transition: opacity .25s ease .0s;
-}
-.content-section:hover:before{
-	opacity: 1;
+.content-section:after{
+	height: 1px;
+	background-image: -webkit-linear-gradient(left, rgba(240,240,240,1), rgba(250,250,250,0) 50%);
+	background-image: linear-gradient( left, rgba(240,240,240,1), rgba(250,250,250,0) 50%);
+	background-image: -webkit-linear-gradient( left, rgba(240,240,240,1), rgba(250,250,250,0) 50%);
 }
 .content-section .section-drag-handle{
 	height: 100%;
@@ -250,6 +234,12 @@
 	left: 1em;
 	height: 1.6em;
 	width: 12px;
+/*  background-image: linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%), 
+      linear-gradient(-45deg, rgba(0,0,0,0.1) 25%, transparent 25%), 
+      linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.1) 75%), 
+      linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.1) 75%);
+  background-size: 2px 2px;
+  background-position: 0 0, 1px 0, 1px -1px, 0px 1px;*/
 	background-image: -webkit-linear-gradient(0deg, rgba(0,0,0,.1), rgba(0,0,0,.1) 2px, transparent 2px, transparent);
 	background-image: linear-gradient(90deg, rgba(0,0,0,.1), rgba(0,0,0,.1) 2px, transparent 2px, transparent );
 	background-size: 4px 100%;
@@ -267,10 +257,10 @@
 	border-radius: 1px;
 	-webkit-transition: box-shadow .4s ease .0s;
 	transition: box-shadow .4s ease .0s;
-	box-shadow: inset 0 0 0 1px rgba(225,225,225,0);
+	box-shadow: 0 0 0 1px rgba(245,245,245,0);
 }
-.block:hover, .block.resizing{
-	box-shadow: inset 0 0 0 1px rgba(225,225,225,1);
+.block:hover{
+	box-shadow: 0 0 0 1px rgba(245,245,245,1);
 }
 .block .drag-handle{
 	display: none;
@@ -283,7 +273,7 @@
 	opacity: 0;
 	-webkit-transition: opacity .5s ease .0s;
 	transition: opacity .5s ease .0s;
-	cursor: col-resize;
+	cursor: move;
 	border-top-left-radius: 1px;
 	border-bottom-left-radius: 1px;
 }
@@ -292,6 +282,7 @@
 }
 .block .drag-handle:before{
 	content: "";
+/*	display: block;*/
 	position: absolute;
 	top: 50%;
 	margin-top: -.8em;
@@ -307,7 +298,7 @@
 	width: 2em;
 	height: 100%;
 	top: 0;
-	right: -.9em;
+	right: -1em;
 	display: block;
 	position: absolute;
 	cursor: col-resize;
@@ -354,13 +345,6 @@
 	line-height: 1em;
 	padding: .1em;
 	font-weight: bold;
-}
-/*--------------------------*/
-/* Resizing */
-.resizing-active ::-moz-selection { background-color: transparent; }
-.resizing-active ::selection { background-color: transparent; }
-.resizing-active{
-	cursor: col-resize;
 }
 /*--------------------------*/
 /* Drag & drop */

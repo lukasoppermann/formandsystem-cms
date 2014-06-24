@@ -23,7 +23,7 @@
 					<div class="section-drag-handle"></div>
 					@foreach ( $section->children as $block )
 
-						<div class="block column-{{{$block->column}}}of12">
+						<div class="block resizable column-{{{$block->column}}}of12">
 							<div class="settings">
 								<svg viewBox="0 0 512 512" class="icon-settings">
 								  <use xlink:href="#icon-settings"></use>
@@ -37,7 +37,6 @@
 								 data-class="{{{ variable($block->class) }}}" data-type="{{{ $block->type }}}" />
 						@endif
 							<div class="handle"></div>
-							<div class="move"></div>
 						</div>
 			
 					@endforeach
