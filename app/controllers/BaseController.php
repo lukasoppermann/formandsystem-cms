@@ -29,7 +29,7 @@ class BaseController extends Controller {
 		Header("Cache-Control: post-check=0, pre-check=0", FALSE);
 		Header("Pragma: no-cache" ); // HTTP/1.0
 		// add css resources
-		Optimization::css(array('reset','grid', 'layout', 'nav', 'icons', 'contentediting','../js/bower_components/codemirror/lib/codemirror', '../js/bower_components/mark/mark'));
+		Optimization::css(array('reset','grid', 'layout', 'nav', 'icons', 'contentediting','../js/bower_components/codemirror/lib/codemirror', '../js/dev/mark/mark'));
 		// add js resources
 		// TODO: Fix Optimization js
     // Optimization::js(array('codemirror','xml','markdown','gfm','javascript','css','htmlmixed','xml-fold','continuelist',

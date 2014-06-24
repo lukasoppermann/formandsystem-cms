@@ -8,11 +8,15 @@ require.config({
 	}
 });
  
-require(["mark/mark"], function(mark){
+require(["mark/mark", "engine/engine",'engine/functions/on'], function(mark, _){
 	// run codemirror on every instance of .mark
 	mark('.mark', {
 		excludePanel: ['code'],
 		lineNumbers: false
+	});
+	mark('.mark').disable();
+	_('.block').on('dblclick', function(){
+		mark('.mark').enable();
 	});
 })
 
@@ -88,13 +92,43 @@ require.config({
 	}
 });
 
-require(["dev/jquery-sortable/jquery","sortable"],function($) {
-	$('.content-section').sortable({
-		items: '.block',
-		forcePlaceholderSize: true
-	});
-	$('.page-content').sortable({
-		items: '.content-section',
-		handle: '.section-drag-handle'
-	});
+// require(["dev/jquery-sortable/jquery","sortable"],function($) {
+// 	$('.content-section').sortable({
+// 		items: '.block',
+// 		forcePlaceholderSize: true
+// 	});
+// 	$('.page-content').sortable({
+// 		items: '.content-section',
+// 		handle: '.section-drag-handle'
+// 	});
+// })
+
+require(["engine/engine","dev/engine/functions/replaceclass"], function(_){
+	_('.block').replaceClass('column-[a-z0-9]*','');
 })
+
+require(['engine/engine', 'dev/engine-resizable/engine.resizable'], function(_){
+	var columns = 12;
+	var widths = [];
+	_('.content-section').resizable({
+		'handle': '.handle',
+		resizing: function(width, container){
+			var item = this;
+			if( widths.length == 0)
+			{
+				for(var i = 1; i <= columns; i++)
+				{
+					widths.push(Math.floor((container.css('width')/columns)*i));
+				}
+			}
+			widths.forEach(function(w, i){
+				console.log(w);
+				if(width >= w + 20 && ( i+1 === columns || width <= widths[i+1] - 20) )
+				{
+					item.css('width', w+'px');
+					item.children('.block-content')[0].setAttribute('data-column',i);
+				}
+			});
+		}
+	});
+});

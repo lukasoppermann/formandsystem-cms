@@ -10,8 +10,10 @@ module.exports = function(grunt) {
 			js: 'js',
 			bower_path: 'bower_components'
 		},
-    // Task configuration.
-    concat: {
+		// ----------------------------------------------
+		// Task configuration.
+ 		//
+		concat: {
       dist: {
         src: ['libs/js/*.js'],
         dest: 'libs/js/application.min.js'
@@ -34,30 +36,62 @@ module.exports = function(grunt) {
 				}
 		  }
 		},
+		// ----------------------------------------------
+		// imagemin
+		//
 		imagemin: {
-      dynamic: {
-	      options: {
-	        optimizationLevel: 3
-	      },
-        files: [{
-          expand: true,
-          cwd: 'layout',             // Src matches are relative to this path
-          src: ['*.{png,jpg,gif}'],   // Actual patterns to match
-          dest: 'layout'   // Destination path prefix
-        }]
-      }
+			dynamic: {
+				options: {
+					optimizationLevel: 3
+				},
+				files: [{
+					expand: true,
+					cwd: 'layout',             // Src matches are relative to this path
+					src: ['*.{png,jpg,gif}'],   // Actual patterns to match
+					dest: 'layout'   // Destination path prefix
+				}]
+			}
 		},
+		// ----------------------------------------------
+		// requirejs
+		//
+		requirejs: {
+		  js: {
+		    options: {
+		      baseUrl: '<%= config.js %>/bower_components',
+		      out: '<%= config.js %>application.min.js',
+		      name: 'main',
+		      optimize: 'none',
+		      mainConfigFile: '<%= config.js %>/main.js',
+		      useStrict: true,
+		      wrap: true
+		    }
+		  },
+		  css: {
+		    options: {
+		      optimizeCss: 'standard',
+		      cssIn: '<%= config.css %>/*.css',
+		      out: '<%= config.css %>application.min.css'
+		    }
+		  }
+		},
+		// ----------------------------------------------
+		// autoprefixer
+		//
     autoprefixer: {
       options: {
         browsers: ['last 4 version', 'ie 8', 'ie 9']
       },
-	    multiple_files: {
-	      expand: true,
-	      flatten: true,
-	      src: '<%= config.css %>/*.css', // -> src/css/file1.css, src/css/file2.css
-	      dest: '<%= config.css %>/' // -> dest/css/file1.css, dest/css/file2.css
+	    css_files: {
+	      src: '<%= config.css %>/*.css'
+	    },
+	    js_css: {
+	      src: '<%= config.js %>/**/**/*.css'
 	    }
 	  },
+		// ----------------------------------------------
+		// svgstore
+		//
 		svgstore: {
 	    options: {
 	      prefix : 'icon-', // This will prefix each ID
@@ -72,13 +106,19 @@ module.exports = function(grunt) {
 	    default : {
 	      files: {
 	        'layout/svg-sprite.svg': ['layout/icons/*.svg'],
-	      },
-	    },
+	      }
+	    }
 	  },
-	  jshint: {
+		jshint: {
 	    all: ['Gruntfile.js']
 	  },
+		// ----------------------------------------------
+		// Watch tasks
+		//
 		watch: {
+		  options: {
+		    spawn: false // add spawn option in watch task
+		  },
 			jshint: {
 				files: ['Gruntfile.js'],
 				tasks: ['jshint']
@@ -89,7 +129,11 @@ module.exports = function(grunt) {
 			},
 			css: {
 				files: ['<%= config.css %>/*.css','!<%= config.css %>/*.min.css'],
-				tasks: ['autoprefixer']
+				tasks: ['autoprefixer:css_files']
+			},
+			js_css: {
+				files: ['<%= config.js %>/**/**/*.css','!<%= config.css %>/*.min.css'],
+				tasks: ['autoprefixer:js_css']
 			}
 		}
 	});

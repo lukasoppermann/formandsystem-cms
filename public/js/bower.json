@@ -20,7 +20,7 @@
     "engine": "*",
     "requirejs": "*",
     "require-css": "*",
-    "codemirror": "~4.2.*",
+    "codemirror": "~4.3.*",
     "mark": "*"
   },
   "devDependencies": {}
