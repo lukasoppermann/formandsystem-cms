@@ -61,4 +61,9 @@ Route::group(array('before' => 'auth'), function()
 	// Route::get('/{lang?}/{link?}', 'ContentController@index');
 });
 
+Route::group(array('prefix' => 'api/v1', 'before' => 'auth.basic'), function()
+{
+    Route::resource('stream', 'ApiController');
+});
+
 

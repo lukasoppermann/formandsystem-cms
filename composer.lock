@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b9aea4bf3e765839b00431c1a0c8e2d1",
+    "hash": "0cd38c6ee0376da736a6e76a684a76da",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -2760,12 +2760,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JeffreyWay/Laravel-4-Generators.git",
-                "reference": "3d631c483849005005620a117624c39ad611a5d4"
+                "reference": "febf5ea8e51a554bb0d4b0f9c8b1a677a3a5847d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JeffreyWay/Laravel-4-Generators/zipball/3d631c483849005005620a117624c39ad611a5d4",
-                "reference": "3d631c483849005005620a117624c39ad611a5d4",
+                "url": "https://api.github.com/repos/JeffreyWay/Laravel-4-Generators/zipball/febf5ea8e51a554bb0d4b0f9c8b1a677a3a5847d",
+                "reference": "febf5ea8e51a554bb0d4b0f9c8b1a677a3a5847d",
                 "shasum": ""
             },
             "require": {
@@ -2800,7 +2800,7 @@
                 }
             ],
             "description": "Rapidly generate resources, migrations, models, and much more.",
-            "time": "2014-06-02 14:21:07"
+            "time": "2014-06-24 20:13:37"
         }
     ],
     "packages-dev": [],

@@ -16,7 +16,7 @@
 		"phpunit/phpunit": "dev-master",
 		"way/generators": "dev-master",
 		"guzzlehttp/guzzle": "~4.0",
-    "lukasoppermann/optimization": "*@dev"
+		"lukasoppermann/optimization": "*@dev"
 	},
 	"autoload": {
 		"psr-4": {

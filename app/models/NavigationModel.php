@@ -82,6 +82,39 @@ class NavigationModel extends Ardent{
 		return $nav;
 	}
 	/**
+	 * Get full navigation
+	 *
+	 * @return mixed
+	 */
+	public function getNavigation()
+	{		
+		foreach(Navigation::all() as $key => $item)
+		{
+			$navArray[$item->parent_id][$item->id] = array(
+				'id' => $item->id,
+				'parent_id' => $item->parent_id,
+				'position' => $item->position,
+			);
+			foreach($item->Content as $c)
+			{
+				$navArray[$item->parent_id][$item->id]['languages'][] = $c->language;
+				$navArray[$item->parent_id][$item->id]['content'][$c->language] = array(
+					'id' 					=> $c->id,
+					'menu_id' 		=> $item->id,
+					'menu_label' 	=> $c->menu_label,
+					'link' 				=> $c->link,
+					'status' 			=> $c->status,
+					'language' 		=> $c->language,
+					'type'				=> $c->type,
+				);
+			}
+		}
+		// build tree
+		$nav = $this->_loop(0,$navArray);
+		// return
+		return $nav;
+	}
+	/**
 	 * loop
 	 *
 	 * @return mixed
