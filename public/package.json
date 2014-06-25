@@ -7,7 +7,7 @@
     "node": ">= 0.10.0"
   },
   "devDependencies": {
-    "MD5": ">1.2.1",
+    "MD5": "^1.2.1",
     "grunt": "~0.4.2",
     "grunt-autoprefixer": "~0.7.3",
     "grunt-contrib-concat": "~0.3.0",
@@ -18,7 +18,7 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-jshint": "*",
     "grunt-replace": ">0.7.8",
-    "grunt-shell": ">0.7.0",
+    "grunt-shell": "^0.7.0",
     "grunt-svgstore": ">0.0.4",
     "rjs": "*"
   }

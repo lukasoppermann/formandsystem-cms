@@ -1,8 +1,8 @@
 /*global module:false*/
 module.exports = function(grunt) {
 	var pkg = grunt.file.readJSON('package.json');
-  // Project configuration.
-  grunt.initConfig({
+	// Project configuration.
+	grunt.initConfig({
 		config: {
 			layout: 'layout',
 			images: 'images',
@@ -14,27 +14,27 @@ module.exports = function(grunt) {
 		// Task configuration.
  		//
 		concat: {
-      dist: {
-        src: ['libs/js/*.js'],
-        dest: 'libs/js/application.min.js'
-      }
-    },
-    uglify: {
-      options: {
-        banner: '<%= banner %>'
-      },
-      dist: {
-        src: '<%= concat.dist.dest %>',
-        dest: 'dist/<%= pkg.name %>.min.js'
-      }
-    },
+			dist: {
+				src: ['libs/js/*.js'],
+				dest: 'libs/js/application.min.js'
+			}
+		},
+		uglify: {
+			options: {
+				banner: '<%= banner %>'
+			},
+			dist: {
+				src: '<%= concat.dist.dest %>',
+				dest: 'dist/<%= pkg.name %>.min.js'
+			}
+		},
 		cssmin: {
-		  minify: {
-		    expand: true,
+			minify: {
+				expand: true,
 				files: {
 					'libs/css/application.min.css': ['libs/css/*.css', '!libs/css/*.min.css']
 				}
-		  }
+			}
 		},
 		// ----------------------------------------------
 		// imagemin
@@ -46,9 +46,9 @@ module.exports = function(grunt) {
 				},
 				files: [{
 					expand: true,
-					cwd: 'layout',             // Src matches are relative to this path
-					src: ['*.{png,jpg,gif}'],   // Actual patterns to match
-					dest: 'layout'   // Destination path prefix
+					cwd: 'layout', // Src matches are relative to this path
+					src: ['*.{png,jpg,gif}'], // Actual patterns to match
+					dest: 'layout' // Destination path prefix
 				}]
 			}
 		},
@@ -56,69 +56,69 @@ module.exports = function(grunt) {
 		// requirejs
 		//
 		requirejs: {
-		  js: {
-		    options: {
-		      baseUrl: '<%= config.js %>/bower_components',
-		      out: '<%= config.js %>application.min.js',
-		      name: 'main',
-		      optimize: 'none',
-		      mainConfigFile: '<%= config.js %>/main.js',
-		      useStrict: true,
-		      wrap: true
-		    }
-		  },
-		  css: {
-		    options: {
-		      optimizeCss: 'standard',
-		      cssIn: '<%= config.css %>/*.css',
-		      out: '<%= config.css %>application.min.css'
-		    }
-		  }
+			js: {
+				options: {
+					baseUrl: '<%= config.js %>/bower_components',
+					out: '<%= config.js %>application.min.js',
+					name: 'main',
+					optimize: 'none',
+					mainConfigFile: '<%= config.js %>/main.js',
+					useStrict: true,
+					wrap: true
+				}
+			},
+			css: {
+				options: {
+					optimizeCss: 'standard',
+					cssIn: '<%= config.css %>/*.css',
+					out: '<%= config.css %>application.min.css'
+				}
+			}
 		},
 		// ----------------------------------------------
 		// autoprefixer
 		//
-    autoprefixer: {
-      options: {
-        browsers: ['last 4 version', 'ie 8', 'ie 9']
-      },
-	    css_files: {
-	      src: '<%= config.css %>/*.css'
-	    },
-	    js_css: {
-	      src: '<%= config.js %>/**/**/*.css'
-	    }
-	  },
+		autoprefixer: {
+			options: {
+				browsers: ['last 4 version', 'ie 8', 'ie 9']
+			},
+			css_files: {
+				src: '<%= config.css %>/*.css'
+			},
+			js_css: {
+				src: '<%= config.js %>/**/**/*.css'
+			}
+		},
 		// ----------------------------------------------
 		// svgstore
 		//
 		svgstore: {
-	    options: {
-	      prefix : 'icon-', // This will prefix each ID
-	      svg: { // will be added as attributes to the resulting SVG
+			options: {
+				prefix : 'icon-', // This will prefix each ID
+				svg: { // will be added as attributes to the resulting SVG
 					id: 'svg_sprite',
 					style: 'display: none;'
-	      },
-			  formatting : {
+				},
+				formatting : {
 					indent_size : 2
 				}
-	    },
-	    default : {
-	      files: {
-	        'layout/svg-sprite.svg': ['layout/icons/*.svg'],
-	      }
-	    }
-	  },
+			},
+			default : {
+				files: {
+					'layout/svg-sprite.svg': ['layout/icons/*.svg'],
+				}
+			}
+		},
 		jshint: {
-	    all: ['Gruntfile.js']
-	  },
+			all: ['Gruntfile.js']
+		},
 		// ----------------------------------------------
 		// Watch tasks
 		//
 		watch: {
-		  options: {
-		    spawn: false // add spawn option in watch task
-		  },
+			options: {
+				spawn: false // add spawn option in watch task
+			},
 			jshint: {
 				files: ['Gruntfile.js'],
 				tasks: ['jshint']
@@ -138,22 +138,22 @@ module.exports = function(grunt) {
 		}
 	});
 
-  // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-concat');
+	// These plugins provide necessary tasks.
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	// https://www.npmjs.org/package/grunt-contrib-imagemin
 	grunt.loadNpmTasks('grunt-contrib-imagemin');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 	//https://www.npmjs.org/package/grunt-autoprefixer
 	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-svgstore');
-  // Default task.
+	// Default task.
 	grunt.registerTask('default', ['autoprefixer','svgstore']);
-  // Build task.
+	// Build task.
 	grunt.registerTask('build', ['autoprefixer', 'concat', 'uglify', 'cssmin']);
 
 };
