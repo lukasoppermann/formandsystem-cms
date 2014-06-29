@@ -42,6 +42,10 @@ class BaseController extends Controller {
 		{
 			Config::set('content.locale', array_values(Config::get('content.languages'))[0] );
 		}
+		
+		Api::config(['url' => 'http://www/formandsystem/public/api/v1/stream', 'auth' => ['lukas@vea.re', 'lukas'] ]);
+		
+		echo("<pre>");print_r(Api::get());echo("</pre>");
 	}
 	/**
 	 * Setup the layout used by the controller.

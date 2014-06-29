@@ -1,5 +1,14 @@
 /*global module:false*/
+/* MD5 module for node.js: https://github.com/pvorb/node-md5 */
+// module exports
 module.exports = function(grunt) {
+	var md5 = require('MD5');
+	var fs = require('fs');
+	var calculateMD5String = function(path){
+		fs.readFile(path, function(err, buf) {
+  		return md5(buf);
+		});
+	}
 	var pkg = grunt.file.readJSON('package.json');
 	// Project configuration.
 	grunt.initConfig({
@@ -8,6 +17,7 @@ module.exports = function(grunt) {
 			images: 'images',
 			css: 'css',
 			js: 'js',
+			mainjs: 'main.js',
 			bower_path: 'bower_components'
 		},
 		// ----------------------------------------------
@@ -58,11 +68,11 @@ module.exports = function(grunt) {
 		requirejs: {
 			js: {
 				options: {
-					baseUrl: '<%= config.js %>/bower_components',
-					out: '<%= config.js %>application.min.js',
+					baseUrl: "<%= config.js %>/<%=bower_path%>",
+					out: "<%=config.js%>/application"+calculateMD5String("<%=config.js%>/<%= config.mainjs %>")+'.min.js',
 					name: 'main',
 					optimize: 'none',
-					mainConfigFile: '<%= config.js %>/main.js',
+					mainConfigFile: '<%= config.js %>/<%= config.mainjs %>',
 					useStrict: true,
 					wrap: true
 				}
@@ -99,6 +109,7 @@ module.exports = function(grunt) {
 					id: 'svg_sprite',
 					style: 'display: none;'
 				},
+				cleanup: true,
 				formatting : {
 					indent_size : 2
 				}
@@ -151,6 +162,7 @@ module.exports = function(grunt) {
 	//https://www.npmjs.org/package/grunt-autoprefixer
 	grunt.loadNpmTasks('grunt-autoprefixer');
 	grunt.loadNpmTasks('grunt-svgstore');
+	grunt.loadNpmTasks('grunt-contrib-requirejs');
 	// Default task.
 	grunt.registerTask('default', ['autoprefixer','svgstore']);
 	// Build task.

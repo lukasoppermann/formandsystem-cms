@@ -3,10 +3,10 @@
 	"description": "The Laravel Framework.",
 	"keywords": ["framework", "laravel"],
   "repositories": [
-      {
-          "type": "vcs",
-          "url": "https://github.com/lukasoppermann/optimization"
-      }
+		{
+				"type": "vcs",
+					"url": "https://github.com/lukasoppermann/optimization"
+			}
 	],
 	"license": "MIT",
 	"require": {
@@ -15,7 +15,6 @@
 		"mockery/mockery": "dev-master",
 		"phpunit/phpunit": "dev-master",
 		"way/generators": "dev-master",
-		"guzzlehttp/guzzle": "~4.0",
 		"lukasoppermann/optimization": "*@dev"
 	},
 	"autoload": {

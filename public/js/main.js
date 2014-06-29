@@ -4,7 +4,7 @@ require.config({
 	baseUrl: "js/bower_components",
 	paths:{
 		"dev": "../dev",
-		'mark': "../dev/mark/"
+		'mark': "../dev/mark"
 	}
 });
  
@@ -103,10 +103,6 @@ require.config({
 // 	});
 // })
 
-require(["engine/engine","dev/engine/functions/replaceclass"], function(_){
-	_('.block').replaceClass('column-[a-z0-9]*','');
-})
-
 require(['engine/engine', 'dev/engine-resizable/engine.resizable'], function(_){
 	var columns = 12;
 	var widths = [];
@@ -122,7 +118,6 @@ require(['engine/engine', 'dev/engine-resizable/engine.resizable'], function(_){
 				}
 			}
 			widths.forEach(function(w, i){
-				console.log(w);
 				if(width >= w + 20 && ( i+1 === columns || width <= widths[i+1] - 20) )
 				{
 					item.css('width', w+'px');

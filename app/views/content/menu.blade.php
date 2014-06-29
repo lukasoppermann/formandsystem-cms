@@ -1,6 +1,9 @@
-<?
+@extends('navigation')
+
+<?php
 // Config::set('content.locale', 'de');
-function loop( $nav, $lang){
+function loop( $nav, $lang)
+{
 	echo '<ul>';
 	foreach ($nav as $item)
 	{
@@ -70,7 +73,7 @@ function loop( $nav, $lang){
 
 ?>
 @section('contentMenu')
-<div id="contentnav">
-	<? loop($nav, 'en'); ?>
-<div>
+  <div id="contentnav">
+  	<?=loop($nav, 'en'); ?>
+  <div>
 @stop
