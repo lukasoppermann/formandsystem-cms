@@ -26,7 +26,8 @@ Route::post('/login', function()
 {
 	if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password'))))
 	{
-	  return Redirect::intended('dashboard');
+	  // return Redirect::intended('dashboard');
+	  return Redirect::intended('content');
 	}
 	else
 	{
@@ -44,12 +45,15 @@ Route::get('/logout', function()
 
 Route::group(array('before' => 'auth'), function()
 {
-	Route::get('/', 'DashboardController@index'); // replace with dashboard
-	Route::get('/dashboard', 'DashboardController@index'); // replace with dashboard
+	Route::resource('/', 'contentController', 
+		array( 'except' => array('edit') ) 
+	);
+	// Route::get('/', 'DashboardController@index'); // replace with dashboard
+	// Route::get('/dashboard', 'DashboardController@index'); // replace with dashboard
 	//
 	// Content Controller
 	Route::resource('/content', 'contentController', 
-					array( 'except' => array('edit') ) 
+		array( 'except' => array('edit') ) 
 	);
 	
 	// Route::get('/content/{lang?}/{link?}', 'ContentController@index');
