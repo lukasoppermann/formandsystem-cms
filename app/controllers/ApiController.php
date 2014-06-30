@@ -9,7 +9,7 @@ class ApiController extends Controller {
 	 */
 	public function index()
 	{
-    return "Yo: Return something awesome";
+    return  Response::json(["Yo: Return something awesome"], 200);
 	}
 
 
@@ -43,25 +43,24 @@ class ApiController extends Controller {
 	 */
 	public function show($parameter)
 	{
-		return "xo";
 		// prepare defaults
-		// $opts = array_merge(array(
-		// 	'format' => 'json',
-		// 	'type' => 'all'
-		// ),Input::all());
-		// // check for params
-		// if( strstr($parameter, ".") ){
-		// 	explode(".", $parameter)[0] !== "" ? $opts['type'] = explode(".", $parameter)[0] : "";
-		// 	explode(".", $parameter)[1] !== "" ? $opts['format'] = explode(".", $parameter)[1] : "";
-		// }
-		// elseif( $parameter != null ){
-		// 	$opts['type'] = $parameter;
-		// }
-		//
-		// if( $opts['type'] == 'navigation' )
-		// {
-		// 	return Response::json(Navigation::getNavigation(), 200);
-		// }
+		$opts = array_merge(array(
+			'format' => 'json',
+			'type' => 'all'
+		),Input::all());
+		// check for params
+		if( strstr($parameter, ".") ){
+			explode(".", $parameter)[0] !== "" ? $opts['type'] = explode(".", $parameter)[0] : "";
+			explode(".", $parameter)[1] !== "" ? $opts['format'] = explode(".", $parameter)[1] : "";
+		}
+		elseif( $parameter != null ){
+			$opts['type'] = $parameter;
+		}
+		
+		if( $opts['type'] == 'navigation' )
+		{
+			return Response::json(Navigation::getNavigation(), 200);
+		}
 	}
 
 

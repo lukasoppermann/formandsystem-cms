@@ -36,16 +36,16 @@ class BaseController extends Controller {
     // 'matchbracket', 'closebrackets','matchtags','trailingspace','closetag','placeholder','overlay','mark', 'content'));
 
 		// prepare local
-		Config::set('content.languages', array('en','de','fr'));	
+		Config::set('content.languages', array('en','de','fr'));
 		// set local if not defined
 		if( !Config::get('content.locale') )
 		{
 			Config::set('content.locale', array_values(Config::get('content.languages'))[0] );
 		}
-		
+
 		Api::config(['url' => 'http://www/formandsystem/public/api/v1/stream', 'auth' => ['lukas@vea.re', 'lukas'] ]);
-		
-		echo("<pre>");print_r(Api::get());echo("</pre>");
+
+		echo("<pre>");print_r(Api::get('navigation.json'));echo("</pre>");
 	}
 	/**
 	 * Setup the layout used by the controller.
