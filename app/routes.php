@@ -65,9 +65,12 @@ Route::group(array('before' => 'auth'), function()
 	// Route::get('/{lang?}/{link?}', 'ContentController@index');
 });
 
-Route::group(array('prefix' => 'api/v1', 'before' => 'auth.basic'), function()
+Route::group(array('prefix' => 'api/v1', 'before' => array('auth.basic')), function()
 {
-    Route::resource('stream', 'ApiController');
-});
+	Route::get('stream', 'ApiController@index');
+	Route::get('stream/{item?}/{contenttype?}/{content?}', 'ApiController@show');
 
+	Route::put('stream/{item?}', 'ApiController@update');
+	// Route::resource('stream', 'ApiController');
+});
 

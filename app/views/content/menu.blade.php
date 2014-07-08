@@ -74,6 +74,6 @@ function loop( $nav, $lang)
 ?>
 @section('contentMenu')
   <div id="contentnav">
-  	<?=loop($nav, 'en'); ?>
+  	<?=loop(Api::get('navigation.json'), 'en'); ?>
   <div>
 @stop
