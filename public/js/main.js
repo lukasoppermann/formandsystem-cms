@@ -1,7 +1,7 @@
 'use strict';
 
 require.config({
-	baseUrl: "js/bower_components",
+	baseUrl: "/formandsystem/public/js/bower_components",
 	paths:{
 		"dev": "../dev",
 		'mark': "../dev/mark"
@@ -36,7 +36,8 @@ require(['engine/engine',"mark/mark", 'engine/plugins/serialize','engine/functio
 		});
 		var jsonstring = "content="+data+"&title="+_('.headline')[0].value;
 		// send ajax
-		_.request(_(this).parents('form')[0].getAttribute('action'),jsonstring, _('input[name="_method"]')[0].getAttribute('value'))
+		// _.request(_(this).parents('form')[0].getAttribute('action'),jsonstring, _('input[name="_method"]')[0].getAttribute('value'))
+		_.request('http://www/formandsystem/public/api/v1/stream/'+_(this).parents('form')[0].getAttribute('data-article_id'),jsonstring, 'PUT')
 		.success(function(r){
 		}).error().fail();
 	});
@@ -104,26 +105,25 @@ require.config({
 // })
 
 require(['engine/engine', 'dev/engine-resizable/engine.resizable'], function(_){
-	var columns = 12;
-	var widths = [];
 	_('.content-section').resizable({
-		'handle': '.handle',
-		resizing: function(width, container){
-			var item = this;
-			if( widths.length == 0)
-			{
-				for(var i = 1; i <= columns; i++)
-				{
-					widths.push(Math.floor((container.css('width')/columns)*i));
-				}
-			}
-			widths.forEach(function(w, i){
-				if(width >= w + 20 && ( i+1 === columns || width <= widths[i+1] - 20) )
-				{
-					item.css('width', w+'px');
-					item.children('.block-content')[0].setAttribute('data-column',i);
-				}
-			});
-		}
+		handle: '.handle',
+		columns: 12
+		// resizing: function(width, container, e, opts){
+		// 	var item = this;
+		// 	if( widths.length == 0)
+		// 	{
+		// 		for(var i = 1; i <= opts.columns; i++)
+		// 		{
+		// 			widths.push(Math.floor(((container.css('width')-container.css('padding-left')-container.css('padding-right'))/opts.columns)*i));
+		// 		}
+		// 	}
+		// 	widths.forEach(function(w, i){
+		// 		if(width >= w + 20 && ( i+1 === columns || width <= widths[i+1] - 20) )
+		// 		{
+		// 			item.css('width', w+'px');
+		// 			item.children('.block-content')[0].setAttribute('data-column',i);
+		// 		}
+		// 	});
+		// }
 	});
 });
