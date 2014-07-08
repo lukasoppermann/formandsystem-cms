@@ -79,5 +79,27 @@ class ContentModel extends Ardent{
 		}
 		return Content::find($id);
 	}
+	/**
+	 * GET Content & posts, etc. by id or link of main page
+	 *
+	 * @return array
+	 */
+	function getPage( $id )
+	{
+		if( !is_numeric( $id ) && $data = $this->whereRaw('link = ? and language = ?', array($id, Config::get('content.locale')) )->first() )
+		{
+			return $data;
+		}
+		return "return content & posts, etc for given $id";
+	}
+	/**
+	 * GET Posts by id or link of main page
+	 *
+	 * @return array
+	 */
+	function getPosts( $id, $postid = null )
+	{
+		return "return post by id or all posts if no id given";
+	}
 	
 }

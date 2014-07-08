@@ -10,16 +10,7 @@ class ContentController extends \BaseController {
 	 */
 	public function index()
 	{
-		Config::set('content.locale','en');
-		if( $data = Content::getFirst() )
-		{
-			$this->layout->content = View::make('content.edit')->with('content', $data);
-			$this->layout->error = Session::get( 'error' );
-		}
-		else
-		{
-			return Redirect::route('content.create')->with(array('position' => 1, 'language' => Config::get('content.locale')));
-		}
+		return Redirect::route('content.create')->with(array('position' => 1, 'language' => Config::get('content.locale')));
 	}
 
 	/**
@@ -62,7 +53,7 @@ class ContentController extends \BaseController {
 	 */
 	public function show($id) // this is the edit form
 	{
-		if( $data = Content::getContent($id) )
+		if( $data = Api::get($id.'.json?language='.Config::get('content.locale')) )
 		{
 			$this->layout->content = View::make('content.edit')->with('content', $data);
 		}
@@ -89,7 +80,6 @@ class ContentController extends \BaseController {
     $content->save();
     
     return json_encode(array('message' => 'saved', 'status' => '200'));
-    // Redirect::to('content/'.$id);
 	}
 
 
@@ -101,7 +91,7 @@ class ContentController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		//['config' => ['secretkey' => 'Lukas']
 	}
 	
 

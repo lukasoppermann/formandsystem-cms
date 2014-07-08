@@ -42,10 +42,8 @@ class BaseController extends Controller {
 		{
 			Config::set('content.locale', array_values(Config::get('content.languages'))[0] );
 		}
-
+		// needs to be set
 		Api::config(['url' => 'http://www/formandsystem/public/api/v1/stream', 'auth' => ['lukas@vea.re', 'lukas'] ]);
-
-		echo("<pre>");print_r(Api::get('navigation.json'));echo("</pre>");
 	}
 	/**
 	 * Setup the layout used by the controller.
@@ -56,7 +54,7 @@ class BaseController extends Controller {
 	{
 		if ( ! is_null($this->layout))
 		{
-			$this->layout = View::make($this->layout)->with('nav', Navigation::getNested() );
+			$this->layout = View::make($this->layout);
 		}
 	}
 }
