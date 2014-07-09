@@ -1,5 +1,3 @@
-@extends('template')
-
 @section('nav')
 <nav>
 	<ul id="mainnav">
