@@ -8,6 +8,10 @@ require.config({
 	}
 });
  
+require(['dev/engine/engine', 'dev/engine/functions/create'], function(_){
+	window._ = _;
+});
+ 
 require(["mark/mark", "engine/engine",'engine/functions/on'], function(mark, _){
 	// run codemirror on every instance of .mark
 	mark('.mark', {
@@ -21,7 +25,6 @@ require(["mark/mark", "engine/engine",'engine/functions/on'], function(mark, _){
 })
 
 require(['engine/engine',"mark/mark", 'engine/plugins/serialize','engine/functions/on','engine/functions/parents','engine/functions/request'], function(_, mark){
-	window._ = _;
 	// save json
 	_('.save').on('click', function(){
 		var data = _('.page-content').serialize({'item':'.block-content',
@@ -127,3 +130,5 @@ require(['engine/engine', 'dev/engine-resizable/engine.resizable'], function(_){
 		// }
 	});
 });
+
+
