@@ -3,6 +3,7 @@ body{
 	font-size: 0.625em;
 	line-height: 130%;
 	background-color: rgb(55,115,215);
+	background-image: -webkit-linear-gradient(top left, rgb(55,115,215), rgb(35,75,140));
 	background-image: linear-gradient( top left, rgb(55,115,215), rgb(35,75,140));
 	background-image: -webkit-linear-gradient( top left, rgb(55,115,215), rgb(35,75,140));
 }

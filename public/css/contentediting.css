@@ -219,6 +219,7 @@
 	background-size: 8.333333% 1px;
 	background-position: 0px 0px;
 	background-image: -webkit-linear-gradient(0, rgba(225,225,225,.45) 1px, transparent 1px);
+	width: -webkit-calc(100% - 16em);
 	width: calc(100% - 16em);
 	height: 100%;
 	-moz-box-sizing: border-box; 

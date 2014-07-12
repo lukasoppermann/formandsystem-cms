@@ -24,7 +24,7 @@ require(["mark/mark", "engine/engine",'engine/functions/on'], function(mark, _){
 	});
 })
 
-require(['engine/engine',"mark/mark", 'engine/plugins/serialize','engine/functions/on','engine/functions/parents','engine/functions/request'], function(_, mark){
+require(['engine/engine',"mark/mark", 'engine/plugins/serialize','engine/functions/on','engine/functions/parent','engine/functions/request'], function(_, mark){
 	// save json
 	_('.save').on('click', function(){
 		var data = _('.page-content').serialize({'item':'.block-content',
@@ -39,8 +39,8 @@ require(['engine/engine',"mark/mark", 'engine/plugins/serialize','engine/functio
 		});
 		var jsonstring = "content="+data+"&title="+_('.headline')[0].value;
 		// send ajax
-		// _.request(_(this).parents('form')[0].getAttribute('action'),jsonstring, _('input[name="_method"]')[0].getAttribute('value'))
-		_.request('http://www/formandsystem/public/api/v1/stream/'+_(this).parents('form')[0].getAttribute('data-article_id'),jsonstring, 'PUT')
+		// _.request(_(this).parent('form')[0].getAttribute('action'),jsonstring, _('input[name="_method"]')[0].getAttribute('value'))
+		_.request('http://www/formandsystem/public/api/v1/stream/'+_(this).parent('form')[0].getAttribute('data-article_id'),jsonstring, 'PUT')
 		.success(function(r){
 		}).error().fail();
 	});
@@ -66,7 +66,7 @@ require(['engine/engine',"mark/mark", 'engine/plugins/serialize','engine/functio
 			var n = document.createElement("section");
 			n.setAttribute('class', 'block-content content-section');
 			n.innerHTML = "<div class='block'><textarea data-column='12' data-type='text' class='mark block-content' placeholder='Add your content or double-click for settings.'></textarea></div>";
-			_('#add_section').parents()[0].insertBefore(n,_('#add_section')[0]);
+			_('#add_section').parent()[0].insertBefore(n,_('#add_section')[0]);
 			mark('.mark', {
 				excludePanel: ['code'],
 				lineNumbers: false
