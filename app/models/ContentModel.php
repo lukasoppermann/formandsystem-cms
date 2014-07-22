@@ -77,6 +77,7 @@ class ContentModel extends Ardent{
 		{
 			return $data;
 		}
+		return "return content & posts, etc for given $id";
 		return Content::find($id);
 	}
 	/**
@@ -90,7 +91,7 @@ class ContentModel extends Ardent{
 		{
 			return $data;
 		}
-		return "return content & posts, etc for given $id";
+		return Content::find($id);
 	}
 	/**
 	 * GET Posts by id or link of main page

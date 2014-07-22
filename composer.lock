@@ -238,12 +238,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "685f83cbcf9c3c99e05c1fd40ff98ec6483a0f2c"
+                "reference": "cdb5e9d99da0c54b7bdc94bb7cb3fad8ddb50e07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/685f83cbcf9c3c99e05c1fd40ff98ec6483a0f2c",
-                "reference": "685f83cbcf9c3c99e05c1fd40ff98ec6483a0f2c",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/cdb5e9d99da0c54b7bdc94bb7cb3fad8ddb50e07",
+                "reference": "cdb5e9d99da0c54b7bdc94bb7cb3fad8ddb50e07",
                 "shasum": ""
             },
             "require": {
@@ -345,7 +345,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2014-07-21 02:39:23"
+            "time": "2014-07-21 21:21:01"
         },
         {
             "name": "laravelbook/ardent",
@@ -850,12 +850,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "e0e67a602b44463e12ee30b05a99f97a9d60b18a"
+                "reference": "36baab1db410601b9376e5964c44158f288b27c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/e0e67a602b44463e12ee30b05a99f97a9d60b18a",
-                "reference": "e0e67a602b44463e12ee30b05a99f97a9d60b18a",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/36baab1db410601b9376e5964c44158f288b27c5",
+                "reference": "36baab1db410601b9376e5964c44158f288b27c5",
                 "shasum": ""
             },
             "require": {
@@ -940,7 +940,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2014-07-20 21:31:29"
+            "time": "2014-07-21 21:53:33"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1196,12 +1196,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c2d153e70aa85b51fbc77cd0404ffca180f341f2"
+                "reference": "dcfd677eaab418a2e96590d4e6a4ac4e2283d1b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c2d153e70aa85b51fbc77cd0404ffca180f341f2",
-                "reference": "c2d153e70aa85b51fbc77cd0404ffca180f341f2",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/dcfd677eaab418a2e96590d4e6a4ac4e2283d1b5",
+                "reference": "dcfd677eaab418a2e96590d4e6a4ac4e2283d1b5",
                 "shasum": ""
             },
             "require": {
@@ -1262,7 +1262,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-07-21 02:45:27"
+            "time": "2014-07-21 22:48:47"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1328,12 +1328,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nrk/predis.git",
-                "reference": "0235ba1a3044a345cb20db935e07a873116358b1"
+                "reference": "d5c650d51aa99f7d0c992c8a01c015b824d8ce46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/0235ba1a3044a345cb20db935e07a873116358b1",
-                "reference": "0235ba1a3044a345cb20db935e07a873116358b1",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/d5c650d51aa99f7d0c992c8a01c015b824d8ce46",
+                "reference": "d5c650d51aa99f7d0c992c8a01c015b824d8ce46",
                 "shasum": ""
             },
             "require": {
@@ -1370,7 +1370,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2014-07-18 11:26:54"
+            "time": "2014-07-21 16:23:00"
         },
         {
             "name": "psr/log",

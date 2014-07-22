@@ -1,6 +1,6 @@
 <?php
 
-class ApiController extends Controller {
+class StreamapiController extends Controller {
 
 
 	/**
@@ -42,39 +42,32 @@ class ApiController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($item = null, $contenttype = null, $content = null)
+	public function show($item = null)
 	{
 		// default options
 		$opts = $defaults = array(
-			'format' => 'json'
+			'format' => 'json',
+			'language' => Config::get('content.locale', 'en')
 		);
+
 		// accepted formats
 		$formats = array('json');
+
 		// accepted parameters
-		$parameters = array('limit','offset','fields','level','depth','language');
-		
-		if( $item != "" && $contenttype == "" )
+		$parameters = array('limit','offset','fields','level','depth','language','pageonly');
+
+		// if item is missing, throw exception
+		if( $item == null)
 		{
-			$args = explode(".", $item);
-			$args[0] !== "" ? $opts['item'] = $args[0] : "";
+			throw new Exception('1 parameter needed, 0 where given.');
 		}
-		elseif( $contenttype != "" && $content == "" )
-		{
-			$args = explode(".", $contenttype);
-			$args[0] !== "" ? $opts['contenttype'] = $args[0] : "";
-			$opts['item'] = $item;
-		}
-		elseif( $contenttype != "" && $content != "" )
-		{
-			$args = explode(".", $content);
-			$args[0] !== "" ? $opts['content'] = $args[0] : "";
-			$opts['item'] = $item;
-			$opts['contenttype'] = $contenttype;
-		}
-	
-		// asign format
+
+		// get format
+		$args = explode(".", $item);
+		$args[0] !== "" ? $opts['item'] = $args[0] : "";
 		isset($args[1]) && $args[1] !== "" ? $opts['format'] = $args[1] : "";
-	
+		$opts['format'] = in_array($opts['format'], $formats) ? $opts['format'] : $formats[0];
+
 		// assign parameters
 		foreach(Input::all() as $parameter => $value)
 		{
@@ -83,16 +76,17 @@ class ApiController extends Controller {
 				$opts[$parameter] = $value;
 			}
 		}
+
 		// merge defaults
-		$opts['format'] = in_array($opts['format'], $formats) ? $opts['format'] : $formats[0];
 		$opts = array_merge($defaults, $opts);
-		
+
 		// set language if given
 		if( isset($opts['language']) && $opts['language'] != "" )
 		{
 			Config::set('content.locale', $opts['language']);
 		}
 		
+
 		// navigation
 		if( $opts['item'] == 'navigation' )
 		{
@@ -105,20 +99,15 @@ class ApiController extends Controller {
 			{
 				return Response::json(Content::getFirst(), 200);
 			}
-			elseif( !isset($opts['contenttype']) && isset($opts['pageonly']) && $opts['pageonly'] == true )
-			{
-				return Response::json(Content::getContent($opts['item']), 200);
-			}
-			elseif( !isset($opts['contenttype']) )
+			elseif( !isset($opts['pageonly']) || $opts['pageonly'] != true )
 			{
 				return Response::json(Content::getPage($opts['item']), 200);
 			}
-			elseif( isset($opts['contenttype']) && $opts['contenttype'] == 'posts' )
+			elseif( isset($opts['pageonly']) && $opts['pageonly'] == true )
 			{
-				return Response::json(Content::getPosts($opts['item'], isset($opts['content']) ? $opts['content'] : ""), 200);
+				return Response::json(Content::getContent($opts['item']), 200);
 			}
 		}
-
 	}
 
 
