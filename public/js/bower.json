@@ -21,7 +21,8 @@
     "requirejs": "*",
     "require-css": "*",
     "codemirror": "~4.3.*",
-    "mark": "*"
+    "mark": "*",
+		"engine-sortable": "https://github.com/lukasoppermann/engine-sortable.git"
   },
   "devDependencies": {}
 }
