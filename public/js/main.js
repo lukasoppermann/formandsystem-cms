@@ -75,7 +75,7 @@ require(['engine/engine',"mark/mark", 'engine/plugins/serialize','engine/functio
 	});
 })
 
-require(['engine/engine','engine/functions/on','engine/functions/addclass','engine/functions/removeclass'],function(_) {
+require(['engine/engine','engine/functions/on','engine/functions/class'],function(_) {
 	_('#contentnav').on('scroll', function(){
 		if( this.scrollTop > 10 ){
 			_('nav').addClass('scrolled');
