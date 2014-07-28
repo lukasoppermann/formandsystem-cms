@@ -13,7 +13,7 @@
 	</div>
 	<input class="headline" type="text" name="title" placeholder="Type your title" value="" />
 
-	<div class="block span {{ variable($block['class']) }}">
+	<div class="block span {{ app::make('Utilities')->variable($block['class']) }}">
 		<textarea class="mark" placeholder="Add your content"></textarea>
 		<div class="handle"></div>
 		<div class="move"></div>

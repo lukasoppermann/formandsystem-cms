@@ -17,7 +17,6 @@ class CreateContentTable extends Migration {
 			$table->engine = 'MyISAM';
 			// fields
 			$table->increments('id');
-			$table->smallInteger('menu_id');
 			$table->integer('article_id');
 			$table->string('menu_label')->nullable();
 			$table->string('link')->index()->nullable();

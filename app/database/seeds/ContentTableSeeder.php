@@ -16,7 +16,6 @@ class ContentTableSeeder extends Seeder {
 		
 		DB::table('fs_content')->insert(array(
 			array(
-				'menu_id' => '1',
 				'article_id' => '1',
 				'menu_label' => 'Start',
 				'link' => 'start',
@@ -54,7 +53,6 @@ class ContentTableSeeder extends Seeder {
 				))
 			),
 			array(
-				'menu_id' => '6',
 				'article_id' => '2',
 				'menu_label' => 'Home',
 				'link' => 'home',
@@ -92,7 +90,6 @@ class ContentTableSeeder extends Seeder {
 				))
 			),
 			array(
-				'menu_id' => '2',
 				'article_id' => '3',
 				'menu_label' => 'Blog',
 				'link' => 'blog',
@@ -103,7 +100,6 @@ class ContentTableSeeder extends Seeder {
 				'data' => '{"1":{"class":"section-01","content":{"0":{"type": "image","column": 3,"content": {"src": "imagefile.png","description": "Some optional text"},"class": "optional-classes"},"2":{"type": "text","column": 2,"content": "#Headline content is in markdown","class": "optional-classes"}}}}'
 			),
 			array(
-				'menu_id' => '3',
 				'article_id' => '4',
 				'menu_label' => 'Portfolio',
 				'link' => 'portfolio',
@@ -114,7 +110,6 @@ class ContentTableSeeder extends Seeder {
 				'data' => '{"1":{"class":"section-01","content":{"0":{"type": "image","column": 3,"content": {"src": "imagefile.png","description": "Some optional text"},"class": "optional-classes"},"2":{"type": "text","column": 2,"content": "#Headline content is in markdown\nAnd a _little_ **Markdown**","class": "optional-classes"}}}}'
 			),
 			array(
-				'menu_id' => '4',
 				'article_id' => '5',
 				'menu_label' => 'Contact',
 				'link' => 'contact',
@@ -125,7 +120,6 @@ class ContentTableSeeder extends Seeder {
 				'data' => '{"1":{"class":"section-01","content":{"0":{"type": "image","column": 3,"content": {"src": "imagefile.png","description": "Some optional text"},"class": "optional-classes"},"2":{"type": "text","column": 2,"content": "#Headline content is in markdown","class": "optional-classes"}}}}'
 			),
 			array(
-				'menu_id' => '5',
 				'article_id' => '6',
 				'menu_label' => 'Kontakt',
 				'link' => 'kontakt',
@@ -136,7 +130,6 @@ class ContentTableSeeder extends Seeder {
 				'data' => '{"1":{"class":"section-01","content":{"0":{"type": "image","column": 3,"content": {"src": "imagefile.png","description": "Some optional text"},"class": "optional-classes"},"2":{"type": "text","column": 2,"content": "#Headline content is in markdown","class": "optional-classes"}}}}'
 			),
 			array(
-				'menu_id' => '7',
 				'article_id' => '7',
 				'menu_label' => 'Kontakt',
 				'link' => 'kontakt',

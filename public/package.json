@@ -17,7 +17,7 @@
     "grunt-contrib-requirejs": "^0.4.4",
     "grunt-contrib-uglify": "~0.2.7",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt-jshint": "*",
+    "grunt-contrib-jshint": "*",
     "grunt-replace": ">=0.7.8",
     "grunt-shell": "^0.7.0",
     "grunt-svgstore": ">0.2.6",

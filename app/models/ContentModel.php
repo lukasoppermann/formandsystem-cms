@@ -22,7 +22,7 @@ class ContentModel extends Ardent{
 	 * Ardent validation rules
 	 */
 	public static $rules = array(
-	  'menu_id' => 'required|integer',
+	  'article_id' => 'required|integer',
 	  'status' => 'required|integer',
 	  'link' => 'required|alpha_dash',
 	  'language' => 'required|alpha',
@@ -33,9 +33,9 @@ class ContentModel extends Ardent{
 	 *
 	 * @return void
 	 */
-	function Navigation()
+	function navigation()
 	{
-		$this->belongsTo(\Content::getFacadeRoot(), 'menu_id');
+		$this->belongsTo(Navigation::getFacadeRoot(), 'article_id', 'article_id');
 	}
 	/**
 	 * Decode data json
@@ -102,5 +102,6 @@ class ContentModel extends Ardent{
 	{
 		return "return post by id or all posts if no id given";
 	}
+	
 	
 }
