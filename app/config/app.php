@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'http://127.0.0.1',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -116,7 +116,8 @@ return array(
       'Illuminate\Workbench\WorkbenchServiceProvider',
       'Lukasoppermann\Optimization\OptimizationServiceProvider',
       'App\Serviceproviders\FormandsystemServiceProvider',
-      'Formandsystem\Api\ApiServiceProvider'
+      'Formandsystem\Api\ApiServiceProvider',
+      'Formandsystem\Utilities\UtilitiesServiceProvider'
 	),
 
 	/*

@@ -54,7 +54,7 @@ class StreamapiController extends Controller {
 		$formats = array('json');
 
 		// accepted parameters
-		$parameters = array('limit','offset','fields','level','depth','language','pageonly');
+		$parameters = array('limit','offset','fields','level','depth','language','pageonly','path');
 
 		// if item is missing, throw exception
 		if( $item == null)
@@ -86,7 +86,12 @@ class StreamapiController extends Controller {
 			Config::set('content.locale', $opts['language']);
 		}
 		
-
+		// check for path parameter
+		if( isset($opts['path']) && $opts['path'] != "" )
+		{
+			$opts['item'] = urldecode($opts['path']);
+		}
+		
 		// navigation
 		if( $opts['item'] == 'navigation' )
 		{

@@ -9,7 +9,7 @@
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
 	{{ Optimization::css('default',false); }}
 	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-	<title>{{variable($title)}} | vea.re</title>
+	<title>{{app::make('Utilities')->variable($title)}} | vea.re</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1,maximum-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 </head>

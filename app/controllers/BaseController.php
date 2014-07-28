@@ -1,16 +1,4 @@
 <?php
-/**
-* Utility FN
-*/
-function variable( &$var = null )
-{
-	if( isset($var) )
-	{
-		return $var;
-	}
-	return false;
-}
-
 class BaseController extends Controller {
 
 	/**
@@ -34,7 +22,6 @@ class BaseController extends Controller {
 		// TODO: Fix Optimization js
     // Optimization::js(array('codemirror','xml','markdown','gfm','javascript','css','htmlmixed','xml-fold','continuelist',
     // 'matchbracket', 'closebrackets','matchtags','trailingspace','closetag','placeholder','overlay','mark', 'content'));
-
 		// prepare local
 		Config::set('content.languages', array('en','de','fr'));
 		// set local if not defined
@@ -42,6 +29,7 @@ class BaseController extends Controller {
 		{
 			Config::set('content.locale', array_values(Config::get('content.languages'))[0] );
 		}
+		
 		// needs to be set
 		Api::config(['url' => 'http://www/formandsystem/public/api/v1/stream', 'auth' => ['lukas@vea.re', 'lukas'] ]);
 	}

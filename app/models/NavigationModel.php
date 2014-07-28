@@ -33,7 +33,7 @@ class NavigationModel extends Ardent{
 	 */
 	public function content()
 	{
-		return $this->hasMany(\Content::getFacadeRoot(), 'menu_id', 'id');
+		return $this->hasMany(Content::getFacadeRoot(), 'article_id', 'article_id');
 	}
 	
 	/**
