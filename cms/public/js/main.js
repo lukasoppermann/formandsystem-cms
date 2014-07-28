@@ -1,7 +1,7 @@
 'use strict';
 
 require.config({
-	baseUrl: "/formandsystem/public/js/bower_components",
+	baseUrl: "/js/bower_components",
 	paths:{
 		"dev": "../dev",
 		'mark': "../dev/mark"
@@ -40,9 +40,10 @@ require(['engine/engine',"mark/mark", 'engine/plugins/serialize','engine/functio
 		var jsonstring = "content="+data+"&title="+_('.headline')[0].value;
 		// send ajax
 		// _.request(_(this).parent('form')[0].getAttribute('action'),jsonstring, _('input[name="_method"]')[0].getAttribute('value'))
-		_.request('http://www/formandsystem/public/api/v1/stream/'+_(this).parent('form')[0].getAttribute('data-article_id'),jsonstring, 'PUT')
+		_.request('http://api.formandsystem.com/v1/stream/'+_(this).parent('form')[0].getAttribute('data-article_id'),jsonstring, 'PUT')
 		.success(function(r){
-		}).error().fail();
+		}).error(function(){
+		}).fail();
 	});
 
 	// _('.block').on('dblclick', function(){

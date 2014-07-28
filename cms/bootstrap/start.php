@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('lukass-mbp.fritz.box'),
+	'local' => array('lukass-mbp.fritz.box','http://cms.formandsystem.com/'),
 
 ));
 

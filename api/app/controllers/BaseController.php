@@ -4,7 +4,7 @@ class BaseController extends Controller {
 	
 	function __construct()
 	{
-
+		
 		Config::set("database.connections.user", array(
 	    'driver'    => 'mysql',
 	    'host'      => 'localhost',

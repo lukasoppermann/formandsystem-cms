@@ -31,7 +31,7 @@ class BaseController extends Controller {
 		}
 		
 		// needs to be set
-		Api::config(['url' => 'http://www/formandsystem/public/api/v1/stream', 'auth' => ['lukas@vea.re', 'lukas'] ]);
+		Api::config(['url' => 'http://api.formandsystem.com/v1/stream', 'auth' => ['lukas@vea.re', 'lukas'] ]);
 	}
 	/**
 	 * Setup the layout used by the controller.
