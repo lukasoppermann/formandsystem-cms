@@ -15,7 +15,8 @@
 		"mockery/mockery": "dev-master",
 		"phpunit/phpunit": "dev-master",
 		"way/generators": "dev-master",
-		"lukasoppermann/optimization": "*@dev"
+		"lukasoppermann/optimization": "*@dev",
+		"orangehill/iseed": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {

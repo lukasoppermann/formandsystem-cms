@@ -72,14 +72,14 @@ class ContentController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$content = Content::getContent($id);
-
+		$content = Content::getPage($id);
+		
 		$content->title = Input::get('title');
 		$content->data = Input::get('content');
 		
-    $content->save();
-    
-    return json_encode(array('message' => 'saved', 'status' => '200'));
+		return Api::put($id,[
+			'body' => Input::all()
+		]);
 	}
 
 

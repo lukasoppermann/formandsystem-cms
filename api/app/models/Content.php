@@ -90,7 +90,7 @@ class ContentModel extends Ardent{
 	{
 		if( !is_numeric( $id ) && $data = $this->whereRaw('link = ? and language = ?', array($id, Config::get('content.locale')) )->first() )
 		{
-			return $data;
+			$id = $data['id'];
 		}
 		return Content::find($id);
 	}

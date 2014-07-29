@@ -13,7 +13,14 @@
 
 App::before(function($request)
 {
-	//
+	header('Access-Control-Allow-Origin: http://cms.formandsystem.com');
+	header('Access-Control-Allow-Credentials: true');
+  if (Request::getMethod() == "OPTIONS") {
+      $headers = array(
+          'Access-Control-Allow-Methods'=> 'POST, GET, OPTIONS, PUT, DELETE',
+          'Access-Control-Allow-Headers'=> 'X-Requested-With, content-type',);
+      return Response::make('', 200, $headers);
+  }
 });
 
 
