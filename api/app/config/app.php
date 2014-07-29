@@ -12,7 +12,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -110,13 +110,13 @@ return array(
 		// 'Illuminate\Mail\MailServiceProvider',
 		'Illuminate\Database\MigrationServiceProvider',
 		// 'Illuminate\Pagination\PaginationServiceProvider',
-		// 'Illuminate\Queue\QueueServiceProvider',
+		'Illuminate\Queue\QueueServiceProvider',
 		// 'Illuminate\Redis\RedisServiceProvider',
 		'Illuminate\Remote\RemoteServiceProvider',
 		'Illuminate\Auth\Reminders\ReminderServiceProvider',
 		'Illuminate\Database\SeedServiceProvider',
 		'Illuminate\Session\SessionServiceProvider',
-		// 'Illuminate\Translation\TranslationServiceProvider',
+		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		// 'Illuminate\Workbench\WorkbenchServiceProvider',
@@ -167,12 +167,12 @@ return array(
 		'Hash'            => 'Illuminate\Support\Facades\Hash',
 		// 'HTML'            => 'Illuminate\Support\Facades\HTML',
 		'Input'           => 'Illuminate\Support\Facades\Input',
-		// 'Lang'            => 'Illuminate\Support\Facades\Lang',
+		'Lang'            => 'Illuminate\Support\Facades\Lang',
 		'Log'             => 'Illuminate\Support\Facades\Log',
 		// 'Mail'            => 'Illuminate\Support\Facades\Mail',
 		// 'Paginator'       => 'Illuminate\Support\Facades\Paginator',
 		'Password'        => 'Illuminate\Support\Facades\Password',
-		// 'Queue'           => 'Illuminate\Support\Facades\Queue',
+		'Queue'           => 'Illuminate\Support\Facades\Queue',
 		'Redirect'        => 'Illuminate\Support\Facades\Redirect',
 		// 'Redis'           => 'Illuminate\Support\Facades\Redis',
 		'Request'         => 'Illuminate\Support\Facades\Request',

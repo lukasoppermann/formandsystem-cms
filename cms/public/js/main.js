@@ -40,7 +40,7 @@ require(['engine/engine',"mark/mark", 'engine/plugins/serialize','engine/functio
 		var jsonstring = "content="+data+"&title="+_('.headline')[0].value;
 		// send ajax
 		// _.request(_(this).parent('form')[0].getAttribute('action'),jsonstring, _('input[name="_method"]')[0].getAttribute('value'))
-		_.request('http://api.formandsystem.com/v1/stream/'+_(this).parent('form')[0].getAttribute('data-article_id'),jsonstring, 'PUT')
+		_.request('/content/'+_(this).parent('form')[0].getAttribute('data-article_id'),jsonstring, 'PUT')
 		.success(function(r){
 		}).error(function(){
 		}).fail();

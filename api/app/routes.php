@@ -30,5 +30,6 @@ Route::group(array('prefix' => 'v1', 'before' => array('basic.once')), function(
 	});
 
 	// stream api for content
-	Route::resource('stream', 'StreamapiController');
+	Route::resource('stream', 'StreamapiController',
+									array('except' => array('create', 'edit')));
 });

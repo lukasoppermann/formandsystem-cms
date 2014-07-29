@@ -9,19 +9,7 @@ class StreamapiController extends BaseController {
 	 */
 	public function index()
 	{
-		
 		return Response::json(Navigation::getNested(), 200);
-	}
-
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
 	}
 
 
@@ -32,7 +20,7 @@ class StreamapiController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		return Response::json('Yo', 200);
 	}
 
 
@@ -54,7 +42,7 @@ class StreamapiController extends BaseController {
 		$formats = array('json');
 
 		// accepted parameters
-		$parameters = array('limit','offset','fields','level','depth','language','pageonly','path');
+		$parameters = array('limit','offset','fields','level','depth','lang','lang','pageonly','path');
 
 		// if item is missing, throw exception
 		if( $item == null)
@@ -81,9 +69,9 @@ class StreamapiController extends BaseController {
 		$opts = array_merge($defaults, $opts);
 
 		// set language if given
-		if( isset($opts['language']) && $opts['language'] != "" )
+		if( isset($opts['lang']) && $opts['lang'] != "" )
 		{
-			Config::set('content.locale', $opts['language']);
+			Config::set('content.locale', $opts['lang']);
 		}
 		
 		// check for path parameter
@@ -91,7 +79,6 @@ class StreamapiController extends BaseController {
 		{
 			$opts['item'] = urldecode($opts['path']);
 		}
-		
 		// navigation
 		if( $opts['item'] == 'navigation' )
 		{
@@ -117,18 +104,6 @@ class StreamapiController extends BaseController {
 
 
 	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
 	 * Update the specified resource in storage.
 	 *
 	 * @param  int  $id
@@ -138,14 +113,14 @@ class StreamapiController extends BaseController {
 	{
 		if( $id != null )
 		{
-			$content = Content::getContent($id);
+			$content = Content::getPage($id);
 
 			$content->title = Input::get('title');
 			$content->data = Input::get('content');
-		
-	    $content->save();
+
+			$content->save();
     
-	    return Response::json(array('message' => 'saved'), 200);
+			return Response::json(array('message' => 'saved'), 200);
 		}
 		else
 		{
@@ -162,6 +137,7 @@ class StreamapiController extends BaseController {
 	 */
 	public function destroy($id)
 	{
+		return Response::json('Yo', 200);
 		//		//['config' => ['secretkey' => 'Lukas']
 	}
 
