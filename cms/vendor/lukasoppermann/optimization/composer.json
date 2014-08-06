@@ -1,0 +1,25 @@
+{
+    "name": "lukasoppermann/optimization",
+    "description": "A library to handle asset optimization like css & js files.",
+    "keywords": ["optimization", "minify"],
+    "homepage": "https://github.com/lukasoppermann/optimization",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lukas Oppermann",
+            "email": "lukas@vea.re",
+            "homepage": "http://vea.re",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Lukasoppermann\\Optimization": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}

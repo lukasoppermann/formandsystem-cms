@@ -1,0 +1,252 @@
+/*------------------*/
+/* mark theme */
+.cm-s-mark.CodeMirror {
+	font-size: 2em;
+	height: auto;
+	background: transparent;
+	color: rgb(60,60,60);
+	font-family: inherit;
+}
+.cm-s-mark.CodeMirror:focus{
+	outline: none;
+}
+.cm-s-mark.CodeMirror pre, .cm-s-mark.CodeMirror pre span{
+		line-height: 140%;
+}
+.cm-s-mark .CodeMirror-selected {
+	background: rgb(180,215,255) !important;
+}
+.cm-s-mark .CodeMirror-gutters {
+	background: rgba(0,0,0,0.05); border-right: 0px;
+}
+.cm-s-mark .CodeMirror-linenumber {
+	color: rgba(0,0,0,0.25);
+	font-size: 0.8em;
+	padding-top: 0.2em;
+}
+.cm-s-mark .CodeMirror-cursor {
+	border: 0 !important;
+	width: 2px !important;
+	background-color: rgb(55,170,225);
+}
+.cm-s-mark .CodeMirror-activeline-background{
+	background-color: rgba(0,0,0,0.02);
+}
+.cm-s-mark span.cm-comment {
+	color: inherit;
+	opacity: 0.4;
+}
+.cm-s-mark .cm-atom, .cm-s-mark .cm-number {
+	color: inherit;
+	opacity: 0.7;
+	font-style: italic;
+}
+.cm-s-mark .cm-property, .cm-s-mark .cm-attribute {
+	color: rgb(120,170,250);
+}
+.cm-s-mark .cm-keyword {
+	color: rgb(230,160,0);
+}
+.cm-s-mark .cm-string {
+	color: inherit;
+	opacity: 0.5;
+}
+.cm-s-mark .cm-qualifier{
+	color: inherit;
+}
+.cm-s-mark span.cm-variable {color: rgb(55,115,215);}
+.cm-s-mark span.cm-variable-2 { color: inherit; }
+.cm-s-mark span.cm-def {color: #fd971f;}
+.cm-s-mark span.cm-bracket {
+	color: inherit;
+	opacity: 0.5;
+}
+.cm-s-mark span.cm-tag {
+	color: rgb(55,115,215);
+}
+.cm-s-mark span.cm-link {
+	color: rgb(55,115,215);
+}
+.cm-s-mark .cm-error {
+	background: rgb(200,80,70);
+	color: rgb(255,255,255);
+}
+.cm-s-mark .CodeMirror-matchingbracket {
+  text-decoration: underline;
+	color: rgb(55,115,215) !important;
+}
+.cm-s-mark .CodeMirror-nonmatchingbracket{
+	color: rgb(200,80,70) !important;
+}
+.cm-s-mark .cm-formatting, .cm-s-mark .cm-formatting-list-ul{
+	color: inherit !important;
+	opacity: 0.3;
+}
+.cm-s-mark .cm-formatting-task{
+	color: rgb(60,60,60) !important;
+}
+.cm-s-mark .cm-header{
+	font-weight: 600;
+}
+.cm-s-mark .cm-header-1{
+	font-size: 2em;
+}
+.cm-s-mark .cm-header-2{
+	font-size: 1.6em;
+}
+.cm-s-mark .cm-header-3{
+	font-size: 1.4em;
+}
+.cm-s-mark .cm-header-4{
+	font-size: 1.2em;
+}
+.cm-s-mark .cm-header-5{
+	font-size: 1em;
+}
+.cm-s-mark .cm-header-6{
+	font-size: 1em;
+	font-weight: 400;
+	font-style: italic;
+}
+.cm-s-mark .cm-trailingspace{
+	width: .5em;
+	position: relative;
+	display: inline-block;
+	color: rgba(0,0,0,0.3);
+}
+.cm-s-mark .cm-trailingspace:before{
+	content: "•";
+	position: absolute;
+	top: 0;
+	left: 40%;
+}
+.edit-options{
+	font-size: 0.5em; /* reset ems to 10px */
+	position: absolute;
+	background-color: rgb(245,245,245);
+	box-shadow: 0 1px 1px rgba(0,0,0,0.15);
+	border-radius: 0.3em;
+	z-index: 999;
+	margin-top: 10px;
+	opacity: 0;
+	-ms-transform: translate(-9999px,0);
+	transform: translate(-9999px,0);
+	-webkit-transform: translate(-9999px,0);
+	transition: opacity .3s ease .1s, margin .3s ease .1s, transform 0 ease .4s;
+	-webkit-transition: opacity .3s ease .1s, margin .3s ease .1s, -webkit-transform 0 ease .4s;
+}
+.edit-options.active{
+	margin-top: 0;
+	display: block;
+	opacity: 1;
+	transition: opacity .3s ease .2s, margin .3s ease .1s, left .1s ease 0, transform 0 ease 0;
+	-webkit-transition: opacity .3s ease .2s, margin .3s ease .1s, left .1s ease 0, -webkit-transform 0 ease 0;
+	-ms-transform: translate(0,0);
+	transform: translate(0,0);
+	-webkit-transform: translate(0,0);
+}
+.edit-options .panel-arrow{
+	width: 1.6em;
+	height: 1.6em;
+	position: absolute;
+	bottom: -1.5em;
+	left: 50%;
+	-ms-transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
+	-webkit-transform: translate(-50%, 0);
+}
+.edit-options.from-top .panel-arrow{
+	top: -1.5em;
+	bottom: auto;
+}
+.edit-options .panel-arrow:before, .edit-options .panel-arrow:after{
+	position: absolute;
+	top: 0;
+	left: 0;
+	content: "";
+	width: 0;
+	height: 0;
+	border-width: .8em .8em;
+	border-style: solid;
+	border-color: rgb(245,245,245) transparent transparent transparent;
+	display: block;
+	z-index: 2;
+}
+.edit-options .panel-arrow:after{
+	border-color: rgba(0,0,0,0.1) transparent transparent transparent;
+	z-index: 1;
+	top: .1em;
+}
+.edit-options.from-top .panel-arrow:before{
+	border-color: transparent transparent rgb(245,245,245) transparent;
+}
+.edit-options.from-top .panel-arrow:after{
+	border-color: transparent;
+}
+/* edit Options content */
+.edit-options .mark-button{
+	width: 1.875em;
+	height: 2.4em;
+	margin: 1em;
+	padding: 0;
+	display: block;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	float: left;
+	position: relative;
+	cursor: pointer;
+	background: transparent;
+}
+.edit-options .strong.mark-button{ width: 1.92em; }
+.edit-options .em.mark-button{ width: 1.08em; }
+.edit-options .header1.mark-button, .edit-options .header2.mark-button{ width: 3.4em; }
+.edit-options .quote.mark-button{ width: 2.6em; }
+.edit-options .link.mark-button{ width: 2.64em; }
+.edit-options .code.mark-button{ width: 2.76em; }
+.edit-options .mark-button:first-child{
+	border-top-left-radius: 2px;
+	border-bottom-left-radius: 2px;
+	margin-left: 1.25em;
+}
+.edit-options .mark-button:last-child{
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+	margin-right: 1.25em;
+}
+.mark-icon{
+  display: inline-block;
+	pointer-events:none;
+	-webkit-transition: fill .4s ease;
+	transition: fill .4s ease;
+}
+/*------------------------*/
+/* CUSTOMIZE */
+/*------------------------*/
+/* Edit Panel Icons Color*/
+.edit-options .mark-icon{
+	/* default color */
+	fill: rgb(100,100,100);
+}
+.edit-options .mark-button:hover .mark-icon{
+	/* hover color */
+	fill: rgb(0,0,0);
+}
+.edit-options.strong .strong .mark-icon, .edit-options.em .em .mark-icon, .edit-options.header1 .header1 .mark-icon,
+.edit-options.header2 .header2 .mark-icon, .edit-options.quote-1 .quote .mark-icon .quote-part-1, .edit-options.quote-2 .quote .mark-icon,
+.edit-options.link .link .mark-icon, .edit-options.code-1 .code .mark-icon .code-part-1, .edit-options.code-2 .code .mark-icon{
+	/* active color */
+	fill: rgb(55,115,215);
+}
+/*------------------------*/
+/* Edit Panel */
+
+/*------------------------*/
+/* Editor */
+.cm-s-mark.CodeMirror.CodeMirror-focused{
+	/* focus outline */
+	box-shadow: 0 0 0 0 rgb(55,115,215);
+}
+.cm-s-mark .CodeMirror-cursor {
+	/* cursor color */
+	background-color: rgb(65,125,225);
+}
