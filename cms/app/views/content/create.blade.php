@@ -11,8 +11,7 @@
 	<div class="options">
 		{{ Form::submit('Create', array('class'=>'button blue save'))}}
 	</div>
-	<input class="headline" type="text" name="title" placeholder="Type your title" value="" />
-
+	
 	<div class="block span {{ app::make('Utilities')->variable($block['class']) }}">
 		<textarea class="mark" placeholder="Add your content"></textarea>
 		<div class="handle"></div>

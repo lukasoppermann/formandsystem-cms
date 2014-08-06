@@ -15,17 +15,17 @@
 </head>
 <body>
 	<?include("./layout/svg-sprite.svg");?>
-	
+
 	@if( isset($error) )
 		@include('misc.error', array('error' => $error))
 	@endif
-	
+
 	@yield('nav','')
-	
+
 	<div id="content">
 		@yield('content','')
 	</div>
-	
+
 	<script data-main="{{asset('/js/main')}}" src="{{asset('/js/bower_components/requirejs/require.js')}}"></script>
 
 </body>

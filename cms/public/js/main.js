@@ -7,11 +7,11 @@ require.config({
 		'mark': "../dev/mark"
 	}
 });
- 
+
 require(['dev/engine/engine', 'dev/engine/functions/create'], function(_){
 	window._ = _;
 });
- 
+
 require(["mark/mark", "engine/engine",'engine/functions/on'], function(mark, _){
 	// run codemirror on every instance of .mark
 	mark('.mark', {
@@ -37,7 +37,7 @@ require(['engine/engine',"mark/mark", 'engine/plugins/serialize','engine/functio
 				}
 			}
 		});
-		var jsonstring = "content="+data+"&title="+_('.headline')[0].value;
+		var jsonstring = "content="+data;
 		// send ajax
 		// _.request(_(this).parent('form')[0].getAttribute('action'),jsonstring, _('input[name="_method"]')[0].getAttribute('value'))
 		_.request('/content/'+_(this).parent('form')[0].getAttribute('data-article_id'),jsonstring, 'PUT')
@@ -131,5 +131,3 @@ require(['engine/engine', 'dev/engine-resizable/engine.resizable'], function(_){
 		// }
 	});
 });
-
-
