@@ -10,9 +10,6 @@ logs/
 log-
 0*_*/
 *cache*/*.php
-sessions/*.*
-storage/*.*
-storage/*/*
 images/
 media/
 movies/
@@ -32,6 +29,8 @@ database.php
 vendor/
 composer.lock
 CONTRIBUTING.md
+storage/sessions/*
+storage/views/*?
 
 # Packages #
 ############
