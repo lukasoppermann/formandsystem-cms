@@ -1,0 +1,46 @@
+body{
+	font-family: "Helvetica Neue", Helvetica, Sans-serif;
+	font-size: 0.625em;
+	line-height: 130%;
+	background-color: rgb(55,115,215);
+	background-image: -webkit-linear-gradient(top left, rgb(55,115,215), rgb(35,75,140));
+	background-image: linear-gradient( top left, rgb(55,115,215), rgb(35,75,140));
+	background-image: -webkit-linear-gradient( top left, rgb(55,115,215), rgb(35,75,140));
+}
+.icon-formandsystem{
+	width: 10em;
+	height: 10em;
+}
+.icon-formandsystem {
+	fill: rgba(255,255,255,0.75);
+}
+.login-form{
+	height: 100%;
+	width: 100%;
+}
+.form-signin-heading{
+	font-size: 2em;
+	color: rgb(255,255,255);
+	font-weight: normal;
+}
+.login-form .input-block-level{
+	font-size: 1.6em;
+	display: block;
+	width: 20em;
+	padding: .8em;
+	background: rgb(255,255,255);
+	border: none;
+	border-radius: 2px;
+	margin-bottom: 1em;
+}
+.btn{
+	border: none;
+	font-size: 1.6em;
+	line-height: 1.6em;
+	padding: .2em 1.4em;
+	border-radius: 2px;
+	background: rgb(255,255,255);
+	cursor: pointer;
+	transition: color .3s ease .0s, background .3s ease .0s;
+	-webkit-transition: color .3s ease .0s, background .3s ease .0s;
+}
