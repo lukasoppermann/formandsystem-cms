@@ -1,5 +1,6 @@
 # Project Files #
 #################
+.tm_properties
 *.psd
 *.ai
 *.orig
@@ -9,15 +10,15 @@ logs/
 log-
 0*_*/
 *cache*/*.php
-sessions/
-storage/
+sessions/*.*
+storage/*.*
 images/
 media/
 movies/
 files/
 
-# Workflow Grunt, Bower, Node, ... #
-####################################
+# Grunt & bower #
+############
 node_modules/
 bower_components/
 
@@ -28,10 +29,8 @@ database.php
 # laravel #
 ############
 vendor/
-artisan
 composer.lock
 CONTRIBUTING.md
-workbench
 
 # Packages #
 ############
