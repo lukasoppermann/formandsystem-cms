@@ -31,6 +31,7 @@ database.php
 vendor/
 artisan
 workbench
+
 # composer.lock
 
 # Packages #
