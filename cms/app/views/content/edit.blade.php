@@ -8,9 +8,6 @@
 	<div class="options">
 		{{ Form::button('Save', array('class'=>'button blue save'))}}
 	</div>
-		<div id="headline">
-			<input class="headline" type="text" name="title" placeholder="Type your title" value="{{$content['title']}}" />
-		</div>
 		<div class="page-content">
 		@if( is_array($content['data']) )
 			@foreach ( $content['data'] as $section )
@@ -39,19 +36,19 @@
 							@endif
 								<div class="handle"></div>
 							</div>
-			
+
 						@endforeach
 					@endif
 				</section>
 			@endforeach
-		@endif	
+		@endif
 		<section class="content-section" id="add_section">
 			<div class="add-content">
 				<span class="text add-block" data-type="text">+</span>
 			</div>
 		</section>
 	</div>
-	
+
 </div>
 
 {{ Form::close() }}
