@@ -1,6 +1,5 @@
 # Project Files #
 #################
-.tm_properties
 *.psd
 *.ai
 *.orig
@@ -17,8 +16,8 @@ media/
 movies/
 files/
 
-# Grunt & bower #
-############
+# Workflow Grunt, Bower, Node, ... #
+####################################
 node_modules/
 bower_components/
 
@@ -32,6 +31,7 @@ vendor/
 artisan
 composer.lock
 CONTRIBUTING.md
+workbench
 
 # Packages #
 ############
