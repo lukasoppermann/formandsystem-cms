@@ -20,9 +20,8 @@
     "engine": "*",
     "requirejs": "*",
     "require-css": "*",
-    "codemirror": "~4.3.*",
     "mark": "*",
-		"engine-sortable": "https://github.com/lukasoppermann/engine-sortable.git"
+    "engine-sortable": "https://github.com/lukasoppermann/engine-sortable.git"
   },
   "devDependencies": {}
 }

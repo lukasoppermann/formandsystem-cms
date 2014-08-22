@@ -3,12 +3,12 @@
 require.config({
 	baseUrl: "/js/bower_components",
 	paths:{
-		"dev": "../dev",
+		'dev': "../dev",
 		'mark': "../dev/mark"
 	}
 });
 
-require(['dev/engine/engine', 'dev/engine/functions/create'], function(_){
+require(["../dev/engine/engine.js", "../dev/engine/functions/create.js"], function(_){
 	window._ = _;
 });
 
