@@ -1,0 +1,57 @@
+<?php echo Form::open(array('route' => array('content.update', $content['id']), 'method' => 'put', 'data-article_id' => $content['article_id'] ) ); ?>
+
+<div class="content-wrapper">
+	<div class="page-settings">
+		<svg viewBox="0 0 512 512" class="icon-settings">
+		  <use xlink:href="#icon-settings"></use>
+		</svg>
+	</div>
+	<div class="options">
+		<?php echo Form::button('Save', array('class'=>'button blue save')); ?>
+
+	</div>
+		<div class="page-content">
+		<?php if( is_array($content['data']) ): ?>
+			<?php foreach( $content['data'] as $section ): ?>
+				<section class="block-content content-section grid" data-class="<?php echo e(app::make('Utilities')->variable($section['title'])); ?>">
+					<div class="settings">
+						<svg viewBox="0 0 512 512" class="icon-settings">
+						  <use xlink:href="#icon-settings"></use>
+						</svg>
+					</div>
+					<div class="section-drag-handle"></div>
+					<?php if( isset($section['children']) ): ?>
+						<?php foreach( $section['children'] as $block ): ?>
+
+							<div class="block resizable column-<?php echo e($block['column']); ?>of12" data-column="<?php echo e($block['column']); ?>" data-type="<?php echo e($block['type']); ?>" data-class="<?php echo e(app::make('Utilities')->variable($block['class'])); ?>">
+								<div class="settings">
+									<svg viewBox="0 0 512 512" class="icon-settings">
+									  <use xlink:href="#icon-settings"></use>
+									</svg>
+								</div>
+								<div class="drag-handle"></div>
+							<?php if($block['type'] === 'text'): ?>
+								<textarea class="mark block-content" name="text"><?php echo app::make('Utilities')->variable($block['content']); ?></textarea>
+							<?php elseif($block['type'] === 'image'): ?>
+								<img src="<?php echo e(app::make('Utilities')->variable($block['content']['src'])); ?>" alt="<?php echo e(app::make('Utilities')->variable($block['content']['description'])); ?>" class="image block-content"
+									 data-class="<?php echo e(app::make('Utilities')->variable($block['class'])); ?>" data-type="<?php echo e($block['type']); ?>" />
+							<?php endif; ?>
+								<div class="handle"></div>
+							</div>
+
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</section>
+			<?php endforeach; ?>
+		<?php endif; ?>
+		<section class="content-section" id="add_section">
+			<div class="add-content">
+				<span class="text add-block" data-type="text">+</span>
+			</div>
+		</section>
+	</div>
+
+</div>
+
+<?php echo Form::close(); ?>
+

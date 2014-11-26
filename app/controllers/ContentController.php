@@ -53,7 +53,7 @@ class ContentController extends \BaseController {
 	 */
 	public function show($id) // this is the edit form
 	{
-		if( $data = Api::get($id.'.json?language='.Config::get('content.locale')) )
+		if( $data = Api::get('pages/'.$id.'?language='.Config::get('content.locale')) )
 		{
 			$this->layout->content = View::make('content.edit')->with('content', $data);
 		}
@@ -73,10 +73,10 @@ class ContentController extends \BaseController {
 	public function update($id)
 	{
 		$content = Content::getPage($id);
-		
+
 		$content->title = Input::get('title');
 		$content->data = Input::get('content');
-		
+
 		return Api::put($id,[
 			'body' => Input::all()
 		]);
@@ -93,6 +93,6 @@ class ContentController extends \BaseController {
 	{
 		//['config' => ['secretkey' => 'Lukas']
 	}
-	
+
 
 }

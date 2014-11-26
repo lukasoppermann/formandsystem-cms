@@ -14,7 +14,6 @@
 		"laravelbook/ardent": "dev-master",
 		"mockery/mockery": "dev-master",
 		"phpunit/phpunit": "dev-master",
-		"way/generators": "dev-master",
 		"lukasoppermann/optimization": "*@dev",
 		"orangehill/iseed": "dev-master"
 	},

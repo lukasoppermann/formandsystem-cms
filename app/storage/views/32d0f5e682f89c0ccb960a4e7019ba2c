@@ -1,0 +1,7 @@
+<?php if(isset($errorCode)): ?>
+	<div class="message error">
+		<?php echo \Illuminate\Support\Facades\Lang::get('errors.'.$errorCode); ?>
+	</div>
+
+<?php endif; ?>
+

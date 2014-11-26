@@ -45,32 +45,23 @@ Route::get('/logout', function()
 
 Route::group(array('before' => 'auth'), function()
 {
-	Route::resource('/', 'contentController', 
-		array( 'except' => array('edit') ) 
-	);
-	// Route::get('/', 'DashboardController@index'); // replace with dashboard
+
+	// Route::get('/', 'contentController@index');
+	Route::get('/', function(){
+		return Api::page('1')->get(['language' => 'de']);
+	}); // replace with dashboard
 	// Route::get('/dashboard', 'DashboardController@index'); // replace with dashboard
 	//
 	// Content Controller
-	Route::resource('/content', 'contentController', 
-		array( 'except' => array('edit') ) 
+	Route::resource('/content', 'contentController',
+		array( 'except' => array('edit') )
 	);
-	
+
 	// Route::get('/content/{lang?}/{link?}', 'ContentController@index');
-	// 
+	//
 	// Route::post('/content/{lang?}/{link?}', 'ContentController@store');
 
 	Route::controller('users', 'UsersController');
 
 	// Route::get('/{lang?}/{link?}', 'ContentController@index');
 });
-
-Route::group(array('prefix' => 'api/v1', 'before' => array('auth.basic')), function()
-{
-	// Route::get('stream/{item?}/{contenttype?}/{content?}', 'ApiController@index');
-	// Route::get('stream/{item?}/{contenttype?}/{content?}', 'ApiController@show');
-	//
-	// Route::put('stream/{item?}', 'ApiController@update');
-	Route::resource('stream', 'StreamapiController');
-});
-
