@@ -1,14 +1,22 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
-	"license": "MIT",
+	"name": "formandsystem/cms",
+	"description": "The Form&System CMS.",
+	"keywords": ["cms", "formandsystem"],
 	"type": "project",
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/formandsystem/api.git"
+		}
+	],
 	"require": {
 		"laravel/framework": "~5.0"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "~4.0"
+		"phpunit/phpunit": "~4.0",
+		"phpspec/phpspec": "~2.1@dev",
+		"fzaninotto/faker": "~1.5@dev",
+		"mockery/mockery": "~0.9@dev"
 	},
 	"autoload": {
 		"classmap": [
