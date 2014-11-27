@@ -1,9 +1,22 @@
-/*****************
-*  Fonts
-******************/
-/*****************
-*  Colors
-******************/
-/*****************
-*  Fonts
-******************/
+html {
+  font-size: 62.5%;
+  /* now 1rem = 10px*/
+  box-sizing: border-box;
+}
+body {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif, 'Helevtica Neue', Arial, sans-serif;
+  margin: 0;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+.navigation {
+  position: fixed;
+  height: 100%;
+  float: left;
+  width: 27em;
+  background: #2c3239;
+  color: #ffffff;
+}

@@ -11,7 +11,7 @@
 |
 */
 
-$router->get('/', 'WelcomeController@index');
+$router->get('/', 'DashboardController@index');
 
 $router->get('/home', 'HomeController@index');
 
