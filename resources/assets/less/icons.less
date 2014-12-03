@@ -1,0 +1,23 @@
+// ********************
+// Icons general
+//
+.svg-icon-sprite{
+  display: none;
+}
+[class*="icon-"]{
+  display: block;
+  position: relative;
+  height: @base-icon-size;
+  width: @base-icon-size;
+  margin-right: @medium-icon-margin;
+  fill: @white;
+}
+.icon--left{
+  float: left;
+}
+// ********************
+// Specific icon styles
+//
+.icon-dark{
+  fill: @darkest-gray;
+}

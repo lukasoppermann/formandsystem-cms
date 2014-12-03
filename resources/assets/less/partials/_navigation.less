@@ -4,8 +4,184 @@
 .navigation{
   position: fixed;
   height: 100%;
+  width: 27rem;
+  background: @gray;
+  color: @white;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.navigation:before{
+  .pseudo-element;
+  position: fixed;
+  top: 0;
+  left: 26.6rem;
+  height: 100%;
+  width: .4rem;
+  background-color: fade(@darkest-gray, 25%);
+}
+.menu{
+  width: 100%;
+  .menu-link:hover{
+    background: darken(@gray,2%);
+  }
+}
+.menu-item{
+  position: relative;
+  width: 100%;
+  /* indetation */
+  .menu-item{
+    .menu-link{
+      padding-left: 3rem;
+    }
+    .menu-item{
+      .menu-link{
+        padding-left: 4.4rem;
+      }
+      .menu-item{
+        .menu-link{
+          padding-left: 5.8rem;
+        }
+      }
+    }
+  }
+}
+.menu-link{
+  .transition(background);
+  font-size: @base-font-size;
+  line-height: 100%;
+  color: @white;
+  display: block;
+  position: relative;
+  width: 100%;
+  height: @base-font-size + 4rem;
+  padding: 2rem 3.6rem 2rem 1.6rem;
+}
+
+.menu-link-text{
+  overflow: hidden;
+  text-overflow: clip;
+  display: inline-block;
+  white-space: nowrap;
+  height: @base-font-size;
+  width: ~"calc( 100% - @{base-icon-size} * 2 )";
+}
+
+.menu-link [class*="icon-"]{
+  margin-top: -.2rem;
+}
+// ********************
+// Navigation variations
+//
+.menu--dark{
+  position: fixed;
+  width: 27rem;
+  z-index: 10;
+  background: @dark-gray;
+  .menu-link:hover{
+    background: darken(@dark-gray,2%);
+  }
+}
+[class*="menu--fixed"]{
+  position: fixed;
+  width: 27rem;
+  left: 0;
+  z-index: 10;
+}
+.menu--fixed-top{
+  top: 0;
+}
+.menu--fixed-bottom{
+  bottom: 0;
+}
+// ********************
+// Main Navigation Shame
+//
+.menu-link--icon-right{
+  padding-right: @base-icon-size;
+}
+.menu-link--icon-right:before{
+  .pseudo-element;
+  position: absolute;
+  top: 0;
+  right: ~"calc(@{base-icon-size} + (2 * @{large-icon-margin}) )";
+  height: 100%;
+  width: 2em;
+  // background-image: linear-gradient( right, @dark-gray, fade(@dark-gray,0));
+}
+.menu-link--icon{
+  .transition(~"background, color");
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: ~"calc(@{base-icon-size} + (2 * @{large-icon-margin}) )";
+  padding: 1.7rem 2rem;
+  color: fade(@white, 75%);
+}
+.menu-link--icon:hover{
+  color: fade(@white, 100%);
+}
+.menu--yellow{
+  background-color: @brand-yellow;
+  box-shadow: 0 2px 0px fade(@darkest-gray, 25%);
+  .menu-link{
+    color: @darkest-gray;
+  }
+  .menu-link--icon{
+    background-color: @brand-yellow-dark;
+  }
+  .icon-search{
+    fill: @darkest-gray;
+  }
+}
+.menu--dark{
+  background-color: @dark-gray;
+  box-shadow: 0 -2px 0px fade(@darkest-gray, 10%);
+  .menu-link{
+    color: @white;
+  }
+  .menu-link--icon{
+    background-color: darken(@dark-gray,3%);
+  }
+}
+// ********************
+// Main Navigation
+//
+#mainnav li .search, #mainnav li .settings{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 5.6em;
+  height: 2em;
+  padding: 1.6em 0;
+  display: block;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+/* icons */
+
+#mainnav li .search [class*="icon-"], #mainnav li .settings [class*="icon-"]{
+  margin-left: 50%;
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+}
+.nav-link [class*="icon-"], .page-link-container [class*="icon-"]{
   float: left;
-  width: 27em;
-  background: rgb(44,50,57);
-  color: rgb(255,255,255);
+  padding-right: .75em;
+}
+.page-link-container [class*="icon-"]{
+  margin-top: .2em;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.page-outline{
+  opacity: 0.25;
+}
+.media(@breakpoint) {
+  @media screen and (min-width: @breakpoint)
+}
+.media(1000px){
+  body{
+    background-color: red;
+  }
 }

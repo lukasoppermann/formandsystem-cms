@@ -1,10 +1,14 @@
+.circle {
+  border-radius: 50%;
+}
 html {
   font-size: 62.5%;
   /* now 1rem = 10px*/
   box-sizing: border-box;
 }
 body {
-  font-family: "Montserrat", Helvetica, Arial, sans-serif, 'Helevtica Neue', Arial, sans-serif;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 400;
   margin: 0;
 }
 *,
@@ -12,11 +16,209 @@ body {
 *:after {
   box-sizing: inherit;
 }
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+.svg-icon-sprite {
+  display: none;
+}
+[class*="icon-"] {
+  display: block;
+  position: relative;
+  height: 2rem;
+  width: 2rem;
+  margin-right: 1rem;
+  fill: #ffffff;
+}
+.icon--left {
+  float: left;
+}
+.icon-dark {
+  fill: #0f1419;
+}
+@-webkit-keyframes ripple {
+  
+}
+@keyframes ripple {
+  
+}
 .navigation {
   position: fixed;
   height: 100%;
-  float: left;
-  width: 27em;
+  width: 27rem;
   background: #2c3239;
   color: #ffffff;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.navigation:before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 26.6rem;
+  height: 100%;
+  width: .4rem;
+  background-color: rgba(15, 20, 25, 0.25);
+}
+.menu {
+  width: 100%;
+}
+.menu .menu-link:hover {
+  background: #282d33;
+}
+.menu-item {
+  position: relative;
+  width: 100%;
+  /* indetation */
+}
+.menu-item .menu-item .menu-link {
+  padding-left: 3rem;
+}
+.menu-item .menu-item .menu-item .menu-link {
+  padding-left: 4.4rem;
+}
+.menu-item .menu-item .menu-item .menu-item .menu-link {
+  padding-left: 5.8rem;
+}
+.menu-link {
+  -webkit-transition-property: background;
+          transition-property: background;
+  -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease;
+          transition-timing-function: ease;
+  -webkit-transition-delay: 0;
+          transition-delay: 0;
+  font-size: 1.6rem;
+  line-height: 100%;
+  color: #ffffff;
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 5.6rem;
+  padding: 2rem 3.6rem 2rem 1.6rem;
+}
+.menu-link-text {
+  overflow: hidden;
+  text-overflow: clip;
+  display: inline-block;
+  white-space: nowrap;
+  height: 1.6rem;
+  width: calc( 100% - 2rem * 2 );
+}
+.menu-link [class*="icon-"] {
+  margin-top: -0.2rem;
+}
+.menu--dark {
+  position: fixed;
+  width: 27rem;
+  z-index: 10;
+  background: #23282d;
+}
+.menu--dark .menu-link:hover {
+  background: #1f2327;
+}
+[class*="menu--fixed"] {
+  position: fixed;
+  width: 27rem;
+  left: 0;
+  z-index: 10;
+}
+.menu--fixed-top {
+  top: 0;
+}
+.menu--fixed-bottom {
+  bottom: 0;
+}
+.menu-link--icon-right {
+  padding-right: 2rem;
+}
+.menu-link--icon-right:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: calc(2rem + (2 * 2rem) );
+  height: 100%;
+  width: 2em;
+}
+.menu-link--icon {
+  -webkit-transition-property: background, color;
+          transition-property: background, color;
+  -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease;
+          transition-timing-function: ease;
+  -webkit-transition-delay: 0;
+          transition-delay: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: calc(2rem + (2 * 2rem) );
+  padding: 1.7rem 2rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+.menu-link--icon:hover {
+  color: #ffffff;
+}
+.menu--yellow {
+  background-color: #ffd200;
+  box-shadow: 0 2px 0px rgba(15, 20, 25, 0.25);
+}
+.menu--yellow .menu-link {
+  color: #0f1419;
+}
+.menu--yellow .menu-link--icon {
+  background-color: #f0be00;
+}
+.menu--yellow .icon-search {
+  fill: #0f1419;
+}
+.menu--dark {
+  background-color: #23282d;
+  box-shadow: 0 -2px 0px rgba(15, 20, 25, 0.1);
+}
+.menu--dark .menu-link {
+  color: #ffffff;
+}
+.menu--dark .menu-link--icon {
+  background-color: #1c2024;
+}
+#mainnav li .search,
+#mainnav li .settings {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 5.6em;
+  height: 2em;
+  padding: 1.6em 0;
+  display: block;
+  box-sizing: content-box;
+}
+/* icons */
+#mainnav li .search [class*="icon-"],
+#mainnav li .settings [class*="icon-"] {
+  margin-left: 50%;
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+}
+.nav-link [class*="icon-"],
+.page-link-container [class*="icon-"] {
+  float: left;
+  padding-right: .75em;
+}
+.page-link-container [class*="icon-"] {
+  margin-top: .2em;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.page-outline {
+  opacity: 0.25;
 }
