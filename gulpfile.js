@@ -13,7 +13,7 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix
-    .less('app.less', 'app.css', {'strictMath': true, 'strictUnits': true})
+    .less('app.less')
     .phpSpec()
     .phpUnit();
 });

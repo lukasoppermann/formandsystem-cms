@@ -2,18 +2,16 @@
 // General Navigation Style
 //
 .navigation{
-  position: fixed;
+  position: absolute;
   height: 100%;
   width: 27rem;
   background: @gray;
   color: @white;
-  overflow-x: hidden;
-  overflow-y: scroll;
 }
 .navigation:before{
   .pseudo-element;
-  position: fixed;
   top: 0;
+  z-index: 9;
   left: 26.6rem;
   height: 100%;
   width: .4rem;
@@ -25,13 +23,19 @@
     background: darken(@gray,2%);
   }
 }
+.menu-overflow{
+  height: ~"calc( 100% - 2 * ( @{base-font-size} + 4rem) )";
+  margin-top: @base-font-size + 4rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 .menu-item{
   position: relative;
   width: 100%;
   /* indetation */
   .menu-item{
     .menu-link{
-      padding-left: 3rem;
+      padding-left: 3.2rem;
     }
     .menu-item{
       .menu-link{
@@ -54,18 +58,26 @@
   position: relative;
   width: 100%;
   height: @base-font-size + 4rem;
-  padding: 2rem 3.6rem 2rem 1.6rem;
+  padding: 2.1rem 3.6rem 1.9rem 1.6rem;
 }
 
 .menu-link-text{
+  position: relative;
   overflow: hidden;
   text-overflow: clip;
   display: inline-block;
   white-space: nowrap;
-  height: @base-font-size;
+  height: 100%;
   width: ~"calc( 100% - @{base-icon-size} * 2 )";
 }
-
+.menu-link-text--fade:before{
+  .pseudo-element;
+  top: 0;
+  right: 0;
+  width: 3rem;
+  height: 100%;
+  background-image: linear-gradient( left, fade(@dark-gray,0), @dark-gray);
+}
 .menu-link [class*="icon-"]{
   margin-top: -.2rem;
 }
@@ -108,13 +120,15 @@
   width: 2em;
   // background-image: linear-gradient( right, @dark-gray, fade(@dark-gray,0));
 }
-.menu-link--icon{
+.menu-link-icon{
   .transition(~"background, color");
   position: absolute;
   right: 0;
   top: 0;
   width: ~"calc(@{base-icon-size} + (2 * @{large-icon-margin}) )";
-  padding: 1.7rem 2rem;
+  height: 100%;
+  padding: 1.8rem 2rem;
+  margin-right: 0;
   color: fade(@white, 75%);
 }
 .menu-link--icon:hover{
@@ -123,23 +137,43 @@
 .menu--yellow{
   background-color: @brand-yellow;
   box-shadow: 0 2px 0px fade(@darkest-gray, 25%);
+  &:before{
+    .pseudo-element;
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    left: 26.6rem;
+    height: 100%;
+    width: .4rem;
+    background-color: fade(@darkest-gray, 3%);
+  }
   .menu-link{
     color: @darkest-gray;
   }
-  .menu-link--icon{
-    background-color: @brand-yellow-dark;
+  .menu-link:hover{
+    background-color: @brand-yellow-medium;
   }
-  .icon-search{
-    fill: @darkest-gray;
+  .menu-link-icon{
+    background-color: @brand-yellow-dark;
   }
 }
 .menu--dark{
   background-color: @dark-gray;
   box-shadow: 0 -2px 0px fade(@darkest-gray, 10%);
+  &:before{
+    .pseudo-element;
+    position: fixed;
+    bottom: 0;
+    z-index: 9;
+    left: 26.9rem;
+    height: 100%;
+    width: .1rem;
+    background-color: fade(@darkest-gray, 0%);
+  }
   .menu-link{
     color: @white;
   }
-  .menu-link--icon{
+  .menu-link-icon{
     background-color: darken(@dark-gray,3%);
   }
 }

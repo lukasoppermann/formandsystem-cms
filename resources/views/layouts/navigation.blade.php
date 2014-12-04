@@ -2,22 +2,22 @@
   <ul class="menu menu--fixed-top">
     <li class="menu-item menu--yellow">
       <a class="menu-link menu-link--icon-right" href="#">
-        <svg viewBox="0 0 512 512" class="icon-dark icon--left">
+        <svg viewBox="0 0 512 512" class="icon--dark icon--left">
           <use xlink:href="#icon-formandsystem"></use>
         </svg>
         <span class="menu-link-text">
           Dashboard
         </span>
       </a>
-      <a href="#search" class="menu-link menu-link--icon search">
-        <svg viewBox="0 0 512 512" class="icon-search icon--left">
+      <a href="#search" class="menu-link-icon search">
+        <svg viewBox="0 0 512 512" class="icon-search icon--dark icon--left">
           <use xlink:href="#icon-search"></use>
         </svg>
       </a>
     </li>
   </ul>
 
-  <ul class="menu">
+  <ul class="menu menu-overflow">
     <li class="is-active menu-item">
       <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
         <svg viewBox="0 0 512 512" class="icon-page icon--left">
@@ -170,9 +170,9 @@
       <li class="menu-item settings">
         <a class="menu-link menu-link--icon-right" href="#">
           <!-- <div class="icon-user icon--left"></div> -->
-          <span class="menu-link-text">Lukas Oppermannnnnnnnn</span>
+          <span class="menu-link-text menu-link-text--fade">Lukas Oppermannnnnnnnn</span>
         </a>
-        <a href="#settings" class="menu-link menu-link--icon">
+        <a href="#settings" class="menu-link-icon icon--white">
           <svg viewBox="0 0 512 512" class="icon-settings">
             <use xlink:href="#icon-settings"></use>
           </svg>
