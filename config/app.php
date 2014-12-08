@@ -116,6 +116,8 @@ return [
 		'App\Providers\AppServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
+		'Illuminate\Html\HtmlServiceProvider',
+		'Formandsystem\Api\ApiServiceProvider',
 
 		/*
 		 * Laravel Framework Service Providers...
@@ -198,7 +200,8 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-
+		'Form'			=> 'Illuminate\Html\FormFacade',
+		'HTML'			=> 'Illuminate\Html\HtmlFacade',
 	],
 
 ];

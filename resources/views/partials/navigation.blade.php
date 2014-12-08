@@ -1,3 +1,8 @@
+<?
+  $items = Api::stream('navigation')->get(['limit' => 100, 'language' => Config::get('app.locale')]);
+  dd($items);
+?>
+
 <nav class="navigation">
   <ul class="menu menu--fixed-top">
     <li class="menu-item menu--yellow">
@@ -18,46 +23,91 @@
   </ul>
 
   <ul class="menu menu-overflow">
-    <li class="is-active menu-item">
+    <li class="menu-li-item">
       <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
         <svg viewBox="0 0 512 512" class="icon-page icon--left">
           <use xlink:href="#icon-page"></use>
         </svg>
         <span class="menu-link-text">Menü Eintrag</span>
       </a>
-      <!-- <a href="#visible" class="edit-tool status"><span class="active icon icon-eye"></span></a>
-      <div class="edit-tool page-link-container">
-        <label>
-          <svg viewBox="0 0 512 512" class="icon-link">
-            <use xlink:href="#icon-link"></use>
-          </svg>
-          <input class="page-link" type="text" value="" placeholder="/link-to-page" />
-        </label>
-      </div>
-      <a class="edit-tool delete" href="'.url('/content/destroy/'.$itemContent['id']).'">delete</a> -->
-
       <ul class="menu">
-        <li class="is-active menu-item">
-          <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
-            <svg viewBox="0 0 512 512" class="icon-page icon--left">
-              <use xlink:href="#icon-page"></use>
-            </svg>
-            <span class="menu-link-text">Menü Eintrag</span>
-          </a>
+        <li class="menu-li-item">
+          <div class="menu-item is-active">
+
+            <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
+              <svg viewBox="0 0 512 512" class="icon-page icon--left">
+                <use xlink:href="#icon-page"></use>
+              </svg>
+              <span class="menu-link-text menu-link-fade-right menu-link-fade-right--blue">Menü Eintrag Aktiv fdsasdfsdf sdfgsdf</span>
+            </a>
+
+            <a href="#visible" class="menu-item-status menu-link-icon menu-link--icon-right">
+              <svg viewBox="0 0 512 512" class="icon-eye icon--right">
+                <use xlink:href="#icon-eye"></use>
+              </svg>
+              <svg viewBox="0 0 512 512" class="icon-eye-closed icon--right">
+                <use xlink:href="#icon-eye-closed"></use>
+              </svg>
+            </a>
+          </div>
+          <div class="menu-item-options">
+            <label class="menu-item-options-link">
+              <svg viewBox="0 0 512 512" class="icon-link icon--left">
+                <use xlink:href="#icon-link"></use>
+              </svg>
+              <input class="link-input" type="text" value="" placeholder="/link-to-page" />
+            </label>
+            <div class="menu-item-options-bottom">
+              <a class="menu-item-options-delete" href="'.url('/content/destroy/'.$itemContent['id']).'">delete</a>
+            </div>
+          </div>
+
           <ul class="menu">
-            <li class="is-active menu-item">
-              <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
-                <svg viewBox="0 0 512 512" class="icon-page icon--left">
-                  <use xlink:href="#icon-page"></use>
-                </svg>
-                <span class="menu-link-text">Menü Eintrag</span>
-              </a>
-            </li>
+            <li class="menu-li-item">
+              <div class="menu-item">
+                <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
+                  <svg viewBox="0 0 512 512" class="icon-page icon--left">
+                    <use xlink:href="#icon-page"></use>
+                  </svg>
+                  <span class="menu-link-text menu-link-fade-right">Menü Eintrag dsfaasdfsdfasdfsdaf</span>
+                </a>
+                <a href="#visible" class="menu-item-status menu-link-icon menu-link--icon-right">
+                  <svg viewBox="0 0 512 512" class="icon-eye icon--right">
+                    <use xlink:href="#icon-eye"></use>
+                  </svg>
+                  <svg viewBox="0 0 512 512" class="icon-eye-closed icon--right">
+                    <use xlink:href="#icon-eye-closed"></use>
+                  </svg>
+                </a>
+              </div>
+            <ul class="menu">
+              <li class="menu-li-item">
+                <div class="menu-item">
+                  <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
+                    <svg viewBox="0 0 512 512" class="icon-page icon--left">
+                      <use xlink:href="#icon-page"></use>
+                    </svg>
+                    <span class="menu-link-text">Menü Eintrag</span>
+                  </a>
+                </div>
+              </li>
+              <li class="menu-li-item">
+                <div class="menu-item">
+                  <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
+                    <svg viewBox="0 0 512 512" class="icon-page icon--left">
+                      <use xlink:href="#icon-page"></use>
+                    </svg>
+                    <span class="menu-link-text">Menü Eintrag</span>
+                  </a>
+                </div>
+              </li>
+            </ul>
           </ul>
+        </li>
         </li>
       </ul>
     </li>
-    <li class="menu-item">
+    <li class="menu-li-item">
       <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
         <svg viewBox="0 0 512 512" class="icon-page icon--left">
           <use xlink:href="#icon-page"></use>
@@ -65,7 +115,7 @@
         <span class="menu-link-text">Menü Eintrag</span>
       </a>
     </li>
-    <li class="menu-item">
+    <li class="menu-li-item">
       <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
         <svg viewBox="0 0 512 512" class="icon-page icon--left">
           <use xlink:href="#icon-page"></use>
@@ -73,7 +123,7 @@
         <span class="menu-link-text">Menü Eintrag</span>
       </a>
     </li>
-    <li class="menu-item">
+    <li class="menu-li-item">
       <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
         <svg viewBox="0 0 512 512" class="icon-page icon--left">
           <use xlink:href="#icon-page"></use>
@@ -81,7 +131,7 @@
         <span class="menu-link-text">Menü Eintrag</span>
       </a>
     </li>
-    <li class="menu-item">
+    <li class="menu-li-item">
       <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
         <svg viewBox="0 0 512 512" class="icon-page icon--left">
           <use xlink:href="#icon-page"></use>
@@ -170,7 +220,7 @@
       <li class="menu-item settings">
         <a class="menu-link menu-link--icon-right" href="#">
           <!-- <div class="icon-user icon--left"></div> -->
-          <span class="menu-link-text menu-link-text--fade">Lukas Oppermannnnnnnnn</span>
+          <span class="menu-link-text menu-link-fade-right menu-link-fade-right--dark">Lukas Oppermannnnnnnnn</span>
         </a>
         <a href="#settings" class="menu-link-icon icon--white">
           <svg viewBox="0 0 512 512" class="icon-settings">

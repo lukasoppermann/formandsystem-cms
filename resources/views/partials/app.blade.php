@@ -10,7 +10,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1,maximum-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <link rel="stylesheet" href="{{{asset('css/app.css')}}}">
-  <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <!-- <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
+  <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:500,300' rel='stylesheet' type='text/css'> -->
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css'>
   <title>{{$title or ''}} | Form&System</title>
 </head>
 <body>
@@ -20,13 +22,14 @@
     @include('misc.error', array('error' => $error))
   @endif
 
-  @include('layouts.navigation')
+  @include('partials/navigation')
 
   <div id="content">
+    @include('partials/contentEditor')
     @yield('content','')
   </div>
 
-  <script data-main="{{asset('/js/main')}}" src="{{asset('/js/bower_components/requirejs/require.js')}}"></script>
+  {{--<script data-main="{{asset('/js/main')}}" src="{{asset('/js/bower_components/requirejs/require.js')}}"></script>--}}
 
 </body>
 </html>
