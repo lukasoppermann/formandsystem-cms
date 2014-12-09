@@ -30,6 +30,6 @@
   </div>
 
   {{--<script data-main="{{asset('/js/main')}}" src="{{asset('/js/bower_components/requirejs/require.js')}}"></script>--}}
-
+  <script src="{{asset('/js/app.js')}}"></script>
 </body>
 </html>

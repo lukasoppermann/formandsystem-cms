@@ -113,6 +113,7 @@ select {
   content: "";
   display: block;
   position: absolute;
+  z-index: 10;
   border-style: solid;
   border-width: 0.8rem;
   border-color: #417de1 transparent transparent transparent;
@@ -173,6 +174,10 @@ select {
   background-image: -webkit-linear-gradient(left, rgba(44, 50, 57, 0), #2c3239 95%);
   background-image: linear-gradient(left, rgba(44, 50, 57, 0), #2c3239 95%);
 }
+.is-active .menu-link-fade-right:before {
+  background-image: -webkit-linear-gradient(left, rgba(65, 125, 225, 0), #417de1 95%);
+  background-image: linear-gradient(left, rgba(65, 125, 225, 0), #417de1 95%);
+}
 .menu-link-fade-right--dark:before {
   background-image: -webkit-linear-gradient(left, rgba(35, 40, 45, 0), #23282d 95%);
   background-image: linear-gradient(left, rgba(35, 40, 45, 0), #23282d 95%);
@@ -180,10 +185,6 @@ select {
 .menu-link-fade-right--dark:hover:before {
   background-image: -webkit-linear-gradient(left, rgba(31, 35, 39, 0), #1f2327 95%);
   background-image: linear-gradient(left, rgba(31, 35, 39, 0), #1f2327 95%);
-}
-.menu-link-fade-right--blue:before {
-  background-image: -webkit-linear-gradient(left, rgba(65, 125, 225, 0), #417de1 95%);
-  background-image: linear-gradient(left, rgba(65, 125, 225, 0), #417de1 95%);
 }
 .menu-link [class*="icon-"] {
   margin-top: -0.2rem;
@@ -222,10 +223,13 @@ select {
   display: none;
 }
 .menu-item-options {
-  display: block;
   position: relative;
   box-shadow: inset 0 -0.1rem 0.1rem rgba(15, 20, 25, 0.05), inset 0 0.1rem 0.1rem rgba(15, 20, 25, 0.15);
   background-color: #23282d;
+  display: none;
+}
+.menu-item-options.is-active {
+  display: block;
 }
 .menu-item-options-link {
   position: relative;
@@ -247,8 +251,8 @@ select {
   background-color: transparent;
   border: none;
   width: 100%;
-  height: 5.6rem;
-  padding: 2.1rem 1.6rem 1rem 5rem;
+  height: 4.6rem;
+  padding: 1rem 1.6rem 0.5rem 5rem;
   font-size: 1.6rem;
   line-height: 1.6rem;
   color: #ffffff;
@@ -257,7 +261,7 @@ select {
 .menu-item-options-link .icon-link {
   z-index: 10;
   position: absolute;
-  top: 2.1rem;
+  top: 1.6rem;
   left: 2.4rem;
 }
 /* TODO: Shame */
