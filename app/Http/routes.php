@@ -11,9 +11,13 @@
 |
 */
 
-$router->get('/', 'DashboardController@index');
+$router->get('/{dashboard}', 'DashboardController@index')->where('dashboard', '(dashboard)?');
 
-$router->get('/home', 'HomeController@index');
+$router->get('/settings/{item?}', 'SettingsController@index');
+
+$router->resource('users', 'UsersController');
+
+$router->resource('pages', 'PagesController', ['except' => ['edit']]);
 
 /*
 |--------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 var elixir = require('laravel-elixir');
 
+require('./resources/assets/ingredients/svgsprite.js');
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -15,5 +16,6 @@ elixir(function(mix) {
     mix
     .less('app.less')
     .phpSpec()
-    .phpUnit();
+    .phpUnit()
+    .svgsprite();
 });

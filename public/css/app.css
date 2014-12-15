@@ -81,11 +81,17 @@ select {
 .menu {
   width: 100%;
 }
-.menu-overflow {
+.menu--overflow {
   height: calc( 100% - 2 * ( 1.6rem + 4rem) );
   margin-top: 5.6rem;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+.menu--fixed-top {
+  top: 0;
+}
+.menu--fixed-bottom {
+  bottom: 0;
 }
 .menu-item {
   display: block;
@@ -99,9 +105,6 @@ select {
           transition-timing-function: ease;
   -webkit-transition-delay: 0;
           transition-delay: 0;
-}
-.menu-item:hover {
-  background: #282d33;
 }
 .menu-item.is-active {
   background: #23282d;
@@ -127,7 +130,10 @@ select {
   position: relative;
   width: 100%;
   height: 5.6rem;
-  padding: 2rem 3.2rem 1.8rem 0.8rem;
+  padding: 2rem 3.2rem 1.8rem 1rem;
+}
+.menu-link:hover {
+  background: #282d33;
 }
 .menu-li-item .menu-li-item .menu-link {
   padding-left: 2.4rem;
@@ -203,12 +209,6 @@ select {
   width: 27rem;
   left: 0;
   z-index: 10;
-}
-.menu--fixed-top {
-  top: 0;
-}
-.menu--fixed-bottom {
-  bottom: 0;
 }
 .menu-item-status .icon-eye {
   display: none;
@@ -378,6 +378,12 @@ select {
 }
 .menu--dark .menu-link-icon {
   background-color: #1c2024;
+}
+.content-body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin-left: 27rem;
+  max-height: 100%;
 }
 #content {
   margin-left: 27rem;

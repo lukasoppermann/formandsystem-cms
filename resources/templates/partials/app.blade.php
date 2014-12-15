@@ -24,8 +24,7 @@
 
   @include('partials/navigation')
 
-  <div id="content">
-    @include('partials/contentEditor')
+  <div class="content-body">
     @yield('content','')
   </div>
 

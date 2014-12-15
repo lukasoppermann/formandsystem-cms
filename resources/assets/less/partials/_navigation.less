@@ -20,20 +20,23 @@
 .menu{
   width: 100%;
 }
-.menu-overflow{
+.menu--overflow{
   height: ~"calc( 100% - 2 * ( @{base-font-size} + 4rem) )";
   margin-top: @base-font-size + 4rem;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+.menu--fixed-top{
+  top: 0;
+}
+.menu--fixed-bottom{
+  bottom: 0;
 }
 .menu-item{
   display: block;
   position: relative;
   width: 100%;
   .transition(background);
-  &:hover{
-    background: darken(@gray,2%);
-  }
   &.is-active{
     .menu-link{
       background: @blue;
@@ -57,7 +60,10 @@
   position: relative;
   width: 100%;
   height: @base-font-size + 4rem;
-  padding: 2rem @medium-unit*4 1.8rem @medium-unit;
+  padding: 2rem @medium-unit*4 1.8rem @base-unit*2;
+  &:hover{
+    background: darken(@gray,2%);
+  }
 }
 .menu-li-item .menu-li-item .menu-link{
     padding-left: @medium-unit*3;
@@ -131,12 +137,6 @@
   width: 27rem;
   left: 0;
   z-index: 10;
-}
-.menu--fixed-top{
-  top: 0;
-}
-.menu--fixed-bottom{
-  bottom: 0;
 }
 // ********************
 // Main Page nav edit ioptions

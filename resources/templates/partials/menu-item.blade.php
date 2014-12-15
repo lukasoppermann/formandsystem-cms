@@ -1,16 +1,20 @@
+<?
+$content = $item['content'][\Config::get('content.locale')];
+?>
+
 <li class="menu-li-item">
   <div class="menu-item">
 
-    <a class="menu-link" rel="dns-prefetch" data-id="1" href="test">
+    <a class="menu-link" rel="dns-prefetch" data-id="1" href="{{url("pages/".$content['link'])}}">
       <svg viewBox="0 0 512 512" class="icon-page icon--left">
         <use xlink:href="#icon-page"></use>
       </svg>
       <span class="menu-link-text menu-link-fade-right menu-link-fade-right">
-        {{$content[$language]['menu_label']}}
+        {{$content['menu_label']}}
       </span>
     </a>
 
-    <a href="#visible" class="menu-item-status<?=($content[$language]['published'] === 1 ? ' is-published': '')?> menu-link-icon menu-link--icon-right">
+    <a href="#visible" class="menu-item-status<?=($content['published'] === 1 ? ' is-published': '')?> menu-link-icon menu-link--icon-right">
       <svg viewBox="0 0 512 512" class="icon-eye icon--right">
         <use xlink:href="#icon-eye"></use>
       </svg>

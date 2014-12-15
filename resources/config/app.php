@@ -107,6 +107,15 @@ return [
 	| this array to grant expanded functionality to your applications.
 	|
 	*/
+	// TODO: remove once tayler releases laravel workbench package
+	'fs_api' => [
+		'url'           => 'http://api.formandsystem.local',
+		'version'       => '1',
+		'client_id'     => $_ENV['FS_API_CLIENT_ID'],
+		'client_secret' => $_ENV['FS_API_CLIENT_SECRET'],
+		'scope'         => 'content.read',
+		'cache' 				=> false
+	],
 
 	'providers' => [
 
