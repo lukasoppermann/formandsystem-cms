@@ -8,7 +8,7 @@ elixir.extend('svgsprite', function() {
    var cheerio = require('gulp-cheerio');
 
    gulp.task('svgsprite', function() {
-    gulp.src('svg/*.svg')
+    gulp.src('resources/assets/svg/*.svg')
      .pipe(svgmin())
      .pipe(svgstore({ fileName: 'svg-sprite.svg', prefix: 'icon-', inlineSvg: true }))
       .pipe(cheerio({

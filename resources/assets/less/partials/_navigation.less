@@ -36,6 +36,7 @@
   display: block;
   position: relative;
   width: 100%;
+  font-weight: 300;
   .transition(background);
   &.is-active{
     .menu-link{
@@ -228,6 +229,9 @@
 // ********************
 // Main Navigation Shame
 //
+.menu-link--no-icon{
+  padding-left: @base-unit*3;
+}
 .menu-link--icon-right{
   padding-right: @base-icon-size;
 }

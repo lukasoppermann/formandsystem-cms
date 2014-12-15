@@ -115,14 +115,17 @@
   // $items = $items['data'];
   $items = Api::stream('navigation')->get(['limit' => 100, 'language' => \Config::get('content.locale')])['data'];
 
-  
+
 ?>
 
 <nav class="navigation">
-
-
   @include('shamefiles/menu-item-dashboard')
-    @include('partials/menu', ['items' => $items, 'classes' => 'menu--overflow'])
-  @include('shamefiles/menu-item-user')
+  @include('partials/menu', ['items' => $nav_items, 'template' => $template, 'classes' => 'menu--overflow'])
+
+<?
+  // @include('shamefiles/menu-item-dashboard')
+  //   @include('partials/menu', ['items' => $items, 'template' => 'partials/menu-item', 'classes' => 'menu--overflow'])
+  // @include('shamefiles/menu-item-user')
+  ?>
 
 </nav>

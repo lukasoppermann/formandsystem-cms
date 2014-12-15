@@ -15,7 +15,7 @@ require('./resources/assets/ingredients/svgsprite.js');
 elixir(function(mix) {
     mix
     .less('app.less')
+    .svgsprite()
     .phpSpec()
-    .phpUnit()
-    .svgsprite();
+    .phpUnit();
 });

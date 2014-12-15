@@ -97,6 +97,7 @@ select {
   display: block;
   position: relative;
   width: 100%;
+  font-weight: 300;
   -webkit-transition-property: background;
           transition-property: background;
   -webkit-transition-duration: 0.5s;
@@ -300,6 +301,9 @@ select {
   -webkit-transform: scale(1);
   -ms-transform: scale(1);
       transform: scale(1);
+}
+.menu-link--no-icon {
+  padding-left: 1.5rem;
 }
 .menu-link--icon-right {
   padding-right: 2rem;

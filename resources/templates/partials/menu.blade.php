@@ -3,6 +3,6 @@
   <? \Config::set('content.locale','de'); ?>
 
   @foreach ($items as $item)
-    @include('partials/menu-item', ['item' => $item] )
+    @include($template, ['item' => $item] )
   @endforeach
 </ul>

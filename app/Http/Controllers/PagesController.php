@@ -12,7 +12,10 @@ class PagesController extends AbstractController {
 	 */
 	public function index()
 	{
-		//
+		$page = \Api::stream('navigation')->get(['limit' => 1, 'language' => \Config::get('content.locale')])['data'];
+		$nav = \Api::stream('navigation')->get(['limit' => 100, 'language' => \Config::get('content.locale')])['data'];
+
+		return view('page', ['content' => $page[key($page)]['content'][$this->language], 'nav_items' => $nav, 'template' => 'partials/menu-item' ]);
 	}
 
 	/**
@@ -43,9 +46,10 @@ class PagesController extends AbstractController {
 	 */
 	public function show( $name )
 	{
+		$nav = \Api::stream('navigation')->get(['limit' => 100, 'language' => \Config::get('content.locale')])['data'];
 		$page = \Api::pages($name)->get(['language' => $this->language])['data'];
 
-		return view('page', ['content' => $page['content'][$this->language]]);
+		return view('page', ['content' => $page['content'][$this->language], 'nav_items' => $nav, 'template' => 'partials/menu-item']);
 	}
 
 	/**

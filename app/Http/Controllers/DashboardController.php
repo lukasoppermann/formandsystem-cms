@@ -28,7 +28,41 @@ class DashboardController extends Controller {
 	 */
 	public function index()
 	{
-		return view('dashboard');
+		return view('dashboard', ['nav_items' =>
+			[
+				[
+					'label' => 'Content',
+					'link'  => '/',
+					'icon'  => 'icon-page'
+				],
+				[
+					'label' => 'Fragments',
+					'link'  => '/',
+					'icon'  => 'icon-fragment'
+				],
+				[
+					'label' => 'Media',
+					'link'  => '/',
+					'icon'  => 'icon-media'
+				],
+				[
+					'label' => 'Settings',
+					'link'  => '/',
+					'icon'  => 'icon-settings'
+				],
+				[
+					'label' => 'Users',
+					'link'  => '/',
+					'icon'  => 'icon-users'
+				],
+				[
+					'label' => 'Lukas Oppermann',
+					'link'  => '/',
+					'icon'  => 'icon-user'
+				]
+			],
+			'template' => 'partials/main-menu-item'
+		]);
 	}
 
 }
