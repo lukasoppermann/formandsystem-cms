@@ -1,0 +1,23 @@
+.fragment{
+  padding: @size-xs @size-xs @size-xs @size-xs;
+  .rounded-corners;
+  .transition(~"border-color, box-shadow");
+  border: 1px solid transparent;
+  &:hover, &.is-focused{
+    border-color: @light-gray;
+    .shadow-sm--light;
+  }
+}
+.dragger{
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background-color: fade(red,50%);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.fragment .textarea{
+  width: 100%;
+}

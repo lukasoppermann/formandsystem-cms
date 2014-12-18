@@ -1,7 +1,9 @@
 {
-  "name": "Laravel Application",
+  "name": "Form&System CMS",
   "dependencies": {
-    "bootstrap-sass-official": "~3.3.1",
-    "font-awesome": "~4.2.0"
+    "codemirror": "~4.8.0",
+    "engine": "~0.3.2",
+    "mark": "~0.9.1",
+    "jquery": "~2.1.3"
   }
 }
