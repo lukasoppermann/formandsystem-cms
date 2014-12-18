@@ -1,5 +1,7 @@
 @extends('partials/app')
 
 @section('content')
-  @each('partials/section', $content['data'], 'section', 'partials/no-sections')
+  @if( count($content['sections']) > 0 )
+    @each('partials/section', $content['sections'], 'section')
+  @endif
 @stop

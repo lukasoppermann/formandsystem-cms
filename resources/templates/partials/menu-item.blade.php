@@ -3,7 +3,7 @@ $content = $item['content'][\Config::get('content.locale')];
 ?>
 
 <li class="menu-li-item">
-  <div class="menu-item">
+  <div class="menu-item{{ \Request::is('pages/'.$content['link']) ? ' is-active':''}}">
 
     <a class="menu-link" rel="dns-prefetch" data-id="1" href="{{url("pages/".$content['link'])}}">
       <svg viewBox="0 0 512 512" class="icon-page icon--left">
@@ -23,7 +23,7 @@ $content = $item['content'][\Config::get('content.locale')];
       </svg>
     </a>
   </div>
-  <div class="menu-item-options">
+  <div class="menu-item-options{{ \Request::is('pages/'.$content['link']) ? ' is-active':''}}">
     <label class="menu-item-options-link">
       <svg viewBox="0 0 512 512" class="icon-link icon--left">
         <use xlink:href="#icon-link"></use>

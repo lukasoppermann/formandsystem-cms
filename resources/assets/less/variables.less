@@ -26,14 +26,30 @@
 
 @white: rgb(255,255,255);
 
-@darkest-gray: rgb(15,20,25);
-@dark-gray: rgb(35,40,45);
+@lightest-gray: rgb(242,246,250);
+@light-gray: rgb(224,230,237);
+@medium-gray: rgb(144,150,157);
 @gray: rgb(44,50,57);
+@dark-gray: rgb(35,40,45);
+@darkest-gray: rgb(15,20,25);
+
 // *****************
 //  Radii
 //
-.circle{
+.circle(){
   border-radius: 50%;
+}
+.rounded-corners(){
+  border-radius: .3rem;
+}
+// *****************
+//  shadows
+//
+.shadow-sm(){
+  box-shadow: 0 1px 2px fade(@darkest-gray,15%);
+}
+.shadow-sm--light(){
+  box-shadow: 0 1px 2px fade(@darkest-gray,7.5%);
 }
 // *****************
 //  units
@@ -41,6 +57,16 @@
 @base-unit: .5rem;
 @medium-unit: .8rem;
 
+@size-xs: @base-unit;
+@size-xsplus: @medium-unit;
+@size-sm: @base-unit*2;
+@size-smplus: @base-unit*3;
+@size-md: @base-unit*4;
+@size-mdplus: @base-unit*5;
+@size-lg: @base-unit*6;
+@size-lgplus: @base-unit*7;
+@size-xl: @base-unit*8;
+@size-xlplus: @base-unit*9;
 // *****************
 //  Timing
 //

@@ -45,7 +45,7 @@
         .pseudo-element;
         z-index: 10;
         border-style: solid;
-        border-width: @medium-unit;
+        border-width: @size-xsplus;
         border-color: @blue transparent transparent transparent;
         bottom: -(@medium-unit*2);
       }
@@ -61,7 +61,7 @@
   position: relative;
   width: 100%;
   height: @base-font-size + 4rem;
-  padding: 2rem @medium-unit*4 1.8rem @base-unit*2;
+  padding: 2rem @medium-unit*4 1.8rem @size-sm;
   &:hover{
     background: darken(@gray,2%);
   }
@@ -167,16 +167,16 @@
     .pseudo-element;
     top: 0;
     height: @base-font-size + 4rem;
-    width: @base-unit*6;
-    right: @base-unit*3;
+    width: @size-lg;
+    right: @size-smplus;
     background-image: linear-gradient( left, fade(@dark-gray,0%), fade(@dark-gray,75%) 50%, @dark-gray);
   }
   .link-input{
     background-color: transparent;
     border: none;
     width: 100%;
-    height: @base-font-size + @base-unit*6;
-    padding: @base-unit*2 @medium-unit*2 @base-unit @base-icon-size+3rem;
+    height: @base-font-size + @size-lg;
+    padding: @size-sm @medium-unit*2 @size-sm @base-icon-size+3rem;
     font-size: @base-font-size;
     line-height: @base-font-size;
     color: @white;
@@ -200,8 +200,8 @@
   color: @white;
   display: inline-block;
   position: relative;
-  padding: @base-unit @base-unit*4 @base-unit*2 @base-unit*2;
-  margin: 0 @base-unit @base-unit 0;
+  padding: @size-xs @size-md @size-sm @size-sm;
+  margin: 0 @size-xs @size-xs 0;
 }
 
 .menu-item-options-delete::before {
@@ -230,7 +230,7 @@
 // Main Navigation Shame
 //
 .menu-link--no-icon{
-  padding-left: @base-unit*3;
+  padding-left: @size-smplus;
 }
 .menu-link--icon-right{
   padding-right: @base-icon-size;

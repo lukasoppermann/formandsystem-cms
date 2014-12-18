@@ -1,30 +1,15 @@
-// [].forEach.call( document.querySelectorAll( '.menu-link' ), function ( a ) {
-//   a.addEventListener( 'click', function (e) {
-//     [].forEach.call(document.querySelectorAll( '.menu-item' ), function ( item ) {
-//       item.classList.remove('is-active');
-//       while (item) {
-//         item = item.nextSibling;
-//         if ( item != undefined && item.nodeType === 1)
-//           break;
-//       }
-//       if (item != undefined && item.nodeType === 1)
-//       {
-//         item.classList.remove('is-active');
-//       }
-//     });
-//     item = a.parentNode;
-//     item.classList.add('is-active');
-//     while (item) {
-//       item = item.nextSibling;
-//       if ( item.nodeType === 1)
-//         break;
-//     }
-//
-//       if (item.nodeType === 1)
-//       {
-//           item.classList.add('is-active');
-//       }
-//
-//     e.preventDefault();
-//   }, false );
-// });
+$(function(){
+
+  $('body').on('mouseenter', '.js-editor-section-dragHandler', function(){
+    $(this).parents('.js-editor-section').addClass('drag-is-active');
+  }).on('mouseleave', '.js-editor-section-dragHandler', function(){
+    $(this).parents('.js-editor-section').removeClass('drag-is-active');
+  });
+
+    $('body').on('mouseenter', '.js-fragment', function(){
+      $(this).parents('.js-editor-section').addClass('child-is-active');
+    }).on('mouseleave', '.js-fragment', function(){
+      $(this).parents('.js-editor-section').removeClass('child-is-active');
+    });
+
+});
