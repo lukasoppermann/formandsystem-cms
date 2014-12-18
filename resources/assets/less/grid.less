@@ -1,0 +1,49 @@
+// ********************
+// Grid setup
+//
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.column {
+  flex: 1;
+  flex-direction: column;
+}
+// ********************
+// Column Mixin
+//
+.generate-columns(@n, @tag, @i: 1) when (@i =< @n) {
+  .column--@{tag}-@{i} {
+    flex: 0 0 (@i * 100% / @n);
+  }
+  .generate-columns(@n, @tag, (@i + 1));
+}
+// Offset Mixin
+//
+.generate-offset(@n, @tag, @i: 1) when (@i =< @n) {
+  .offset--@{tag}-@{i} {
+    margin-left: (@i * 100% / @n);
+  }
+  .generate-offset(@n, @tag, (@i + 1));
+}
+// ********************
+// Grid xs (e.g. mobile)
+//
+.generate-columns(12, xs);
+.generate-offset(12, xs);
+// ********************
+// Grid sm (e.g. tablet)
+//
+.generate-columns(12, sm);
+.generate-offset(12, sm);
+// ********************
+// Grid md (e.g. noteook)
+//
+.generate-columns(12, md);
+.generate-offset(12, md);
+// ********************
+// Grid lg (e.g. big screen)
+//
+.generate-columns(12, lg);
+.generate-offset(12, lg);
