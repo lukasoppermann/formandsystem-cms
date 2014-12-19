@@ -1510,9 +1510,7 @@ span.CodeMirror-selectedtext {
   background-color: #417de1;
 }
 .editor-section {
-  margin: 1rem;
-  width: calc(100% - 1rem*2);
-  border-radius: .3rem;
+  width: 100%;
   -webkit-transition-property: border-color, box-shadow;
           transition-property: border-color, box-shadow;
   -webkit-transition-duration: 0.5s;
@@ -1567,6 +1565,7 @@ span.CodeMirror-selectedtext {
   opacity: 1;
 }
 .editor-inner-section {
+  min-height: 100px;
   margin: 0.5rem 0.5rem 0.5rem 2.5rem;
 }
 .fragment {

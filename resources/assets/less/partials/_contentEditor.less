@@ -1,7 +1,5 @@
 .editor-section{
-  margin: @size-sm;
-  width: ~"calc(100% - @{size-sm}*2)";
-  .rounded-corners;
+  width: 100%;
   .transition(~"border-color, box-shadow");
   border: 1px solid transparent;
   &:hover{
@@ -40,5 +38,6 @@
   opacity: 1;
 }
 .editor-inner-section{
+  min-height: 100px;
   margin: @size-xs @size-xs @size-xs @size-mdplus;
 }
