@@ -1,4 +1,4 @@
-<div class="fragment js-fragment" draggable="true">
+<div class="fragment js-fragment">
   <div class="dragger"></div>
   @foreach($blueprint['setting']['fields'] as $name => $type)
 

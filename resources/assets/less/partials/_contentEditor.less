@@ -1,7 +1,7 @@
 .editor-section{
   width: 100%;
   .transition(~"border-color, box-shadow");
-  border: 1px solid transparent;
+  border-bottom: 1px solid @lightest-gray;
   &:hover{
     border-color: @light-gray;
     &.drag-is-active{
@@ -39,5 +39,5 @@
 }
 .editor-inner-section{
   min-height: 100px;
-  margin: @size-xs @size-xs @size-xs @size-mdplus;
+  padding: @size-xs @size-xs @size-xs @size-mdplus;
 }
