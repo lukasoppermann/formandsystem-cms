@@ -23,18 +23,20 @@
 	},
 	"autoload": {
 		"classmap": [
-			"database",
-			"tests/TestCase.php"
+			"database"
 		],
 		"psr-4": {
 			"App\\": "app/"
 		}
 	},
+	"autoload-dev": {
+		"classmap": [
+			"tests/TestCase.php"
+		]
+	},
 	"scripts": {
 		"post-install-cmd": [
 			"php artisan clear-compiled",
-			"php artisan route:scan",
-			"php artisan event:scan",
 			"php artisan optimize"
 		],
 		"post-update-cmd": [

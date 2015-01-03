@@ -78,7 +78,7 @@ return [
 	|
 	*/
 
-	'key' => env('APP_KEY') ?: 'YourSecretKey!!!',
+	'key' => env('APP_KEY', 'YourSecretKey!!!'),
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -120,19 +120,11 @@ return [
 	'providers' => [
 
 		/*
-		 * Application Service Providers...
-		 */
-		'App\Providers\AppServiceProvider',
-		'App\Providers\EventServiceProvider',
-		'App\Providers\RouteServiceProvider',
-		'Illuminate\Html\HtmlServiceProvider',
-		'Formandsystem\Api\ApiServiceProvider',
-
-		/*
 		 * Laravel Framework Service Providers...
 		 */
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
+		'Illuminate\Bus\BusServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',
 		'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
 		'Illuminate\Routing\ControllerServiceProvider',
@@ -144,6 +136,7 @@ return [
 		'Illuminate\Hashing\HashServiceProvider',
 		'Illuminate\Mail\MailServiceProvider',
 		'Illuminate\Pagination\PaginationServiceProvider',
+		'Illuminate\Pipeline\PipelineServiceProvider',
 		'Illuminate\Queue\QueueServiceProvider',
 		'Illuminate\Redis\RedisServiceProvider',
 		'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
@@ -152,20 +145,18 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 
+		/*
+		 * Application Service Providers...
+		 */
+		'App\Providers\AppServiceProvider',
+		'App\Providers\BusServiceProvider',
+		'App\Providers\ConfigServiceProvider',
+		'App\Providers\EventServiceProvider',
+		'App\Providers\RouteServiceProvider',
+		'Illuminate\Html\HtmlServiceProvider',
+		'Formandsystem\Api\ApiServiceProvider',
+
 	],
-
-	/*
-	|--------------------------------------------------------------------------
-	| Service Provider Manifest
-	|--------------------------------------------------------------------------
-	|
-	| The service provider manifest is used by Laravel to lazy load service
-	| providers which are not needed for each request, as well to keep a
-	| list of all of the services. Here, you may set its storage spot.
-	|
-	*/
-
-	'manifest' => storage_path().'/framework',
 
 	/*
 	|--------------------------------------------------------------------------

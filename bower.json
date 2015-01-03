@@ -3,6 +3,6 @@
   "dependencies": {
     "codemirror": "~4.8.0",
     "jquery": "components/jquery#~2.1",
-    "html.sortable": "https://github.com/lukasoppermann/html5sortable.git#master"
+    "nestable": "https://github.com/lukasoppermann/nestable.git"
   }
 }

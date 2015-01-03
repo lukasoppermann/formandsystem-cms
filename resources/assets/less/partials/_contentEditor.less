@@ -41,3 +41,18 @@
   min-height: 100px;
   padding: @size-xs @size-xs @size-xs @size-mdplus;
 }
+.js-nestable-placeholder{
+  position: relative;
+  background-color: @blue;
+}
+.js-nestable-placeholder:before{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: ~"calc(100% - 20px)";
+  height: ~"calc(100% - 20px)";
+  border: 2px dashed fade(@white,50%);
+  .rounded-corners;
+}

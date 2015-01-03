@@ -12,20 +12,21 @@ $(document).ready(function(){
     $(this).parents('.js-editor-section').removeClass('child-is-active');
   });
   //
-  $('.content-body').sortable({
-    item: '.js-editor-section',
+  nestable('.content-body', {
+    itemClass: 'js-editor-section',
+    handleClass: 'js-editor-section-dragHandler',
     forcePlaceholderSize: true,
-    handle: '.js-editor-section-dragHandler'
   });
 
 
-    $('.editor-inner-section').sortable({
-      item: '.column',
+    nestable('.editor-inner-section', {
+      itemClass: 'column',
+      handleClass: 'dragger',
       forcePlaceholderSize: true,
-      connectWith: '.editor-inner-section'
+      connectWith: 'editor-inner-section'
     });
-
-    $('.editor-inner-section').sortable('disable');
+    //
+    // nestable('.editor-inner-section', 'disable');
 
   $('.mark').each(function(){
     var _that = this;
@@ -39,7 +40,7 @@ $(document).ready(function(){
       _that.editor.on("mousedown", function(cm){
         _that.t = setTimeout(function() {
           $('.editor-inner-section').find('.dragger').show();
-          $('.editor-inner-section').sortable('enable');
+          nestable('.editor-inner-section', 'enable');
           console.log(_that.editor);
           _that.editor.getInputField().blur();
         }, 500);
@@ -95,7 +96,7 @@ $(document).ready(function(){
 $('.column').on('mousedown', function(e) {
   this.t = setTimeout(function() {
     $('.editor-inner-section').find('.dragger').show();
-    $('.editor-inner-section').sortable('enable');
+    nestable('.editor-inner-section', 'enable');
 
   }, 500);
 }).on('mouseup', function(e){

@@ -23,7 +23,7 @@ elixir(function(mix) {
       'vendor/bower_components/codemirror/addon/mode/overlay.js',
       'vendor/bower_components/codemirror/mode/markdown/markdown.js',
       'vendor/bower_components/codemirror/mode/gfm/gfm.js',
-      'vendor/bower_components/html.sortable/src/html.sortable.js',
+      'vendor/bower_components/nestable/dist/nestable.jquery.min.js',
       'resources/assets/js/app.js'
     ], './', 'public/js/app.js')
     .phpSpec();
