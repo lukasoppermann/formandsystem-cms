@@ -9630,9 +9630,9 @@ CodeMirror.defineMode("gfm", function(config, modeConfig) {
  *
  * Released under the MIT license.
  */
-'use strict';
-
 (function ($) {
+  'use strict';
+
   var dragging, draggingHeight, placeholders = $();
   $.fn.sortable = function (options) {
     var method = String(options);
@@ -9693,6 +9693,7 @@ CodeMirror.defineMode("gfm", function(config, modeConfig) {
 
       // Handle drag events on draggable items
       items.on('dragstart.h5s', function(e) {
+        e.stopImmediatePropagation();
         var dt = e.originalEvent.dataTransfer;
         dt.effectAllowed = 'move';
         dt.setData('text', '');
@@ -9774,12 +9775,11 @@ $(document).ready(function(){
     $(this).parents('.js-editor-section').removeClass('child-is-active');
   });
   //
-  // $('body').height($(window).height());
-  // $('.content-body').sortable({
-  //   item: '.js-editor-section',
-  //   forcePlaceholderSize: true,
-  //   handle: '.js-editor-section-dragHandler'
-  // });
+  $('.content-body').sortable({
+    item: '.js-editor-section',
+    forcePlaceholderSize: true,
+    handle: '.js-editor-section-dragHandler'
+  });
 
 
     $('.editor-inner-section').sortable({

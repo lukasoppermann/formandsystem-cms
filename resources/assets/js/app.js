@@ -12,12 +12,11 @@ $(document).ready(function(){
     $(this).parents('.js-editor-section').removeClass('child-is-active');
   });
   //
-  // $('body').height($(window).height());
-  // $('.content-body').sortable({
-  //   item: '.js-editor-section',
-  //   forcePlaceholderSize: true,
-  //   handle: '.js-editor-section-dragHandler'
-  // });
+  $('.content-body').sortable({
+    item: '.js-editor-section',
+    forcePlaceholderSize: true,
+    handle: '.js-editor-section-dragHandler'
+  });
 
 
     $('.editor-inner-section').sortable({
