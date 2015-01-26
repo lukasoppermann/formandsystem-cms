@@ -14,58 +14,62 @@ $(document).ready(function(){
   //
   nestable('.content-body', {
     itemClass: 'js-editor-section',
-    handleClass: 'js-editor-section-dragHandler',
+    handleClass: 'js-editor-section-dragHandler', //dragHandler
     forcePlaceholderSize: true,
   });
 
+  nestable('.sortable', {
+    itemClass: 'item',
+    forcePlaceholderSize: true,
+  });
 
-    nestable('.editor-inner-section', {
-      itemClass: 'column',
-      handleClass: 'dragger',
-      forcePlaceholderSize: true,
-      connectWith: 'editor-inner-section'
-    });
+    // nestable('.editor-inner-section', {
+    //   itemClass: 'column',
+    //   handleClass: 'dragger',
+    //   forcePlaceholderSize: true,
+    //   connectWith: 'editor-inner-section'
+    // });
     //
     // nestable('.editor-inner-section', 'disable');
 
-  $('.mark').each(function(){
-    var _that = this;
-
-    _that.editor = CodeMirror.fromTextArea($(this).find('.textarea')[0], {
-        mode: 'gfm',
-        theme: 'mark',
-        content: $(this).find('.textarea').text()
-      });
-
-      _that.editor.on("mousedown", function(cm){
-        _that.t = setTimeout(function() {
-          $('.editor-inner-section').find('.dragger').show();
-          nestable('.editor-inner-section', 'enable');
-          console.log(_that.editor);
-          _that.editor.getInputField().blur();
-        }, 500);
-      });
-
-      _that.editor.on("mouseup", function(cm){
-        console.log('yo:');
-        console.log(_that.t);
-        clearTimeout(_that.t);
-      });
-
-      _that.editor.on("mousemove", function(cm){
-        clearTimeout(_that.t);
-      });
-
-      // yo.on("focus", function(cm){
-      //   console.log(cm);
-      //   $(cm).parents('.js-fragment').addClass('is-focused');
-      // });
-      //
-      // yo.on("blur", function(cm){
-      //   $(cm).parents('.js-fragment').removeClass('is-focused');
-      // });
-
-  });
+  // $('.mark').each(function(){
+  //   var _that = this;
+  //
+  //   _that.editor = CodeMirror.fromTextArea($(this).find('.textarea')[0], {
+  //       mode: 'gfm',
+  //       theme: 'mark',
+  //       content: $(this).find('.textarea').text()
+  //     });
+  //
+  //     _that.editor.on("mousedown", function(cm){
+  //       _that.t = setTimeout(function() {
+  //         $('.editor-inner-section').find('.dragger').show();
+  //         nestable('.editor-inner-section', 'enable');
+  //         console.log(_that.editor);
+  //         _that.editor.getInputField().blur();
+  //       }, 500);
+  //     });
+  //
+  //     _that.editor.on("mouseup", function(cm){
+  //       console.log('yo:');
+  //       console.log(_that.t);
+  //       clearTimeout(_that.t);
+  //     });
+  //
+  //     _that.editor.on("mousemove", function(cm){
+  //       clearTimeout(_that.t);
+  //     });
+  //
+  //     // yo.on("focus", function(cm){
+  //     //   console.log(cm);
+  //     //   $(cm).parents('.js-fragment').addClass('is-focused');
+  //     // });
+  //     //
+  //     // yo.on("blur", function(cm){
+  //     //   $(cm).parents('.js-fragment').removeClass('is-focused');
+  //     // });
+  //
+  // });
 
   // $('.mark').attr('draggable', true);
 
@@ -92,17 +96,17 @@ $(document).ready(function(){
       // doubleClick.call(this, e);
       alert('now');
   });
-
-$('.column').on('mousedown', function(e) {
-  this.t = setTimeout(function() {
-    $('.editor-inner-section').find('.dragger').show();
-    nestable('.editor-inner-section', 'enable');
-
-  }, 500);
-}).on('mouseup', function(e){
-  clearTimeout(this.t);
-}).on('mousemove', function(e){
-  clearTimeout(this.t);
-});
+//
+// $('.column').on('mousedown', function(e) {
+//   this.t = setTimeout(function() {
+//     $('.editor-inner-section').find('.dragger').show();
+//     nestable('.editor-inner-section', 'enable');
+//
+//   }, 500);
+// }).on('mouseup', function(e){
+//   clearTimeout(this.t);
+// }).on('mousemove', function(e){
+//   clearTimeout(this.t);
+// });
 
 });

@@ -18,11 +18,11 @@ elixir(function(mix) {
     .svgsprite()
     .scripts([
       'vendor/bower_components/jquery/jquery.min.js',
-      'vendor/bower_components/codemirror/lib/codemirror.js',
-      'vendor/bower_components/codemirror/mode/css/css.js',
-      'vendor/bower_components/codemirror/addon/mode/overlay.js',
-      'vendor/bower_components/codemirror/mode/markdown/markdown.js',
-      'vendor/bower_components/codemirror/mode/gfm/gfm.js',
+      // 'vendor/bower_components/codemirror/lib/codemirror.js',
+      // 'vendor/bower_components/codemirror/mode/css/css.js',
+      // 'vendor/bower_components/codemirror/addon/mode/overlay.js',
+      // 'vendor/bower_components/codemirror/mode/markdown/markdown.js',
+      // 'vendor/bower_components/codemirror/mode/gfm/gfm.js',
       'vendor/bower_components/nestable/dist/nestable.jquery.min.js',
       'resources/assets/js/app.js'
     ], './', 'public/js/app.js')

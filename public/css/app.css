@@ -1567,7 +1567,7 @@ span.CodeMirror-selectedtext {
   opacity: 1;
 }
 .editor-inner-section {
-  min-height: 100px;
+  min-height: 200px;
   padding: 0.5rem 0.5rem 0.5rem 2.5rem;
 }
 .js-nestable-placeholder {
@@ -1597,6 +1597,7 @@ span.CodeMirror-selectedtext {
   -webkit-transition-delay: 0;
           transition-delay: 0;
   border: 1px solid transparent;
+  display: none;
 }
 .fragment:hover,
 .fragment.is-focused {
@@ -1611,6 +1612,7 @@ span.CodeMirror-selectedtext {
   position: absolute;
   top: 0;
   left: 0;
+  display: none;
 }
 .fragment .textarea {
   width: 100%;

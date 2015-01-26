@@ -17,6 +17,8 @@ return [
 
 		__DIR__.'/../app/Providers/AppServiceProvider.php',
 		__DIR__.'/../app/Providers/EventServiceProvider.php',
+		realpath(__DIR__.'/../app/Providers/ConfigServiceProvider.php'),
+		realpath(__DIR__.'/../app/Providers/EventServiceProvider.php'),
 		__DIR__.'/../app/Providers/RouteServiceProvider.php',
 
 	],
