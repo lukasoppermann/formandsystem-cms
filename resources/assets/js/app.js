@@ -14,32 +14,34 @@ $(document).ready(function(){
   //
   nestable('.content-body', {
     itemClass: 'js-editor-section',
-    handleClass: 'js-editor-section-dragHandler', //dragHandler
+    handleClass: 'js-editor-section-dragHandler',
     forcePlaceholderSize: true,
+    placeholderClass: 'section-placeholder'
   });
 
-  nestable('.sortable', {
-    itemClass: 'item',
+  nestable('.editor-inner-section', {
+    itemClass: 'column',
+    handleClass: 'js-fragment',
     forcePlaceholderSize: true,
+    placeholderClass: 'fragment-placeholder'
   });
-
-    // nestable('.editor-inner-section', {
-    //   itemClass: 'column',
-    //   handleClass: 'dragger',
-    //   forcePlaceholderSize: true,
-    //   connectWith: 'editor-inner-section'
-    // });
+  $('.editor-inner-section').on('sortstart', function(){
+    $('body').addClass('sorting-fragment');
+  });
+  $('.editor-inner-section').on('sortupdate', function(){
+    console.log('off');
+  });
     //
     // nestable('.editor-inner-section', 'disable');
-
-  // $('.mark').each(function(){
-  //   var _that = this;
-  //
-  //   _that.editor = CodeMirror.fromTextArea($(this).find('.textarea')[0], {
-  //       mode: 'gfm',
-  //       theme: 'mark',
-  //       content: $(this).find('.textarea').text()
-  //     });
+  var editors = [];
+  $('.mark').each(function(){
+    var editor = CodeMirror.fromTextArea($(this).find('.textarea')[0], {
+        mode: 'gfm',
+        theme: 'mark',
+        content: $(this).find('.textarea').text()
+    });
+    editors.push(editor);
+    this.setAttribute('data-mark', editors.length-1);
   //
   //     _that.editor.on("mousedown", function(cm){
   //       _that.t = setTimeout(function() {
@@ -60,53 +62,14 @@ $(document).ready(function(){
   //       clearTimeout(_that.t);
   //     });
   //
-  //     // yo.on("focus", function(cm){
-  //     //   console.log(cm);
-  //     //   $(cm).parents('.js-fragment').addClass('is-focused');
-  //     // });
-  //     //
-  //     // yo.on("blur", function(cm){
-  //     //   $(cm).parents('.js-fragment').removeClass('is-focused');
-  //     // });
-  //
-  // });
+      editor.on("focus", function(cm){
+        $(cm).parents('.js-fragment').addClass('is-focused');
+      });
 
-  // $('.mark').attr('draggable', true);
+      editor.on("blur", function(cm){
+        $(cm.display.wrapper).parents('.js-fragment').removeClass('is-focused');
+      });
 
-  // $('.dragger').on('click', function(){
-  //   $(this).hide();
-  //
-  // }).on('doubleclick', function(){
-  //   alert('now');
-  // });
-
-  $('.dragger').click(function(e) {
-    var _that = $(this);
-    setTimeout(function() {
-        var dblclick = parseInt(_that.data('double'), 10);
-        if (dblclick > 0) {
-            _that.data('double', dblclick-1);
-        } else {
-            // singleClick.call(that, e);
-            _that.hide();
-        }
-    }, 300);
-  }).dblclick(function(e) {
-      $(this).data('double', 2);
-      // doubleClick.call(this, e);
-      alert('now');
   });
-//
-// $('.column').on('mousedown', function(e) {
-//   this.t = setTimeout(function() {
-//     $('.editor-inner-section').find('.dragger').show();
-//     nestable('.editor-inner-section', 'enable');
-//
-//   }, 500);
-// }).on('mouseup', function(e){
-//   clearTimeout(this.t);
-// }).on('mousemove', function(e){
-//   clearTimeout(this.t);
-// });
 
 });

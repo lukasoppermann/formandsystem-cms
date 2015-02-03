@@ -1,5 +1,10 @@
 // ********************
 // Grid setup
+@prefixes: sm, md, lg;
+@breakpoints: 0, 1000px, 1400px;
+@columns: 2,6,12;
+// ********************
+// Basics
 //
 .grid {
   display: flex;
@@ -21,29 +26,36 @@
 }
 // Offset Mixin
 //
-.generate-offset(@n, @tag, @i: 1) when (@i =< @n) {
+.generate-offset(@col, @tag, @i: 1) when (@i < @col) {
   .offset--@{tag}-@{i} {
-    margin-left: (@i * 100% / @n);
+    margin-left: (@i * 100% / @col);
   }
-  .generate-offset(@n, @tag, (@i + 1));
+  .generate-offset(@col, @tag, (@i + 1));
 }
-// ********************
-// Grid xs (e.g. mobile)
+// Make grid
 //
-.generate-columns(12, xs);
-.generate-offset(12, xs);
-// ********************
-// Grid sm (e.g. tablet)
+.make-grid(@breakpoint, @cols, @pref) {
+  & when( @breakpoint > 0 ){
+    @media(min-width: @breakpoint) {
+      .generate-columns(@cols, @pref);
+      .generate-offset(@cols, @pref);
+    }
+  }
+  & when( @breakpoint = 0 ){
+    .generate-columns(@cols, @pref);
+    .generate-offset(@cols, @pref);
+  }
+}
+// Run make-grid for every breakpoint
 //
-.generate-columns(12, sm);
-.generate-offset(12, sm);
-// ********************
-// Grid md (e.g. noteook)
-//
-.generate-columns(12, md);
-.generate-offset(12, md);
-// ********************
-// Grid lg (e.g. big screen)
-//
-.generate-columns(12, lg);
-.generate-offset(12, lg);
+.grid-loop(@index) when (@index > 0){
+    // run loop first to change order
+    .grid-loop ((@index - 1));
+
+    .make-grid(
+      extract(@breakpoints, @index),
+      extract(@columns, @index),
+      extract(@prefixes, @index)
+    );
+}
+.grid-loop(length(@breakpoints));

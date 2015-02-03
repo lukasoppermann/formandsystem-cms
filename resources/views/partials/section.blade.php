@@ -7,7 +7,7 @@
   <div class="grid editor-inner-section">
 
     @foreach ($section['columns'] as $column)
-
+    
       @include('partials/column', ['column' => $column])
 
     @endforeach

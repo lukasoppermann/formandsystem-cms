@@ -41,11 +41,11 @@
   min-height: 200px;
   padding: @size-xs @size-xs @size-xs @size-mdplus;
 }
-.js-nestable-placeholder{
+.section-placeholder{
   position: relative;
   background-color: @blue;
 }
-.js-nestable-placeholder:before{
+.section-placeholder:before{
   content: "";
   display: block;
   position: absolute;
@@ -55,4 +55,12 @@
   height: ~"calc(100% - 20px)";
   border: 2px dashed fade(@white,50%);
   .rounded-corners;
+}
+.js-nestable-ghost{
+  background-color: @blue;
+  border-radius: 2px;
+  cursor: move;
+}
+.js-nestable-ghost .editor-section{
+  border: none;
 }

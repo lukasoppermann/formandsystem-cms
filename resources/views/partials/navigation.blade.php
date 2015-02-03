@@ -115,7 +115,6 @@
   // $items = $items['data'];
   $items = Api::stream('navigation')->get(['limit' => 100, 'language' => \Config::get('content.locale')])['data'];
 
-
 ?>
 
 <nav class="navigation">
