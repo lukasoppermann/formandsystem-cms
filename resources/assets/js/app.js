@@ -13,25 +13,38 @@ $(document).ready(function(){
   });
   //
   nestable('.content-body', {
-    itemClass: 'js-editor-section',
-    handleClass: 'js-editor-section-dragHandler',
+    item: '.js-editor-section',
+    handle: '.js-editor-section-dragHandler',
     forcePlaceholderSize: true,
     placeholderClass: 'section-placeholder'
   });
 
   nestable('.editor-inner-section', {
-    itemClass: 'column',
-    handleClass: 'js-fragment',
+    item: '.column',
+    handle: '.js-fragment',
     forcePlaceholderSize: true,
     placeholderClass: 'fragment-placeholder'
   });
+
+  $('.content-body').on('sortupdate', function(){
+    console.log('yo');
+    console.log(nestable('.content-body').serialize());
+  });
+
   $('.editor-inner-section').on('sortstart', function(){
     $('body').addClass('sorting-fragment');
   });
   $('.editor-inner-section').on('sortupdate', function(){
     console.log('off');
   });
-    //
+  keymage('cmd-s', function() {
+    console.log(nestable('.content-body').serialize(function(){
+      return {
+        class: this.getAttribute('data-class'),
+        link: this.getAttribute('data-link')
+      };
+    }));
+  }, {preventDefault: true});
     // nestable('.editor-inner-section', 'disable');
   var editors = [];
   $('.mark').each(function(){

@@ -9,7 +9,8 @@
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1,maximum-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <link rel="stylesheet" href="{{{asset('css/app.css')}}}">
+  <!-- <link rel="stylesheet" href="{{{asset('css/app.css')}}}"> -->
+  <link rel="stylesheet" href="{{{elixir('css/app.css')}}}">
   <!-- <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
   <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:500,300' rel='stylesheet' type='text/css'> -->
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
@@ -27,6 +28,7 @@
   <div class="content-body">
     @yield('content','')
   </div>
-  <script src="{{asset('/js/app.js')}}"></script>
+  <!-- <script src="{{asset('/js/app.js')}}"></script>-->
+  <script src="{{ elixir("js/app.js") }}"></script>
 </body>
 </html>

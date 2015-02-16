@@ -23,12 +23,14 @@ elixir(function(mix) {
       'vendor/bower_components/codemirror/addon/mode/overlay.js',
       'vendor/bower_components/codemirror/mode/markdown/markdown.js',
       'vendor/bower_components/codemirror/mode/gfm/gfm.js',
-      // 'vendor/bower_components/nestable/dist/nestable.jquery.min.js',
-      'vendor/bower_components/nestable/src/nestable.js',
-      'vendor/bower_components/nestable/src/nestable.functions.js',
-      'vendor/bower_components/nestable/src/nestable.jquery.js',
+      'vendor/bower_components/nestable/dist/nestable.jquery.min.js',
+      'vendor/bower_components/keymage/keymage.min.js',
+      // 'vendor/bower_components/nestable/src/nestable.js',
+      // 'vendor/bower_components/nestable/src/nestable.functions.js',
+      // 'vendor/bower_components/nestable/src/nestable.jquery.js',
       'resources/assets/js/app.js'
-    ], './', 'public/js/app.js')
+    ], 'public/js/app.js', './')
+    .version(['public/css/app.css','public/js/app.js'])
     .phpSpec();
     // .phpUnit();
 });

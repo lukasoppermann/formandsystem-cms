@@ -40,38 +40,30 @@ section {
   position: relative;
 }
 .grid {
-  display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
   -webkit-flex-direction: row;
       -ms-flex-direction: row;
           flex-direction: row;
 }
 .column {
-  -webkit-box-flex: 1;
   -webkit-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
           flex-direction: column;
 }
 .column--sm-1 {
-  -webkit-box-flex: 0;
   -webkit-flex: 0 0 50%;
       -ms-flex: 0 0 50%;
           flex: 0 0 50%;
 }
 .column--sm-2 {
-  -webkit-box-flex: 0;
   -webkit-flex: 0 0 100%;
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
@@ -81,37 +73,31 @@ section {
 }
 @media (min-width: 1000px) {
   .column--md-1 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 16.66666667%;
         -ms-flex: 0 0 16.66666667%;
             flex: 0 0 16.66666667%;
   }
   .column--md-2 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 33.33333333%;
         -ms-flex: 0 0 33.33333333%;
             flex: 0 0 33.33333333%;
   }
   .column--md-3 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 50%;
         -ms-flex: 0 0 50%;
             flex: 0 0 50%;
   }
   .column--md-4 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 66.66666667%;
         -ms-flex: 0 0 66.66666667%;
             flex: 0 0 66.66666667%;
   }
   .column--md-5 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 83.33333333%;
         -ms-flex: 0 0 83.33333333%;
             flex: 0 0 83.33333333%;
   }
   .column--md-6 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 100%;
         -ms-flex: 0 0 100%;
             flex: 0 0 100%;
@@ -134,73 +120,61 @@ section {
 }
 @media (min-width: 1400px) {
   .column--lg-1 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 8.33333333%;
         -ms-flex: 0 0 8.33333333%;
             flex: 0 0 8.33333333%;
   }
   .column--lg-2 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 16.66666667%;
         -ms-flex: 0 0 16.66666667%;
             flex: 0 0 16.66666667%;
   }
   .column--lg-3 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 25%;
         -ms-flex: 0 0 25%;
             flex: 0 0 25%;
   }
   .column--lg-4 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 33.33333333%;
         -ms-flex: 0 0 33.33333333%;
             flex: 0 0 33.33333333%;
   }
   .column--lg-5 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 41.66666667%;
         -ms-flex: 0 0 41.66666667%;
             flex: 0 0 41.66666667%;
   }
   .column--lg-6 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 50%;
         -ms-flex: 0 0 50%;
             flex: 0 0 50%;
   }
   .column--lg-7 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 58.33333333%;
         -ms-flex: 0 0 58.33333333%;
             flex: 0 0 58.33333333%;
   }
   .column--lg-8 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 66.66666667%;
         -ms-flex: 0 0 66.66666667%;
             flex: 0 0 66.66666667%;
   }
   .column--lg-9 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 75%;
         -ms-flex: 0 0 75%;
             flex: 0 0 75%;
   }
   .column--lg-10 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 83.33333333%;
         -ms-flex: 0 0 83.33333333%;
             flex: 0 0 83.33333333%;
   }
   .column--lg-11 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 91.66666667%;
         -ms-flex: 0 0 91.66666667%;
             flex: 0 0 91.66666667%;
   }
   .column--lg-12 {
-    -webkit-box-flex: 0;
     -webkit-flex: 0 0 100%;
         -ms-flex: 0 0 100%;
             flex: 0 0 100%;
@@ -303,14 +277,10 @@ section {
   position: relative;
   width: 100%;
   font-weight: 300;
-  -webkit-transition-property: background;
-          transition-property: background;
-  -webkit-transition-duration: 0.5s;
-          transition-duration: 0.5s;
-  -webkit-transition-timing-function: ease;
-          transition-timing-function: ease;
-  -webkit-transition-delay: 0;
-          transition-delay: 0;
+  transition-property: background;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  transition-delay: 0;
 }
 .menu-item.is-active {
   background: #23282d;
@@ -383,19 +353,15 @@ section {
   right: 0;
   width: 4rem;
   height: 100%;
-  background-image: -webkit-linear-gradient(left, rgba(44, 50, 57, 0), #2c3239 95%);
   background-image: linear-gradient(left, rgba(44, 50, 57, 0), #2c3239 95%);
 }
 .is-active .menu-link-fade-right:before {
-  background-image: -webkit-linear-gradient(left, rgba(65, 125, 225, 0), #417de1 95%);
   background-image: linear-gradient(left, rgba(65, 125, 225, 0), #417de1 95%);
 }
 .menu-link-fade-right--dark:before {
-  background-image: -webkit-linear-gradient(left, rgba(35, 40, 45, 0), #23282d 95%);
   background-image: linear-gradient(left, rgba(35, 40, 45, 0), #23282d 95%);
 }
 .menu-link-fade-right--dark:hover:before {
-  background-image: -webkit-linear-gradient(left, rgba(31, 35, 39, 0), #1f2327 95%);
   background-image: linear-gradient(left, rgba(31, 35, 39, 0), #1f2327 95%);
 }
 .menu-link [class*="icon-"] {
@@ -450,7 +416,6 @@ section {
   height: 5.6rem;
   width: 3rem;
   right: 1.5rem;
-  background-image: -webkit-linear-gradient(left, rgba(35, 40, 45, 0), rgba(35, 40, 45, 0.75) 50%, #23282d);
   background-image: linear-gradient(left, rgba(35, 40, 45, 0), rgba(35, 40, 45, 0.75) 50%, #23282d);
 }
 .menu-item-options-link .link-input {
@@ -494,7 +459,7 @@ section {
   border: 2px solid #e64b3c;
   content: '';
   opacity: 0;
-  -webkit-transition: opacity 0.2s, -webkit-transform 0.2s;
+  transition: opacity 0.2s, -webkit-transform 0.2s;
   transition: opacity 0.2s, transform 0.2s;
   -webkit-transform: scale(0.8333);
   -ms-transform: scale(0.8333);
@@ -523,14 +488,10 @@ section {
   width: 2em;
 }
 .menu-link-icon {
-  -webkit-transition-property: background, color;
-          transition-property: background, color;
-  -webkit-transition-duration: 0.5s;
-          transition-duration: 0.5s;
-  -webkit-transition-timing-function: ease;
-          transition-timing-function: ease;
-  -webkit-transition-delay: 0;
-          transition-delay: 0;
+  transition-property: background, color;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  transition-delay: 0;
   position: absolute;
   right: 0;
   top: 0;
@@ -1215,7 +1176,6 @@ span.CodeMirror-selectedtext {
 .mark-icon {
   display: inline-block;
   pointer-events: none;
-  -webkit-transition: fill .4s ease;
   transition: fill .4s ease;
 }
 /*------------------------*/
@@ -1256,14 +1216,10 @@ span.CodeMirror-selectedtext {
 }
 .editor-section {
   width: 100%;
-  -webkit-transition-property: border-color, box-shadow;
-          transition-property: border-color, box-shadow;
-  -webkit-transition-duration: 0.5s;
-          transition-duration: 0.5s;
-  -webkit-transition-timing-function: ease;
-          transition-timing-function: ease;
-  -webkit-transition-delay: 0;
-          transition-delay: 0;
+  transition-property: border-color, box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  transition-delay: 0;
   border-bottom: 1px solid #f2f6fa;
 }
 .editor-section:hover {
@@ -1284,14 +1240,10 @@ span.CodeMirror-selectedtext {
   width: 2.1rem;
   height: 100%;
   background-color: #f2f6fa;
-  -webkit-transition-property: opacity;
-          transition-property: opacity;
-  -webkit-transition-duration: 0.5s;
-          transition-duration: 0.5s;
-  -webkit-transition-timing-function: ease;
-          transition-timing-function: ease;
-  -webkit-transition-delay: 0;
-          transition-delay: 0;
+  transition-property: opacity;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  transition-delay: 0;
 }
 .editor-section-dragHandler:hover {
   cursor: move;
@@ -1339,14 +1291,10 @@ span.CodeMirror-selectedtext {
 .fragment {
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   border-radius: .3rem;
-  -webkit-transition-property: border-color, box-shadow;
-          transition-property: border-color, box-shadow;
-  -webkit-transition-duration: 0.5s;
-          transition-duration: 0.5s;
-  -webkit-transition-timing-function: ease;
-          transition-timing-function: ease;
-  -webkit-transition-delay: 0;
-          transition-delay: 0;
+  transition-property: border-color, box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  transition-delay: 0;
   border: 1px solid transparent;
 }
 .fragment:hover,
