@@ -9696,13 +9696,12 @@ $(document).ready(function(){
         link: this.getAttribute('data-link')
       };
     });
-    console.log(serialized);
-    console.log(JSON.stringify(serialized));
+
     $.ajax({
       url: "/pages/"+document.querySelector('[data-page]').getAttribute('data-page-id'),
       type: "PUT",
-      data: JSON.stringify(serialized),
-      dataType: "json"
+      data: "data="+JSON.stringify(serialized)+'&_token='+$('meta[name="_token"]')[0].getAttribute('content'),
+      dataType: "text"
     });
   }, {preventDefault: true});
     // nestable('.editor-inner-section', 'disable');

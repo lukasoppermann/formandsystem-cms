@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PagesController extends AbstractController {
@@ -56,9 +56,9 @@ class PagesController extends AbstractController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request, $id)
 	{
-		return $id;
+		return $request->input('data');
 	}
 
 	/**
