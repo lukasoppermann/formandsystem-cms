@@ -58,7 +58,7 @@ class PagesController extends AbstractController {
 	 */
 	public function update($id)
 	{
-		//
+		return $id;
 	}
 
 	/**
