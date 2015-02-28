@@ -113,8 +113,8 @@ return [
 		'version'       => '1',
 		'client_id'     => $_ENV['FS_API_CLIENT_ID'],
 		'client_secret' => $_ENV['FS_API_CLIENT_SECRET'],
-		'scope'         => 'content.read',
-		'cache' 				=> true
+		'scope'         => 'content.read,content.write',
+		'cache' 				=> false
 	],
 
 	'providers' => [

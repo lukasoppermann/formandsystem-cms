@@ -10,6 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1,maximum-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="_token" content="{{csrf_token()}}" />
+  <meta name="_scope" content="{{$js_scope}}" />
   <!-- <link rel="stylesheet" href="{{{asset('css/app.css')}}}"> -->
   <link rel="stylesheet" href="{{{elixir('css/app.css')}}}">
   <!-- <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> -->
@@ -19,7 +20,6 @@
 </head>
 <body>
   <?php include("./media/svg-sprite.svg"); ?>
-
   @if( isset($error) )
     @include('misc.error', array('error' => $error))
   @endif

@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 class PagesController extends AbstractController {
 
+	private $js_scope = 'editor';
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -13,7 +14,7 @@ class PagesController extends AbstractController {
 	public function index()
 	{
 		$nav = \Api::stream('navigation')->get(['limit' => 100, 'language' => \Config::get('content.locale')])['data'];
-		return view('page', ['content' => $nav[key($nav)]['content'][$this->language], 'nav_items' => $nav, 'template' => 'partials/menu-item' ]);
+		return view('page', ['content' => $nav[key($nav)]['content'][$this->language], 'nav_items' => $nav, 'template' => 'partials/menu-item', 'js_scope' => $this->js_scope ]);
 	}
 
 	/**
@@ -47,7 +48,7 @@ class PagesController extends AbstractController {
 		$nav = \Api::stream('navigation')->get(['limit' => 100, 'language' => \Config::get('content.locale')])['data'];
 		$page = \Api::pages($name)->get(['language' => $this->language])['data'];
 
-		return view('page', ['content' => $page['content'][$this->language], 'nav_items' => $nav, 'template' => 'partials/menu-item']);
+		return view('page', ['content' => $page['content'][$this->language], 'nav_items' => $nav, 'template' => 'partials/menu-item', 'js_scope' => $this->js_scope]);
 	}
 
 	/**
@@ -58,7 +59,48 @@ class PagesController extends AbstractController {
 	 */
 	public function update(Request $request, $id)
 	{
-		return $request->input('data');
+		$sections = json_decode($request->input('data'), true);
+		// TODO: move json orga into service
+		foreach($sections as $section)
+		{
+			$columns = [];
+			// build children array
+			foreach($section['children'] as $child)
+			{
+				if( isset($child['fragmentId']) )
+				{
+					$columns[] = [
+						'fragment' 	=> $child['fragmentId'],
+						'columns' 		=> $child['column'],
+						'offset' 		=> $child['offset'],
+					];
+
+					$fragment[$child['fragmentId']] = [
+						'key' => $child['fragmentKey'],
+						'data' => [
+							'type' => $child['fragmentType'],
+							'content' => $child['fragmentContent']
+						]
+					];
+				}
+			}
+
+			$data[] = [
+				'class' 	=> $section['class'],
+				'link' 		=> $section['link'],
+				'columns' => $columns,
+			];
+		}
+		$page = [
+			'article_id'	=> 1,
+			'language' 		=> 'de',
+			'data' 				=> $data,
+			'menu_label' 	=> 'Home'.time(),
+			'link'				=> 'home',
+			'tags' 				=> ['test','Test']
+		];
+		// return $page;
+		return \Api::pages($id)->put($page);
 	}
 
 	/**

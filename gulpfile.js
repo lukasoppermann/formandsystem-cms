@@ -28,7 +28,9 @@ elixir(function(mix) {
       // 'vendor/bower_components/nestable/src/nestable.js',
       // 'vendor/bower_components/nestable/src/nestable.functions.js',
       // 'vendor/bower_components/nestable/src/nestable.jquery.js',
-      'resources/assets/js/app.js'
+      'resources/assets/js/app.js',
+      'resources/assets/js/save-page.js',
+      'resources/assets/js/keyboard-shortcuts.js'
     ], 'public/js/app.js', './')
     .version(['public/css/app.css','public/js/app.js'])
     .phpSpec();
