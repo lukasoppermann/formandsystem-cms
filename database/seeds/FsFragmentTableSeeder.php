@@ -16,12 +16,10 @@ class FsFragmentTableSeeder extends Seeder {
       [
         'id' => 1,
         'key' => null,
+        'type' => "text",
         'data' => json_encode(
           [
-            "type" => "text",
-            "content" => [
-              "text" => "#Qualit&#228;t und Service aus Deutschland\\nEntwickelt in enger Zusammenarbeit mit Krankenhäusern und Universitätskliniken"
-            ],
+            "text" => "#Qualit&#228;t und Service aus Deutschland\\nEntwickelt in enger Zusammenarbeit mit Krankenhäusern und Universitätskliniken",
             "class" => "banner js-banner"
           ]
         ),
@@ -29,13 +27,11 @@ class FsFragmentTableSeeder extends Seeder {
       [
         'id' => 2,
         'key' => null,
+        'type' => "timeline",
         'data' => json_encode(
         [
-          "type" => "timeline",
-          "content" => [
-            'title' => 'Titel',
-            'text' => "Test"
-          ],
+          'title' => 'Titel',
+          'text' => "Test",
           "class" => "banner js-banner"
           ]
         ),

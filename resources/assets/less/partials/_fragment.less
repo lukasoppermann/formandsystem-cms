@@ -1,4 +1,5 @@
 .fragment{
+  overflow: hidden;
   padding: @size-xs @size-xs @size-xs @size-xs;
   .rounded-corners;
   .transition(~"border-color, box-shadow");
@@ -29,4 +30,43 @@
 
 .js-nestable-handle{
   cursor: move;
+}
+.fragment-settings-button{
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: -10px;
+  opacity: 0;
+  padding: 5px 5px 20px 20px;
+  .grad-white-transparent-top-right;
+  z-index: 999;
+  transition: opacity, @base-transition-duration, @base-transition-ease, top, @base-transition-duration, @base-transition-ease;
+}
+.fragment:hover .fragment-settings-button{
+  top: 0;
+  opacity: 1;
+}
+.fragment-settings-button.is-toggled {
+  top: 0;
+  opacity: 1;
+  background: transparent;
+}
+.fragment-settings-content{
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transform: translateY(-100%);
+  top: 0;
+  left: 0;
+  .rounded-corners;
+  background-color: @lightest-gray;
+  z-index: 99;
+  opacity: 0;
+  transition: opacity .3s ease, transform 0 .3s;
+}
+.fragment-settings-content.is-toggled{
+  transform: translateY(0);
+  opacity: 1;
+  transition: opacity .3s ease;
 }

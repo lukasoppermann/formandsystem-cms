@@ -336,12 +336,13 @@ span.CodeMirror-selectedtext { background: none; }
 	background: rgb(180,215,255) !important;
 }
 .cm-s-mark .CodeMirror-gutters {
-	background: rgba(0,0,0,0.05); border-right: 0px;
+	background: rgba(0,0,0,.05);
+  border-right: 0;
 }
 .cm-s-mark .CodeMirror-linenumber {
-	color: rgba(0,0,0,0.25);
-	font-size: 0.8em;
-	padding-top: 0.2em;
+	color: rgba(0,0,0,.25);
+	font-size: .8em;
+	padding-top: .2em;
 }
 .cm-s-mark .CodeMirror-cursor {
 	border: 0 !important;
@@ -349,15 +350,15 @@ span.CodeMirror-selectedtext { background: none; }
 	background-color: rgb(55,170,225);
 }
 .cm-s-mark .CodeMirror-activeline-background{
-	background-color: rgba(0,0,0,0.02);
+	background-color: rgba(0,0,0,.02);
 }
 .cm-s-mark span.cm-comment {
 	color: inherit;
-	opacity: 0.4;
+	opacity: .4;
 }
 .cm-s-mark .cm-atom, .cm-s-mark .cm-number {
 	color: inherit;
-	opacity: 0.7;
+	opacity: .7;
 	font-style: italic;
 }
 .cm-s-mark .cm-property, .cm-s-mark .cm-attribute {
@@ -368,7 +369,7 @@ span.CodeMirror-selectedtext { background: none; }
 }
 .cm-s-mark .cm-string {
 	color: inherit;
-	opacity: 0.5;
+	opacity: .5;
 }
 .cm-s-mark .cm-qualifier{
 	color: inherit;
@@ -378,7 +379,7 @@ span.CodeMirror-selectedtext { background: none; }
 .cm-s-mark span.cm-def {color: #fd971f;}
 .cm-s-mark span.cm-bracket {
 	color: inherit;
-	opacity: 0.5;
+	opacity: .5;
 }
 .cm-s-mark span.cm-tag {
 	color: rgb(55,115,215);
@@ -399,7 +400,7 @@ span.CodeMirror-selectedtext { background: none; }
 }
 .cm-s-mark .cm-formatting, .cm-s-mark .cm-formatting-list-ul{
 	color: inherit !important;
-	opacity: 0.3;
+	opacity: .3;
 }
 .cm-s-mark .cm-formatting-task{
 	color: rgb(60,60,60) !important;
@@ -431,7 +432,7 @@ span.CodeMirror-selectedtext { background: none; }
 	width: .5em;
 	position: relative;
 	display: inline-block;
-	color: rgba(0,0,0,0.3);
+	color: rgba(0,0,0,.3);
 }
 .cm-s-mark .cm-trailingspace:before{
 	content: "•";
@@ -440,11 +441,11 @@ span.CodeMirror-selectedtext { background: none; }
 	left: 40%;
 }
 .edit-options{
-	font-size: 0.5em; /* reset ems to 10px */
+	font-size: .5em; /* reset ems to 10px */
 	position: absolute;
 	background-color: rgb(245,245,245);
-	box-shadow: 0 1px 1px rgba(0,0,0,0.15);
-	border-radius: 0.3em;
+	box-shadow: 0 1px 1px rgba(0,0,0,.15);
+	border-radius: .3em;
 	z-index: 999;
 	margin-top: 10px;
 	opacity: 0;
@@ -492,7 +493,7 @@ span.CodeMirror-selectedtext { background: none; }
 	z-index: 2;
 }
 .edit-options .panel-arrow:after{
-	border-color: rgba(0,0,0,0.1) transparent transparent transparent;
+	border-color: rgba(0,0,0,.1) transparent transparent transparent;
 	z-index: 1;
 	top: .1em;
 }

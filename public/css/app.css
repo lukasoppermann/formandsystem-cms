@@ -1,3 +1,5 @@
+/*csslint import:false */
+/*csslint universal-selector:false */
 html {
   font-size: 62.5%;
   /* now 1rem = 10px*/
@@ -217,18 +219,21 @@ section {
   display: none;
 }
 [class*="icon-"] {
-  display: block;
   position: relative;
-  height: 2rem;
+  display: block;
   width: 2rem;
-  margin-right: 1rem;
+  height: 2rem;
   fill: #ffffff;
 }
 .icon--left {
   float: left;
+  margin-right: 1rem;
 }
 .icon--dark {
   fill: #0f1419;
+}
+.icon--gray {
+  fill: #e0e6ed;
 }
 .icon--white {
   fill: #ffffff;
@@ -247,9 +252,10 @@ section {
   color: #ffffff;
 }
 .navigation:before {
-  content: "";
-  display: block;
   position: absolute;
+  top: 1px;
+  display: block;
+  content: '';
   top: 0;
   z-index: 9;
   left: 26.6rem;
@@ -289,9 +295,10 @@ section {
   background: #417de1;
 }
 .menu-item.is-active .menu-link:after {
-  content: "";
-  display: block;
   position: absolute;
+  top: 1px;
+  display: block;
+  content: '';
   z-index: 10;
   border-style: solid;
   border-width: 0.8rem;
@@ -325,9 +332,10 @@ section {
   position: relative;
 }
 .navigation > .menu > .menu-li-item > .menu:before {
-  content: "";
-  display: block;
   position: absolute;
+  top: 1px;
+  display: block;
+  content: '';
   z-index: 10;
   border: 1px dotted rgba(255, 255, 255, 0.1);
   border-width: 0 0 0 1px;
@@ -346,9 +354,10 @@ section {
   width: calc( 100% - 2rem * 2 );
 }
 .menu-link-fade-right:before {
-  content: "";
-  display: block;
   position: absolute;
+  top: 1px;
+  display: block;
+  content: '';
   top: 0;
   right: 0;
   width: 4rem;
@@ -409,9 +418,10 @@ section {
 }
 .menu-item-options-link:before,
 .menu-item-options-link:after {
-  content: "";
-  display: block;
   position: absolute;
+  top: 1px;
+  display: block;
+  content: '';
   top: 0;
   height: 5.6rem;
   width: 3rem;
@@ -459,8 +469,8 @@ section {
   border: 2px solid #e64b3c;
   content: '';
   opacity: 0;
-  transition: opacity 0.2s, -webkit-transform 0.2s;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: opacity .2s, -webkit-transform .2s;
+  transition: opacity .2s, transform .2s;
   -webkit-transform: scale(0.8333);
   -ms-transform: scale(0.8333);
       transform: scale(0.8333);
@@ -479,8 +489,9 @@ section {
   padding-right: 2rem;
 }
 .menu-link--icon-right:before {
-  content: "";
+  top: 1px;
   display: block;
+  content: '';
   position: absolute;
   top: 0;
   right: calc(2rem + (2 * 2rem) );
@@ -506,9 +517,10 @@ section {
   box-shadow: 0 2px 0px rgba(15, 20, 25, 0.1);
 }
 .menu--yellow:before {
-  content: "";
-  display: block;
   position: absolute;
+  top: 1px;
+  display: block;
+  content: '';
   position: fixed;
   top: 0;
   z-index: 9;
@@ -532,9 +544,10 @@ section {
   box-shadow: 0 -1px 1px rgba(15, 20, 25, 0.15);
 }
 .menu--dark:before {
-  content: "";
-  display: block;
   position: absolute;
+  top: 1px;
+  display: block;
+  content: '';
   position: fixed;
   bottom: 0;
   z-index: 9;
@@ -954,12 +967,12 @@ span.CodeMirror-selectedtext {
 }
 .cm-s-mark .CodeMirror-gutters {
   background: rgba(0, 0, 0, 0.05);
-  border-right: 0px;
+  border-right: 0;
 }
 .cm-s-mark .CodeMirror-linenumber {
   color: rgba(0, 0, 0, 0.25);
-  font-size: 0.8em;
-  padding-top: 0.2em;
+  font-size: .8em;
+  padding-top: .2em;
 }
 .cm-s-mark .CodeMirror-cursor {
   border: 0 !important;
@@ -971,12 +984,12 @@ span.CodeMirror-selectedtext {
 }
 .cm-s-mark span.cm-comment {
   color: inherit;
-  opacity: 0.4;
+  opacity: .4;
 }
 .cm-s-mark .cm-atom,
 .cm-s-mark .cm-number {
   color: inherit;
-  opacity: 0.7;
+  opacity: .7;
   font-style: italic;
 }
 .cm-s-mark .cm-property,
@@ -988,7 +1001,7 @@ span.CodeMirror-selectedtext {
 }
 .cm-s-mark .cm-string {
   color: inherit;
-  opacity: 0.5;
+  opacity: .5;
 }
 .cm-s-mark .cm-qualifier {
   color: inherit;
@@ -1004,7 +1017,7 @@ span.CodeMirror-selectedtext {
 }
 .cm-s-mark span.cm-bracket {
   color: inherit;
-  opacity: 0.5;
+  opacity: .5;
 }
 .cm-s-mark span.cm-tag {
   color: #3773d7;
@@ -1026,7 +1039,7 @@ span.CodeMirror-selectedtext {
 .cm-s-mark .cm-formatting,
 .cm-s-mark .cm-formatting-list-ul {
   color: inherit !important;
-  opacity: 0.3;
+  opacity: .3;
 }
 .cm-s-mark .cm-formatting-task {
   color: #3c3c3c !important;
@@ -1067,12 +1080,12 @@ span.CodeMirror-selectedtext {
   left: 40%;
 }
 .edit-options {
-  font-size: 0.5em;
+  font-size: .5em;
   /* reset ems to 10px */
   position: absolute;
   background-color: #f5f5f5;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-  border-radius: 0.3em;
+  border-radius: .3em;
   z-index: 999;
   margin-top: 10px;
   opacity: 0;
@@ -1289,6 +1302,7 @@ span.CodeMirror-selectedtext {
   border: none;
 }
 .fragment {
+  overflow: hidden;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   border-radius: .3rem;
   transition-property: border-color, box-shadow;
@@ -1323,7 +1337,69 @@ span.CodeMirror-selectedtext {
 .js-nestable-handle {
   cursor: move;
 }
+.fragment-settings-button {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: -10px;
+  opacity: 0;
+  padding: 5px 5px 20px 20px;
+  background-image: radial-gradient(at top right, #ffffff 0, #ffffff 50%, transparent 80%);
+  z-index: 999;
+  transition: opacity, 0.5s, ease, top, 0.5s, ease;
+}
+.fragment:hover .fragment-settings-button {
+  top: 0;
+  opacity: 1;
+}
+.fragment-settings-button.is-toggled {
+  top: 0;
+  opacity: 1;
+  background: transparent;
+}
+.fragment-settings-content {
+  display: block;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  -webkit-transform: translateY(-100%);
+      -ms-transform: translateY(-100%);
+          transform: translateY(-100%);
+  top: 0;
+  left: 0;
+  border-radius: .3rem;
+  background-color: #f2f6fa;
+  z-index: 99;
+  opacity: 0;
+  transition: opacity .3s ease, -webkit-transform 0 .3s;
+  transition: opacity .3s ease, transform 0 .3s;
+}
+.fragment-settings-content.is-toggled {
+  -webkit-transform: translateY(0);
+      -ms-transform: translateY(0);
+          transform: translateY(0);
+  opacity: 1;
+  transition: opacity .3s ease;
+}
+.input-field {
+  padding-top: 14px;
+}
+.input-field label {
+  position: absolute;
+  top: 0;
+  font-size: 1.3rem;
+  line-height: 1.82rem;
+}
+.input-field input {
+  font-size: 1.6rem;
+  line-height: 2.24rem;
+}
+.input-field input[value=""] {
+  background: red;
+}
 #content {
   margin-left: 27rem;
   display: none;
 }
+
+/*# sourceMappingURL=app.css.map */

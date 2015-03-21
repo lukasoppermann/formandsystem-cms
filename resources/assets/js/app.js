@@ -68,4 +68,6 @@ $(document).ready(function(){
 
   });
 
+  dataToggle();
+
 });

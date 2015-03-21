@@ -109,7 +109,7 @@ return [
 	*/
 	// TODO: remove once tayler releases laravel workbench package
 	'fs_api' => [
-		'url'           => 'http://api.formandsystem.local',
+		'url'           => 'http://apil5.formandsystem.local',
 		'version'       => '1',
 		'client_id'     => $_ENV['FS_API_CLIENT_ID'],
 		'client_secret' => $_ENV['FS_API_CLIENT_SECRET'],

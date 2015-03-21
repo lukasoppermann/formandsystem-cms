@@ -75,11 +75,11 @@ class PagesController extends AbstractController {
 						'offset' 		=> $child['offset'],
 					];
 
-					$fragment[$child['fragmentId']] = [
+					$fragments[$child['fragmentId']] = [
 						'key' => $child['fragmentKey'],
+						'type' => $child['fragmentType'],
 						'data' => [
-							'type' => $child['fragmentType'],
-							'content' => $child['fragmentContent']
+							'text' => $child['fragmentContent']
 						]
 					];
 				}
@@ -91,14 +91,20 @@ class PagesController extends AbstractController {
 				'columns' => $columns,
 			];
 		}
+
 		$page = [
 			'article_id'	=> 1,
 			'language' 		=> 'de',
 			'data' 				=> $data,
-			'menu_label' 	=> 'Home'.time(),
+			'menu_label' 	=> 'Home',
 			'link'				=> 'home',
 			'tags' 				=> ['test','Test']
 		];
+
+		foreach( $fragments as $id => $fragment  )
+		{
+			\Api::fragment($id)->put($fragment);
+		}
 		// return $page;
 		return \Api::pages($id)->put($page);
 	}

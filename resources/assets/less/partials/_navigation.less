@@ -82,7 +82,7 @@
 .navigation > .menu > .menu-li-item > .menu:before{
   .pseudo-element;
   z-index: 10;
-  border: 1px dotted rgba(255,255,255,0.1);
+  border: 1px dotted rgba(255,255,255,.1);
   border-width: 0 0 0 1px;
   top: -.5rem;
   left: 1.6rem;
@@ -214,10 +214,10 @@
   border: 2px solid @red;
   content: '';
   opacity: 0;
-  -webkit-transition: opacity 0.2s, -webkit-transform 0.2s;
-  transition: opacity 0.2s, transform 0.2s;
-  -webkit-transform: scale(0.8333);
-  transform: scale(0.8333);
+  -webkit-transition: opacity .2s, -webkit-transform .2s;
+  transition: opacity .2s, transform .2s;
+  -webkit-transform: scale(.8333);
+  transform: scale(.8333);
 }
 
 .menu-item-options-delete:hover::before,

@@ -19,6 +19,7 @@ class CreateFragmentsTable extends Migration {
 			// fields
 			$table->increments('id','true');
 			$table->string('key')->nullable();
+			$table->string('type')->nullable();
 			$table->longtext('data')->nullable();
 			$table->timestamps();
 			$table->softDeletes();

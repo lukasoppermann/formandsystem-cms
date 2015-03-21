@@ -1,6 +1,7 @@
 var elixir = require('laravel-elixir');
-
 require('./resources/assets/ingredients/svgsprite.js');
+
+// require('./resources/assets/ingredients/recess.js');
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -28,11 +29,40 @@ elixir(function(mix) {
       // 'vendor/bower_components/nestable/src/nestable.js',
       // 'vendor/bower_components/nestable/src/nestable.functions.js',
       // 'vendor/bower_components/nestable/src/nestable.jquery.js',
-      'resources/assets/js/app.js',
+      'resources/assets/js/data-toggle.js',
       'resources/assets/js/save-page.js',
-      'resources/assets/js/keyboard-shortcuts.js'
+      'resources/assets/js/keyboard-shortcuts.js',
+      'resources/assets/js/app.js'
     ], 'public/js/app.js', './')
     .version(['public/css/app.css','public/js/app.js'])
     .phpSpec();
     // .phpUnit();
+});
+
+var gulp = require('gulp');
+// var minifyCSS = require('gulp-minify-css');
+var recess = require('gulp-recess');
+
+
+gulp.task('recess', function() {
+  gulp.src('public/css/app.css')
+  .pipe(recess().on('error',function(error){
+  }))
+  .pipe(recess.reporter({
+    fail: true,
+    minimal: false
+  }));
+});
+
+var scsslint = require('gulp-scss-lint');
+var less = require('gulp-less');
+var foreach = require('gulp-foreach');
+
+
+gulp.task('csslint', function() {
+  gulp.src(['public/css/app.css'])
+    .pipe(scsslint({
+      config: 'scsslint.yml'
+    }))
+    ;
 });

@@ -10,10 +10,11 @@
 @base-font-size: 1.6rem;
 @small-font-size: 1.3rem;
 
+.font-size( @size: base ){
+  font-size: @@fsize;
+  line-height: @@fsize * 1.4;
 
-.base-font-size(){
-  font-size: @base-font-size;
-  line-height: @base-font-size * 1.4;
+  @fsize: '@{size}-font-size';
 }
 // *****************
 //  Colors
@@ -33,6 +34,12 @@
 @dark-gray: rgb(35,40,45);
 @darkest-gray: rgb(15,20,25);
 
+// *****************
+//  Gradients
+//
+.grad-white-transparent-top-right(){
+  background-image: radial-gradient(at top right,@white 0,@white 50%,transparent 80%);
+}
 // *****************
 //  Radii
 //
