@@ -28,7 +28,7 @@ class DashboardController extends Controller {
 	 */
 	public function index()
 	{
-		return view('dashboard', ['nav_items' =>
+		return view('dashboard', ['items' =>
 			[
 				[
 					'label' => 'Content',

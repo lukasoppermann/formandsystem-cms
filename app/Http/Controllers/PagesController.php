@@ -14,7 +14,8 @@ class PagesController extends AbstractController {
 	public function index()
 	{
 		$nav = \Api::stream('navigation')->get(['limit' => 100, 'language' => \Config::get('content.locale')])['data'];
-		return view('page', ['content' => $nav[key($nav)]['content'][$this->language], 'nav_items' => $nav, 'template' => 'partials/menu-item', 'js_scope' => $this->js_scope ]);
+
+		return view('page', ['content' => $nav[key($nav)]['content'][$this->language], 'items' => $nav, 'template' => 'partials/menu-item', 'js_scope' => $this->js_scope ]);
 	}
 
 	/**

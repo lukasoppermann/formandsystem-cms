@@ -4,3 +4,10 @@
     display: block;
     content: '';
 }
+
+.transition(@property, @duration: @base-transition-duration, @ease: @base-transition-ease, @delay: @base-transition-delay){
+  transition-property: @property;
+  transition-duration: @duration;
+  transition-timing-function: @ease;
+  transition-delay: @delay;
+}
