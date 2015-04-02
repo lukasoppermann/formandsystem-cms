@@ -6,7 +6,34 @@
   display: block;
   width: @base-icon-size;
   height: @base-icon-size;
-  fill: @white;
+
+}
+
+.link-input{
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  font-size: @base-font-size;
+  line-height: @base-font-size;
+  color: @white;
+  font-weight: @font-regular;
 }
 // ********************
-// Specific icon styles
+// TODO: This should be replaced with +-bubble
+  .o-section--new{
+    color: @medium-gray;
+    background: @lightest-gray;
+    width: calc(100% - 2rem);
+    margin: 1rem 0 1rem 1rem;
+    font-size: @base-font-size;
+    .rounded-corners-xs;
+    .transition(background);
+    &:hover{
+      background: @light-gray;
+      cursor: pointer;
+      color: darken(@medium-gray,5);
+      .o-icon--light-gray{
+        fill: darken(@light-gray,20);
+      }
+    }
+  }
