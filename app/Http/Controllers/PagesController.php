@@ -49,7 +49,7 @@ class PagesController extends AbstractController {
 		$nav = \Api::stream('navigation')->get(['limit' => 100, 'language' => \Config::get('content.locale')])['data'];
 		$page = \Api::pages($name)->get(['language' => $this->language])['data'];
 
-		return view('page', ['content' => $page['content'][$this->language], 'nav_items' => $nav, 'template' => 'partials/menu-item', 'js_scope' => $this->js_scope]);
+		return view('page', ['content' => $page['content'][$this->language], 'items' => $nav, 'template' => 'partials/menu-item', 'js_scope' => $this->js_scope]);
 	}
 
 	/**
@@ -61,6 +61,7 @@ class PagesController extends AbstractController {
 	public function update(Request $request, $id)
 	{
 		$sections = json_decode($request->input('data'), true);
+		$pageData = json_decode($request->input('page'), true);
 		// TODO: move json orga into service
 		foreach($sections as $section)
 		{
@@ -94,17 +95,19 @@ class PagesController extends AbstractController {
 		}
 
 		$page = [
-			'article_id'	=> 1,
 			'language' 		=> 'de',
 			'data' 				=> $data,
-			'menu_label' 	=> 'Home',
-			'link'				=> 'home',
+			'menu_label' 	=> $pageData['menu_label'],
+			'link'				=> $pageData['link'],
 			'tags' 				=> ['test','Test']
 		];
 
-		foreach( $fragments as $id => $fragment  )
+		if( isset($fragments) )
 		{
-			\Api::fragment($id)->put($fragment);
+			foreach( $fragments as $id => $fragment  )
+			{
+				\Api::fragment($id)->put($fragment);
+			}
 		}
 		// return $page;
 		return \Api::pages($id)->put($page);

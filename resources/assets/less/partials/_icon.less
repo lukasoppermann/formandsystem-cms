@@ -1,0 +1,35 @@
+.o-icon{
+  position: relative;
+  display: block;
+  width: @base-icon-size;
+  height: @base-icon-size;
+  fill: @darkest-gray;
+  .transition(fill);
+  /* EXTENSIONS */
+  &--white{
+    fill: @white;
+  }
+  &--light-gray{
+    fill: @light-gray;
+  }
+  &--medium-light-gray{
+    fill: @medium-light-gray;
+  }
+  &--darkest-gray{
+    fill: @darkest-gray;
+  }
+  &--centered{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &--centered-vertical{
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &--centered-horizontal{
+    left: 50%;
+    transform: translateX(-50%);
+  }
+/* CLOSE MODULE */
+}

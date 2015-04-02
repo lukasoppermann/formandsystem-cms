@@ -1,10 +1,10 @@
-<section class="editor-section js-editor-section" data-class="demo-class" data-link="demo-link">
-  <div class="editor-section-dragHandler js-editor-section-dragHandler">
-    <svg viewBox="0 0 512 512" class="icon-drag">
+<section class="o-section editor-section js-editor-section" data-class="" data-link="">
+  <div class="o-section__drag-handle editor-section-dragHandler js-editor-section-dragHandler">
+    <svg viewBox="0 0 512 512" class="o-icon--centered o-icon--medium-light-gray">
       <use xlink:href="#icon-drag"></use>
     </svg>
   </div>
-  <div class="grid editor-inner-section">
+  <div class="grid editor-inner-section o-section__body">
 
     @unless( !isset($section['columns']) )
 
@@ -17,4 +17,12 @@
     @endunless
 
   </div>
+
+  <div class="o-settings">
+    <div class="o-settings__toggle" data-toggle-target="section-settings-{{$pos}}">JSSSSSSSSSS</div>
+    <div class="o-settings__content" data-toggle="section-settings-{{$pos}}">
+      Settings
+    </div>
+  </div>
+
 </section>

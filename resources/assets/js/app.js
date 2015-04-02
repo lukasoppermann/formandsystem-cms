@@ -70,4 +70,6 @@ $(document).ready(function(){
 
   dataToggle();
 
+  addEditorSection('[data-js*="addEditorSection"]', '[data-js="tempalteEditorSection"]');
+
 });

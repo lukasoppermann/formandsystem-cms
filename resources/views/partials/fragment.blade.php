@@ -4,7 +4,7 @@
   data-fragment-type="{{$fragment['fragment_type']}}"
 >
 <div class="fragment-settings-button" data-toggle-target="fragment-settings-content-{{$fragment['fragment_id']}}">
-  <svg viewBox="0 0 512 512" class="icon-settings icon--gray">
+  <svg viewBox="0 0 512 512" class="icon-settings o-icon--darkest-gray">
     <use xlink:href="#icon-settings"></use>
   </svg>
 </div>

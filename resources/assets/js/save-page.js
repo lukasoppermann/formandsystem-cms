@@ -29,10 +29,21 @@ var savePage = function() {
     };
   });
 
+  var page = function(){
+    var menuItem = document.querySelector('.menu-item.js-is-active');
+
+    var menuData = {
+      menu_label: menuItem.querySelector('.menu-link-text').textContent,
+      link: menuItem.parentNode.querySelector('.link-input').value
+    };
+
+    return JSON.stringify(menuData);
+  }();
+
   $.ajax({
     url: '/pages/'+document.querySelector('[data-page]').getAttribute('data-page-id'),
     type: 'PUT',
-    data: 'data='+JSON.stringify(serialized[0])+'&_token='+$('meta[name="_token"]')[0].getAttribute('content'),
+    data: 'page='+page +'&data='+JSON.stringify(serialized[0])+'&_token='+$('meta[name="_token"]')[0].getAttribute('content'),
     dataType: 'text'
   });
 };

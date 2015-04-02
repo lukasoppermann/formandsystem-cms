@@ -1,0 +1,55 @@
+/*-------------------*/
+/* Section */
+.o-section{
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 2.1rem;
+}
+/*-------------------*/
+/* Section New */
+.o-section--new{
+  color: @medium-gray;
+  background: @lightest-gray;
+  width: calc(100% - 2rem);
+  margin: 1rem 0 1rem 1rem;
+  font-size: @base-font-size;
+  .rounded-corners-xs;
+  .transition(background);
+  &:hover{
+    background: @light-gray;
+    cursor: pointer;
+    color: darken(@medium-gray,5);
+    .o-icon--light-gray{
+      fill: darken(@light-gray,20);
+    }
+  }
+}
+/*-------------------*/
+/* Drag Handler */
+.o-section__drag-handle{
+  z-index: 10;
+  opacity: 0;
+  width: 2.1rem;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: @lightest-gray;
+  .transition(opacity);
+  &:hover{
+    cursor: move;
+  }
+}
+// TODO: Shame
+.o-section__drag-handle .icon-drag{
+  // position: absolute;
+  // top: 50%;
+  // left: calc(~"50% - 1px");
+  // transform: translate(-50%, -50%);
+  fill: darken(@light-gray,10%);
+  width: 1.2rem;
+}
+/*-------------------*/
+/* Section Body */
+.o-section__body{
+}

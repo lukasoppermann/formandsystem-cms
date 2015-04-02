@@ -29,8 +29,10 @@ elixir(function(mix) {
       // 'vendor/bower_components/nestable/src/nestable.js',
       // 'vendor/bower_components/nestable/src/nestable.functions.js',
       // 'vendor/bower_components/nestable/src/nestable.jquery.js',
+      'resources/assets/js/templates/*',
       'resources/assets/js/data-toggle.js',
       'resources/assets/js/save-page.js',
+      'resources/assets/js/editor-sections.js',
       'resources/assets/js/keyboard-shortcuts.js',
       'resources/assets/js/app.js'
     ], 'public/js/app.js', './')
