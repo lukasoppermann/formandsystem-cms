@@ -1,0 +1,70 @@
+.o-button{
+  display: inline-block;
+  padding: @size-xs @size-sm;
+  margin: 0 @size-xs;
+  cursor: pointer;
+  /* EXTENSION */
+  &--outlined{
+    &:not(.is-toggled):hover::before,
+    &:focus::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+    &::before{
+      position: absolute;
+      top: 0;
+      left: 0;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      border-width: 2px;
+      border-style: solid;
+      content: '';
+      opacity: 0;
+      transition: opacity .2s, transform .2s;
+      transform: scale(.8333);
+    }
+    &.o-button--warning::before{
+      border-color: @red;
+    }
+  }
+  &--confirm{
+    overflow: hidden;
+    /* CHILDREN */
+    &__content{
+      opacity: 1;
+      z-index: 10;
+    }
+    &__confirmation{
+      z-index: 20;
+      left: 0;
+      bottom: -100%;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+    /* CHILDREN STATE */
+    &.is-toggled{
+      .o-button--confirm__content{
+        opacity: 0;
+      }
+      .o-button--confirm__confirmation{
+        opacity: 1;
+        bottom: 0%;
+      }
+    }
+  }
+  &--bar{
+    display: flex;
+    &__item{
+      height: 100%;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      align-self: center;
+      justify-content: center;
+    }
+  }
+/* CLOSE MODULE*/
+}

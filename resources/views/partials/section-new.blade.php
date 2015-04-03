@@ -1,5 +1,5 @@
 <section class="o-section o-section--new" data-js="addEditorSection">
-  <div class="o-media o-media--centered o-media--inline o-media--padded-md">
+  <div class="o-media o-media--centered o-media--inline o-box--pad-md">
     <div class="o-media__figure">
       <svg viewBox="0 0 512 512" class="o-icon o-icon--medium-light-gray">
         <use xlink:href="#icon-plus"></use>

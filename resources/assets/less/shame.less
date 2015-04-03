@@ -1,22 +1,18 @@
 // ********************
 // Icons general
 //
-[class*="icon-"]{
-  position: relative;
-  display: block;
-  width: @base-icon-size;
-  height: @base-icon-size;
-
-}
-
 .link-input{
   background-color: transparent;
   border: none;
   width: 100%;
-  font-size: @base-font-size;
   line-height: @base-font-size;
   color: @white;
   font-weight: @font-regular;
+}
+
+.o-media--centered{
+  margin-left: 50%;
+  transform: translate(-50%,0);
 }
 // ********************
 // TODO: This should be replaced with +-bubble
@@ -25,7 +21,6 @@
     background: @lightest-gray;
     width: calc(100% - 2rem);
     margin: 1rem 0 1rem 1rem;
-    font-size: @base-font-size;
     .rounded-corners-xs;
     .transition(background);
     &:hover{

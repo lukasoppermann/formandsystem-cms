@@ -9,6 +9,8 @@ html {
 body {
   font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
   font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2.24rem;
   margin: 0;
   height: 100%;
 }
@@ -223,27 +225,25 @@ p {
   display: none;
 }
 /*TODO: shame, refactor */
-[class*="icon-"] {
-  position: relative;
-  display: block;
-  width: 2rem;
-  height: 2rem;
-}
 .link-input {
   background-color: transparent;
   border: none;
   width: 100%;
-  font-size: 1.6rem;
   line-height: 1.6rem;
   color: #ffffff;
   font-weight: 400;
+}
+.o-media--centered {
+  margin-left: 50%;
+  -webkit-transform: translate(-50%, 0);
+      -ms-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
 }
 .o-section--new {
   color: #90969d;
   background: #f2f6fa;
   width: calc(98%);
   margin: 1rem 0 1rem 1rem;
-  font-size: 1.6rem;
   border-radius: .2rem;
   transition-property: background;
   transition-duration: 0.5s;
@@ -1291,6 +1291,116 @@ span.CodeMirror-selectedtext {
 .input-field input[value=""] {
   background: red;
 }
+.o-box {
+  margin: 0;
+  /* EXTENSION */
+  /*CLOSE MODULE*/
+}
+.o-box--flush {
+  padding: 0;
+}
+.o-box--pad-md {
+  padding: 2rem;
+}
+.o-box--pad-h-md {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.o-box--pad-v-md {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.o-box--pad-h-sm {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.o-box--pad-v-sm {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.o-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  /* EXTENSION */
+  /* CLOSE MODULE*/
+}
+.o-button--outlined:not(.is-toggled):hover::before,
+.o-button--outlined:focus::before {
+  opacity: 1;
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+}
+.o-button--outlined::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-width: 2px;
+  border-style: solid;
+  content: '';
+  opacity: 0;
+  transition: opacity .2s, -webkit-transform .2s;
+  transition: opacity .2s, transform .2s;
+  -webkit-transform: scale(0.8333);
+      -ms-transform: scale(0.8333);
+          transform: scale(0.8333);
+}
+.o-button--outlined.o-button--warning::before {
+  border-color: #e64b3c;
+}
+.o-button--confirm {
+  overflow: hidden;
+  /* CHILDREN */
+  /* CHILDREN STATE */
+}
+.o-button--confirm__content {
+  opacity: 1;
+  z-index: 10;
+}
+.o-button--confirm__confirmation {
+  z-index: 20;
+  left: 0;
+  bottom: -100%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.o-button--confirm.is-toggled .o-button--confirm__content {
+  opacity: 0;
+}
+.o-button--confirm.is-toggled .o-button--confirm__confirmation {
+  opacity: 1;
+  bottom: 0%;
+}
+.o-button--bar {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.o-button--bar__item {
+  height: 100%;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-align-self: center;
+      -ms-flex-item-align: center;
+          align-self: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
 .o-icon {
   position: relative;
   display: block;
@@ -1350,21 +1460,6 @@ span.CodeMirror-selectedtext {
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-}
-.o-media--centered {
-  margin-left: 50%;
-  -webkit-transform: translate(-50%, 0);
-      -ms-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
-}
-.o-media--padded-sm {
-  padding: 1rem;
-}
-.o-media--padded-md-sm {
-  padding: 2rem 1rem;
-}
-.o-media--padded-md {
-  padding: 1rem;
 }
 .o-media__figure {
   margin-right: 1em;
@@ -1487,11 +1582,15 @@ span.CodeMirror-selectedtext {
   transition: opacity .3s ease;
 }
 .o-settings {
+  z-index: 90;
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
+  /* EXTENSIONS */
+  /* CHILDREN */
+  /* CLOSE MODULE */
 }
 .o-settings__toggle {
   z-index: 10;
