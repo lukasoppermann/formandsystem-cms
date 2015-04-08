@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "chai": "^2.2.0",
     "gulp": "^3.8.8",
     "gulp-cheerio": "^0.3.2",
     "gulp-foreach": "^0.1.0",
@@ -9,7 +10,8 @@
     "gulp-svg-symbols": "^0.3.1",
     "gulp-svgmin": "^1.0.0",
     "gulp-svgstore": "^3.0.0",
-    "gulp-uncss": "^1.0.1",
-    "laravel-elixir": "*"
+    "laravel-elixir": "*",
+    "mocha": "^2.2.1",
+    "sinon": "^1.14.1"
   }
 }

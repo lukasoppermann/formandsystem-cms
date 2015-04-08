@@ -1,10 +1,30 @@
 .o-button{
   display: inline-block;
-  padding: @size-xs @size-sm;
-  margin: 0 @size-xs;
   cursor: pointer;
+  .transition(box-shadow);
+  &:not(.o-button--outlined):hover{
+    .shadow-sm--dark();
+  }
   /* EXTENSION */
-  &--outlined{
+  &.o-button--margin{
+    margin: 0 @size-xs;
+  }
+  &.o-button--padded{
+    padding: @size-xs @size-sm;
+  }
+  &.o-button--right{
+    float: right;
+  }
+  &.o-button--shadow{
+    .shadow-sm();
+  }
+  &.o-button--warning:not(.o-button--outlined){
+    background: @red;
+  }
+  &.o-button--light-gray:not(.o-button--outlined){
+    background: @light-gray;
+  }
+  &.o-button--outlined{
     &:not(.is-toggled):hover::before,
     &:focus::before {
       opacity: 1;
@@ -29,35 +49,27 @@
     }
   }
   &--confirm{
-    overflow: hidden;
     /* CHILDREN */
     &__content{
+      padding: @size-xs @size-sm;
       opacity: 1;
       z-index: 10;
     }
     &__confirmation{
       z-index: 20;
       left: 0;
-      bottom: -100%;
+      bottom: 0;
       position: absolute;
       width: 100%;
       height: 100%;
-      opacity: 0;
-    }
-    /* CHILDREN STATE */
-    &.is-toggled{
-      .o-button--confirm__content{
-        opacity: 0;
-      }
-      .o-button--confirm__confirmation{
-        opacity: 1;
-        bottom: 0%;
-      }
+      // opacity: 0;
     }
   }
   &--bar{
     display: flex;
-    &__item{
+    .o-button{
+      margin: 0;
+      padding: 0;
       height: 100%;
       flex: 1;
       display: flex;

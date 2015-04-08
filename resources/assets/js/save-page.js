@@ -24,8 +24,8 @@ var savePage = function() {
   var serialized = nestable('.content-body').serialize(function(){
     return {
       children: columns[i++],
-      class: this.getAttribute('data-class'),
-      link: this.getAttribute('data-link')
+      class: this.querySelector("[data-js='additional-classes']").value,
+      link: this.querySelector("[data-js='section-link']").value
     };
   });
 

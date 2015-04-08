@@ -1,5 +1,6 @@
 /* -- JSHint --*/
 /*global $, nestable, keymage, CodeMirror*/
+
 var editors = [];
 
 nestable('.content-body', {
@@ -68,8 +69,8 @@ $(document).ready(function(){
 
   });
 
+  initDataEvents();
   dataToggle();
-
   addEditorSection('[data-js*="addEditorSection"]', '[data-js="tempalteEditorSection"]');
 
 });

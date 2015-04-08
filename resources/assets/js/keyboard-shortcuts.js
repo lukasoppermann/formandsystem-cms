@@ -8,4 +8,6 @@ keymage.setScope(scope);
 /*
  * Scope: Editor
  */
-keymage('editor','defmod-s', savePage, {preventDefault: true});
+keymage('editor','defmod-s', function(){
+  fs_app.eventEmitter.emit('save-page');
+}, {preventDefault: true});

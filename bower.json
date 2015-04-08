@@ -3,6 +3,7 @@
   "dependencies": {
     "codemirror": "~4.8.0",
     "jquery": "components/jquery#~2.1",
-    "nestable": "https://github.com/lukasoppermann/nestable.git"
+    "nestable": "https://github.com/lukasoppermann/nestable.git",
+    "eventEmitter": "~4.2.11"
   }
 }

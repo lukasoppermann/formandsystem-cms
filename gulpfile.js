@@ -26,14 +26,18 @@ elixir(function(mix) {
       'vendor/bower_components/codemirror/mode/gfm/gfm.js',
       'vendor/bower_components/nestable/dist/nestable.jquery.min.js',
       'vendor/bower_components/keymage/keymage.min.js',
+      'vendor/bower_components/eventEmitter/EventEmitter.js',
       // 'vendor/bower_components/nestable/src/nestable.js',
       // 'vendor/bower_components/nestable/src/nestable.functions.js',
       // 'vendor/bower_components/nestable/src/nestable.jquery.js',
+      'resources/assets/js/app-object.js',
       'resources/assets/js/templates/*',
       'resources/assets/js/data-toggle.js',
+      'resources/assets/js/data-event.js',
       'resources/assets/js/save-page.js',
       'resources/assets/js/editor-sections.js',
       'resources/assets/js/keyboard-shortcuts.js',
+      'resources/assets/js/pages/*',
       'resources/assets/js/app.js'
     ], 'public/js/app.js', './')
     .version(['public/css/app.css','public/js/app.js'])
@@ -67,4 +71,12 @@ gulp.task('csslint', function() {
       config: 'scsslint.yml'
     }))
     ;
+});
+
+
+var mocha = require('gulp-mocha');
+
+gulp.task('mocha', function () {
+    return gulp.src('tests/mocha/*.js', {read: false})
+        .pipe(mocha({reporter: 'nyan'}));
 });

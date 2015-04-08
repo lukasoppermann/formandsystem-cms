@@ -5,6 +5,7 @@
   left: 0;
   height: 100%;
   width: 100%;
+  pointer-events: none;
   /* EXTENSIONS */
 
   /* CHILDREN */
@@ -13,6 +14,8 @@
     position: absolute;
     top: 0;
     right: 0;
+    pointer-events: auto;
+    cursor: pointer;
   }
   &__content{
     z-index: 0;
@@ -20,10 +23,7 @@
     height: 100%;
     width: 100%;
     background: @lightest-gray;
-    display: none;
-    &.is-toggled{
-      display: block;
-    }
+    pointer-events: auto;
   }
 /* CLOSE MODULE */
 }
