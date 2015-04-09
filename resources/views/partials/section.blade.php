@@ -5,7 +5,7 @@
     </svg>
   </div>
   <div class="grid editor-inner-section o-section__body">
-
+    <!-- gulp-remove:start -->
     @unless( !isset($section['columns']) )
 
       @foreach ($section['columns'] as $column)
@@ -15,7 +15,7 @@
       @endforeach
 
     @endunless
-
+    <!-- gulp-remove:end -->
   </div>
 
   <div class="o-settings">
@@ -23,7 +23,7 @@
     <div class="o-settings__content o-box--pad-h-md o-box--pad-v-sm o-grid o-togglable" data-js="settings-content">
 
       <div class="o-grid__column o-grid__column--md-3">
-        <label class="o-input o-grid__column--md-3">
+        <label class="o-input">
           <span class="o-input__label">additional classes</span>
           <input data-js="additional-classes" class="o-input__field" type="text" value="{{$section['class']}}" placeholder="class, second-class" />
         </label>

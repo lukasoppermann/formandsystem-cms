@@ -1,4 +1,5 @@
 /* sandbox object */
-var fs_app = {
-  eventEmitter: new EventEmitter()
+var APP = {
+  eventEmitter: new EventEmitter(),
+  templates: {}
 };

@@ -78,5 +78,23 @@ var mocha = require('gulp-mocha');
 
 gulp.task('mocha', function () {
     return gulp.src('tests/mocha/*.js', {read: false})
-        .pipe(mocha({reporter: 'nyan'}));
+        .pipe(mocha({reporter: 'spec'}));
+});
+
+var fs = require('fs');
+var tap = require('gulp-tap');
+var replace = require('gulp-replace');
+
+gulp.task('templates', function () {
+  gulp.src('resources/views/partials/section.blade.php')
+      .pipe(replace(/\<\!-- gulp-remove:start --\>[\s\S]*?\<\!-- gulp-remove:end --\>/g,''))
+      .pipe(replace(/\r?\n|\r|\s\s/g,''))
+      .pipe(replace(/\'/g,'\\\''))
+      .pipe(tap(function(file){
+        var name = file.path.replace('.blade.php','').replace(file.base,'');
+        var content = file.contents;
+        console.log(file.contents);
+        fs.writeFile('resources/assets/js/templates/'+name+'.js', "APP.templates['"+name+"']='"+content+"';");
+      }));
+
 });

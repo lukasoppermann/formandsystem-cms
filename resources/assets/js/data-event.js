@@ -6,7 +6,7 @@
   var emitEvent = function(eventName, trigger, data){
     data = data || {};
     data.this = trigger;
-    fs_app.eventEmitter.emit(eventName, data);
+    APP.eventEmitter.emit(eventName, data);
   };
 
   var parseData = function(data){
