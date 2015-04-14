@@ -11,12 +11,10 @@ body{
   font-family: @font-family;
   font-weight: @font-regular;
   .font-size();
-  margin: 0;
   height: 100%;
 }
-*, *:before, *:after{
-  box-sizing: inherit;
-}
+body, button, p{ margin: 0; }
+*, *:before, *:after{ box-sizing: inherit; }
 ul{
   margin: 0;
   padding: 0;
@@ -28,17 +26,10 @@ a{
   text-decoration: none;
   display: inline-block;
 }
-input, textarea, select{
+div, section{ position: relative; }
+button, input, select, textarea {
   font-family: inherit;
-  font-size: inherit;
-  padding: 0;
-  border: none;
-  outline: none;
-  resize:none;
+  font-size: 100%;
 }
-div, section{
-  position: relative;
-}
-p{
-  margin: 0;
-}
+img { max-width: 100% }
+svg { max-height: 100% }

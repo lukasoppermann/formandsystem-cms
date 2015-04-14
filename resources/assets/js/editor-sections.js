@@ -15,6 +15,7 @@
           forcePlaceholderSize: true,
           placeholderClass: 'section-placeholder'
         });
+        initDataEvents();
       });
     });
   };

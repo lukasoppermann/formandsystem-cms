@@ -15,7 +15,7 @@ require('./resources/assets/ingredients/svgsprite.js');
 
 elixir(function(mix) {
     mix
-    .less('app.less')
+    // .less('app.less')
     .svgsprite()
     .scripts([
       'vendor/bower_components/jquery/jquery.min.js',
@@ -44,10 +44,61 @@ elixir(function(mix) {
     .phpSpec();
     // .phpUnit();
 });
-
+/*
+ |--------------------------------------------------------------------------
+ | My Gulp
+ |--------------------------------------------------------------------------
+ |
+ | Some expelnation
+ |
+ */
+// config
+var path = {};
+  path.cwd = process.cwd();
+  path.assets = '/resources/assets/';
+  path.dest = '/public/';
+  path.less = path.assets+'less/';
+  path.css_out = path.dest+'/css/';
+  path.js = path.assets+'js/';
+  path.js_out = path.dest+'js/';
+/*----------------------------*/
+// plugin
 var gulp = require('gulp');
+    log = require('gulp-util').log,
+    notify = require('gulp-notify'),
+    colors = require('gulp-util').colors,
+    // utils
+    noop = require('gulp-util').noop,
+    file = require('gulp-util').File,
+    concat = require('gulp-concat'),
+    size = require('gulp-size'),
+    // css
+    less = require('gulp-less'),
+    cssmin = require('gulp-minify-css'),
+    colorguard = require('gulp-colorguard'),
+    // js
+    browserify = require('browserify'),
+    uglify = require('gulp-uglify'),
+    mocha = require('mocha'),
+    // svg
+    svgstore = require('gulp-svgstore'),
+    svgmin = require('gulp-svgmin'),
+    // cheerio = require('gulp-cheerio'), // kick out?
+    // php
+    phpspec = require('gulp-phpspec'),
+    phpunit = require('gulp-phpunit'),
+    // analytics
+    pagespeed = require('psi') // page speed
+    recess = require('gulp-recess') // css quality
+;
+
+gulp.task('test', function() {
+    gulp.log('Test', gulp.colors.magenta('123'));
+    gulp.src('public/js/app.js')
+      .pipe(size());
+});
 // var minifyCSS = require('gulp-minify-css');
-var recess = require('gulp-recess');
+// var recess = require('gulp-recess');
 
 
 gulp.task('recess', function() {
@@ -61,7 +112,7 @@ gulp.task('recess', function() {
 });
 
 var scsslint = require('gulp-scss-lint');
-var less = require('gulp-less');
+
 var foreach = require('gulp-foreach');
 
 
@@ -73,8 +124,62 @@ gulp.task('csslint', function() {
     ;
 });
 
+/* ---------- */
+/* utilities */
+var notify = function(){
 
-var mocha = require('gulp-mocha');
+};
+/* ---------- */
+/* css */
+gulp.task('css', function(){
+  gulp.src(path.cwd+path.less+'app.less')
+    .pipe(less())
+    .pipe(colorguard({
+      format: 'json'
+    }))
+      .on('error', function(error){
+        log(error.message);
+      })
+    .pipe(gulp.dest(path.cwd+path.css_out));
+
+});
+/* ---------- */
+/* javascript */
+var source = require('vinyl-source-stream');
+gulp.task('javascript', function () {
+  // set up the browserify instance on a task basis
+  var b = browserify({
+    debug: true
+  });
+  b.add(path.cwd+path.js+'test.js');
+  // b.bundle().pipe(process.stdout);
+  return b.bundle()
+    .pipe(source('yo.js'))
+  //   // .pipe(buffer())
+  //   // .pipe(sourcemaps.init({loadMaps: true}))
+  //   //     // Add transformation tasks to the pipeline here.
+  //   //     .pipe(uglify())
+  //   //     .on('error', gutil.log)
+  //   // .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(path.cwd+path.js_out));
+});
+/* ---------- */
+/* waches */
+gulp.task('watch-css', function(){
+  gulp.watch([path.cwd+path.less+'*.less', path.cwd+path.less+'**/*.less'], ['css']);
+});
+/* ---------- */
+/* tasks */
+gulp.task('default', ['css', 'watch-css']);
+gulp.task('build', ['css']);
+
+/* ---------- */
+/* error handling */
+var reportError = function(error){
+  log(error.message);
+};
+
+/* ---------- */
 
 gulp.task('mocha', function () {
     return gulp.src('tests/mocha/*.js', {read: false})

@@ -10251,6 +10251,7 @@ var savePage = function() {
           forcePlaceholderSize: true,
           placeholderClass: 'section-placeholder'
         });
+        initDataEvents();
       });
     });
   };
