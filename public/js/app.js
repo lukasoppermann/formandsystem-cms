@@ -10217,11 +10217,15 @@ var savePage = function() {
 
   var page = function(){
     var menuItem = document.querySelector('.menu-item.js-is-active');
+    var menuData = {};
 
-    var menuData = {
-      menu_label: menuItem.querySelector('.menu-link-text').textContent,
-      link: menuItem.parentNode.querySelector('.link-input').value
-    };
+    if( menuItem !== undefined )
+    {
+      menuData = {
+        menu_label: menuItem.querySelector('.menu-link-text').textContent,
+        link: menuItem.parentNode.querySelector('.link-input').value
+      };
+    }
 
     return JSON.stringify(menuData);
   }();

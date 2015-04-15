@@ -23,6 +23,7 @@
     "gulp-phpunit": "^0.8.1",
     "gulp-recess": "^1.1.2",
     "gulp-replace": "^0.5.3",
+    "gulp-rename":"*",
     "gulp-scss-lint": "^0.1.10",
     "gulp-size": "^1.2.1",
     "gulp-svgmin": "^1.1.1",

@@ -29,8 +29,14 @@ var savePage = function() {
     };
   });
 
+  console.log('save-page.js needs error handling for when not menu item is active');
+
   var page = function(){
     var menuItem = document.querySelector('.menu-item.js-is-active');
+
+    if( menuItem === undefined ){
+      return {};
+    }
 
     var menuData = {
       menu_label: menuItem.querySelector('.menu-link-text').textContent,

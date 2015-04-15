@@ -1,7 +1,4 @@
 var elixir = require('laravel-elixir');
-require('./resources/assets/ingredients/svgsprite.js');
-
-// require('./resources/assets/ingredients/recess.js');
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -15,8 +12,6 @@ require('./resources/assets/ingredients/svgsprite.js');
 
 elixir(function(mix) {
     mix
-    // .less('app.less')
-    .svgsprite()
     .scripts([
       'vendor/bower_components/jquery/jquery.min.js',
       'vendor/bower_components/codemirror/lib/codemirror.js',
@@ -61,6 +56,13 @@ var path = {};
   path.css_out = path.dest+'/css/';
   path.js = path.assets+'js/';
   path.js_out = path.dest+'js/';
+  path.svg = path.assets+'svg/';
+  path.svg_out = path.dest+'media/';
+// color combinations ignored by colorguard
+var colorguardIgnore = [
+  ["#ffd200", "#fac800"], // main menu
+  ["#f5be00", "#fac800"]  // main menu
+];
 /*----------------------------*/
 // plugin
 var gulp = require('gulp');
@@ -72,6 +74,7 @@ var gulp = require('gulp');
     file = require('gulp-util').File,
     concat = require('gulp-concat'),
     size = require('gulp-size'),
+    rename = require('gulp-rename'),
     // css
     less = require('gulp-less'),
     cssmin = require('gulp-minify-css'),
@@ -83,7 +86,7 @@ var gulp = require('gulp');
     // svg
     svgstore = require('gulp-svgstore'),
     svgmin = require('gulp-svgmin'),
-    // cheerio = require('gulp-cheerio'), // kick out?
+    cheerio = require('gulp-cheerio'),
     // php
     phpspec = require('gulp-phpspec'),
     phpunit = require('gulp-phpunit'),
@@ -134,12 +137,12 @@ var notify = function(){
 gulp.task('css', function(){
   gulp.src(path.cwd+path.less+'app.less')
     .pipe(less())
+      .on('error', reportError)
     .pipe(colorguard({
-      format: 'json'
+      format: 'json',
+      whitelist: colorguardIgnore
     }))
-      .on('error', function(error){
-        log(error.message);
-      })
+      .on('error', reportError)
     .pipe(gulp.dest(path.cwd+path.css_out));
 
 });
@@ -164,19 +167,47 @@ gulp.task('javascript', function () {
     .pipe(gulp.dest(path.cwd+path.js_out));
 });
 /* ---------- */
+/* svg */
+gulp.task('svgsprite', function() {
+  gulp.src(path.cwd+path.svg+'*.svg')
+  .pipe(size({
+    title: 'combined size of all individual svg icons'
+  }))
+  .pipe(svgmin())
+  .pipe(rename({prefix: 'svg-icon--'}))
+  .pipe(svgstore({inlineSvg: true }))
+  .pipe(rename('svg-sprite.svg'))
+  .pipe(cheerio({
+    run: function ($) {
+      $('svg').attr({ style: 'display:none' });
+    }
+  }))
+  .pipe(size({
+    showFiles: true,
+  }))
+  .pipe(gulp.dest(path.cwd+path.svg_out));
+});
+/* ---------- */
 /* waches */
 gulp.task('watch-css', function(){
   gulp.watch([path.cwd+path.less+'*.less', path.cwd+path.less+'**/*.less'], ['css']);
 });
+gulp.task('watch-svgsprite', function(){
+  gulp.watch([path.cwd+path.less+'*.less', path.cwd+path.less+'**/*.less'], ['svgsprite']);
+});
 /* ---------- */
 /* tasks */
-gulp.task('default', ['css', 'watch-css']);
+// gulp.task('default', ['css', 'watch-css', 'svgsprite']);
 gulp.task('build', ['css']);
 
 /* ---------- */
 /* error handling */
 var reportError = function(error){
-  log(error.message);
+  if( error.message !== undefined ){
+    log(error.message);
+  }else{
+    log(error);
+  }
 };
 
 /* ---------- */
