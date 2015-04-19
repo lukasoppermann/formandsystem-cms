@@ -1,0 +1,52 @@
+/*csslint universal-selector:false */
+html {
+  font-size: 62.5%;
+  /* now 1rem = 10px*/
+  box-sizing: border-box;
+  height: 100%;
+}
+body {
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2.24rem;
+  height: 100%;
+}
+body,
+button,
+p {
+  margin: 0;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  display: block;
+}
+a {
+  text-decoration: none;
+  display: inline-block;
+}
+div,
+section {
+  position: relative;
+}
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+}
+img {
+  max-width: 100%;
+}
+svg {
+  max-height: 100%;
+}

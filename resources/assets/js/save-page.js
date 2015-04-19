@@ -1,5 +1,5 @@
 var fragmentFns = {
-  text: function(){
+  text: function() {
     var editor = editors[this.querySelector('.mark').getAttribute('data-mark')];
     return editor.getValue('');
   }
@@ -7,8 +7,8 @@ var fragmentFns = {
 
 var savePage = function() {
 
-  var i = 0,
-  columns = nestable('.editor-inner-section').serialize(function(){
+  var i = 0;
+  var columns = nestable('.editor-inner-section').serialize(function() {
 
     var fragment = this.querySelector('.js-fragment');
     return {
@@ -21,7 +21,7 @@ var savePage = function() {
     };
   });
 
-  var serialized = nestable('.content-body').serialize(function(){
+  var serialized = nestable('.content-body').serialize(function() {
     return {
       children: columns[i++],
       class: this.querySelector("[data-js='additional-classes']").value,
@@ -31,10 +31,10 @@ var savePage = function() {
 
   console.log('save-page.js needs error handling for when not menu item is active');
 
-  var page = function(){
+  var page = function() {
     var menuItem = document.querySelector('.menu-item.js-is-active');
 
-    if( menuItem === undefined ){
+    if (menuItem === undefined) {
       return {};
     }
 
@@ -49,7 +49,7 @@ var savePage = function() {
   $.ajax({
     url: '/pages/'+document.querySelector('[data-page]').getAttribute('data-page-id'),
     type: 'PUT',
-    data: 'page='+page +'&data='+JSON.stringify(serialized[0])+'&_token='+$('meta[name="_token"]')[0].getAttribute('content'),
+    data: 'page='+page +'&data='+JSON.stringif y(serialized[0])+'&_token='+$('meta[name="_token"]')[0].getAttribute('content'),
     dataType: 'text'
   });
 };

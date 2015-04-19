@@ -1,0 +1,16 @@
+.o-input {
+  display: inline-block;
+  /* CHILDREN */
+  /* CLOSE MODULE */
+}
+.o-input__label {
+  padding: 0.5rem;
+}
+.o-input__field {
+  padding: 0.5rem;
+  border: none;
+  resize: none;
+}
+.o-input__field:focus {
+  outline: 2px solid #417de1;
+}

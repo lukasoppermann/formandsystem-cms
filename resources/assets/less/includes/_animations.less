@@ -1,9 +1,9 @@
-.pseudo-element(){
-    position: absolute;
-    top: 1px;
-    display: block;
-    content: '';
-}
+// *****************
+//  Timing
+//
+@base-transition-duration: .5s;
+@base-transition-ease: ease;
+@base-transition-delay: 0;
 
 .transition(@property, @duration: @base-transition-duration, @ease: @base-transition-ease, @delay: @base-transition-delay){
   transition-property: @property;

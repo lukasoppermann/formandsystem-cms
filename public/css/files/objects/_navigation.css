@@ -1,0 +1,306 @@
+.link-input {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  line-height: 1.6rem;
+  color: #ffffff;
+  font-weight: 400;
+}
+.o-media--centered {
+  margin-left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+.o-section--new {
+  color: #90969d;
+  background: #f2f6fa;
+  width: calc(98%);
+  margin: 1rem 0 1rem 1rem;
+  border-radius: .2rem;
+  transition-property: background;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  transition-delay: 0;
+}
+.o-section--new:hover {
+  background: #e0e6ed;
+  cursor: pointer;
+  color: #828991;
+}
+.o-section--new:hover .o-icon--light-gray {
+  fill: #9fb2c8;
+}
+.input-field {
+  padding-top: 14px;
+}
+.input-field label {
+  position: absolute;
+  top: 0;
+  font-size: 1.3rem;
+  line-height: 1.82rem;
+}
+.input-field input {
+  font-size: 1.6rem;
+  line-height: 2.24rem;
+}
+.input-field input[value=""] {
+  background: red;
+}
+.navigation {
+  position: absolute;
+  height: 100%;
+  width: 27rem;
+  background: #2c3239;
+  color: #ffffff;
+}
+.navigation:before {
+  position: absolute;
+  display: block;
+  content: '';
+  top: 0;
+  z-index: 9;
+  left: 26.6rem;
+  height: 100%;
+  width: .4rem;
+  background-color: rgba(15, 20, 25, 0.25);
+}
+.menu {
+  width: 100%;
+}
+.menu--overflow {
+  height: calc( 100% - 11.2rem );
+  margin-top: 5.6rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.menu--fixed-top {
+  top: 0;
+}
+.menu--fixed-bottom {
+  bottom: 0;
+}
+.menu-item {
+  display: block;
+  position: relative;
+  width: 100%;
+  font-weight: 300;
+  transition-property: background;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  transition-delay: 0;
+}
+.menu-item.is-active {
+  background: #23282d;
+}
+.menu-item.is-active .menu-link {
+  background: #417de1;
+}
+.menu-item.is-active .menu-link:after {
+  position: absolute;
+  display: block;
+  content: '';
+  z-index: 10;
+  border-style: solid;
+  border-width: 0.8rem;
+  border-color: #417de1 transparent transparent transparent;
+  bottom: -1.6rem;
+}
+.menu-link {
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+  color: #ffffff;
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 5.6rem;
+  padding: 2rem 3.2rem 1.8rem 1rem;
+}
+.menu-link:hover {
+  background: #23282d;
+}
+.menu-li-item .menu-li-item .menu-link {
+  padding-left: 2.4rem;
+}
+.menu-li-item .menu-li-item .menu-li-item .menu-link {
+  padding-left: 4rem;
+}
+.menu-li-item .menu-li-item .menu-li-item .menu-li-item .menu-link {
+  padding-left: 5.6rem;
+}
+.menu-li-item {
+  display: block;
+  position: relative;
+}
+.navigation > .menu > .menu-li-item > .menu:before {
+  position: absolute;
+  display: block;
+  content: '';
+  z-index: 10;
+  border: 1px dotted rgba(255, 255, 255, 0.1);
+  border-width: 0 0 0 1px;
+  top: -0.5rem;
+  left: 1.6rem;
+  width: 1px;
+  height: calc(99.9%);
+}
+.menu-link-text {
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
+  height: 100%;
+  width: calc( 100% - 2rem * 2 );
+}
+.menu-link-fade-right:before {
+  position: absolute;
+  display: block;
+  content: '';
+  top: 0;
+  right: 0;
+  width: 4rem;
+  height: 100%;
+  background-image: linear-gradient(left, rgba(44, 50, 57, 0), #2c3239 95%);
+}
+.is-active .menu-link-fade-right:before {
+  background-image: linear-gradient(left, rgba(65, 125, 225, 0), #417de1 95%);
+}
+.menu-link [class*="icon-"] {
+  margin-top: -0.2rem;
+}
+[class*="menu--fixed"] {
+  position: fixed;
+  width: 27rem;
+  left: 0;
+  z-index: 10;
+}
+.menu-item-status .icon-eye {
+  display: none;
+}
+.menu-item-status .icon-eye-closed {
+  display: block;
+}
+.menu-item-status.is-published .icon-eye {
+  display: block;
+}
+.menu-item-status.is-published .icon-eye-closed {
+  display: none;
+}
+.menu-item-options {
+  position: relative;
+  box-shadow: inset 0 -0.1rem 0.1rem rgba(15, 20, 25, 0.05), inset 0 0.1rem 0.1rem rgba(15, 20, 25, 0.15);
+  background-color: #23282d;
+  display: none;
+}
+.menu-item-options.is-active {
+  display: block;
+}
+.menu-item-options-link {
+  position: relative;
+  display: block;
+}
+.menu-item-options-link:before,
+.menu-item-options-link:after {
+  position: absolute;
+  display: block;
+  content: '';
+  top: 0;
+  height: 5.6rem;
+  width: 3rem;
+  right: 1.5rem;
+  background-image: linear-gradient(left, rgba(35, 40, 45, 0), rgba(35, 40, 45, 0.75) 50%, #23282d);
+}
+.menu-item-options-link .icon-link {
+  z-index: 10;
+  position: absolute;
+  top: 1.6rem;
+  left: 2.4rem;
+}
+/* TODO: Shame */
+.menu-item-options-bottom {
+  width: 100%;
+  display: block;
+  text-align: right;
+}
+.menu-item-options-delete {
+  font-size: 1.3rem;
+  color: #ffffff;
+  display: inline-block;
+  position: relative;
+  padding: 0.5rem 2rem 1rem 1rem;
+  margin: 0 0.5rem 0.5rem 0;
+}
+.menu-item-options-delete::before {
+  position: absolute;
+  top: -2px;
+  left: -5px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #e64b3c;
+  content: '';
+  opacity: 0;
+  transition: opacity .2s, -webkit-transform .2s;
+  transition: opacity .2s, transform .2s;
+  -webkit-transform: scale(0.8333);
+  transform: scale(0.8333);
+}
+.menu-item-options-delete:hover::before,
+.menu-item-options-delete:focus::before {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+.menu-link--no-icon {
+  padding-left: 1.5rem;
+}
+.menu-link--icon-right {
+  padding-right: 2rem;
+}
+.menu-link--icon-right:before {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 0;
+  right: calc(2rem + (2 * 2rem) );
+  height: 100%;
+  width: 2em;
+}
+.menu-link-icon {
+  transition-property: background, color;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  transition-delay: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: calc(2rem + (2 * 2rem) );
+  height: 100%;
+  padding: 1.8rem 2rem;
+  margin-right: 0;
+  color: rgba(255, 255, 255, 0.75);
+}
+.menu--yellow {
+  background-color: #ffd200;
+  box-shadow: 0 2px 0px rgba(15, 20, 25, 0.1);
+}
+.menu--yellow:before {
+  position: absolute;
+  display: block;
+  content: '';
+  position: fixed;
+  top: 0;
+  z-index: 9;
+  left: 26.6rem;
+  height: 100%;
+  width: .4rem;
+  background-color: rgba(15, 20, 25, 0.03);
+}
+.menu--yellow .menu-link {
+  font-weight: 600;
+  color: #0f1419;
+}
+.menu--yellow .menu-link:hover {
+  background-color: #fac800;
+}
+.menu--yellow .menu-link-icon {
+  background-color: #f5be00;
+}

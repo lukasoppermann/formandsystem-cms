@@ -1,8 +1,8 @@
-(function(window){
+(function(window) {
   'use strict';
-  window.addEditorSection = function(selector, templateSelector){
-    Array.prototype.slice.call(document.querySelectorAll(selector)).forEach( function(el){
-      el.addEventListener('click', function(){
+  window.addEditorSection = function(selector, templateSelector) {
+    Array.prototype.slice.call(document.querySelectorAll(selector)).forEach(function(el) {
+      el.addEventListener('click', function() {
         var template = APP.templates.section;
         template = template.replace('{{$pos}}',document.querySelectorAll('.js-editor-section').length);
         template = template.replace(/{{[^}]*}}/g,'');

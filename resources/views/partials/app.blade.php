@@ -19,7 +19,7 @@
   <title>{{$title or ''}} | Form&System</title>
 </head>
 <body>
-  <?php include("./media/svg-sprite.svg"); ?>
+  <?php include("./".elixir("media/svg-sprite.svg")); ?>
   @if( isset($error) )
     @include('misc.error', array('error' => $error))
   @endif

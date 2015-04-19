@@ -1,0 +1,6 @@
+.o-togglable {
+  /* CLOSE MODULE */
+}
+.o-togglable:not(.is-toggled) {
+  display: none;
+}

@@ -1,0 +1,27 @@
+.o-box {
+  margin: 0;
+  /* EXTENSION */
+  /*CLOSE MODULE*/
+}
+.o-box--flush {
+  padding: 0;
+}
+.o-box--pad-md {
+  padding: 2rem;
+}
+.o-box--pad-h-md {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.o-box--pad-v-md {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.o-box--pad-h-sm {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.o-box--pad-v-sm {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}

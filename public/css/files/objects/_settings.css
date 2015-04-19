@@ -1,0 +1,28 @@
+.o-settings {
+  z-index: 90;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  /* EXTENSIONS */
+  /* CHILDREN */
+  /* CLOSE MODULE */
+}
+.o-settings__toggle {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  right: 0;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.o-settings__content {
+  z-index: 0;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background: #f2f6fa;
+  pointer-events: auto;
+}

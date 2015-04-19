@@ -1,0 +1,97 @@
+.o-button {
+  display: inline-block;
+  cursor: pointer;
+  transition-property: box-shadow;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  transition-delay: 0;
+  /* EXTENSION */
+  /* CLOSE MODULE*/
+}
+.o-button:not(.o-button--outlined):hover {
+  box-shadow: 0 1px 2px rgba(15, 20, 25, 0.225);
+}
+.o-button.o-button--margin {
+  margin: 0 0.5rem;
+}
+.o-button.o-button--padded {
+  padding: 0.5rem 1rem;
+}
+.o-button.o-button--right {
+  float: right;
+}
+.o-button.o-button--shadow {
+  box-shadow: 0 1px 2px rgba(15, 20, 25, 0.15);
+}
+.o-button.o-button--warning:not(.o-button--outlined) {
+  background: #e64b3c;
+}
+.o-button.o-button--light-gray:not(.o-button--outlined) {
+  background: #e0e6ed;
+}
+.o-button.o-button--outlined:not(.is-toggled):hover::before,
+.o-button.o-button--outlined:focus::before {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+.o-button.o-button--outlined::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-width: 2px;
+  border-style: solid;
+  content: '';
+  opacity: 0;
+  transition: opacity .2s, -webkit-transform .2s;
+  transition: opacity .2s, transform .2s;
+  -webkit-transform: scale(0.8333);
+  transform: scale(0.8333);
+}
+.o-button.o-button--outlined.o-button--warning::before {
+  border-color: #e64b3c;
+}
+.o-button--confirm {
+  /* CHILDREN */
+}
+.o-button--confirm__content {
+  padding: 0.5rem 1rem;
+  opacity: 1;
+  z-index: 10;
+}
+.o-button--confirm__confirmation {
+  z-index: 20;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.o-button--bar {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.o-button--bar .o-button {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}

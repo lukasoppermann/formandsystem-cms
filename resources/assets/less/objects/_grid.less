@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   flex-direction: row;
   /* CHILDREN */
-  &__column {
+  &__column--flex {
     flex: 1;
     flex-direction: column;
   }
@@ -20,7 +20,7 @@
 // Column Mixin
 //
 .generate-columns(@n, @tag, @i: 1) when (@i =< @n) {
-  .o-grid__column.o-grid__column--@{tag}-@{i} {
+  .o-grid__column--@{tag}-@{i} {
     flex: 0 0 (@i * 100% / @n);
   }
   .generate-columns(@n, @tag, (@i + 1));
@@ -28,7 +28,7 @@
 // Offset Mixin
 //
 .generate-offset(@col, @tag, @i: 1) when (@i < @col) {
-  .o-grid__column.o-grid__offset--@{tag}-@{i} {
+  .o-grid__offset--@{tag}-@{i} {
     margin-left: (@i * 100% / @col);
   }
   .generate-offset(@col, @tag, (@i + 1));

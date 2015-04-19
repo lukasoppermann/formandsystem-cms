@@ -1,44 +1,3 @@
-var elixir = require('laravel-elixir');
-/*
- |--------------------------------------------------------------------------
- | Elixir Asset Management
- |--------------------------------------------------------------------------
- |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
- | for your Laravel application. By default, we are compiling the Sass
- | file for our application, as well as publishing vendor resources.
- |
- */
-
-elixir(function(mix) {
-    mix
-    .scripts([
-      'vendor/bower_components/jquery/jquery.min.js',
-      'vendor/bower_components/codemirror/lib/codemirror.js',
-      'vendor/bower_components/codemirror/mode/css/css.js',
-      'vendor/bower_components/codemirror/addon/mode/overlay.js',
-      'vendor/bower_components/codemirror/mode/markdown/markdown.js',
-      'vendor/bower_components/codemirror/mode/gfm/gfm.js',
-      'vendor/bower_components/nestable/dist/nestable.jquery.min.js',
-      'vendor/bower_components/keymage/keymage.min.js',
-      'vendor/bower_components/eventEmitter/EventEmitter.js',
-      // 'vendor/bower_components/nestable/src/nestable.js',
-      // 'vendor/bower_components/nestable/src/nestable.functions.js',
-      // 'vendor/bower_components/nestable/src/nestable.jquery.js',
-      'resources/assets/js/app-object.js',
-      'resources/assets/js/templates/*',
-      'resources/assets/js/data-toggle.js',
-      'resources/assets/js/data-event.js',
-      'resources/assets/js/save-page.js',
-      'resources/assets/js/editor-sections.js',
-      'resources/assets/js/keyboard-shortcuts.js',
-      'resources/assets/js/pages/*',
-      'resources/assets/js/app.js'
-    ], 'public/js/app.js', './')
-    .version(['public/css/app.css','public/js/app.js'])
-    .phpSpec();
-    // .phpUnit();
-});
 /*
  |--------------------------------------------------------------------------
  | My Gulp
@@ -58,31 +17,44 @@ var path = {};
   path.js_out = path.dest+'js/';
   path.svg = path.assets+'svg/';
   path.svg_out = path.dest+'media/';
+  path.buildDir = path.dest+'build/';
 // color combinations ignored by colorguard
 var colorguardIgnore = [
-  ["#ffd200", "#fac800"], // main menu
-  ["#f5be00", "#fac800"]  // main menu
+  ['#ffd200', '#fac800'], // main menu
+  ['#f5be00', '#fac800']  // main menu
 ];
 /*----------------------------*/
 // plugin
-var gulp = require('gulp');
+var gulp = require('gulp'),
     log = require('gulp-util').log,
     notify = require('gulp-notify'),
     colors = require('gulp-util').colors,
+    cache = require('gulp-cached'),
     // utils
+    sourcemaps = require('gulp-sourcemaps'),
     noop = require('gulp-util').noop,
     file = require('gulp-util').File,
     concat = require('gulp-concat'),
     size = require('gulp-size'),
     rename = require('gulp-rename'),
+    addsrc = require('gulp-add-src'),
+    del = require('del'),
+    rev = require('gulp-rev'),
+    changed = require('gulp-changed'),
+    progeny = require('gulp-progeny'),
     // css
     less = require('gulp-less'),
+    autoprefixer = require('gulp-autoprefixer'),
     cssmin = require('gulp-minify-css'),
     colorguard = require('gulp-colorguard'),
+    csslint = require('gulp-csslint'),
     // js
     browserify = require('browserify'),
     uglify = require('gulp-uglify'),
+    jsmin = require('gulp-jsmin'),
     mocha = require('mocha'),
+    jshint = require('gulp-jshint'),
+    jscs = require('gulp-jscs');
     // svg
     svgstore = require('gulp-svgstore'),
     svgmin = require('gulp-svgmin'),
@@ -92,40 +64,7 @@ var gulp = require('gulp');
     phpunit = require('gulp-phpunit'),
     // analytics
     pagespeed = require('psi') // page speed
-    recess = require('gulp-recess') // css quality
 ;
-
-gulp.task('test', function() {
-    gulp.log('Test', gulp.colors.magenta('123'));
-    gulp.src('public/js/app.js')
-      .pipe(size());
-});
-// var minifyCSS = require('gulp-minify-css');
-// var recess = require('gulp-recess');
-
-
-gulp.task('recess', function() {
-  gulp.src('public/css/app.css')
-  .pipe(recess().on('error',function(error){
-  }))
-  .pipe(recess.reporter({
-    fail: true,
-    minimal: false
-  }));
-});
-
-var scsslint = require('gulp-scss-lint');
-
-var foreach = require('gulp-foreach');
-
-
-gulp.task('csslint', function() {
-  gulp.src(['public/css/app.css'])
-    .pipe(scsslint({
-      config: 'scsslint.yml'
-    }))
-    ;
-});
 
 /* ---------- */
 /* utilities */
@@ -133,18 +72,93 @@ var notify = function(){
 
 };
 /* ---------- */
+/* error handling */
+var reportError = function(error) {
+  if( error.message !== undefined ) {
+    log(error.message);
+  }else{
+    log(error);
+  }
+};
+/* ---------- */
 /* css */
-gulp.task('css', function(){
-  gulp.src(path.cwd+path.less+'app.less')
+csslint.addRule({
+  id: 'oocss',
+  name: 'OOCSS',
+  desc: 'Class names must follow the pattern .(o|c|u|is|has|js|qa)-[a-z0-9-]+((_{2}|-{2})?[a-z0-9-]+)?(-{2}[a-z0-9-]+)?[a-z0-9]',
+  browsers: 'All',
+
+  //initialization
+  init: function(parser, reporter){
+    'use strict';
+    var rule = this;
+    parser.addListener('startrule', function(event){
+
+      var line        = event.line,
+          col         = event.col;
+
+      for (var i=0,len=event.selectors.length; i < len; i++){
+        var selectors = event.selectors[i].text.split(/(?=\.)/);
+        for (var s=0,l=selectors.length; s < l; s++){
+          var selector = selectors[s].trim();
+          if(selector.charAt(0) !== '.'){
+            return;
+          }
+          if(!selector.match(/^\.(_)?(o|c|u|is|has|js|qa)-[a-z0-9-]+((_{2}|-{2})?[a-z0-9-]+)?(-{2}[a-z0-9-]+)?[a-z0-9]$/)){
+            reporter.warn('Bad naming: '+selector, line, col, rule);
+          }
+        }
+      }
+    });
+  }
+});
+
+gulp.task('css', function(cb){
+  return gulp.src([path.cwd+path.less+'*.less', path.cwd+path.less+'**/*.less'])
+    .pipe(cache('less'))
+    .pipe(progeny({
+      regexp: /^\s*@import\s*(?:\(\w+\)\s*)?['"]([^'"]+)['"]/
+    }))
     .pipe(less())
       .on('error', reportError)
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions'],
+      cascade: false
+    }))
+    .pipe(csslint({
+      'fallback-colors': false,
+      'box-sizing': false,
+      'box-model': false,
+      'compatible-vendor-prefixes': false,
+      'adjoining-classes': true // turn back on
+    }))
+    // .pipe(csslint.reporter())
     .pipe(colorguard({
       format: 'json',
       whitelist: colorguardIgnore
     }))
-      .on('error', reportError)
-    .pipe(gulp.dest(path.cwd+path.css_out));
+    .pipe(gulp.dest(path.cwd+path.css_out+'/files/'));
 
+    cb(err);
+});
+
+gulp.task('cssmin', ['css'], function(){
+  return gulp.src([path.cwd+path.css_out+'/files/*.css', path.cwd+path.css_out+'/files/**/*.css'])
+  .pipe(size({
+    showFiles: false,
+    title: 'compiled less files'
+  }))
+  .pipe(concat('app.css'))
+  .pipe(sourcemaps.init({loadMaps: true}))
+    .on('error', reportError)
+  .pipe(cssmin())
+    .on('error', reportError)
+  .pipe(size({
+    showFiles: true,
+    title: 'minified css file'
+  }))
+  .pipe(sourcemaps.write('./'))
+  .pipe(gulp.dest(path.cwd+path.css_out));
 });
 /* ---------- */
 /* javascript */
@@ -154,16 +168,84 @@ gulp.task('javascript', function () {
   var b = browserify({
     debug: true
   });
-  b.add(path.cwd+path.js+'test.js');
+  // b.add([
+  //   'vendor/bower_components/jquery/jquery.min.js',
+  //   'vendor/bower_components/codemirror/lib/codemirror.js',
+  //   'vendor/bower_components/codemirror/mode/css/css.js',
+  //   'vendor/bower_components/codemirror/addon/mode/overlay.js',
+  //   'vendor/bower_components/codemirror/mode/markdown/markdown.js',
+  //   'vendor/bower_components/codemirror/mode/gfm/gfm.js',
+  //   'vendor/bower_components/nestable/dist/nestable.jquery.min.js',
+  //   // 'vendor/bower_components/keymage/keymage.min.js',
+  //   'vendor/bower_components/eventEmitter/EventEmitter.js',
+  //   // 'vendor/bower_components/nestable/src/nestable.js',
+  //   // 'vendor/bower_components/nestable/src/nestable.functions.js',
+  //   // 'vendor/bower_components/nestable/src/nestable.jquery.js',
+  //   'resources/assets/js/app-object.js',
+  //   'resources/assets/js/templates/*',
+  //   'resources/assets/js/data-toggle.js',
+  //   'resources/assets/js/data-event.js',
+  //   'resources/assets/js/save-page.js',
+  //   'resources/assets/js/editor-sections.js',
+  //   'resources/assets/js/keyboard-shortcuts.js',
+  //   'resources/assets/js/pages/*',
+  //   'resources/assets/js/app.js'
+  // ]);
   // b.bundle().pipe(process.stdout);
-  return b.bundle()
-    .pipe(source('yo.js'))
-  //   // .pipe(buffer())
-  //   // .pipe(sourcemaps.init({loadMaps: true}))
-  //   //     // Add transformation tasks to the pipeline here.
-  //   //     .pipe(uglify())
-  //   //     .on('error', gutil.log)
-  //   // .pipe(sourcemaps.write('./'))
+  // return b.bundle()
+    gulp.src([
+      'resources/assets/js/app-object.js',
+      'resources/assets/js/templates/*',
+      'resources/assets/js/data-toggle.js',
+      'resources/assets/js/data-event.js',
+      'resources/assets/js/save-page.js',
+      'resources/assets/js/editor-sections.js',
+      'resources/assets/js/keyboard-shortcuts.js',
+      'resources/assets/js/pages/*',
+      'resources/assets/js/app.js'
+    ])
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jscs())
+      .on('error', reportError);
+
+    return gulp.src([
+      'vendor/bower_components/jquery/jquery.min.js',
+      'vendor/bower_components/codemirror/lib/codemirror.js',
+      'vendor/bower_components/codemirror/mode/css/css.js',
+      'vendor/bower_components/codemirror/addon/mode/overlay.js',
+      'vendor/bower_components/codemirror/mode/markdown/markdown.js',
+      'vendor/bower_components/codemirror/mode/gfm/gfm.js',
+      'vendor/bower_components/nestable/dist/nestable.jquery.min.js',
+      'vendor/bower_components/keymage/keymage.min.js',
+      'vendor/bower_components/eventEmitter/EventEmitter.min.js',
+      // 'vendor/bower_components/nestable/src/nestable.js',
+      // 'vendor/bower_components/nestable/src/nestable.functions.js',
+      // 'vendor/bower_components/nestable/src/nestable.jquery.js',
+      'resources/assets/js/app-object.js',
+      'resources/assets/js/templates/*',
+      'resources/assets/js/data-toggle.js',
+      'resources/assets/js/data-event.js',
+      'resources/assets/js/save-page.js',
+      'resources/assets/js/editor-sections.js',
+      'resources/assets/js/keyboard-shortcuts.js',
+      'resources/assets/js/pages/*',
+      'resources/assets/js/app.js'
+    ])
+    // .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(concat('app.js'))
+    .pipe(size({
+      showFiles: true,
+      title: 'concatinated js files'
+    }))
+    .pipe(jsmin())
+      .on('error', reportError)
+    .pipe(size({
+      showFiles: true,
+      title: 'minified js files'
+    }))
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(path.cwd+path.js_out));
 });
 /* ---------- */
@@ -190,25 +272,36 @@ gulp.task('svgsprite', function() {
 /* ---------- */
 /* waches */
 gulp.task('watch-css', function(){
-  gulp.watch([path.cwd+path.less+'*.less', path.cwd+path.less+'**/*.less'], ['css']);
+  gulp.watch([path.cwd+path.less+'*.less', path.cwd+path.less+'**/*.less'], ['css', 'cssmin']);
 });
 gulp.task('watch-svgsprite', function(){
-  gulp.watch([path.cwd+path.less+'*.less', path.cwd+path.less+'**/*.less'], ['svgsprite']);
+  gulp.watch([path.cwd+path.svg+'*.svg'], ['svgsprite']);
+});
+/* ---------- */
+/* rev */
+gulp.task('rev', function(){
+  del.sync(path.cwd+path.buildDir+'*', { force: true });
+
+  return gulp.src([
+      path.cwd+path.css_out+'app.css',
+      path.cwd+path.js_out+'app.js',
+      path.cwd+path.svg_out+'svg-sprite.svg'
+    ], {base: path.cwd+path.dest})
+    .pipe(rev())
+    .pipe(gulp.dest(path.cwd+path.buildDir))  // write rev'd assets to build dir
+    .pipe(rev.manifest())
+    .pipe(gulp.dest(path.cwd+path.buildDir)) // write manifest to build dir
+    .on('end', function() {
+      gulp.src(path.cwd+path.js_out+'app.js.map')
+      .pipe(gulp.dest(path.cwd+path.buildDir+'js/'));
+      gulp.src(path.cwd+path.css_out+'app.css.map')
+      .pipe(gulp.dest(path.cwd+path.buildDir+'css/'));
+    });
 });
 /* ---------- */
 /* tasks */
-// gulp.task('default', ['css', 'watch-css', 'svgsprite']);
+// gulp.task('default', ['css', 'watch-css', 'svgsprite', 'watch-svgsprite']);
 gulp.task('build', ['css']);
-
-/* ---------- */
-/* error handling */
-var reportError = function(error){
-  if( error.message !== undefined ){
-    log(error.message);
-  }else{
-    log(error);
-  }
-};
 
 /* ---------- */
 
@@ -223,14 +316,13 @@ var replace = require('gulp-replace');
 
 gulp.task('templates', function () {
   gulp.src('resources/views/partials/section.blade.php')
-      .pipe(replace(/\<\!-- gulp-remove:start --\>[\s\S]*?\<\!-- gulp-remove:end --\>/g,''))
+      .pipe(replace(/<\!-- gulp-remove:start -->[\s\S]*?<\!-- gulp-remove:end -->/g,''))
       .pipe(replace(/\r?\n|\r|\s\s/g,''))
       .pipe(replace(/\'/g,'\\\''))
       .pipe(tap(function(file){
         var name = file.path.replace('.blade.php','').replace(file.base,'');
         var content = file.contents;
-        console.log(file.contents);
-        fs.writeFile('resources/assets/js/templates/'+name+'.js', "APP.templates['"+name+"']='"+content+"';");
+        fs.writeFile('resources/assets/js/templates/'+name+'.js', 'APP.templates["'+name+'"]="'+content+'";');
       }));
 
 });
