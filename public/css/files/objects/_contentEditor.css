@@ -1,47 +1,57 @@
 .editor-section {
-  width: 100%;
-  transition-property: border-color, box-shadow;
-  transition-duration: 0.5s;
-  transition-timing-function: ease;
-  transition-delay: 0;
-  border-bottom: 1px solid #f2f6fa;
+	width: 100%;
+	transition-property: border-color, box-shadow;
+	transition-duration: 0.5s;
+	transition-timing-function: ease;
+	transition-delay: 0;
+	border-bottom: 1px solid #f2f6fa;
 }
+
 .editor-section:hover {
-  border-color: #e0e6ed;
+	border-color: #e0e6ed;
 }
+
 .editor-section:hover.drag-is-active {
-  box-shadow: 0 1px 2px rgba(15, 20, 25, 0.075);
+	box-shadow: 0 1px 2px rgba(15, 20, 25, 0.075);
 }
+
 .editor-section:hover.child-is-active {
-  border-color: #f2f6fa;
+	border-color: #f2f6fa;
 }
+
 .editor-section:hover .editor-section-dragHandler {
-  opacity: 1;
+	opacity: 1;
 }
+
 .editor-inner-section {
-  min-height: 200px;
-  padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+	min-height: 200px;
+	padding: 0.5rem 0.5rem 0.5rem 2.5rem;
 }
+
 .section-placeholder {
-  position: relative;
-  background-color: #417de1;
+	position: relative;
+	background-color: #417de1;
 }
+
 .section-placeholder:before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  width: calc(100% - 20px);
-  height: calc(100% - 20px);
-  border: 2px dashed rgba(255, 255, 255, 0.5);
-  border-radius: .4rem;
+	content: "";
+	display: block;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: calc(100% - 20px);
+	height: calc(100% - 20px);
+	border: 2px dashed rgba(255, 255, 255, 0.5);
+	border-radius: .4rem;
 }
+
 .js-nestable-ghost {
-  background-color: #417de1;
-  border-radius: 2px;
-  cursor: move;
+	background-color: #417de1;
+	border-radius: 2px;
+	cursor: move;
 }
+
 .js-nestable-ghost .editor-section {
-  border: none;
+	border: none;
 }
+

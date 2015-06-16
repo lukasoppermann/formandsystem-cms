@@ -37,17 +37,18 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     size = require('gulp-size'),
     rename = require('gulp-rename'),
-    addsrc = require('gulp-add-src'),
     del = require('del'),
     rev = require('gulp-rev'),
     changed = require('gulp-changed'),
     progeny = require('gulp-progeny'),
+    clipEmpty = require('gulp-clip-empty-files'),
     // css
     less = require('gulp-less'),
     autoprefixer = require('gulp-autoprefixer'),
     cssmin = require('gulp-minify-css'),
     colorguard = require('gulp-colorguard'),
     csslint = require('gulp-csslint'),
+    cmq = require('gulp-combine-media-queries'),
     // js
     browserify = require('browserify'),
     uglify = require('gulp-uglify'),
@@ -85,7 +86,7 @@ var reportError = function(error) {
 csslint.addRule({
   id: 'oocss',
   name: 'OOCSS',
-  desc: 'Class names must follow the pattern .(o|c|u|is|has|js|qa)-[a-z0-9-]+((_{2}|-{2})?[a-z0-9-]+)?(-{2}[a-z0-9-]+)?[a-z0-9]',
+  desc: 'Class names must follow the pattern .(o|c|u|js|qa|is|has)-[a-z0-9-]+((_{2}|-{2})?[a-z0-9-]+)?(-{2}[a-z0-9-]+)?[a-z0-9]',
   browsers: 'All',
 
   //initialization
@@ -104,7 +105,7 @@ csslint.addRule({
           if(selector.charAt(0) !== '.'){
             return;
           }
-          if(!selector.match(/^\.(_)?(o|c|u|is|has|js|qa)-[a-z0-9-]+((_{2}|-{2})?[a-z0-9-]+)?(-{2}[a-z0-9-]+)?[a-z0-9]$/)){
+          if(!selector.match(/^\.(_)?(o|c|u|js|qa|is|has)-([a-z0-9]|-)+((_{2}|-{2})?[a-z0-9-]+)?(-{2}[a-z0-9-]+)?[a-z0-9]$/)){
             reporter.warn('Bad naming: '+selector, line, col, rule);
           }
         }
@@ -113,7 +114,7 @@ csslint.addRule({
   }
 });
 
-gulp.task('css', function(cb){
+gulp.task('compile-css', function(cb){
   return gulp.src([path.cwd+path.less+'*.less', path.cwd+path.less+'**/*.less'])
     .pipe(cache('less'))
     .pipe(progeny({
@@ -121,10 +122,12 @@ gulp.task('css', function(cb){
     }))
     .pipe(less())
       .on('error', reportError)
+    .pipe(clipEmpty())
     .pipe(autoprefixer({
       browsers: ['last 2 versions'],
       cascade: false
     }))
+    .pipe(cmq())
     .pipe(csslint({
       'fallback-colors': false,
       'box-sizing': false,
@@ -132,7 +135,7 @@ gulp.task('css', function(cb){
       'compatible-vendor-prefixes': false,
       'adjoining-classes': true // turn back on
     }))
-    // .pipe(csslint.reporter())
+    .pipe(csslint.reporter())
     .pipe(colorguard({
       format: 'json',
       whitelist: colorguardIgnore
@@ -142,7 +145,7 @@ gulp.task('css', function(cb){
     cb(err);
 });
 
-gulp.task('cssmin', ['css'], function(){
+gulp.task('cssmin', ['compile-css'], function(){
   return gulp.src([path.cwd+path.css_out+'/files/*.css', path.cwd+path.css_out+'/files/**/*.css'])
   .pipe(size({
     showFiles: false,
@@ -272,7 +275,7 @@ gulp.task('svgsprite', function() {
 /* ---------- */
 /* waches */
 gulp.task('watch-css', function(){
-  gulp.watch([path.cwd+path.less+'*.less', path.cwd+path.less+'**/*.less'], ['css', 'cssmin']);
+  gulp.watch([path.cwd+path.less+'*.less', path.cwd+path.less+'**/*.less'], ['css']);
 });
 gulp.task('watch-svgsprite', function(){
   gulp.watch([path.cwd+path.svg+'*.svg'], ['svgsprite']);
@@ -301,6 +304,7 @@ gulp.task('rev', function(){
 /* ---------- */
 /* tasks */
 // gulp.task('default', ['css', 'watch-css', 'svgsprite', 'watch-svgsprite']);
+gulp.task('css', ['compile-css', 'cssmin']);
 gulp.task('build', ['css']);
 
 /* ---------- */

@@ -1,48 +1,57 @@
 .link-input {
-  background-color: transparent;
-  border: none;
-  width: 100%;
-  line-height: 1.6rem;
-  color: #ffffff;
-  font-weight: 400;
+	background-color: transparent;
+	border: none;
+	width: 100%;
+	line-height: 1.6rem;
+	color: #ffffff;
+	font-weight: 400;
 }
+
 .o-media--centered {
-  margin-left: 50%;
-  -webkit-transform: translate(-50%, 0);
-  transform: translate(-50%, 0);
+	margin-left: 50%;
+	-webkit-transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
 }
+
 .o-section--new {
-  color: #90969d;
-  background: #f2f6fa;
-  width: calc(98%);
-  margin: 1rem 0 1rem 1rem;
-  border-radius: .2rem;
-  transition-property: background;
-  transition-duration: 0.5s;
-  transition-timing-function: ease;
-  transition-delay: 0;
+	color: #90969d;
+	background: #f2f6fa;
+	width: calc(98%);
+	margin: 1rem 0 1rem 1rem;
+	border-radius: .2rem;
+	transition-property: background;
+	transition-duration: 0.5s;
+	transition-timing-function: ease;
+	transition-delay: 0;
 }
+
 .o-section--new:hover {
-  background: #e0e6ed;
-  cursor: pointer;
-  color: #828991;
+	background: #e0e6ed;
+	cursor: pointer;
+	color: #828991;
 }
+
 .o-section--new:hover .o-icon--light-gray {
-  fill: #9fb2c8;
+	fill: #9fb2c8;
 }
+
 .input-field {
-  padding-top: 14px;
+	padding-top: 14px;
 }
+
 .input-field label {
-  position: absolute;
-  top: 0;
-  font-size: 1.3rem;
-  line-height: 1.82rem;
+	position: absolute;
+	top: 0;
+	font-size: 1.3rem;
+	line-height: 1.82rem;
 }
+
 .input-field input {
-  font-size: 1.6rem;
-  line-height: 2.24rem;
+	font-size: 1.6rem;
+	line-height: 2.24rem;
 }
+
 .input-field input[value=""] {
-  background: red;
+	background: red;
 }
+

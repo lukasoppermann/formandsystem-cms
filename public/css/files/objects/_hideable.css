@@ -1,8 +1,9 @@
 .o-hideable {
-  opacity: 1;
-  /* CLOSE MODULE */
+	opacity: 1; /* CLOSE MODULE */
 }
+
 .o-hideable:not(.is-toggled) {
-  opacity: 0;
-  z-index: 0;
+	opacity: 0;
+	z-index: 0;
 }
+

@@ -1,6 +1,7 @@
 .content-body {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  margin-left: 27rem;
-  height: 100%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	margin-left: 27rem;
+	height: 100%;
 }
+

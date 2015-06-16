@@ -1,41 +1,47 @@
 .o-icon {
-  position: relative;
-  display: block;
-  width: 2rem;
-  height: 2rem;
-  fill: #0f1419;
-  transition-property: fill;
-  transition-duration: 0.5s;
-  transition-timing-function: ease;
-  transition-delay: 0;
-  /* EXTENSIONS */
-  /* CLOSE MODULE */
+	position: relative;
+	display: block;
+	width: 2rem;
+	height: 2rem;
+	fill: #0f1419;
+	transition-property: fill;
+	transition-duration: 0.5s;
+	transition-timing-function: ease;
+	transition-delay: 0; /* EXTENSIONS */ /* CLOSE MODULE */
 }
+
 .o-icon--white {
-  fill: #ffffff;
+	fill: #ffffff;
 }
+
 .o-icon--light-gray {
-  fill: #e0e6ed;
+	fill: #e0e6ed;
 }
+
 .o-icon--medium-light-gray {
-  fill: #ccd2d9;
+	fill: #ccd2d9;
 }
+
 .o-icon--darkest-gray {
-  fill: #0f1419;
+	fill: #0f1419;
 }
+
 .o-icon--centered {
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
+
 .o-icon--centered-vertical {
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  transform: translateY(-50%);
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
 }
+
 .o-icon--centered-horizontal {
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
 }
+

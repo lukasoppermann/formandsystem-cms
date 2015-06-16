@@ -1,6 +1,19 @@
-.o-togglable {
-  /* CLOSE MODULE */
+.o-togglable { /* CLOSE MODULE */
 }
+
 .o-togglable:not(.is-toggled) {
-  display: none;
+	display: none;
 }
+
+.o-togglable--test {
+	color: red;
+}
+
+.o-togglable-child__test {
+	color: red;
+}
+
+.o-togglable-test__test--test--test--test {
+	color: red;
+}
+

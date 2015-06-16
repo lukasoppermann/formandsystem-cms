@@ -2,12 +2,12 @@ var results = 'tests/frontend/results/';
 var page = require('webpage').create();
 page.viewportSize = { width: 1024, height: 760 };
 // page.clipRect = { width: 1024, height: 760 };
-page.open('http://google.com');
-page.onLoadFinished = function() {
-  
-   page.render('tests/frontend/results/googleScreenShot' + '.png');
-   phantom.exit();
-};
+// page.open('http://google.com');
+// page.onLoadFinished = function() {
+//
+//    page.render('tests/frontend/results/googleScreenShot' + '.png');
+//    phantom.exit();
+// };
 
 // , function () {
 //     var title = page.evaluate(function () {

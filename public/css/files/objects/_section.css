@@ -1,32 +1,33 @@
 /*-------------------*/
+
 /* Section */
+
 .o-section {
-  width: 100%;
-  padding-left: 2.1rem;
-  /*-------------------*/
-  /* EXTENSIONS */
-  /*-------------------*/
-  /* CHILDREN */
-  /* CLOSE MODULE */
+	width: 100%;
+	padding-left: 2.1rem; /*-------------------*/ /* EXTENSIONS */ /*-------------------*/ /* CHILDREN */ /* CLOSE MODULE */
 }
+
 .o-section__drag-handle {
-  z-index: 10;
-  opacity: 0;
-  width: 2.1rem;
-  height: 100%;
-  top: 0;
-  left: 0;
-  position: absolute;
-  background-color: #f2f6fa;
-  transition-property: opacity;
-  transition-duration: 0.5s;
-  transition-timing-function: ease;
-  transition-delay: 0;
+	z-index: 10;
+	opacity: 0;
+	width: 2.1rem;
+	height: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	background-color: #f2f6fa;
+	transition-property: opacity;
+	transition-duration: 0.5s;
+	transition-timing-function: ease;
+	transition-delay: 0;
 }
+
 .o-section__drag-handle:hover {
-  cursor: move;
+	cursor: move;
 }
+
 .o-section__drag-handle .icon-drag {
-  fill: #c0ccda;
-  width: 1.2rem;
+	fill: #c0ccda;
+	width: 1.2rem;
 }
+
