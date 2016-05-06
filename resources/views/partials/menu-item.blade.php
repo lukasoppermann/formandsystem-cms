@@ -1,4 +1,4 @@
-<?
+<?php
 if( !isset($item['content'][\Config::get('content.locale')]) ){
   return;
 }

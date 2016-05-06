@@ -13,9 +13,30 @@ class PagesController extends AbstractController {
 	 */
 	public function index()
 	{
-		$nav = \Api::stream('navigation')->get(['limit' => 100, 'language' => \Config::get('content.locale')])['data'];
+		// $nav = (new \Formandsystem\Api\Api)->stream('navigation')->get(['limit' => 100, 'language' => \Config::get('content.locale')])['data'];
 
-		return view('page', ['content' => $nav[key($nav)]['content'][$this->language], 'items' => $nav, 'template' => 'partials/menu-item', 'js_scope' => $this->js_scope ]);
+		// return view('page', ['content' => $nav[key($nav)]['content'][$this->language], 'items' => $nav, 'template' => 'partials/menu-item', 'js_scope' => $this->js_scope ]);
+		return view('page', ['content' => [
+			"sections" => [
+
+			]
+		], 'items' => [
+			[ "content" => ['de' =>[
+				'link' => 'Test',
+				'menu_label' => 'Test',
+				'published' => 1
+			]]],
+			[ "content" => ['de' =>[
+				'link' => 'Other page',
+				'menu_label' => 'Other page',
+				'published' => 0,
+			]]],
+			[ "content" => ['de' =>[
+				'link' => 'Other page',
+				'menu_label' => 'Other page',
+				'published' => 0
+			]]]
+		], 'template' => 'partials/menu-item', 'js_scope' => $this->js_scope ]);
 	}
 
 	/**
@@ -46,10 +67,30 @@ class PagesController extends AbstractController {
 	 */
 	public function show( $name )
 	{
-		$nav = \Api::stream('navigation')->get(['limit' => 100, 'language' => \Config::get('content.locale')])['data'];
-		$page = \Api::pages($name)->get(['language' => $this->language])['data'];
+		// $nav = \Api::stream('navigation')->get(['limit' => 100, 'language' => \Config::get('content.locale')])['data'];
+		// $page = \Api::pages($name)->get(['language' => $this->language])['data'];
+		//
+		$nav = [
+			[ "content" => ['de' =>[
+				'link' => 'Test',
+				'menu_label' => 'Test',
+				'published' => 1
+			]]],
+			[ "content" => ['de' =>[
+				'link' => 'Other page',
+				'menu_label' => 'Other page',
+				'published' => 0,
+			]]],
+			[ "content" => ['de' =>[
+				'link' => 'Other page',
+				'menu_label' => 'Other page',
+				'published' => 0
+			]]]
+		];
 
-		return view('page', ['content' => $page['content'][$this->language], 'items' => $nav, 'template' => 'partials/menu-item', 'js_scope' => $this->js_scope]);
+		return view('page', ['content' => ['sections' => []], 'items' => $nav, 'template' => 'partials/menu-item', 'js_scope' => $this->js_scope]);
+
+		// return view('page', ['content' => $page['content'][$this->language], 'items' => $nav, 'template' => 'partials/menu-item', 'js_scope' => $this->js_scope]);
 	}
 
 	/**

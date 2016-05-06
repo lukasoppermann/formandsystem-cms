@@ -69,6 +69,7 @@
 	height: 100%;
 	width: 100%;
 	-webkit-transform: translateY(-100%);
+	-ms-transform: translateY(-100%);
 	transform: translateY(-100%);
 	top: 0;
 	left: 0;
@@ -82,6 +83,7 @@
 
 .fragment-settings-content.is-toggled {
 	-webkit-transform: translateY(0);
+	-ms-transform: translateY(0);
 	transform: translateY(0);
 	opacity: 1;
 	transition: opacity .3s ease;

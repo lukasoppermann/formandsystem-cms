@@ -10,6 +10,7 @@
 .o-media--centered {
 	margin-left: 50%;
 	-webkit-transform: translate(-50%, 0);
+	-ms-transform: translate(-50%, 0);
 	transform: translate(-50%, 0);
 }
 
@@ -284,6 +285,7 @@
 	transition: opacity .2s, -webkit-transform .2s;
 	transition: opacity .2s, transform .2s;
 	-webkit-transform: scale(0.8333);
+	-ms-transform: scale(0.8333);
 	transform: scale(0.8333);
 }
 
@@ -291,6 +293,7 @@
 .menu-item-options-delete:focus::before {
 	opacity: 1;
 	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
 	transform: scale(1);
 }
 

@@ -608,6 +608,7 @@
 	z-index: 999;
 	margin-top: 10px;
 	opacity: 0;
+	-ms-transform: translate(-9999px, 0);
 	transform: translate(-9999px, 0);
 	-webkit-transform: translate(-9999px, 0);
 	transition: opacity .3s ease .1s, margin .3s ease .1s, transform 0 ease .4s;
@@ -620,6 +621,7 @@
 	opacity: 1;
 	transition: opacity .3s ease .2s, margin .3s ease .1s, left .1s ease 0, transform 0 ease 0;
 	-webkit-transition: opacity 0.3s ease 0.2s, margin 0.3s ease 0.1s, left 0.1s ease 0, -webkit-transform 0 ease 0;
+	-ms-transform: translate(0, 0);
 	transform: translate(0, 0);
 	-webkit-transform: translate(0, 0);
 }
@@ -630,6 +632,7 @@
 	position: absolute;
 	bottom: -1.5em;
 	left: 50%;
+	-ms-transform: translate(-50%, 0);
 	transform: translate(-50%, 0);
 	-webkit-transform: translate(-50%, 0);
 }

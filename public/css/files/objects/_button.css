@@ -39,6 +39,7 @@
 .o-button.o-button--outlined:focus::before {
 	opacity: 1;
 	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
 	transform: scale(1);
 }
 
@@ -56,6 +57,7 @@
 	transition: opacity .2s, -webkit-transform .2s;
 	transition: opacity .2s, transform .2s;
 	-webkit-transform: scale(0.8333);
+	-ms-transform: scale(0.8333);
 	transform: scale(0.8333);
 }
 

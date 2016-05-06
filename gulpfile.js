@@ -83,36 +83,36 @@ var reportError = function(error) {
 };
 /* ---------- */
 /* css */
-csslint.addRule({
-  id: 'oocss',
-  name: 'OOCSS',
-  desc: 'Class names must follow the pattern .(o|c|u|js|qa|is|has)-[a-z0-9-]+((_{2}|-{2})?[a-z0-9-]+)?(-{2}[a-z0-9-]+)?[a-z0-9]',
-  browsers: 'All',
-
-  //initialization
-  init: function(parser, reporter){
-    'use strict';
-    var rule = this;
-    parser.addListener('startrule', function(event){
-
-      var line        = event.line,
-          col         = event.col;
-
-      for (var i=0,len=event.selectors.length; i < len; i++){
-        var selectors = event.selectors[i].text.split(/(?=\.)/);
-        for (var s=0,l=selectors.length; s < l; s++){
-          var selector = selectors[s].trim();
-          if(selector.charAt(0) !== '.'){
-            return;
-          }
-          if(!selector.match(/^\.(_)?(o|c|u|js|qa|is|has)-([a-z0-9]|-)+((_{2}|-{2})?[a-z0-9-]+)?(-{2}[a-z0-9-]+)?[a-z0-9]$/)){
-            reporter.warn('Bad naming: '+selector, line, col, rule);
-          }
-        }
-      }
-    });
-  }
-});
+// csslint.addRule({
+//   id: 'oocss',
+//   name: 'OOCSS',
+//   desc: 'Class names must follow the pattern .(o|c|u|js|qa|is|has)-[a-z0-9-]+((_{2}|-{2})?[a-z0-9-]+)?(-{2}[a-z0-9-]+)?[a-z0-9]',
+//   browsers: 'All',
+//
+//   //initialization
+//   init: function(parser, reporter){
+//     'use strict';
+//     var rule = this;
+//     parser.addListener('startrule', function(event){
+//
+//       var line        = event.line,
+//           col         = event.col;
+//
+//       for (var i=0,len=event.selectors.length; i < len; i++){
+//         var selectors = event.selectors[i].text.split(/(?=\.)/);
+//         for (var s=0,l=selectors.length; s < l; s++){
+//           var selector = selectors[s].trim();
+//           if(selector.charAt(0) !== '.'){
+//             return;
+//           }
+//           if(!selector.match(/^\.(_)?(o|c|u|js|qa|is|has)-([a-z0-9]|-)+((_{2}|-{2})?[a-z0-9-]+)?(-{2}[a-z0-9-]+)?[a-z0-9]$/)){
+//             reporter.warn('Bad naming: '+selector, line, col, rule);
+//           }
+//         }
+//       }
+//     });
+//   }
+// });
 
 gulp.task('compile-css', function(cb){
   return gulp.src([path.cwd+path.less+'*.less', path.cwd+path.less+'**/*.less'])
@@ -124,7 +124,7 @@ gulp.task('compile-css', function(cb){
       .on('error', reportError)
     .pipe(clipEmpty())
     .pipe(autoprefixer({
-      browsers: ['last 2 versions'],
+      browsers: ['last 2 versions', 'IE 9', 'IE 8'],
       cascade: false
     }))
     .pipe(cmq())
@@ -132,7 +132,7 @@ gulp.task('compile-css', function(cb){
       'fallback-colors': false,
       'box-sizing': false,
       'box-model': false,
-      'compatible-vendor-prefixes': false,
+      'compatible-vendor-prefixes': true,
       'adjoining-classes': true // turn back on
     }))
     .pipe(csslint.reporter())
