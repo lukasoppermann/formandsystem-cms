@@ -1,0 +1,158 @@
+@import "includes/colors";
+@import "includes/typography";
+@import "includes/animations";
+/* ------------
+ * Navigation
+ */
+.c-navigation{
+    overflow: hidden;
+    position: relative;
+    display: block;
+    background-color: @dark-gray;
+    flex: 0 0 27rem;
+}
+.c-navigation::before{
+    height: 100vh;
+    background-color: @shadow-color-15;
+    z-index: 99;
+}
+.c-navigation::before, .c-navigation__header::before{
+    display: block;
+    content: "";
+    width: .4rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    pointer-events: none;
+}
+/* ------------
+ * Navigation Header
+ */
+.c-navigation__header{
+    display: flex;
+    position: relative;
+    z-index: 100;
+    width: 100%;
+    height: 6rem;
+    background-color: @yellow;
+    box-shadow: 0 0 2px @shadow-color-15;
+}
+.c-navigation__header::before{
+    height: 100%;
+    background-color: @shadow-color-05;
+    z-index: 101
+}
+.c-navigation__header_back_arrow, .c-navigation__icon{
+    flex: 0 0 6rem;
+    height: 100%;
+}
+.c-navigation__icon{
+    .o-icon{
+        margin: 1.5rem;
+        height: 3rem;
+        width: 3rem;
+        z-index: 10;
+        position: relative;
+    }
+    .o-link{
+        position: relative;
+        background-color: darken(@yellow,3%);
+        &::before{
+            content: "";
+            display: block;
+            z-index: 5;
+            width: 0;
+            height: 100%;
+            position: absolute;
+            background-color: darken(@yellow,5%);
+            right: 0;
+            top: 0;
+            .transitionWidth;
+        }
+    }
+    .o-link:hover{
+        &::before{
+            width: 100%;
+            .transitionWidth(.5s);
+        }
+    }
+}
+.c-navigation__header_back_arrow{
+
+}
+.c-navigation__title{
+    height: 100%;
+    flex: 1;
+    font-size: 1.8rem;
+    line-height: 1.8rem;
+    padding: 1.9rem 1.5rem 2.3rem 1rem;
+}
+/* ------------
+ * Navigation List
+ */
+.c-navigation__list{
+    list-style: none;
+}
+.c-navigation__item{
+    position: relative;
+    display: block;
+    width: 100%;
+    font-size: @type-size-default;
+    height: 5rem;
+    cursor: pointer;
+    background-color: @dark-gray;
+    .bgFadeIn;
+    &:after{
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background-color: @blue;
+        z-index: 0;
+    }
+    &:hover{
+        .bgFadeIn;
+        background-color: fade(@blue, 75%);
+    }
+    &.is-active{
+        color: @white;
+        &:after{
+            .transitionWidth;
+            width: 100%;
+        }
+    }
+}
+.c-navigation__link{
+    height: 100%;
+    width: 100%;
+    padding: 1.5rem 1rem 1.9rem 1.5rem;
+    position: relative;
+    z-index: 10;
+    color: @white-65;
+    &.c-navigation__link--with-icon{
+        padding-left: 4.5rem;
+    }
+    .o-icon{
+        position: absolute;
+        height: 2rem;
+        top: 1.5rem;
+        left: 1.5rem;
+        fill: @white-25;
+        .fillFadeIn;
+    }
+}
+.is-active .c-navigation__link{
+    color: @white-85;
+    .colorFadeIn;
+    .o-icon{
+        fill: @white-65;
+    }
+    &:hover{
+        .o-icon{
+            fill: @white;
+        }
+    }
+}

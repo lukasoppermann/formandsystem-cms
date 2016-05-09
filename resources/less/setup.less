@@ -1,0 +1,37 @@
+@import "includes/colors";
+@import "includes/typography";
+
+html{
+    font-size: 62.5%; /* now 1rem = 10px*/
+    box-sizing: border-box;
+    background: @white;
+}
+body{
+    font-family: @sans-serif;
+    font-size: @type-size-default;
+    margin: 0;
+    display: flex;
+    height: 100%;
+    min-height: 100vh;
+    flex-direction: row;
+}
+*, *:before, *:after{
+    box-sizing: inherit;
+}
+a{
+    text-decoration: none;
+    display: inline-block;
+}
+ul, ol, dl, li{
+    margin: 0;
+    padding: 0;
+}
+strong{
+    font-weight: 700;
+}
+h1, h2, h3, h4{
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 700;
+    line-height: 135%;
+}

@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Dashboard@index');
+Route::get('/pages', 'Pages@index');
+Route::get('/collections', 'Collections@index');
+Route::get('/settings/{page?}', 'Settings@show');
+
+Route::get('/users', 'Users@index');
+Route::get('/users/{user}', 'Users@show');

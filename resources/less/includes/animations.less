@@ -1,0 +1,14 @@
+@default-time: .3s;
+
+.bgFadeIn(@speed:@default-time){
+    transition: background-color @speed ease;
+}
+.colorFadeIn(@speed:@default-time){
+    transition: color @speed ease;
+}
+.fillFadeIn(@speed:@default-time){
+    transition: fill @speed ease;
+}
+.transitionWidth(@speed:@default-time){
+    transition: width @speed ease;
+}

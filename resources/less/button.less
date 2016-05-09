@@ -1,0 +1,27 @@
+@import "includes/colors";
+@import "includes/typography";
+
+.o-button{
+    cursor: pointer;
+    font-size: @type-size-default;
+    padding: 1rem 2rem;
+    border-radius: 5rem;
+    border: 2px solid @black-15;
+    color: @black-50;
+    background: transparent;
+    &:disabled{
+        cursor:not-allowed;
+        border: 2px solid @black-05;
+        color: @black-25;
+    }
+    :hover{
+        background-color: @black-05;
+    }
+}
+.o-button--blue{
+    border-color: @blue;
+    color: @blue;
+}
+.o-button--align-right{
+    align-items: flex-end;
+}

@@ -1,0 +1,161 @@
+@import "includes/colors";
+@import "includes/typography";
+
+.o-form{
+    margin-top: 2rem;
+}
+.o-input{
+    position: relative;
+    margin-bottom: 2rem;
+    padding-top: 2.5rem;
+    .o-input__input{
+        font-size: @type-size-md;
+        color: @black;
+        padding: 1rem 1rem 1rem .5rem;
+        display: block;
+        width: 100%;
+        border: none;
+        border-bottom: .1rem solid @black-15;
+        &:focus {
+            outline:none;
+            color: @black;
+        }
+    }
+    .o-input__label{
+        color: @black-25;
+        font-size: @type-size-md;
+        pointer-events: none;
+        position: absolute;
+        left:5px;
+        bottom: 10px;
+        transition: 0.2s ease all;
+    }
+    /* active state */
+    .o-input__input:focus ~ .o-input__label, .o-input__input:valid ~ .o-input__label{
+        bottom: 4rem;
+        font-size: @type-size-sm;
+    }
+    .o-input__input:focus ~ .o-input__label{
+        color: @blue;
+    }
+    .o-input__bar{
+        position:relative;
+        display:block;
+        width:100%;
+    }
+    .o-input__bar:before, .o-input__bar:after {
+        content:'';
+        height:2px;
+        width:0;
+        bottom:0;
+        position:absolute;
+        background: @blue;
+        transition:0.2s ease all;
+    }
+    .o-input__bar:before {
+        left:50%;
+    }
+    .o-input__bar:after {
+        right:50%;
+    }
+    /* active state */
+    .o-input__input:focus ~ .o-input__bar:before, .o-input__input:focus ~ .o-input__bar:after {
+        width:50%;
+    }
+}
+
+/* Container used for styling the custom select, the buttom class below adds the
+ * bg gradient, corners, etc. */
+.o-select-box{
+    position: relative;
+    padding-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+.o-select__label{
+    color: @black-25;
+    font-size: @type-size-sm;
+    pointer-events: none;
+    position: absolute;
+    left:5px;
+    top: .5rem;
+    transition: 0.2s ease all;
+}
+.o-select {
+	position: relative;
+	display: block;
+    border: 1px solid @black-15;
+    border-radius: .3rem;
+    box-shadow: 0 1px 4px 0 @shadow-color-05;
+    background: @white;
+    margin-top: .5rem;
+    &::after {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 6px solid @black-25;
+        margin-top: -3px;
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 1em;
+        z-index: 2;
+        pointer-events: none;
+        display: none;
+    }
+    /* Hover style */
+    &:hover{
+    	border-color: @black-25;
+        &::after{
+            border-top: 6px solid @black-35;
+        }
+    }
+    /* This is the native select, we're making everything but the text invisible so
+     * we can see the button styles in the wrapper */
+    select {
+        width: 100%;
+        margin: 0;
+        outline: none;
+        padding: .7rem 1rem .8rem 1rem;
+        box-sizing: border-box;
+        font-size: 16px;
+        font-weight: 700;
+        line-height:1.3;
+        border-radius: .3rem;
+        cursor: pointer;
+    }
+    /* Focus style */
+    select:focus{
+    	outline: none;
+    	box-shadow: 0 0 0 1px @blue, 0 2px 5px 0 @shadow-color-15;
+    	color: @blue; /* Match-02 */
+        border-color: @blue;
+    }
+}
+@supports ( -webkit-appearance: none ) or ( appearance: none )
+	/* Firefox <= 34 has a false positive on @supports( -moz-appearance: none )
+	 * @supports ( mask-type: alpha ) is Firefox 35+
+	 */
+	or ( ( -moz-appearance: none ) and ( mask-type: alpha ) ) {
+
+	/* Show custom arrow */
+	.o-select::after {
+		display: block;
+	}
+
+	/* Remove select styling */
+	.o-select select {
+		padding-right: 2em; /* Match-01 */
+		/* inside @supports so that iOS <= 8 display the native arrow */
+		background: none; /* Match-04 */
+		/* inside @supports so that Android <= 4.3 display the native arrow */
+		border: 1px solid transparent; /* Match-05 */
+
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+	}
+	.o-select select:focus {
+		border-color: @blue;
+	}
+}
