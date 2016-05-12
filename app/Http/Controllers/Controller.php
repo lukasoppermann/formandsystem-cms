@@ -7,6 +7,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
+use Formandsystem\Api\Api;
+use App\Services\CacheService;
 
 class Controller extends BaseController
 {
@@ -24,5 +26,23 @@ class Controller extends BaseController
             }
         }
         return $navigation;
+    }
+    /**
+     * returns an api wrapper instance
+     *
+     * @method api
+     *
+     * @param  array $config used to change user
+     *
+     * @return Api
+     */
+    protected function api($config = []){
+        // prepare api config
+        $config = array_merge([
+            'client_id' => env('USER_API_CLIENT_ID'),
+            'client_secret' => env('USER_API_CLIENT_SECRET'),
+        ], $config);
+        // return new API instance
+        return new Api($config, new CacheService);
     }
 }

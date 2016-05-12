@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Settings;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 
-class Settings extends Controller
+class Site extends Controller
 {
     protected $navigation = [
         'header' => [
@@ -34,9 +33,23 @@ class Settings extends Controller
     ];
 
     public function show($page = 'site'){
+        // generate page data
+        $data = $this->{'generate'.ucfirst(camel_case($page))}();
         // get navigation
         $data['navigation'] = $this->buildNavigation('/settings/'.$page);
 
         return view('settings.'.$page, $data);
+    }
+
+    public function generateSite(){
+
+    }
+
+    public function generateDevelopers(){
+
+    }
+
+    public function generateApiAccess(){
+        return $this->api()->get('/images');
     }
 }

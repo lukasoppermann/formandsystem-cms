@@ -6,41 +6,28 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+
 class Pages extends Controller
 {
+    protected $navigation = [
+        'header' => [
+            'title' => 'Pages',
+            'link' => '/',
+        ],
+    ];
+
+    public function navigation(){
+        return $this->api()->get('/pages');
+    }
+
     public function index(){
-        $data = [
-            'navigation' => [
-                'header' => [
-                    'title' => 'Pages',
-                    'link' => '/',
-                ],
-                'lists' => [
-                    [
-                        'title' => 'test',
-                        'slug'  => 'slug',
-                        'items' => [
-                            [
-                                'label' => 'Page 1',
-                                'link'  => '/pages',
-                                'icon'  => 'page',
-                            ],
-                            [
-                                'label' => 'Page 2',
-                                'link'  => '/page-2',
-                                'icon'  => 'page',
-                                'is_active' => true,
-                            ],
-                            [
-                                'label' => 'Page 3',
-                                'link'  => '/page-3',
-                                'icon'  => 'page-2',
-                            ],
-                        ]
-                    ]
-                ]
-            ]
-        ];
+        return $this->navigation();
+        $data['navigation'] = $this->buildNavigation('/pages');
         return view('dashboard.welcome', $data);
     }
+
+    public function show(){
+
+    }
+
 }

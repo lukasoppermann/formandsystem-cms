@@ -4,9 +4,17 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/formandsystem/api.git"
+        }
+    ],
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*"
+        "laravel/framework": "5.2.*",
+        "ramsey/uuid": "^3.4",
+        "formandsystem/api": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

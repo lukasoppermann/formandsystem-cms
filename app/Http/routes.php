@@ -14,7 +14,14 @@
 Route::get('/', 'Dashboard@index');
 Route::get('/pages', 'Pages@index');
 Route::get('/collections', 'Collections@index');
-Route::get('/settings/{page?}', 'Settings@show');
+
+// Settings
+Route::group(['namespace' => 'Settings'], function() {
+    Route::get('/settings/site', 'Site@show');
+    Route::get('/settings/developers', 'Developers@show');
+    Route::get('/settings/api-access', 'ApiAccess@show');
+});
+
 
 Route::get('/users', 'Users@index');
 Route::get('/users/{user}', 'Users@show');
