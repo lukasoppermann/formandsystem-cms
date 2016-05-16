@@ -7,30 +7,6 @@ use App\Http\Requests;
 
 class Site extends Settings
 {
-    protected $navigation = [
-        'header' => [
-            'title' => 'Settings',
-            'link' => '/',
-        ],
-        'lists' => [
-            [
-                'items' => [
-                    [
-                        'label' => 'Site',
-                        'link'  => '/settings/site',
-                    ],
-                    [
-                        'label' => 'Developers',
-                        'link'  => '/settings/developers',
-                    ],
-                    [
-                        'label' => 'API Access',
-                        'link'  => '/settings/api-access',
-                    ],
-                ]
-            ]
-        ]
-    ];
 
     public function show(){
         // overwrite $page with site

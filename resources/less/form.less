@@ -8,7 +8,7 @@
     position: relative;
     margin-bottom: 2rem;
     padding-top: 2.5rem;
-    .o-input__input{
+    &__input{
         font-size: @type-size-md;
         color: @black;
         padding: 1rem 1rem 1rem .5rem;
@@ -21,29 +21,29 @@
             color: @black;
         }
     }
-    .o-input__label{
+    &__label{
         color: @black-25;
         font-size: @type-size-md;
         pointer-events: none;
         position: absolute;
         left:5px;
-        bottom: 10px;
+        top: 3.5rem;
         transition: 0.2s ease all;
     }
     /* active state */
-    .o-input__input:focus ~ .o-input__label, .o-input__input:valid ~ .o-input__label{
-        bottom: 4rem;
+    &__input:focus ~ &__label, &__input:valid ~ &__label{
+        top: 1.5rem;
         font-size: @type-size-sm;
     }
-    .o-input__input:focus ~ .o-input__label{
+    &__input:focus ~ &__label{
         color: @blue;
     }
-    .o-input__bar{
+    &__bar{
         position:relative;
         display:block;
         width:100%;
     }
-    .o-input__bar:before, .o-input__bar:after {
+    &__bar:before, &__bar:after {
         content:'';
         height:2px;
         width:0;
@@ -52,14 +52,35 @@
         background: @blue;
         transition:0.2s ease all;
     }
-    .o-input__bar:before {
+    &__bar:before {
         left:50%;
     }
-    .o-input__bar:after {
+    &__bar:after {
         right:50%;
     }
+    // errors
+    &__errors{
+        padding-top: .5rem;
+        color: @red;
+        font-size: @type-size-sm;
+        .o-input__error_item{
+            display: block;
+            width: 100%;
+        }
+    }
+    &.o-input--error{
+        .o-input__input{
+            border-color: @red;
+        }
+        .o-input__bar:before, .o-input__bar:after {
+            background: @red;
+        }
+        .o-input__input:focus ~ .o-input__label{
+            color: @red;
+        }
+    }
     /* active state */
-    .o-input__input:focus ~ .o-input__bar:before, .o-input__input:focus ~ .o-input__bar:after {
+    &__input:focus ~ &__bar:before, &__input:focus ~ &__bar:after {
         width:50%;
     }
 }

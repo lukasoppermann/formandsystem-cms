@@ -13,6 +13,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->truncate();
+        DB::table('account_user')->truncate();
         DB::table('users')->insert([
             'id'            => (string)Uuid::uuid4(),
             'firstname'     => 'Lukas',
