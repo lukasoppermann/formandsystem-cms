@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 class Settings extends Controller
 {
+    
     protected $navigation = [
         'header' => [
             'title' => 'Settings',
@@ -24,10 +25,6 @@ class Settings extends Controller
                     [
                         'label' => 'Developers',
                         'link'  => '/settings/developers',
-                    ],
-                    [
-                        'label' => 'API Access',
-                        'link'  => '/settings/api-access',
                     ],
                 ]
             ]

@@ -19,13 +19,33 @@
     &:hover{
         background-color: @black-05;
     }
+    &:focus{
+        box-shadow: 0 0 5px @blue;
+    }
 }
 .o-button--blue{
     border-color: @blue;
     color: @blue;
     .bgColorFade(.5s);
-    &:hover{
+    &:focus{
+        background-color: @blue-15;
+        box-shadow: 0 0 5px @blue;
+    }
+    &:hover, &:active{
         background-color: @blue;
+        color: @white;
+    }
+}
+.o-button--red{
+    border-color: @red;
+    color: @red;
+    .bgColorFade(.5s);
+    &:focus{
+        background-color: @red-15;
+        box-shadow: 0 0 5px @red;
+    }
+    &:hover, &:active{
+        background-color: @red;
         color: @white;
     }
 }

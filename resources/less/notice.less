@@ -1,0 +1,45 @@
+@import "includes/colors";
+@import "includes/typography";
+
+.o-notice{
+    border-radius: .5rem;
+    padding: 1rem 1rem 2rem 1rem;
+    border: 1px solid @blue-25;
+    background-color: @blue-05;
+    color: @blue;
+    // colors
+    &--success{
+        border: 1px solid fade(@green,25%);
+        background-color: fade(@green,5%);
+        color: @green;
+    }
+    &--warning{
+        border: 1px solid fade(@yellow,25%);
+        background-color: fade(@yellow,5%);
+        color: @black;
+    }
+    &--space-around{
+        margin: 3rem 0;
+    }
+}
+
+// extensions
+.o-status{
+    margin: 0;
+    width: 100%;
+    padding: 1.5rem;
+    background-color: @blue-05;
+    border-bottom: 1px solid @blue-50;
+    color: @blue;
+    // colors
+    &--success{
+        background-color: fade(@green,5%);
+        border-bottom: 1px solid fade(@green,50%);
+        color: @green;
+    }
+    &--warning{
+        background-color: fade(@yellow,15%);
+        border-bottom: 1px solid fade(@yellow,50%);
+        color: @black;
+    }
+}

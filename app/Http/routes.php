@@ -10,16 +10,21 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
 Route::get('/', 'Dashboard@index');
 Route::get('/pages', 'Pages@index');
 Route::get('/collections', 'Collections@index');
 
 // Settings
 Route::group(['namespace' => 'Settings'], function() {
-    Route::get('/settings/site', 'Site@show');
+
+    $user = \App\Models\User::where('email','oppermann.lukas@gmail.com')->first();
+    Auth::login($user);
+
     Route::get('/settings/developers', 'Developers@show');
-    Route::get('/settings/api-access', 'ApiAccess@show');
+    Route::post('/settings/developers/{item}', 'Developers@store');
+    Route::delete('/settings/developers/{item}', 'Developers@delete');
+
+    Route::get('/settings/{site?}', 'Site@show');
 });
 
 

@@ -14,6 +14,15 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
+    protected $config;
+
+    public function __construct(){
+        $this->config['cms'] = [
+            'client_id' => env('FS_API_CLIENT_ID'),
+            'client_secret' => env('FS_API_CLIENT_SECRET'),
+        ];
+    }
+
     protected function buildNavigation($active = false){
         // get navigation array to not change original
         $navigation = $this->navigation;
@@ -39,8 +48,9 @@ class Controller extends BaseController
     protected function api($config = []){
         // prepare api config
         $config = array_merge([
-            'client_id' => env('USER_API_CLIENT_ID'),
+            'client_id'     => env('USER_API_CLIENT_ID'),
             'client_secret' => env('USER_API_CLIENT_SECRET'),
+            'scopes'        => ['client.get','client.post','client.delete']
         ], $config);
         // return new API instance
         return new Api($config, new CacheService);
