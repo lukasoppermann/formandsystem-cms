@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 
 class Collections extends Controller
 {
+
     public function index(){
         $data = [
             'navigation' => [
@@ -43,4 +43,5 @@ class Collections extends Controller
         ];
         return view('dashboard.welcome', $data);
     }
+
 }

@@ -10,11 +10,20 @@ class Developers extends Settings
 {
 
     public function show(Request $request){
+        // store request
         $data['request'] = $request;
         // get navigation
         $data['navigation'] = $this->buildNavigation('/settings/developers');
+        // account
+        $account = $request->user()->accounts->first();
         // get client id
-        $data['client_id'] = $request->user()->accounts->first()->client_id;
+        if($client = $account->details->where('name','client')->first()){
+            $data['client_id'] = json_decode($client->value, true)['client_id'];
+        }
+        // get db connection
+        if($db_connection = $account->details->where('name','db_connection')->first()->value){
+            $data['db_connection'] = $db_connection;
+        }
         // get notice
         if( session('notice') !== NULL ){
             $data['notice'] = session('notice');
@@ -41,25 +50,47 @@ class Developers extends Settings
         // get account
         $account = $request->user()->accounts->first();
         // delete client
-        $client = $this->api($this->config['cms'])->delete('/clients/'.$account->client_id);
-        // remove info from account
-        $account->client_id = NULL;
-        $account->client_secret = NULL;
-        $account->save();
+        // TODO: deal with error when no data
+        $client = json_decode($account->details->where('name','client')->first()->value);
+        $detail = $account->details->where('name','client')->first();
+        $detail->delete();
+        $account->details()->detach($detail->id);
+        $client = $this->api($this->config['cms'])->delete('/clients/'.$client->client_id);
+
+        // delete cms client
+        // TODO: deal with error when no data
+        $cms_client = json_decode($account->details->where('name','cms_client')->first()->value);
+        $detail = $account->details->where('name','cms_client')->first();
+        $detail->delete();
+        $account->details()->detach($detail->id);
+        $cms_client = $this->api($this->config['cms'])->delete('/clients/'.$cms_client->client_id);
         // redirect to show
         return redirect('settings/developers')->with(['status' => 'Your API client has been deleted.', 'type' => 'warning']);
     }
 
     public function storeApiAccess($account){
         // get client
-        $client = $this->generateApiAccess($account->name);
+        $clients = $this->generateApiAccess($account->name);
+        $accountDetailModel = new \App\Models\AccountDetail;
         // store client to account
-        $account->client_id = $client['client_id'];
-        $account->client_secret = $client['client_secret'];
-        $account->save();
+        $account->details()->save($accountDetailModel->create([
+            'name'  => 'client',
+            'value' => json_encode([
+                'client_id'     => $clients['client']['client_id'],
+                'client_secret' => $clients['client']['client_secret'],
+            ])
+        ]));
+        // store cms client to account
+        $account->details()->save($accountDetailModel->create([
+            'name'  => 'cms_client',
+            'value' => json_encode([
+                'client_id'     => $clients['cms']['client_id'],
+                'client_secret' => $clients['cms']['client_secret'],
+            ])
+        ]));
         // redirect to show
         return redirect('settings/developers')->with(['notice' => [
-            'data' => $client,
+            'data' => $clients['client'],
             'template' => 'settings.credentials',
             'type' => 'success',
         ]]);
@@ -74,30 +105,24 @@ class Developers extends Settings
                 'scopes' => 'content.get',
             ]
         ])['data'];
-
+        // get new cms client
+        $cms = $this->api($this->config['cms'])->post('/clients', [
+            'type' => 'clients',
+            'attributes' => [
+                'name' => '[cms] '.$name,
+                'scopes' => 'content.get,content.post,content.patch,content.delete',
+            ]
+        ])['data'];
+        // return client and cms client
         return [
-            'client_id'     => $client['id'],
-            'client_secret' => $client['attributes']['secret'],
+            'client' => [
+                'client_id'     => $client['id'],
+                'client_secret' => $client['attributes']['secret'],
+            ],
+            'cms' => [
+                'client_id'     => $cms['id'],
+                'client_secret' => $cms['attributes']['secret'],
+            ],
         ];
-    }
-
-    public function storeDatabase(Request $request, $account){
-        // validate input
-         $validator = Validator::make($request->all(), [
-            'connection_name'   => 'required|string',
-            'db_type'           => 'required|in:mysql',
-            'host'              => 'required|ip',
-            'database'          => 'required|alpha_dash',
-            'db_user'           => 'required',
-            'db_password'       => 'required',
-        ]);
-
-        if($validator->fails()){
-            return redirect('settings/developers')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        
     }
 }

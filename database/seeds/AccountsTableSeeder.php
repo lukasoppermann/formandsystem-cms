@@ -13,6 +13,8 @@ class AccountsTableSeeder extends Seeder
     public function run()
     {
         DB::table('accounts')->truncate();
+        DB::table('account_details')->truncate();
+        DB::table('account_account_detail')->truncate();
         DB::table('accounts')->insert([
             'id'        => (string)Uuid::uuid4(),
             'name' 		=> 'Client One Account',

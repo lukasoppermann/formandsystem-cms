@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 use Formandsystem\Api\Api;
 use App\Services\CacheService;
+use Illuminate\Http\Request;
+use App\Http\Requests;
 
 class Controller extends BaseController
 {
@@ -16,7 +18,15 @@ class Controller extends BaseController
 
     protected $config;
 
-    public function __construct(){
+    protected $account;
+    protected $user;
+
+    public function __construct(Request $request){
+        // get current user
+        $this->user = $request->user();
+        // get account
+        $this->account = $request->user()->accounts->first();
+        // set cms api settings
         $this->config['cms'] = [
             'client_id' => env('FS_API_CLIENT_ID'),
             'client_secret' => env('FS_API_CLIENT_SECRET'),

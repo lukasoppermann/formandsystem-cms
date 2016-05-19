@@ -2,11 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-
-class Account extends BaseModel
+class AccountDetail extends BaseModel
 {
-    use SoftDeletes;
     /**
      * If uuid is used instead of autoincementing id
      *
@@ -24,19 +21,12 @@ class Account extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['id','name'];
+    protected $fillable = ['id','name','value'];
     /**
      * The fragments that belong to the fragment.
      */
-    public function users()
+    public function accounts()
     {
-        return $this->belongsToMany('App\Models\User');
-    }
-    /**
-     * The fragments that belong to the fragment.
-     */
-    public function details()
-    {
-        return $this->belongsToMany('App\Models\AccountDetail');
+        return $this->belongsToMany('App\Models\Account');
     }
 }
