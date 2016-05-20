@@ -19,12 +19,16 @@ Route::group(['namespace' => 'Settings'], function() {
 
     $user = \App\Models\User::where('email','oppermann.lukas@gmail.com')->first();
     Auth::login($user);
-    // Develoepr
-    Route::get('/settings/developers', 'Developers@show');
-    Route::post('/settings/developers/database', 'Database@store');
-    Route::post('/settings/developers/{item}', 'Developers@store');
-    Route::delete('/settings/developers/{item}', 'Developers@delete');
+    // Developers
+    Route::get('/settings/developers/{item?}', 'Developers@show');
+        // Developers / Client
+        Route::post('/settings/developers/{item}', 'Developers@store');
+        Route::delete('/settings/developers/{item}', 'Developers@delete');
+        // Developers / Database
+        Route::post('/settings/developers/database', 'Database@store');
+        Route::delete('/settings/developers/database', 'Database@delete');
 
+    // Site
     Route::get('/settings/{site?}', 'Site@show');
 });
 

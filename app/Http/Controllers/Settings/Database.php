@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Settings;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Validator;
 
 class Database extends Settings
 {
@@ -59,7 +60,7 @@ class Database extends Settings
 
         if( !isset($response['status_code']) ){
             // store database connection name
-            $account->details()->save((new \App\Models\AccountDetail)->create([
+            $this->account->details()->save((new \App\Models\AccountDetail)->create([
                 'name'  => 'db_connection',
                 'value' => $request->get('connection_name'),
             ]));

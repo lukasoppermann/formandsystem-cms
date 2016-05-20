@@ -60,7 +60,7 @@ class Controller extends BaseController
         $config = array_merge([
             'client_id'     => env('USER_API_CLIENT_ID'),
             'client_secret' => env('USER_API_CLIENT_SECRET'),
-            'scopes'        => ['client.get','client.post','client.delete']
+            'scopes'        => ['content.get','content.post','content.delete','content.patch']
         ], $config);
         // return new API instance
         return new Api($config, new CacheService);

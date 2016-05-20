@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Settings;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
+use App\Services\ApiClientService;
 
 class Developers extends Settings
 {
@@ -21,8 +22,8 @@ class Developers extends Settings
             $data['client_id'] = json_decode($client->value, true)['client_id'];
         }
         // get db connection
-        if($db_connection = $account->details->where('name','db_connection')->first()->value){
-            $data['db_connection'] = $db_connection;
+        if($db_connection = $account->details->where('name','db_connection')->first()){
+            $data['db_connection'] = $db_connection->value;
         }
         // get notice
         if( session('notice') !== NULL ){
@@ -34,15 +35,19 @@ class Developers extends Settings
     }
 
     public function store(Request $request, $item){
-        // get account
-        $account = $request->user()->accounts->first();
         // generate api access
         if($item === 'api-access'){
-            return $this->storeApiAccess($account);
-        }
-        // save database settings
-        if($item === 'database'){
-            return $this->storeDatabase($request, $account);
+            try{
+                $client = (new ApiClientService)->create($this->account);
+                // redirect on success
+                return redirect('settings/developers')->with(['notice' => [
+                    'data' => $client,
+                    'template' => 'settings.credentials',
+                    'type' => 'success',
+                ]]);
+            }catch(Exception $e){
+                \Log::error($e);
+            }
         }
     }
 
