@@ -22,8 +22,8 @@ Route::group(['namespace' => 'Settings'], function() {
     // Developers
     Route::get('/settings/developers/{item?}', 'Developers@show');
         // Developers / Client
-        Route::post('/settings/developers/{item}', 'Developers@store');
-        Route::delete('/settings/developers/{item}', 'Developers@delete');
+        Route::post('/settings/developers/api-access', 'ApiAccess@store');
+        Route::delete('/settings/developers/api-access', 'ApiAccess@delete');
         // Developers / Database
         Route::post('/settings/developers/database', 'Database@store');
         Route::delete('/settings/developers/database', 'Database@delete');

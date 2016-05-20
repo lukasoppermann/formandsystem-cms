@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Event;
 use App\Events\ClientWasDeleted;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -55,7 +56,7 @@ class ApiClientService extends AbstractService
         // TODO: deal with error when no data
         // get client & client id
         $detail = $account->details->where('name','client')->first();
-        $client_id = json_decode($detail->value)->client_id;
+        $client_id = json_decode($detail->value, true)['client_id'];
         // delete client connection to account
         $detail->delete();
         $account->details()->detach($detail->id);
@@ -66,14 +67,14 @@ class ApiClientService extends AbstractService
         // TODO: deal with error when no data
         // get client & client id
         $detail = $account->details->where('name','cms_client')->first();
-        $cms_client_id = json_decode($detail->value)->client_id;
+        $cms_client_id = json_decode($detail->value, true)['client_id'];
         // delete client connection to account
         $detail->delete();
         $account->details()->detach($detail->id);
         // delete client from api
         $cms_client = $this->api($this->config['cms'])->delete('/clients/'.$cms_client_id);
         // on success
-        if($cms_client->getStatusCode() === 200 && $client->getStatusCode() === 200){
+        if(!isset($cms_client['message']) && !isset($client['message'])){
             // fire event
             Event::fire(new ClientWasDeleted($client_id));
             // redirect to show

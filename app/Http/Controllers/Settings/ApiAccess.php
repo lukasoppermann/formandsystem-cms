@@ -4,29 +4,49 @@ namespace App\Http\Controllers\Settings;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Services\ApiClientService;
 
 class ApiAccess extends Settings
 {
-
-    public function show(Request $request){
-        // get navigation
-        $data['navigation'] = $this->buildNavigation('/settings/'.$request->segment(2));
-        $data['client_id'] = $request->user()->accounts->first()->client_id;
-
-        return view('settings.api-access', $data);
-    }
-
+    /**
+     * create a new API CLIENT
+     *
+     * @method store
+     *
+     * @param  Request $request
+     */
     public function store(Request $request){
-        // get navigation
-        $data['navigation'] = $this->buildNavigation('/settings/'.$request->segment(2));
-        $data['credentials'] = $this->generateApiAccess();
-        $data['client_id'] = $data['credentials']['client_id'];
-
-        return redirect('settings/api-access')->with('status', 'Profile updated!');
-        return view('settings.api-access', $data);
+        // generate api access
+        try{
+            $client = (new ApiClientService)->create($this->account);
+            // redirect on success
+            return redirect('settings/developers')->with(['notice' => [
+                'data' => $client,
+                'template' => 'settings.credentials',
+                'type' => 'success',
+            ]]);
+        }catch(Exception $e){
+            \Log::error($e);
+        }
     }
-
-
-
+    /**
+     * delete an API CLIENT
+     *
+     * @method delete
+     *
+     * @param  Request $request
+     */
+    public function delete(Request $request){
+        try{
+            (new ApiClientService)->delete($this->account);
+            // redirect on success
+            return redirect('settings/developers')->with([
+                'status' => 'Your API client has been deleted.',
+                'type' => 'warning'
+            ]);
+        }catch(Exception $e){
+            \Log::error($e);
+        }
+    }
 
 }
