@@ -17,8 +17,8 @@ Route::get('/collections', 'Collections@index');
 // Settings
 Route::group(['namespace' => 'Settings'], function() {
 
-    // $user = \App\Models\User::where('email','oppermann.lukas@gmail.com')->first();
-    // Auth::login($user);
+    $user = \App\Models\User::where('email','oppermann.lukas@gmail.com')->first();
+    Auth::login($user);
     // Developers
     Route::get('/settings/developers/{item?}', 'Developers@show');
         // Developers / Client
