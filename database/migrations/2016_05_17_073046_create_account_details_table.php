@@ -14,8 +14,8 @@ class CreateAccountDetailsTable extends Migration
     {
         Schema::create('account_details', function (Blueprint $table) {
             $table->uuid('id')->index();
-            $table->string('name');
-            $table->string('value');
+            $table->string('type');
+            $table->string('data');
             $table->timestamps();
         });
     }

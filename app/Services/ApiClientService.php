@@ -16,23 +16,23 @@ class ApiClientService extends AbstractService
      *
      * @method create
      *
-     * @return false|array
+     * @return EXCEPTION|array
      */
     public function create(Account $account){
         // generate clients
         $clients = $this->generateApiAccess($account->name);
         // store client to account
         $account->details()->save((new AccountDetail)->create([
-            'name'  => 'client',
-            'value' => json_encode([
+            'type'  => 'client',
+            'data' => json_encode([
                 'client_id'     => $clients['client']['client_id'],
                 'client_secret' => $clients['client']['client_secret'],
             ])
         ]));
         // store cms client to account
         $account->details()->save((new AccountDetail)->create([
-            'name'  => 'cms_client',
-            'value' => json_encode([
+            'type'  => 'cms_client',
+            'data' => json_encode([
                 'client_id'     => $clients['cms']['client_id'],
                 'client_secret' => $clients['cms']['client_secret'],
             ])
@@ -47,16 +47,14 @@ class ApiClientService extends AbstractService
      *
      * @method delete
      *
-     * @param  string $client_id
-     *
      * @return true|string
      */
     public function delete(Account $account){
         // delete client
         // TODO: deal with error when no data
         // get client & client id
-        $detail = $account->details->where('name','client')->first();
-        $client_id = json_decode($detail->value, true)['client_id'];
+        $detail = $account->details->where('type','client')->first();
+        $client_id = json_decode($detail->data, true)['client_id'];
         // delete client connection to account
         $detail->delete();
         $account->details()->detach($detail->id);
@@ -66,8 +64,8 @@ class ApiClientService extends AbstractService
         // delete cms client
         // TODO: deal with error when no data
         // get client & client id
-        $detail = $account->details->where('name','cms_client')->first();
-        $cms_client_id = json_decode($detail->value, true)['client_id'];
+        $detail = $account->details->where('type','cms_client')->first();
+        $cms_client_id = json_decode($detail->data, true)['client_id'];
         // delete client connection to account
         $detail->delete();
         $account->details()->detach($detail->id);
@@ -92,6 +90,7 @@ class ApiClientService extends AbstractService
      */
     public function generateApiAccess($name){
         // get new client
+        // TODO: deal with errors
         $client = $this->api($this->config['cms'])->post('/clients', [
             'type' => 'clients',
             'attributes' => [

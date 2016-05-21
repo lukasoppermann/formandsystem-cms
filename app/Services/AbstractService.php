@@ -14,6 +14,7 @@ abstract class AbstractService
         $this->config['cms'] = [
             'client_id' => env('FS_API_CLIENT_ID'),
             'client_secret' => env('FS_API_CLIENT_SECRET'),
+            'scopes' => ['client.post','client.delete','client.get'],
         ];
     }
     /**

@@ -21,7 +21,7 @@ class AccountDetail extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['id','name','value'];
+    protected $fillable = ['id','type','data'];
     /**
      * The fragments that belong to the fragment.
      */

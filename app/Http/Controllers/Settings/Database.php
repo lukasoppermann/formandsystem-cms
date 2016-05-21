@@ -5,11 +5,18 @@ namespace App\Http\Controllers\Settings;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
+use App\Services\ApiClientDetailService;
 
 class Database extends Settings
 {
+    /**
+     * create a new API CLIENT Detail
+     *
+     * @method store
+     *
+     * @param  Request $request
+     */
     public function store(Request $request){
-
         // validate input
          $validator = Validator::make($request->all(), [
             'connection_name'   => 'required|string',
@@ -25,50 +32,54 @@ class Database extends Settings
                 ->withErrors($validator)
                 ->withInput();
         }
+        // TODO: deal with errors
         // if validation succeeds
-        $cms_id = json_decode($this->account->details->where('name','cms_client')->first()->value, true)['client_id'];
-        $client_id = json_decode($this->account->details->where('name','client')->first()->value, true)['client_id'];
-        // post details
-        $response = $this->api($this->config['cms'])->post('/details', [
-            'type' => 'details',
-            'attributes' => [
+        $data = [
+            'type' => 'database',
+            'data' => json_encode($request->only([
+                'connection_name',
+                'db_type',
+                'host',
+                'database',
+                'db_user',
+                'db_password',
+            ])),
+        ];
+        // generate api access
+        try{
+            $detail = (new ApiClientDetailService)->create($this->account, $data, [
                 'type' => 'database',
-                'data' => json_encode($request->only([
-                    'connection_name',
-                    'db_type',
-                    'host',
-                    'database',
-                    'db_user',
-                    'db_password',
-                ])),
-            ],
-            'relationships' => [
-                'ownedByClients' => [
-                    'data' => [
-                        [
-                            "type" => "clients",
-                            "id" => $cms_id,
-                        ],
-                        [
-                            "type" => "clients",
-                            "id" => $client_id,
-                        ],
-                    ]
-                ]
-            ]
-        ]);
-
-        if( !isset($response['status_code']) ){
-            // store database connection name
-            $this->account->details()->save((new \App\Models\AccountDetail)->create([
-                'name'  => 'db_connection',
-                'value' => $request->get('connection_name'),
-            ]));
-
-            return redirect('settings/developers')->with(['status' => 'Your database connection details have been saved.', 'type' => 'success']);
+                'data' => $request->get('connection_name'),
+            ]);
+            // redirect on success
+            return redirect('settings/developers')->with([
+                'status' => 'Your database connection ('.$request->get('connection_name').') has been saved.',
+                'type' => 'success'
+            ]);
+        }catch(Exception $e){
+            \Log::error($e);
         }
         // return error
         \Log::error('Error trying to add database options by user '.$this->user->email.'. Error: '.$response['status_code'].': '.$response['message'].'. Client ID: '.$client_id.'; CMS ID: '.$cms_id);
         return redirect('settings/developers')->with(['status' => 'Saving your database settings failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
+    }
+    /**
+     * delete an specific API CLIENT Detail
+     *
+     * @method delete
+     *
+     * @param  Request $request
+     */
+    public function delete(Request $request){
+        try{
+            (new ApiClientDetailService)->delete($this->account, 'database');
+            // redirect on success
+            return redirect('settings/developers')->with([
+                'status' => 'Your API client has been deleted.',
+                'type' => 'warning'
+            ]);
+        }catch(Exception $e){
+            \Log::error($e);
+        }
     }
 }

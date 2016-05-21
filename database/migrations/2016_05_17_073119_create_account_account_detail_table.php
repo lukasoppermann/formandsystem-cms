@@ -13,11 +13,13 @@ class CreateAccountAccountDetailTable extends Migration
     public function up()
     {
         Schema::create('account_account_detail', function (Blueprint $table) {
+            $table->increments('id');
+            
             $table->uuid('account_id')->index();
-            // $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
 
             $table->uuid('account_detail_id')->index();
-            // $table->foreign('account_detail_id')->references('id')->on('account_details')->onDelete('cascade');
+            $table->foreign('account_detail_id')->references('id')->on('account_details')->onDelete('cascade');
         });
     }
 

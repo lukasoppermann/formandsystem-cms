@@ -17,12 +17,12 @@ class Developers extends Settings
         // account
         $account = $request->user()->accounts->first();
         // get client id
-        if($client = $account->details->where('name','client')->first()){
-            $data['client_id'] = json_decode($client->value, true)['client_id'];
+        if($client = $account->details->where('type','client')->first()){
+            $data['client_id'] = json_decode($client->data, true)['client_id'];
         }
         // get db connection
-        if($db_connection = $account->details->where('name','db_connection')->first()){
-            $data['db_connection'] = $db_connection->value;
+        if($db_connection = $account->details->where('type','database')->first()){
+            $data['database'] = json_decode($db_connection->data, true)['data'];
         }
         // get notice
         if( session('notice') !== NULL ){

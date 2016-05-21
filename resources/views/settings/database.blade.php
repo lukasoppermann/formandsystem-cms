@@ -3,7 +3,7 @@
 
 <form class="o-form" action="/settings/developers/database" method="POST">
     {{ csrf_field() }}
-    @if(!isset($db_connection))
+    @if(!isset($database))
         @include('forms.input',['name' => 'connection_name', 'label' => 'Name your connection'])
         @include('forms.select',['name' => 'db_type', 'label' => 'Database type', 'values' => ['mysql' => 'MySQL'], 'selected' => 'MySQL'])
         @include('forms.input',['name' => 'host', 'label' => 'Database host e.g. 202.54.10.20'])
@@ -16,7 +16,7 @@
     @else
         {{ method_field('DELETE') }}
         <div class="o-flex o-flex--row">
-            <p class="o-flex__item o-flex__item--fill"><span class="type--bold">Database connection: </span><span class="type--grey">{{substr($db_connection,0,20)}}</span></p>
+            <p class="o-flex__item o-flex__item--fill"><span class="type--bold">Database connection: </span><span class="type--grey">{{substr($database,0,20)}}</span></p>
             @include('forms.submit',['label' => 'Delete database connection', 'classes' => 'o-flex__item o-button--red'])
         </div>
     @endif
