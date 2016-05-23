@@ -10,13 +10,12 @@
     }
 ?>
 
-<div class="o-select-box{{$errors->has($name) ? ' o-input--error' : ''}}">
+<div class="o-select-box  {{$errors->has($name) ? 'o-input--error' : ''}}">
     <label class="o-select__label">{{$label}}</label>
     <div class="o-select">
         <select class="" name="{{$name}}">
-            @foreach ($values as $key => $value)
-                <option value="{{$key}}" {{$key === $selected ? 'selected' : ''}}>{{$value}}</option>
-            @endforeach
+            <option value="1" {{'true' === $selected ? 'selected' : ''}}>True</option>
+            <option value="0" {{'true' === $selected ? 'selected' : ''}}>False</option>
         </select>
     </div>
     {!! $error_messages or '' !!}

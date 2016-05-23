@@ -1,6 +1,6 @@
 <?php
     // get old value
-    $value = isset($request) ? $request->old($name) : NULL;
+    $value = $request->old($name) !== NULL ? $request->old($name) : (isset($value) ? $value : NULL);
     // get errors
     if( $errors->has($name) ){
         foreach( $errors->get($name) as $error ){
@@ -9,9 +9,8 @@
         $error_messages = '<div class="o-input__errors">'.implode($error_items).'</div>';
     }
 ?>
-
-<div class="o-input {{$errors->has($name) ? 'o-input--error' : ''}}">
-    <input class="o-input__input" name="{{$name}}" type="{{$type or 'text'}}"  value="{{$value or ''}}" required spellcheck="false">
+<div class="o-input{{$errors->has($name) ? ' o-input--error' : ''}}">
+    <input class="o-input__input" name="{{$name}}" type="{{$type or 'text'}}"  value="{{$value or ''}}" required spellcheck="false" {{$attr or ''}}>
     <span class="o-input__bar"></span>
     <label class="o-input__label">{{$label}}</label>
     {!! $error_messages or '' !!}

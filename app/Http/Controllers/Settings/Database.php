@@ -21,7 +21,7 @@ class Database extends Settings
          $validator = Validator::make($request->all(), [
             'connection_name'   => 'required|string',
             'db_type'           => 'required|in:mysql',
-            'host'              => 'required|ip',
+            'host'              => 'required',
             'database'          => 'required|alpha_dash',
             'db_user'           => 'required',
             'db_password'       => 'required',
@@ -61,7 +61,7 @@ class Database extends Settings
         }
         // return error
         \Log::error('Error trying to add database options by user '.$this->user->email.'. Error: '.$response['status_code'].': '.$response['message'].'. Client ID: '.$client_id.'; CMS ID: '.$cms_id);
-        return redirect('settings/developers')->with(['status' => 'Saving your database settings failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
+        return redirect('settings/developers')->with(['status' => 'Saving your database connection failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
     }
     /**
      * delete an specific API CLIENT Detail
@@ -75,7 +75,7 @@ class Database extends Settings
             (new ApiClientDetailService)->delete($this->account, 'database');
             // redirect on success
             return redirect('settings/developers')->with([
-                'status' => 'Your API client has been deleted.',
+                'status' => 'Your database connection has been deleted.',
                 'type' => 'warning'
             ]);
         }catch(Exception $e){

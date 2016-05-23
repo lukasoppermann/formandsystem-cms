@@ -27,6 +27,9 @@ Route::group(['namespace' => 'Settings'], function() {
         // Developers / Database
         Route::post('/settings/developers/database', 'Database@store');
         Route::delete('/settings/developers/database', 'Database@delete');
+        // Developers / Database
+        Route::post('/settings/developers/ftp', 'Ftp@store');
+        Route::delete('/settings/developers/ftp', 'Ftp@delete');
 
     // Site
     Route::get('/settings/{site?}', 'Site@show');
