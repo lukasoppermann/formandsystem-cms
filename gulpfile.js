@@ -33,6 +33,19 @@ gulp.task('build-css', ['clean-build'], function(){
     .pipe(cleanCSS())
     .pipe(gulp.dest('public/build/css'));
 });
+// external css
+gulp.task('build-external-css', ['clean-build'], function(){
+    return gulp.src(['resources/less/external/*'])
+    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+    .pipe(less())
+    .pipe(concat('external.css'))
+    .pipe(prefix({
+        browsers: ['last 4 versions', 'IE 9', 'IE 8'],
+        cascade: false
+    }))
+    .pipe(cleanCSS())
+    .pipe(gulp.dest('public/build/css'));
+});
 //
 gulp.task('build-js', ['clean-build'], function(){
     var files = [];
@@ -54,9 +67,23 @@ gulp.task('build-js', ['clean-build'], function(){
     .pipe(jsmin())
     .pipe(gulp.dest('public/build/js'));
 });
+// build external js
+gulp.task('build-external-js', ['clean-build'], function(){
+    var files = [];
+    // push files
+    files.push(
+        // 'resources/bower_components/prism/components/prism-php.js',
+    );
+    files.push('resources/js/external/*.js');
 
-gulp.task('rev', ['build-js', 'build-css','svgsprite'], function(){
-    return gulp.src(['public/build/css/app.css', 'public/build/js/app.js','public/build/svgs/svg-sprite.svg'], {base: 'public/build'})
+    return gulp.src(files)
+    .pipe(concat('external.js'))
+    .pipe(jsmin())
+    .pipe(gulp.dest('public/build/js'));
+});
+
+gulp.task('rev', ['build-external-js','build-external-css','build-js', 'build-css','svgsprite'], function(){
+    return gulp.src(['public/build/css/app.css','public/build/css/external.css', 'public/build/js/app.js', 'public/build/js/external.js','public/build/svgs/svg-sprite.svg'], {base: 'public/build'})
     .pipe(rev())
     .pipe(gulp.dest('public/build'))
     .pipe(rev.manifest())
@@ -72,7 +99,7 @@ gulp.task('rev', ['build-js', 'build-css','svgsprite'], function(){
 // });
 //
 gulp.task('clean-build-step', ['rev'], function(){
-    return del(['public/build/css/app.css', 'public/build/js/app.js', 'public/build/js/app.js','public/build/svgs/svg-sprite.svg']);
+    return del(['public/build/css/app.css','public/build/css/external.css', 'public/build/js/app.js', 'public/build/js/external.js', 'public/build/js/app.js','public/build/svgs/svg-sprite.svg']);
 });
 
 /* ---------- */
@@ -82,7 +109,7 @@ gulp.task('svgsprite', ['clean-build'], function() {
   .pipe(svgmin({
       plugins: [{
           removeAttrs: {
-              attrs: 'fill'
+              attrs: 'fill=[^url]*'
           }
       }]
   }))
@@ -99,11 +126,11 @@ gulp.task('svgsprite', ['clean-build'], function() {
 
 // gulp watch
 gulp.task('asset-watch', function(){
-    gulp.watch(['resources/less/*','resources/less/**/*', 'resources/js/*'], ['build-css', 'build-js','rev', 'clean-build-step']);
+    gulp.watch(['resources/less/*','resources/less/**/*', 'resources/js/*', 'resources/js/external/*'], ['build-css','build-external-css', 'build-js','build-external-js','rev', 'clean-build-step']);
 });
 gulp.task('svg-watch', function(){
     gulp.watch(['resources/svg/*'], ['svgsprite']);
 });
 
 // gulp tasks
-gulp.task('default', ['clean-build', 'build-css', 'build-js', 'svgsprite', 'rev', 'clean-build-step','asset-watch','svg-watch']);
+gulp.task('default', ['clean-build', 'build-css','build-external-css', 'build-js','build-external-js', 'svgsprite', 'rev', 'clean-build-step','asset-watch','svg-watch']);

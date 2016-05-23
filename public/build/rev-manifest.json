@@ -1,5 +1,6 @@
 {
-  "css/app.css": "css/app-6be82a3bb7.css",
+  "css/app.css": "css/app-82d11677d0.css",
   "js/app.js": "js/app-68b329da98.js",
-  "svgs/svg-sprite.svg": "svgs/svg-sprite-1ced18b0a4.svg"
+  "js/external.js": "js/external-68b329da98.js",
+  "svgs/svg-sprite.svg": "svgs/svg-sprite-b87941d0d8.svg"
 }

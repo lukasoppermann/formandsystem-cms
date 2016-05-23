@@ -1,6 +1,6 @@
 <?php
     // get old value
-    $value = $request->old($name) !== NULL ? $request->old($name) : (isset($value) ? $value : NULL);
+    $value = old($name) !== NULL ? old($name) : (isset($value) ? $value : NULL);
     // get errors
     if( $errors->has($name) ){
         foreach( $errors->get($name) as $error ){

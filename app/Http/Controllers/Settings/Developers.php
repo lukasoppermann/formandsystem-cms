@@ -10,7 +10,6 @@ class Developers extends Settings
 {
 
     public function show(Request $request){
-        $data['request'] = $request;
         // get navigation
         $data['navigation'] = $this->buildNavigation('/settings/developers');
         // account

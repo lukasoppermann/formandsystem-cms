@@ -1,6 +1,6 @@
 <?php
     // get old value
-    $selected = isset($request) ? $request->old($name) : NULL;
+    $selected = old($name) !== NULL ? old($name) : (isset($value) ? $value : NULL);
     // get errors
     if( $errors->has($name) ){
         foreach( $errors->get($name) as $error ){

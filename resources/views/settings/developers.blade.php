@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.app')
 
 @section('content')
     @if( session('status') !== null)

@@ -4,6 +4,9 @@
 .o-form{
     margin-top: 2rem;
 }
+/* --------------------------
+ * INPUT
+ */
 .o-input{
     position: relative;
     margin-bottom: 2rem;
@@ -84,7 +87,9 @@
         width:50%;
     }
 }
-
+/* --------------------------
+ * Select
+ */
 /* Container used for styling the custom select, the buttom class below adds the
  * bg gradient, corners, etc. */
 .o-select-box{
@@ -180,3 +185,57 @@
 		border-color: @blue;
 	}
 }
+/* --------------------------
+ * Toggle
+ */
+body
+  background #EEEEEE
+
+.lbl
+  position relative
+  display block
+  height 20px
+  width 44px
+  background #898989
+  border-radius 100px
+  cursor pointer
+  transition all .3s ease
+  &:after
+    position absolute
+    left -2px
+    top -3px
+    display block
+    width 26px
+    height 26px
+    border-radius 100px
+    background white
+    box-shadow 0px 3px 3px rgba(#000,.05)
+    content ''
+    transition all .3s ease
+  &:active
+    &:after
+      transform scale(1.15, .85)
+
+.cbx:checked ~ label
+  background #6FBEB5
+  &:after
+    left 20px
+    background #179588
+
+.cbx:disabled ~ label
+  background #D5D5D5
+  pointer-events none
+  &:after
+    background #BCBDBC
+
+.cntr
+  position absolute
+  top 50%
+  left 50%
+  transform translate(-50%,-50%)
+
+.press
+  margin-bottom 40px
+
+.hidden
+  display none

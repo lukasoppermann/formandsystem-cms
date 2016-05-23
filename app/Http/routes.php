@@ -10,31 +10,39 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/', 'Dashboard@index');
-Route::get('/pages', 'Pages@index');
-Route::get('/collections', 'Collections@index');
+// login
+Route::get('/login','Auth\AuthController@showLoginForm');
+Route::post('/login','Auth\AuthController@login');
+// CMS
+Route::group(['middleware' => ['auth']], function(){
 
-// Settings
-Route::group(['namespace' => 'Settings'], function() {
+    Route::get('/','Dashboard@index');
 
-    $user = \App\Models\User::where('email','oppermann.lukas@gmail.com')->first();
-    Auth::login($user);
-    // Developers
-    Route::get('/settings/developers/{item?}', 'Developers@show');
-        // Developers / Client
-        Route::post('/settings/developers/api-access', 'ApiAccess@store');
-        Route::delete('/settings/developers/api-access', 'ApiAccess@delete');
-        // Developers / Database
-        Route::post('/settings/developers/database', 'Database@store');
-        Route::delete('/settings/developers/database', 'Database@delete');
-        // Developers / Database
-        Route::post('/settings/developers/ftp', 'Ftp@store');
-        Route::delete('/settings/developers/ftp', 'Ftp@delete');
+    Route::get('/pages', 'Pages@index');
+    Route::get('/collections', 'Collections@index');
 
-    // Site
-    Route::get('/settings/{site?}', 'Site@show');
+    // Settings
+    Route::group(['namespace' => 'Settings'], function() {
+        // $user = \App\Models\User::where('email','oppermann.lukas@gmail.com')->first();
+        // Auth::login($user);
+        // Auth::logout($user);
+        // Developers
+        Route::get('/settings/developers/{item?}', 'Developers@show');
+            // Developers / Client
+            Route::post('/settings/developers/api-access', 'ApiAccess@store');
+            Route::delete('/settings/developers/api-access', 'ApiAccess@delete');
+            // Developers / Database
+            Route::post('/settings/developers/database', 'Database@store');
+            Route::delete('/settings/developers/database', 'Database@delete');
+            // Developers / Database
+            Route::post('/settings/developers/ftp', 'Ftp@store');
+            Route::delete('/settings/developers/ftp', 'Ftp@delete');
+
+        // Site
+        Route::get('/settings/{site?}', 'Site@show');
+    });
+
+
+    Route::get('/users', 'Users@index');
+    Route::get('/users/{user}', 'Users@show');
 });
-
-
-Route::get('/users', 'Users@index');
-Route::get('/users/{user}', 'Users@show');
