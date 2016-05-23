@@ -13,10 +13,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        'App\Events\ClientWasDeleted' => [
+            'App\Listeners\DeleteSettingsOnClientDelete',
         ],
     ];
+
 
     /**
      * Register any other events for your application.

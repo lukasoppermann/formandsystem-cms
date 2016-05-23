@@ -74,7 +74,7 @@ class ApiClientService extends AbstractService
         // on success
         if(!isset($cms_client['message']) && !isset($client['message'])){
             // fire event
-            Event::fire(new ClientWasDeleted($client_id));
+            Event::fire(new ClientWasDeleted($account));
             // redirect to show
             return true;
         }

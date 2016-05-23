@@ -7,7 +7,7 @@ use App\Events\Event;
 class ClientWasDeleted extends Event
 {
 
-    public $client_id;
+    protected $account;
 
     /**
      * Create a new event instance.
@@ -15,8 +15,19 @@ class ClientWasDeleted extends Event
      * @param  string $client_id
      * @return void
      */
-    public function __construct($client_id)
+    public function __construct($account)
     {
-        $this->client_id = $client_id;
+        $this->account = $account;
+    }
+    /**
+     * return account
+     *
+     * @method account
+     *
+     * @return string
+     */
+    public function account()
+    {
+        return $this->account;
     }
 }

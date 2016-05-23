@@ -73,12 +73,17 @@ class ApiClientDetailService extends AbstractService
         // delete client
         // TODO: deal with error when no data
         // get detail id
-        $detail_id = json_decode($account->details->where('type',$type)->first()->data, true)['detail_id'];
-        // delete detail
-        $response = $this->api($this->config['cms'])->delete('/details/'.$detail_id);
-        // successfully deleted
-        if(!isset($response['status_code'])){
-            $account->details()->where('type', $type)->first()->delete();
+        //
+        $detail = $account->details->where('type',$type)->first();
+
+        if(isset($detail)){
+            $detail_id = json_decode($detail->data, true)['detail_id'];
+            // delete detail
+            $response = $this->api($this->config['cms'])->delete('/details/'.$detail_id);
+            // successfully deleted
+            if(!isset($response['status_code']) || $response['status_code'] === 404){
+                $account->details()->where('type', $type)->first()->delete();
+            }
         }
     }
 }
