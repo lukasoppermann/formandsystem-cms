@@ -16,8 +16,8 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
-
+    // 'driver' => env('MAIL_DRIVER', 'sparkpost'),
+    'driver' => env('MAIL_DRIVER', 'log'),
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address
@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'support@formandsystem.com', 'name' => 'Form&System Support'],
 
     /*
     |--------------------------------------------------------------------------

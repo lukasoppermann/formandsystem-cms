@@ -32,6 +32,10 @@ class Dashboard extends Controller
                                 'link'  => '/settings',
                             ],
                             [
+                                'label' => 'Users',
+                                'link'  => '/users',
+                            ],
+                            [
                                 'label' => 'Profile',
                                 'link'  => '/users/me',
                             ],

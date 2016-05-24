@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
             'firstname'     => 'Lukas',
             'lastname'      => 'Oppermann',
             'email'         => 'oppermann.lukas@gmail.com',
-            'password'      => 'test',
+            'password'      => \Hash::make('test'),
             'created_at' => '0000-00-00',
             'updated_at' => '0000-00-00'
         ]);

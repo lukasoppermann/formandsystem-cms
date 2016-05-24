@@ -1,6 +1,6 @@
 <?php
     // get old value
-    $selected = old($name) !== NULL ? old($name) : (isset($value) ? $value : NULL);
+    $selected = old($name) === true ? 'checked' : (isset($checked) && $checked === true ? 'checked' : NULL);
     // get errors
     if( $errors->has($name) ){
         foreach( $errors->get($name) as $error ){
@@ -10,13 +10,11 @@
     }
 ?>
 
-<div class="o-select-box  {{$errors->has($name) ? 'o-input--error' : ''}}">
-    <label class="o-select__label">{{$label}}</label>
-    <div class="o-select">
-        <select class="" name="{{$name}}">
-            <option value="1" {{'true' === $selected ? 'selected' : ''}}>True</option>
-            <option value="0" {{'true' === $selected ? 'selected' : ''}}>False</option>
-        </select>
-    </div>
+<div class="o-toggle{{$errors->has($name) ? ' o-input--error' : ''}}">
+    <input type="checkbox" id="{{$name}}" name="{{$name}}" class="o-toggle__checkbox" {{$selected or ''}}/>
+    <label class="o-toggle__label" for="{{$name}}">
+        <span class="o-toggle__switch"></span>
+        <span class="o-toggle__text">{{$label}}</span>
+    </label>
     {!! $error_messages or '' !!}
 </div>

@@ -10,6 +10,7 @@
 @line-height-xxl: @type-size-xl;
 @line-height-xl: @type-size-lg;
 
+@bold: 600;
 
 .type(@size: 'default'){
     @type-size: "type-size-@{size}";
@@ -19,7 +20,7 @@
 }
 
 .type--bold{
-    font-weight: 600;
+    font-weight: @bold;
 }
 .type--grey{
     color: @medium-gray;

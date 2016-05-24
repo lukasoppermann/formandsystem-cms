@@ -13,6 +13,11 @@
 // login
 Route::get('/login','Auth\AuthController@showLoginForm');
 Route::post('/login','Auth\AuthController@login');
+Route::get('/logout','Auth\AuthController@logout');
+// Reset password
+Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
+Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
+Route::post('password/reset', 'Auth\PasswordController@reset');
 // CMS
 Route::group(['middleware' => ['auth']], function(){
 
@@ -23,9 +28,6 @@ Route::group(['middleware' => ['auth']], function(){
 
     // Settings
     Route::group(['namespace' => 'Settings'], function() {
-        // $user = \App\Models\User::where('email','oppermann.lukas@gmail.com')->first();
-        // Auth::login($user);
-        // Auth::logout($user);
         // Developers
         Route::get('/settings/developers/{item?}', 'Developers@show');
             // Developers / Client
@@ -40,6 +42,7 @@ Route::group(['middleware' => ['auth']], function(){
 
         // Site
         Route::get('/settings/{site?}', 'Site@show');
+        Route::post('/settings/site', 'Site@store');
     });
 
 

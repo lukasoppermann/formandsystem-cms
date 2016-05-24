@@ -1,7 +1,19 @@
 @import "includes/colors";
 
-.o-link--full{
-    width: 100%;
-    height: 100%;
-    display: block;
+.o-link{
+    display: inline-block;
+    color: @blue;
+    transition: color .3s ease;
+    // quiet
+    &--quiet{
+        color: @medium-gray;
+        &:hover{
+            color: @blue;
+        }
+    }
+    &--full{
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
 }

@@ -12,29 +12,16 @@ class Users extends Controller
         $data = [
             'navigation' => [
                 'header' => [
-                    'title' => 'Profile',
+                    'title' => 'Users',
                     'link' => '/',
                 ],
                 'lists' => [
                     [
-                        'title' => 'test',
-                        'slug'  => 'slug',
                         'items' => [
                             [
-                                'label' => 'News',
-                                'link'  => '/pages',
+                                'label' => 'Profile',
+                                'link'  => '/users/me',
                                 'icon'  => 'stack',
-                            ],
-                            [
-                                'label' => 'Blog',
-                                'link'  => '/page-2',
-                                'icon'  => 'page',
-                                'is_active' => true,
-                            ],
-                            [
-                                'label' => 'Gallery',
-                                'link'  => '/page-3',
-                                'icon'  => 'page-2',
                             ],
                         ]
                     ]
