@@ -22,10 +22,12 @@ Route::post('password/reset', 'Auth\PasswordController@reset');
 Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/','Dashboard@index');
-
-    Route::get('/pages', 'Pages@index');
     Route::get('/collections', 'Collections@index');
-
+    // Settings
+    Route::group(['namespace' => 'Pages'], function() {
+        Route::get('/pages', 'Pages@index');
+        Route::get('/pages/{page}', 'Pages@show');
+    });
     // Settings
     Route::group(['namespace' => 'Settings'], function() {
         // Developers
@@ -42,7 +44,7 @@ Route::group(['middleware' => ['auth']], function(){
 
         // Site
         Route::get('/settings/{site?}', 'Site@show');
-        Route::post('/settings/site', 'Site@store');
+        Route::post('/settings/site', 'Site@update');
     });
 
 

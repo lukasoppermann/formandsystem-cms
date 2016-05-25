@@ -5,7 +5,7 @@
         @include('notice.status', ['status' => session('status'), 'type' => session('type')])
     @endif
     <div class="o-content o-content--max-width">
-        <h2 class="o-headline o-headline--first">Developer Settings</h2>
+        <h1 class="o-headline o-headline--first">Developer Settings</h1>
         @include('settings.api-access')
         @if(isset($client_id))
             @include('settings.database')

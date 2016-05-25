@@ -20,12 +20,17 @@ class Controller extends BaseController
 
     protected $account;
     protected $user;
+    protected $client;
 
     public function __construct(Request $request){
         // get current user
         $this->user = $request->user();
         // get account
         $this->account = $request->user()->accounts->first();
+        // api client
+        if($client = $this->account->details->where('type','cms_client')->first()){
+            $this->client = json_decode($client->data, true);
+        }
         // set cms api settings
         $this->config['cms'] = [
             'client_id' => env('FS_API_CLIENT_ID'),
@@ -38,7 +43,7 @@ class Controller extends BaseController
         // get navigation array to not change original
         $navigation = $this->navigation;
         // set active item active
-        if($active !== false){
+        if($active !== false && isset($navigation['lists'])){
             foreach($navigation['lists'] as $key => $list){
                 if( ($found = array_search($active, array_column($list['items'], 'link'))) !== false ){
                     $navigation['lists'][$key]['items'][$found]['is_active'] = true;

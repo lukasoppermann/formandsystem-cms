@@ -9,10 +9,20 @@ use App\Services\ApiMetadetailService;
 
 class Site extends Settings
 {
-
     public function show(){
         // get navigation
         $data['navigation'] = $this->buildNavigation('/settings/site');
+        // get settings data
+        $settings = (new ApiMetadetailService)->get([
+            'site_name',
+            'analytics_code',
+            'analytics_anonymize_ip',
+        ]);
+        // flatten
+        $data['form'] = [];
+        foreach ($settings as $value) {
+            $data['form'][$value['type']] = $value;
+        }
 
         return view('settings.site', $data);
     }
@@ -23,11 +33,20 @@ class Site extends Settings
      *
      * @param  Request $request
      */
-    public function store(Request $request){
-        $request_input = $request->only(['site_name']);
+    public function update(Request $request){
+        $items = [
+            'site_name',
+            'analytics_code',
+            'analytics_anonymize_ip',
+        ];
+        $request_input      = $request->only($items);
+        $request_input_ids  = $request->only(array_map(function($item){
+            return $item.'_id';
+        }, $items));
         // validate input
         $validator = Validator::make($request_input, [
-            'site_name'   => 'string',
+            'site_name'         => 'string',
+            'analytics_code'    => 'regex:/^UA-\d{7}-\d{2}$/',
         ]);
         // if validation fails
         if($validator->fails()){
@@ -38,17 +57,16 @@ class Site extends Settings
         // TODO: deal with errors
         // if validation succeeds
         try{
-            $detail = (new ApiMetadetailService)->store($request_input);
+            (new ApiMetadetailService)->update($request_input, $request_input_ids);
             // redirect on success
             return redirect('settings/site')->with([
-                'status' => 'Your database connection ('.$request->get('connection_name').') has been saved.',
+                'status' => 'Your settings have been updated.',
                 'type' => 'success'
             ]);
         }catch(Exception $e){
             \Log::error($e);
         }
         // return error
-        \Log::error('Error trying to add database options by user '.$this->user->email.'. Error: '.$response['status_code'].': '.$response['message'].'. Client ID: '.$client_id.'; CMS ID: '.$cms_id);
-        return redirect('settings/developers')->with(['status' => 'Saving your database connection failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
+        return redirect('settings/site')->with(['status' => 'Saving your settings failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
     }
 }
