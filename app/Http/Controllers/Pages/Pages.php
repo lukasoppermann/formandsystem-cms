@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Cache;
 use App\Http\Controllers\Controller;
+use App\Services\ApiCollectionService;
+use App\Services\ApiPageService;
 
 class Pages extends Controller
 {
@@ -36,25 +38,15 @@ class Pages extends Controller
     {
         // TODO: deal with errors
         // get pages
-        $pages = [];
-        $collection = $this->api($this->client)->get('/collections?filter[slug]=pages');
-        dd($collection['data'][0]['id']);
-        // $this->getWhileNext($pages, '/collections/'.$collection['data'][0]['id'].'/pages');
-        dd($this->api($this->client)->get('/collections/'.$collection['data'][0]['id'].'/pages'));
+        $collection = (new ApiCollectionService)->all('filter[slug]=pages&include=pages&exclude=pages.fragments,pages.metadetails,pages.collections', true);
+        // get all ids of needed pages
+        $page_ids = array_column($collection['data'][0]['relationships']['pages']['data'],'id');
+        // get all pages
+        $pages = (new ApiPageService)->get($page_ids,NULL,false);
         // prepare for navigation
-        foreach($pages as $page){
-            $items[] = [
-                'id'        => $page['id'],
-                'label'     => $page['attributes']['menu_label'],
-                'link'      => '/pages/'.$page['attributes']['slug'],
-                'published' => $page['attributes']['published'],
-                'language'  => $page['attributes']['language'],
-            ];
-        }
-
         return [
             [
-                'items' => $items
+                'items' => $pages
             ]
         ];
     }
@@ -64,24 +56,33 @@ class Pages extends Controller
         return view('pages.dashboard', $data);
     }
 
-    protected function getWhileNext(&$items, $url)
-    {
-        $response = $this->api($this->client)->get($url);
-
-        $items = array_merge(array_values($items), array_values($response['data']));
-
-        if( isset($response['meta']['pagination']['links']['next']) ){
-            $this->getWhileNext($items, $response['meta']['pagination']['links']['next']);
-        }
-    }
-
     public function show($page){
         $page_content = $this->api($this->client)->get('/pages/?filter[slug]='.$page);
         $data = $page_content['data'][0]['attributes'];
 
+        $inclFragments = array_filter($page_content['included'], function($element) {
+            return $element['type'] === 'fragments';
+        });
+
+        $fragments = $this->getRelationship($page_content['data'][0], 'fragments', $inclFragments);
+
+        // dd($fragments);
+
         $data['navigation'] = $this->buildNavigation('/pages/'.$page);
 
         return view('pages.page', $data);
+    }
+
+    public function getRelationship($array, $type, $includes)
+    {
+        $fragments = [];
+        foreach($array['relationships'][$type]['data'] as $rel){
+            $fragments[] = $includes[array_search($rel['id'], array_column($includes, 'id'))];
+            if(isset($fragments[0])){
+                $fragments[$type] = $this->getRelationship($fragments[0], $type, $includes);
+            }
+        }
+        return $fragments;
     }
 
 }
