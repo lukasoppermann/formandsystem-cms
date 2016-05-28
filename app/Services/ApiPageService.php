@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Account;
+use App\Entities\Page;
 
 class ApiPageService extends AbstractApiService
 {
@@ -74,7 +75,7 @@ class ApiPageService extends AbstractApiService
                 'metadetails'   => $this->addIncluded('metadetails', $page, $page_data['included']),
             ];
         }
-        // request
+        // return
         return $pages;
     }
     /**
@@ -88,6 +89,8 @@ class ApiPageService extends AbstractApiService
      */
     public function find($slug)
     {
-
+        $page_data = $this->api($this->client)->get('/pages?filter[slug]='.$slug);
+        // return
+        return new Page($page_data['data'][0], $page_data['included']);
     }
 }

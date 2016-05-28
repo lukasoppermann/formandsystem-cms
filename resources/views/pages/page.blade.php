@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="o-content o-content--max-width">
-        <h1 class="o-headline o-headline--first">{{$title}}</h1>
-        <p class="o-copy o-content__paragraph">{{$description}}</p>
+        <h1 class="o-headline o-headline--first">{{$page->title}}</h1>
+        <p class="o-copy o-content__paragraph">{{$page->description}}</p>
 
-        
+        @each('pages.fragment', $page->fragments, 'fragment')
 
     </div>
 

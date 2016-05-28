@@ -56,33 +56,13 @@ class Pages extends Controller
         return view('pages.dashboard', $data);
     }
 
-    public function show($page){
-        $page_content = $this->api($this->client)->get('/pages/?filter[slug]='.$page);
-        $data = $page_content['data'][0]['attributes'];
+    public function show($slug){
+        $data['page'] = (new ApiPageService)->find($slug);
+        dd($data['page']);
 
-        $inclFragments = array_filter($page_content['included'], function($element) {
-            return $element['type'] === 'fragments';
-        });
-
-        $fragments = $this->getRelationship($page_content['data'][0], 'fragments', $inclFragments);
-
-        // dd($fragments);
-
-        $data['navigation'] = $this->buildNavigation('/pages/'.$page);
+        $data['navigation'] = $this->buildNavigation('/pages/'.$slug);
 
         return view('pages.page', $data);
-    }
-
-    public function getRelationship($array, $type, $includes)
-    {
-        $fragments = [];
-        foreach($array['relationships'][$type]['data'] as $rel){
-            $fragments[] = $includes[array_search($rel['id'], array_column($includes, 'id'))];
-            if(isset($fragments[0])){
-                $fragments[$type] = $this->getRelationship($fragments[0], $type, $includes);
-            }
-        }
-        return $fragments;
     }
 
 }
