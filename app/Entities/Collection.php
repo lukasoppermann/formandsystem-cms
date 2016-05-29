@@ -15,6 +15,10 @@ class Collection extends AbstractResourceEntity
      */
     protected function attributes(Array $attributes)
     {
-        return $attributes;
+        return [
+            'name'         => $attributes['name'],
+            'slug'         => $attributes['slug'],
+            'is_trashed'   => $attributes['is_trashed'],
+        ];
     }
 }

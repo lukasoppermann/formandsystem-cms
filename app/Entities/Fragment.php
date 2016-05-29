@@ -4,17 +4,17 @@ namespace App\Entities;
 
 class Fragment extends AbstractResourceEntity
 {
+    /**
+     * transform attributes
+     *
+     * @method attributes
+     *
+     * @param  Array      $attributes
+     *
+     * @return array
+     */
     protected function attributes(Array $attributes)
     {
-        /**
-         * transform attributes
-         *
-         * @method attributes
-         *
-         * @param  Array      $attributes
-         *
-         * @return array
-         */
         return [
             'type'         => $attributes['type'],
             'name'         => $attributes['name'],

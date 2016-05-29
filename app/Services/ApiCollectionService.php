@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Account;
+use App\Entities\Collection;
 
 class ApiCollectionService extends AbstractApiService
 {
@@ -49,8 +50,28 @@ class ApiCollectionService extends AbstractApiService
      *
      * @return [type]
      */
-    public function get($slug)
+    public function get($ids)
     {
 
+    }
+    /**
+     * find collection by slug
+     *
+     * @method find
+     *
+     * @param  string $slug
+     *
+     * @return App/Entities/Page
+     */
+    public function find($slug, $param = [])
+    {
+        $url = '/collections?filter[slug]='.$slug;
+        // add parameters
+        // TODO: deal with includes & params as one array
+        // $url .= $this->parameters($param['parameters'], $param['includes']);
+        // TODO: deal with errors, e.g. 404
+        $item = $this->api($this->client)->get($url);
+        // return
+        return new Collection($item['data'][0], $item['included']);
     }
 }

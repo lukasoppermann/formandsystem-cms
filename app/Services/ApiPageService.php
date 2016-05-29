@@ -81,16 +81,33 @@ class ApiPageService extends AbstractApiService
     /**
      * find page by slug
      *
-     * @method get
+     * @method find
      *
-     * @param  [type] $slug [description]
+     * @param  string $slug
      *
-     * @return [type]
+     * @return App/Entities/Page
      */
     public function find($slug)
     {
         $page_data = $this->api($this->client)->get('/pages?filter[slug]='.$slug);
         // return
         return new Page($page_data['data'][0], $page_data['included']);
+    }
+    /**
+     * store
+     *
+     * @method store
+     *
+     * @return EXCEPTION|array
+     */
+    public function store(Array $data){
+        // TODO: handle errors
+        // make api call
+        $response = $this->api($this->client)->post('/pages', [
+            'type' => 'pages',
+            'attributes' => $data,
+        ]);
+
+        return $response;
     }
 }

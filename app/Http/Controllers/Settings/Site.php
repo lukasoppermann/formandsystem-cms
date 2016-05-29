@@ -13,15 +13,17 @@ class Site extends Settings
         // get navigation
         $data['navigation'] = $this->buildNavigation('/settings/site');
         // get settings data
-        $settings = (new ApiMetadetailService)->get([
+        $settings = (new ApiMetadetailService)->find([
             'site_name',
             'analytics_code',
             'analytics_anonymize_ip',
         ]);
+
         // flatten
         $data['form'] = [];
-        foreach ($settings as $value) {
-            $data['form'][$value['type']] = $value;
+
+        foreach ($settings as $item) {
+            $data['form'][$item->type] = $item;
         }
 
         return view('settings.site', $data);

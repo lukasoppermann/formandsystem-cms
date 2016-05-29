@@ -2,16 +2,16 @@
 
 namespace App\Entities;
 
-use Illuminate\Support\Collection;
+use Illuminate\Support\Collection as LaravelCollection;
 
 abstract class AbstractResourceEntity
 {
     protected $entity;
 
-    public function __construct($item = [], $included = [])
+    public function __construct($item = [], &$included = [])
     {
         // build entity
-        $this->entity = new Collection(array_merge([
+        $this->entity = new LaravelCollection(array_merge([
                 'id'             => $item['id'],
                 'resource_type'  => $item['type'],
             ],
@@ -35,18 +35,22 @@ abstract class AbstractResourceEntity
         $include = [];
 
         foreach($relationships as $type => $rel ){
-            // create entity name
-            $entity = '\App\Entities\\'.rtrim(ucfirst($type),'s');
             // include entities if data exists
-            if(isset($rel['data'])){
+            if(isset($rel['data']) && count($rel['data']) > 0){
+                // create entity name
+                $entity = '\App\Entities\\'.rtrim(ucfirst($type),'s');
+                // create collection
+                $include[$type] = new LaravelCollection;
+                // add all items to collection
                 foreach(array_column($rel['data'],'id') as $id){
-                    $item = $included[array_search($id, array_column($included,'id'))];
-                    $include[$type][] = new $entity($item, $included);
+                    if($key = array_search($id, array_column($included,'id'))){
+                        $include[$type]->push(new $entity($included[$key], $included));
+                    }
                 }
             }
         }
         return [
-            'relationships' => $include
+            'relationships' => new LaravelCollection($include)
         ];
     }
     /**
@@ -61,7 +65,7 @@ abstract class AbstractResourceEntity
     public function json_decode($data)
     {
         // decode if json
-        if( json_decode($data) !== null ){
+        if( !is_array($data) && json_decode($data) !== null ){
             return json_decode($data);
         }
         // return data

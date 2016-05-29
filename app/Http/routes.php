@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function(){
     // Settings
     Route::group(['namespace' => 'Pages'], function() {
         Route::get('/pages', 'Pages@index');
+        Route::get('/pages/create', 'Pages@store');
         Route::get('/pages/{page}', 'Pages@show');
     });
     // Settings

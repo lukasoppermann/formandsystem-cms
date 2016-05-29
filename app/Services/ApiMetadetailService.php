@@ -5,46 +5,32 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Account;
+use App\Entities\Metadetail;
 
 class ApiMetadetailService extends AbstractApiService
 {
     /**
      * get
      *
-     * @method get
+     * @method find
      *
-     * @param  array $key [description]
+     * @param  array $keys
      *
-     * @return array
+     * @return App\Entities\Metadetail
      */
-    public function get(Array $keys)
+    public function find(Array $keys)
     {
-        // get all details
-        $details = [];
-        $this->getWhileNext($details, '/metadetails?filter[type]='.implode(',',$keys));
-        // prepare
-        $details = array_map(function($item){
-            return [
-                'id'             => $item['id'],
-                'resource_type'  => $item['type'],
-                'type'           => $item['attributes']['type'],
-                'value'          => $item['attributes']['value'],
-            ];
-        }, $details);
-        // return details
-        return $details;
-    }
-
-    protected function getWhileNext(&$details, $url)
-    {
-        $response = $this->api($this->client)->get($url);
-
-        $details = array_merge(array_values($details), array_values($response['data']));
-
-        if( isset($response['meta']['pagination']['links']['next']) ){
-            $this->getWhileNext($details, $response['meta']['pagination']['links']['next']);
+        // API CALL
+        $metadetails = $this->getAllItems('/metadetails?filter[type]='.implode(',',$keys));
+        // build result array
+        $entities = [];
+        foreach($metadetails['data'] as $detail){
+            $entities[] = new Metadetail($detail, !isset($metadetails['included']) ?: $metadetails['included']);
         }
+        // return
+        return $entities;
     }
+
     /**
      * store
      *
@@ -62,14 +48,14 @@ class ApiMetadetailService extends AbstractApiService
         }, $details);
 
         // loop  all details
-        foreach($details as $type => $value){
+        foreach($details as $type => $data){
             // TODO: handle errors
             // make api call
             $response = $this->api($this->client)->post('/metadetails', [
                 'type' => 'metadetails',
                 'attributes' => [
                     'type' => $type,
-                    'value' => $value,
+                    'data' => $data,
                 ]
             ]);
         }
@@ -93,10 +79,10 @@ class ApiMetadetailService extends AbstractApiService
         }, $details);
 
         // loop  all details
-        foreach($details as $type => $value){
+        foreach($details as $type => $data){
             // TODO: handle errors
             if(isset($request_input_ids[$type.'_id'])){
-                if(trim($value) === ""){
+                if(trim($data) === ""){
                     return $this->api($this->client)->delete('/metadetails/'.$request_input_ids[$type.'_id']);
                 }
                 // make api call
@@ -105,7 +91,7 @@ class ApiMetadetailService extends AbstractApiService
                     'type' => 'metadetails',
                     'attributes' => [
                         'type' => $type,
-                        'value' => $value,
+                        'data' => $data,
                     ]
                 ]);
             }else{
@@ -114,7 +100,7 @@ class ApiMetadetailService extends AbstractApiService
                     'type' => 'metadetails',
                     'attributes' => [
                         'type' => $type,
-                        'value' => $value,
+                        'data' => $data,
                     ]
                 ]);
             }
