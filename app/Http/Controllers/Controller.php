@@ -11,6 +11,7 @@ use Formandsystem\Api\Api;
 use App\Services\CacheService;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Collection as LaravelCollection;
 
 class Controller extends BaseController
 {
@@ -40,13 +41,15 @@ class Controller extends BaseController
     }
 
     protected function buildNavigation($active = false){
+
         // get navigation array to not change original
         $navigation = $this->navigation;
         // set active item active
         if($active !== false && isset($navigation['lists'])){
             foreach($navigation['lists'] as $key => $list){
+                // build array
                 if( ($found = array_search($active, array_column($list['items'], 'link'))) !== false ){
-                    $navigation['lists'][$key]['items'][$found]['is_active'] = true;
+                    $navigation['lists'][$key]['items'][$found]['is_active']= true;
                 }
             }
         }

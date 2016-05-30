@@ -8,39 +8,21 @@ use App\Http\Requests;
 class Collections extends Controller
 {
 
+    /**
+     * main navigation array
+     *
+     * @var array
+     */
+    protected $navigation = [
+        'header' => [
+            'title' => 'Collections',
+            'link' => '/',
+        ],
+    ];
+
     public function index(){
-        $data = [
-            'navigation' => [
-                'header' => [
-                    'title' => 'Collections',
-                    'link' => '/',
-                ],
-                'lists' => [
-                    [
-                        'title' => 'test',
-                        'slug'  => 'slug',
-                        'items' => [
-                            [
-                                'label' => 'News',
-                                'link'  => '/pages',
-                                'icon'  => 'stack',
-                            ],
-                            [
-                                'label' => 'Blog',
-                                'link'  => '/page-2',
-                                'icon'  => 'page',
-                                'is_active' => true,
-                            ],
-                            [
-                                'label' => 'Gallery',
-                                'link'  => '/page-3',
-                                'icon'  => 'page-2',
-                            ],
-                        ]
-                    ]
-                ]
-            ]
-        ];
+        $data['navigation'] = $this->buildNavigation('/collections');
+
         return view('dashboard.welcome', $data);
     }
 

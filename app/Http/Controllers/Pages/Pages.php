@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pages;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Cache;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Services\ApiCollectionService;
 use App\Services\ApiPageService;
@@ -23,6 +24,48 @@ class Pages extends Controller
             'link' => '/',
         ],
     ];
+    /**
+     * pages collection
+     *
+     * @var App\Entities\Collection
+     */
+    protected $collection;
+    /**
+     * construct
+     *
+     * @method __construct
+     *
+     * @param  Request     $request
+     */
+    public function __construct(Request $request)
+    {
+        parent::__construct($request);
+        // get the main pages collection
+        $this->collection = $this->getPagesCollection();
+    }
+    /**
+     * get main pages collection or create
+     *
+     * @method getPagesCollection
+     *
+     * @return App\Entities\Collection
+     */
+    public function getPagesCollection()
+    {
+        if(!Cache::has('pages.collection')){
+            if( !$collection = (new ApiCollectionService)->find('pages') ){
+                $collection = (new ApiCollectionService)->create('pages');
+            }
+            // cache collection
+            Cache::put(
+                'pages.collection',
+                $collection,
+                Carbon::now()->addMinutes(10)
+            );
+        }
+        // return main pages collection
+        return Cache::get('pages.collection');
+    }
 
     public function getMenu()
     {
@@ -38,27 +81,32 @@ class Pages extends Controller
     {
         // TODO: deal with errors
         // get pages
-        $collection = (new ApiCollectionService)->find('pages');
-        // TODO: use collection above and fix
-        $item = $this->api($this->client)->get('/collections?filter[slug]=pages&include=pages&exclude=pages.fragments');
-
-        $collection = new Collection($item['data'][0], $item['included']);
-
+        $collection = (new ApiCollectionService)->first('slug','pages',['includes' => ['pages']]);
         // get all ids of needed pages
-        foreach($collection->pages as $page){
-            $page_ids[] = $page->id;
+        if($collection->pages !== NULL){
+            $page_ids = $collection->pages->map(function($item) {
+                return $item->id;
+            });
+            // $page_ids[] = 'cf6a3a83-4c39-34a1-910c-b43d7121a0fa';
+            // // get all pages
+            $pages = (new ApiPageService)->get($page_ids->toArray(),[
+                'includes' => false
+            ]);
+            // turn pages into array
+            $pages = $pages->map(function($item){
+                $item = $item->toArray();
+                $item['link'] = '/pages/'.$item['slug'];
+                return $item;
+            })->toArray();
         }
-        // $page_ids[] = 'cf6a3a83-4c39-34a1-910c-b43d7121a0fa';
-        // // get all pages
-        $pages = (new ApiPageService)->get($page_ids,NULL,false);
-        // // prepare for navigation
+        // prepare for navigation
         return [
             [
-                'items' => $pages,
+                'items' => isset($pages) ? $pages : [],
                 'add' => [
                     'link' => '/pages/create'
                 ],
-                'deletable' => true,
+                'item' => 'pages.navigation-item',
             ]
         ];
     }
@@ -71,7 +119,7 @@ class Pages extends Controller
 
     public function show($slug){
         $this->getMenu();
-        $data['page'] = (new ApiPageService)->find($slug);
+        $data['page'] = (new ApiPageService)->first('slug',$slug);
 
         $data['navigation'] = $this->buildNavigation('/pages/'.$slug);
 
@@ -98,8 +146,22 @@ class Pages extends Controller
             'id'   => $page['data']['id'],
         ]);
 
+        Cache::forget('pages.collection');
 
         return redirect('pages/new-page');
     }
+    /**
+     * delete a page
+     *
+     * @method delete
+     */
+    public function delete($id = NULL)
+    {
+        // TODO: deal with errors
+        if($id !== NULL){
+            $response = $this->api($this->client)->delete('/pages/'.$id);
+        }
 
+        return redirect('pages');
+    }
 }

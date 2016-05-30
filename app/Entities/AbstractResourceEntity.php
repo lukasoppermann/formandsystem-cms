@@ -39,11 +39,11 @@ abstract class AbstractResourceEntity
             if(isset($rel['data']) && count($rel['data']) > 0){
                 // create entity name
                 $entity = '\App\Entities\\'.rtrim(ucfirst($type),'s');
-                // create collection
+                // // create collection
                 $include[$type] = new LaravelCollection;
                 // add all items to collection
                 foreach(array_column($rel['data'],'id') as $id){
-                    if($key = array_search($id, array_column($included,'id'))){
+                    if(($key = array_search($id, array_column($included,'id'))) !== false){
                         $include[$type]->push(new $entity($included[$key], $included));
                     }
                 }
