@@ -48,6 +48,7 @@ abstract class AbstractApiService extends AbstractService
             return new LaravelCollection();
         }
         // turn $ids into array if not
+        $many = false;
         is_array($ids) ? $many = true : $ids = [$ids];
         // build url
         $url = '/'.$this->endpoint.'?filter[id]='.trim(implode(',',$ids),',').$this->parameters($param);
@@ -116,7 +117,7 @@ abstract class AbstractApiService extends AbstractService
         return $this->find($filter, $values, $param)[0];
     }
     // public abstract function create(Array $data);
-    // public abstract function update(String $id, Array $data);
+    // public abstract function update($id, Array $data);
     /**
      * delete an item by id
      *

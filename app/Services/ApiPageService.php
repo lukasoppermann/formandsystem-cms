@@ -51,4 +51,16 @@ class ApiPageService extends AbstractApiService
 
         return $response;
     }
+
+    public function update(Array $data){
+        // TODO: handle errors
+        // make api call
+        $response = $this->api($this->client)->patch('/pages/'.$data['id'], [
+            'type' => 'pages',
+            'id'   => $data['id'],
+            'attributes' => $data['attributes'],
+        ]);
+
+        return $response;
+    }
 }

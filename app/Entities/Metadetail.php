@@ -13,7 +13,7 @@ class Metadetail extends AbstractResourceEntity
      *
      * @return array
      */
-    protected function attributes(Array $attributes)
+    protected function attributes(Array $attributes, $rel = NULL)
     {
         return [
             'type'         => $attributes['type'],

@@ -23,12 +23,16 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/','Dashboard@index');
     Route::get('/collections', 'Collections@index');
+
+    Route::patch('/fragments', 'Fragments@update');
     // Settings
     Route::group(['namespace' => 'Pages'], function() {
         Route::get('/pages', 'Pages@index');
+        Route::get('/pages/{page}', 'Pages@show');
         Route::get('/pages/create', 'Pages@store');
         Route::get('/pages/delete/{id}', 'Pages@delete');
-        Route::get('/pages/{page}', 'Pages@show');
+
+        Route::patch('/pages', 'Pages@update');
     });
     // Settings
     Route::group(['namespace' => 'Settings'], function() {

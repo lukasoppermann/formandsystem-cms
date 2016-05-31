@@ -12,7 +12,8 @@
     position: relative;
     margin-bottom: 2rem;
     padding-top: 2.5rem;
-    &__input{
+    &__input, &__textarea{
+        background-color: transparent;
         font-size: @type-size-md;
         color: @black;
         padding: 1rem 1rem 1rem .5rem;
@@ -25,6 +26,13 @@
             color: @black;
         }
     }
+    // Textarea specials
+    &__textarea{
+        margin-top: 1rem;
+        padding-top: 0;
+        resize: none;
+        height: 10rem;
+    }
     &__label{
         color: @black-25;
         font-size: @type-size-md;
@@ -35,11 +43,11 @@
         transition: 0.2s ease all;
     }
     /* active state */
-    &__input:focus ~ &__label, &__input:valid ~ &__label{
+    &__input:focus ~ &__label, &__input:valid ~ &__label, &__textarea:focus ~ &__label, &__textarea:valid ~ &__label{
         top: 1.5rem;
         font-size: @type-size-sm;
     }
-    &__input:focus ~ &__label{
+    &__input:focus ~ &__label, &__textarea:focus ~ &__label{
         color: @blue;
     }
     &__bar{
@@ -73,18 +81,19 @@
         }
     }
     &.o-input--error{
-        .o-input__input{
+        .o-input__input, .o-input__textarea{
             border-color: @red;
         }
         .o-input__bar:before, .o-input__bar:after {
             background: @red;
         }
-        .o-input__input:focus ~ .o-input__label{
+        .o-input__input:focus ~ .o-input__label, .o-input__textarea:focus ~ .o-input__label{
             color: @red;
         }
     }
     /* active state */
-    &__input:focus ~ &__bar:before, &__input:focus ~ &__bar:after {
+    &__input:focus ~ &__bar:before, &__input:focus ~ &__bar:after,
+    &__textarea:focus ~ &__bar:before, &__textarea:focus ~ &__bar:after {
         width:50%;
     }
 }

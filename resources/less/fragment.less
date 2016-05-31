@@ -1,0 +1,25 @@
+@import "includes/colors";
+@import "includes/typography";
+@import "includes/shadows";
+
+.o-fragment{
+    position: relative;
+    overflow: hidden;
+    border-radius: .2rem;
+    padding: .5rem;
+    transition: all .5s ease;
+    box-shadow: 0 0 0 .1rem @white;
+    &:hover{
+        box-shadow: 0 0 0 .1rem @light-gray;
+    }
+    .c-settings-panel__toggle{
+        opacity: 0;
+        transition: opacity .5s ease;
+    }
+    &:hover .c-settings-panel__toggle{
+        opacity: 1;
+    }
+}
+.c-fragment-settings-dialog{
+    min-width: 40rem;
+}

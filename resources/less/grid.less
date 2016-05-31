@@ -1,0 +1,75 @@
+// ********************
+// Grid setup
+@prefixes: sm, md, lg;
+@breakpoints: 0, 1000px, 1400px;
+@columns: 12;
+
+.o-grid{
+    display: flex;
+    flex-wrap: wrap;
+    &__column{
+        flex: 1;
+        margin: 0 2rem;
+        &:first-child{
+            margin-left: 0;
+        }
+        &:last-child{
+            margin-right: 0;
+        }
+    }
+    &--gutter-sm{
+        .o-grid__column{
+            margin: 0 .5rem;
+        }
+    }
+}
+
+// ********************
+// generators:
+// columns
+.generate-columns(@col, @tag, @i: 1) when (@i =< @col) {
+  .o-grid__column--@{tag}-@{i}of@{col} {
+    flex: 0 0 (@i * 100% / @col);
+  }
+  .generate-columns(@col, @tag, (@i + 1));
+}
+// offset
+.generate-offset(@col, @tag, @i: 1) when (@i < @col) {
+  .o-grid__offset--@{tag}-@{i}of@{col} {
+    margin-left: (@i * 100% / @col);
+  }
+  .generate-offset(@col, @tag, (@i + 1));
+}
+.generate-grids(@index, @pref) when (@index > 0){
+    .generate-columns(@index, @pref);
+    .generate-offset(@index, @pref);
+    .generate-grids((@index - 1), @pref);
+}
+// Make grid
+//
+//
+.make-grid(@breakpoint, @cols, @pref) {
+
+        & when( @breakpoint > 0 ){
+            @media(min-width: @breakpoint) {
+                .generate-columns(@cols, @pref);
+                .generate-offset(@cols, @pref);
+            }
+        }
+        & when( @breakpoint = 0 ){
+            .generate-columns(@cols, @pref);
+            .generate-offset(@cols, @pref);
+        }
+}
+// Run make-grid for every breakpoint
+//
+.grid-loop(@index) when (@index > 0){
+    // run loop first to change order
+    .grid-loop ((@index - 1));
+    .make-grid(
+        extract(@breakpoints, @index),
+        @columns,
+        extract(@prefixes, @index)
+    );
+}
+.grid-loop(length(@breakpoints));

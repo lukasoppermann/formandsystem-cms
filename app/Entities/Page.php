@@ -13,7 +13,7 @@ class Page extends AbstractResourceEntity
      *
      * @return array
      */
-    protected function attributes(Array $attributes)
+    protected function attributes(Array $attributes, $rel = NULL)
     {
         return [
             'label'         => $attributes['menu_label'],

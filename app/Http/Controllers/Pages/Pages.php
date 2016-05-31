@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Cache;
 use Carbon\Carbon;
+use Validator;
 use App\Http\Controllers\Controller;
 use App\Services\ApiCollectionService;
 use App\Services\ApiPageService;
@@ -163,5 +164,64 @@ class Pages extends Controller
         }
 
         return redirect('pages');
+    }
+    /**
+     * update a page
+     *
+     * @method update
+     */
+    public function update(Request $request)
+    {
+        // transform input
+        $request->replace(
+            array_merge(
+                $request->only([
+                    'id',
+                    'menu_label',
+                    'slug',
+                    'title',
+                    'description',
+                ]),
+                [
+                    'slug' => strtolower($request->input('slug')),
+                ]
+            )
+        );
+        // validate input
+         $validator = Validator::make($request->all(), [
+            'id'                => 'required|string',
+            'menu_label'        => 'required|string',
+            'slug'              => 'required|alpha_dash',
+            'title'             => 'required|string',
+            'description'       => 'required|string',
+        ]);
+        // if validation fails
+        if($validator->fails()){
+            return back()
+                ->with(['status' => 'Updating the page failed.', 'type' => 'error'])
+                ->withErrors($validator)
+                ->withInput();
+        }
+        // store detail
+        try{
+            $item = (new ApiPageService)->update([
+                'id' => $request->input('id'),
+                'attributes' => $request->only([
+                    'menu_label',
+                    'slug',
+                    'title',
+                    'description',
+                ])
+             ]);
+            // redirect on success
+            return back()->with([
+                'status' => 'This page has been updated successfully.',
+                'type' => 'success'
+            ]);
+        }catch(Exception $e){
+            \Log::error($e);
+
+            return back()->with(['status' => 'Saving this page failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
+        }
     }
 }

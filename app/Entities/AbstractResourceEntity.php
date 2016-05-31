@@ -10,15 +10,17 @@ abstract class AbstractResourceEntity
 
     public function __construct($item = [], &$included = [])
     {
+        // included relationships
+        $rel = $this->include($item['relationships'], $included);
         // build entity
         $this->entity = new LaravelCollection(array_merge([
                 'id'             => $item['id'],
                 'resource_type'  => $item['type'],
             ],
-            $this->attributes($item['attributes']),
-            // add included
-            $this->include($item['relationships'], $included)
+            $this->attributes($item['attributes'], $rel),
+            $rel
         ));
+
     }
     /**
      * add included items to Entity
@@ -117,5 +119,5 @@ abstract class AbstractResourceEntity
      *
      * @return array
      */
-    protected abstract function attributes(Array $attributes);
+    protected abstract function attributes(Array $attributes, $rel = NULL);
 }

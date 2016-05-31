@@ -32,6 +32,8 @@ class Controller extends BaseController
         if($client = $this->account->details->where('type','cms_client')->first()){
             $this->client = json_decode($client->data, true);
         }
+        // set user config
+        $this->setUserConfig();
         // set cms api settings
         $this->config['cms'] = [
             'client_id' => env('FS_API_CLIENT_ID'),
@@ -73,5 +75,16 @@ class Controller extends BaseController
         ], $config);
         // return new API instance
         return new Api($config, new CacheService);
+    }
+    /**
+     * get user & account config from DB & set as config
+     *
+     * @method setUserConfig
+     */
+    public function setUserConfig()
+    {
+        \Config::set('user.grid-sm',2);
+        \Config::set('user.grid-md',12);
+        \Config::set('user.grid-lg',16);
     }
 }

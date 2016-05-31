@@ -31,3 +31,8 @@
 // shadow colors
 @shadow-color-15: fade(@black,15%);
 @shadow-color-05: fade(@black,5%);
+
+.bglight(@color, @percent){
+    background-image: linear-gradient(fade(@color, @percent), fade(@color, @percent));
+    background-color: @white;
+}

@@ -13,7 +13,7 @@ class Collection extends AbstractResourceEntity
      *
      * @return array
      */
-    protected function attributes(Array $attributes)
+    protected function attributes(Array $attributes, $rel = NULL)
     {
         return [
             'name'         => $attributes['name'],

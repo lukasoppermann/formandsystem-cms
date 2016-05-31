@@ -10,6 +10,26 @@ use App\Entities\Metadetail;
 class ApiMetadetailService extends AbstractApiService
 {
     /**
+     * all available includes
+     *
+     * @var array
+     */
+    protected $includes = [
+
+    ];
+    /**
+     * the name of the entity
+     *
+     * @var string
+     */
+    protected $entity = '\App\Entities\Metadetail';
+    /**
+     * the api endpoint to connect to
+     *
+     * @var string
+     */
+    protected $endpoint = 'metadetails';
+    /**
      * get
      *
      * @method find
@@ -18,18 +38,18 @@ class ApiMetadetailService extends AbstractApiService
      *
      * @return App\Entities\Metadetail
      */
-    public function find(Array $keys)
-    {
-        // API CALL
-        $metadetails = $this->getAllItems('/metadetails?filter[type]='.implode(',',$keys));
-        // build result array
-        $entities = [];
-        foreach($metadetails['data'] as $detail){
-            $entities[] = new Metadetail($detail, !isset($metadetails['included']) ?: $metadetails['included']);
-        }
-        // return
-        return $entities;
-    }
+    // public function find(Array $keys)
+    // {
+    //     // API CALL
+    //     $metadetails = $this->getAllItems('/metadetails?filter[type]='.implode(',',$keys));
+    //     // build result array
+    //     $entities = [];
+    //     foreach($metadetails['data'] as $detail){
+    //         $entities[] = new Metadetail($detail, !isset($metadetails['included']) ?: $metadetails['included']);
+    //     }
+    //     // return
+    //     return $entities;
+    // }
 
     /**
      * store
@@ -38,7 +58,7 @@ class ApiMetadetailService extends AbstractApiService
      *
      * @return EXCEPTION|array
      */
-    public function store(Array $details){
+    public function storeMany(Array $details){
         // prepare details = json_encode if value is array
         $details = array_map(function($item){
             if(is_array($item)){
@@ -67,7 +87,7 @@ class ApiMetadetailService extends AbstractApiService
      *
      * @return EXCEPTION|array
      */
-    public function update(Array $details, $request_input_ids = []){
+    public function updateMany(Array $details, $request_input_ids = []){
         // remove empty requests
         $request_input_ids = array_filter($request_input_ids);
         // prepare details = json_encode if value is array
@@ -105,5 +125,34 @@ class ApiMetadetailService extends AbstractApiService
                 ]);
             }
         }
+    }
+
+    public function update($id, Array $data){
+        // TODO: handle errors
+        // make api call
+        $response = $this->api($this->client)->patch('/'.$this->endpoint.'/'.$id, [
+            'type' => $this->endpoint,
+            'id'   => $id,
+            'attributes' => $data,
+        ]);
+
+        return $response;
+    }
+    /**
+     * store
+     *
+     * @method store
+     *
+     * @return EXCEPTION|array
+     */
+    public function store(Array $data){
+        // TODO: handle errors
+        // make api call
+        $response = $this->api($this->client)->post('/'.$this->endpoint, [
+            'type' => $this->endpoint,
+            'attributes' => $data,
+        ]);
+
+        return $response;
     }
 }

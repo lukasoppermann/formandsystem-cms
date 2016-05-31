@@ -59,7 +59,7 @@ class Site extends Settings
         // TODO: deal with errors
         // if validation succeeds
         try{
-            (new ApiMetadetailService)->update($request_input, $request_input_ids);
+            (new ApiMetadetailService)->updateMany($request_input, $request_input_ids);
             // redirect on success
             return redirect('settings/site')->with([
                 'status' => 'Your settings have been updated.',

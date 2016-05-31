@@ -3,22 +3,38 @@
 @import "includes/shadows";
 
 .o-dialog{
-    width: 100vw;
+    z-index: 900;
+    width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: fade(@white,25%);
+    &--absolute{
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
     &--transparent{
         background: transparent;
     }
     // dialog box
     &__box{
+        z-index: 100;
         flex: 0 1 auto;
         background: @white;
         border-radius: .1rem;
+        min-width: 20rem;
         .shadow-default;
+    }
+    &__bg{
+        z-index: 1;
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: fade(@white-gray,75%);
     }
     &__body{
         padding: 2.5rem;
@@ -32,5 +48,9 @@
         margin-top: 1.5rem;
         padding: 1.5rem 2.5rem;
         background: @white-gray;
+    }
+    // states
+    &.is-hidden{
+        display: none;
     }
 }
