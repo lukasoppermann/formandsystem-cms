@@ -35,6 +35,20 @@ class Fragments extends Controller
         return back();
     }
     /**
+     * delete a page
+     *
+     * @method delete
+     */
+    public function delete($id = NULL)
+    {
+        // TODO: deal with errors
+        if($id !== NULL){
+            $response = $this->api($this->client)->delete('/fragments/'.$id);
+        }
+
+        return back();
+    }
+    /**
      * update a page
      *
      * @method update

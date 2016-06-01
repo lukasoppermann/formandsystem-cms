@@ -41,7 +41,7 @@
                 @include('forms.textarea',['name' =>'classes', 'label' => 'Classes', 'value' => $fragment->details->get('classes'), 'error_bag' => $fragment->id])
 
                 <div class="o-grid">
-                    <a class="o-grid__column o-button o-button--link o-flex__item--auto">Delete</a>
+                    <a class="o-grid__column o-button o-button--link o-button--link--red o-flex__item--auto" href="/fragments/delete/{{$fragment->id}}">Delete</a>
                     @include('forms.submit',['label' => 'Save', 'classes' => 'o-grid__column o-flex__item--align-right o-flex__item--auto'])
                 </div>
             </form>

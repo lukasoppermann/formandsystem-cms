@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function(){
     // Fragments
     Route::group(['namespace' => 'Fragments'], function() {
         Route::get('/fragments/{type}', 'Fragments@store')->where('type', 'section|text|image');
+        Route::get('/fragments/delete/{id}', 'Fragments@delete');
 
         Route::patch('/fragments', 'Fragments@update');
     });
