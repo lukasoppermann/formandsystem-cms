@@ -24,7 +24,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/','Dashboard@index');
     Route::get('/collections', 'Collections@index');
 
-    Route::patch('/fragments', 'Fragments@update');
     // Settings
     Route::group(['namespace' => 'Pages'], function() {
         Route::get('/pages', 'Pages@index');
@@ -33,6 +32,12 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('/pages/delete/{id}', 'Pages@delete');
 
         Route::patch('/pages', 'Pages@update');
+    });
+    // Fragments
+    Route::group(['namespace' => 'Fragments'], function() {
+        Route::get('/fragments/{type}', 'Fragments@store')->where('type', 'section|text|image');
+
+        Route::patch('/fragments', 'Fragments@update');
     });
     // Settings
     Route::group(['namespace' => 'Settings'], function() {

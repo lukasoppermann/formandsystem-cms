@@ -6,20 +6,18 @@
 
 .o-grid{
     display: flex;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
+    justify-content: space-between;
     &__column{
         flex: 1;
-        margin: 0 2rem;
-        &:first-child{
-            margin-left: 0;
-        }
-        &:last-child{
-            margin-right: 0;
+        margin-bottom: 2rem;
+        &--margin{
+            margin: 2rem;
         }
     }
     &--gutter-sm{
         .o-grid__column{
-            margin: 0 .5rem;
+            margin-bottom:.5rem;
         }
     }
 }
@@ -29,7 +27,20 @@
 // columns
 .generate-columns(@col, @tag, @i: 1) when (@i =< @col) {
   .o-grid__column--@{tag}-@{i}of@{col} {
-    flex: 0 0 (@i * 100% / @col);
+    & when (@i < @col) {
+        flex: 0 0 calc((@i * 100% / @col) - 2rem);
+    }
+    & when (@i = @col) {
+        flex: 0 0 calc((@i * 100% / @col));
+    }
+  }
+  .o-grid--gutter-sm > .o-grid__column--@{tag}-@{i}of@{col} {
+    & when (@i < @col) {
+        flex: 0 0 calc((@i * 100% / @col) - .5rem);
+    }
+    & when (@i = @col) {
+        flex: 0 0 calc((@i * 100% / @col));
+    }
   }
   .generate-columns(@col, @tag, (@i + 1));
 }

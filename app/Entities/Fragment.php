@@ -20,6 +20,7 @@ class Fragment extends AbstractResourceEntity
         $details = new LaravelCollection;
 
         if(isset($rel['relationships']) && count($rel['relationships']) > 0){
+            if(isset($rel['relationships']['metadetails']) && count($rel['relationships']['metadetails']) > 0)
             $rel['relationships']->get('metadetails')->each(function($item) use ($details){
                 if($details->has($item->type)){
                     $value = $details->get($item->type);

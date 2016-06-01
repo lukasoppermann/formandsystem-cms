@@ -9,17 +9,60 @@
     padding: .5rem;
     transition: all .5s ease;
     box-shadow: 0 0 0 .1rem @white;
+    min-height: 5rem;
     &:hover{
         box-shadow: 0 0 0 .1rem @light-gray;
     }
     .c-settings-panel__toggle{
+        z-index: 999;
         opacity: 0;
         transition: opacity .5s ease;
     }
-    &:hover .c-settings-panel__toggle{
+    &:hover > .c-settings-panel__toggle{
         opacity: 1;
+    }
+    &--section{
+        padding: 1rem;
+        position: relative;
+        border: 1px dashed @white-gray;
+        &:hover{
+            border: 1px solid @white-gray;
+            box-shadow: 0 0 0 .1rem @white;
+        }
+    }
+    .c-fragment-new-section{
+        display: none;
+    }
+    &:hover > .o-grid > .c-fragment-new-section{
+        display: block;
     }
 }
 .c-fragment-settings-dialog{
     min-width: 40rem;
+}
+.c-fragment-new{
+    box-sizing: border-box;
+    padding: 1.5rem;
+    text-align: center;
+    background: @white-gray;
+    cursor: pointer;
+    color: @medium-gray;
+    box-shadow: 0 0 0 .1rem @white-gray;
+    &:hover{
+        background: @light-gray;
+        box-shadow: 0 0 0 .1rem @light-gray;
+        color: @dark-gray;
+    }
+}
+.c-fragment-new__selection{
+    height: 10rem;
+    border-radius: .3rem;
+    background: @white-gray;
+    text-align: center;
+    padding-top: 4rem;
+    color: @medium-gray;
+    &:hover{
+        background: @blue;
+        color: @white;
+    }
 }

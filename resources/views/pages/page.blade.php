@@ -5,9 +5,13 @@
         @include('notice.status', ['status' => session('status'), 'type' => session('type')])
     @endif
     @include('pages.settings')
-    <div class="o-content o-grid o-grid--gutter-sm o-grid-columns--{{config('user.grid')}}">
+    <div class="o-content o-grid o-grid--gutter-sm">
 
-        @each('pages.fragment', $page->fragments, 'fragment')
+        @foreach($page->fragments as $fragment)
+            @include('fragments.fragment', ['fragment' => $fragment, 'page' => $page])
+        @endforeach
+
+        @include('fragments.new-section', ['page_id' => $page->id])
 
     </div>
 @stop
