@@ -114,7 +114,8 @@ abstract class AbstractApiService extends AbstractService
      */
     public function first($filter = NULL, $values = NULL, Array $param = [])
     {
-        return $this->find($filter, $values, $param)[0];
+        $results = $this->find($filter, $values, $param);
+        return $results->first();
     }
     // public abstract function create(Array $data);
     // public abstract function update($id, Array $data);

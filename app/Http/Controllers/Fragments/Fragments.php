@@ -64,7 +64,12 @@ class Fragments extends Controller
                     'columns_large',
                     'classes',
                     'data',
-                ])
+                ]),
+                [
+                    'columns_medium' => $request->get('columns_medium') === NULL ? config('user.grid-md') : $request->get('columns_medium'),
+                    'columns_small' => $request->get('columns_small') === NULL ? config('user.grid-sm') : $request->get('columns_small'),
+                    'columns_large' => $request->get('columns_large') === NULL ? config('user.grid-lg') : $request->get('columns_large'),
+                ]
             )
         );
         // validate input
@@ -108,13 +113,14 @@ class Fragments extends Controller
                     }
                 }
                 // create new
-                if($create === true){
+                if($create === true && $value != null){
                     $item = (new ApiMetadetailService)->store(
                         [
                             'type' => $key,
-                            'data' => $value,
+                            'data' => (string)$value,
                         ]
                     );
+
                     $response = $this->api($this->client)->post('/fragments/'.$fragment->id.'/relationships/metadetails', [
                         'type' => 'metadetails',
                         'id'   => $item['data']['id'],

@@ -54,7 +54,7 @@ class Pages extends Controller
     public function getPagesCollection()
     {
         if(!Cache::has('pages.collection')){
-            if( !$collection = (new ApiCollectionService)->find('pages') ){
+            if( !$collection = (new ApiCollectionService)->find('slug','pages') ){
                 $collection = (new ApiCollectionService)->create('pages');
             }
             // cache collection
@@ -75,7 +75,6 @@ class Pages extends Controller
         }
 
         $this->navigation['lists'] = Cache::get('pages.navigation');
-        Cache::forget('pages.navigation');
     }
 
     public function getMenuLists()
@@ -121,7 +120,6 @@ class Pages extends Controller
     public function show($slug){
         $this->getMenu();
         $data['page'] = (new ApiPageService)->first('slug',$slug);
-
         $data['navigation'] = $this->buildNavigation('/pages/'.$slug);
 
         return view('pages.page', $data);
@@ -140,13 +138,14 @@ class Pages extends Controller
             'language'  => 'de',
         ]);
 
-        $collection = (new ApiCollectionService)->find('pages');
+        $collection = (new ApiCollectionService)->first('slug','pages');
 
         $response = $this->api($this->client)->post('/collections/'.$collection->id.'/relationships/pages', [
             'type' => 'pages',
             'id'   => $page['data']['id'],
         ]);
 
+        Cache::forget('pages.navigation');
         Cache::forget('pages.collection');
 
         return redirect('pages/new-page');
@@ -162,6 +161,9 @@ class Pages extends Controller
         if($id !== NULL){
             $response = $this->api($this->client)->delete('/pages/'.$id);
         }
+
+        Cache::forget('pages.navigation');
+        Cache::forget('pages.collection');
 
         return redirect('pages');
     }
@@ -183,7 +185,7 @@ class Pages extends Controller
                     'description',
                 ]),
                 [
-                    'slug' => strtolower($request->input('slug')),
+                    'slug' => $request->get('slug') !== NULL ? strtolower($request->get('slug')) : NULL,
                 ]
             )
         );
@@ -214,6 +216,16 @@ class Pages extends Controller
                 ])
              ]);
             // redirect on success
+            if($request->get('slug') || $request->get('menu_label')){
+                Cache::forget('pages.navigation');
+                Cache::forget('pages.collection');
+            }
+            if($slug = $request->get('slug')){
+                return redirect('/pages/'.$slug)->with([
+                    'status' => 'This page has been updated successfully.',
+                    'type' => 'success'
+                ]);
+            }
             return back()->with([
                 'status' => 'This page has been updated successfully.',
                 'type' => 'success'

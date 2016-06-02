@@ -35,30 +35,6 @@ class ApiCollectionService extends AbstractApiService
      */
     protected $endpoint = 'collections';
     /**
-     * find collection by slug
-     *
-     * @method find
-     *
-     * @param  string $slug
-     *
-     * @return App/Entities/Page
-     */
-    // public function find($slug, $param = [])
-    // {
-    //     $url = '/collections?filter[slug]='.$slug;
-    //     // add parameters
-    //     // TODO: deal with includes & params as one array
-    //     // $url .= $this->parameters($param['parameters'], $param['includes']);
-    //     // TODO: deal with errors, e.g. 404
-    //     $item = $this->api($this->client)->get($url);
-    //     // no item found
-    //     if(count($item['data']) === 0){
-    //         return false;
-    //     }
-    //     // return
-    //     return new Collection($item['data'][0], $item['included']);
-    // }
-    /**
      * create item
      *
      * @method create
@@ -71,7 +47,7 @@ class ApiCollectionService extends AbstractApiService
     public function create($name, $slug = NULL)
     {
         // get slug
-        $slug = $slug !== NULL ?: urlencode($name);
+        $slug = $slug !== NULL ? $slug : urlencode($name);
         // create collection
         $item = $this->api($this->client)->post('/collections',[
             'type' => 'collections',

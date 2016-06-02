@@ -22,15 +22,22 @@ Route::post('password/reset', 'Auth\PasswordController@reset');
 Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/','Dashboard@index');
-    Route::get('/collections', 'Collections@index');
+
+    Route::group(['namespace' => 'Collections'], function() {
+        Route::get('/collections', 'Collections@index');
+        Route::get('/collections/create', 'Collections@store');
+        
+        Route::get('/collections/{collection}', 'Collections@show');
+    });
     // Images
     Route::put('/images', 'Images@upload');
     // Settings
     Route::group(['namespace' => 'Pages'], function() {
         Route::get('/pages', 'Pages@index');
-        Route::get('/pages/{page}', 'Pages@show');
         Route::get('/pages/create', 'Pages@store');
         Route::get('/pages/delete/{id}', 'Pages@delete');
+
+        Route::get('/pages/{page}', 'Pages@show');
 
         Route::patch('/pages', 'Pages@update');
     });

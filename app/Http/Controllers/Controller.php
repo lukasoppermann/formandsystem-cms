@@ -50,7 +50,7 @@ class Controller extends BaseController
         if($active !== false && isset($navigation['lists'])){
             foreach($navigation['lists'] as $key => $list){
                 // build array
-                if( ($found = array_search($active, array_column($list['items'], 'link'))) !== false ){
+                if( isset($list['items']) && count($list['items']) > 0 && ($found = array_search($active, array_column($list['items'], 'link'))) !== false ){
                     $navigation['lists'][$key]['items'][$found]['is_active']= true;
                 }
             }
