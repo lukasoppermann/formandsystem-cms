@@ -21,10 +21,9 @@
     <div class="o-dialog__box c-fragment-settings-dialog">
         <div class="o-dialog__body">
             <h4 class="o-headline o-headline--second">Fragment Settings</h4>
-            <form class="o-form" action="/fragments" method="POST" autocomplete="off">
+            <form class="o-form" action="/fragments/{{$fragment->id}}" method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 {{ method_field('PATCH') }}
-                @include('forms.hidden',['name' => 'id', 'value' => $fragment->id])
 
                 @include('forms.select',['name' => 'columns_medium', 'label' => 'Columns', 'values' => $grid_md_columns, 'selected' => $fragment->details->get('columns_medium'), 'error_bag' => $fragment->id])
 

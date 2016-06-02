@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth']], function(){
         Route::get('/fragments/{type}', 'Fragments@store')->where('type', 'section|text|image');
         Route::get('/fragments/delete/{id}', 'Fragments@delete');
 
-        Route::patch('/fragments', 'Fragments@update');
+        Route::patch('/fragments/{id}', 'Fragments@update');
     });
     // Settings
     Route::group(['namespace' => 'Settings'], function() {

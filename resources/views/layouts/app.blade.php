@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1,maximum-scale=1">
         <meta name="theme-color" content="rgb(255,210,0)">
         <link href='{{ asset(env('PATH_PREFIX').elixir('css/app.css')) }}' rel='stylesheet' type='text/css'>
+        <link href='{{ asset('codemirror.css') }}' rel='stylesheet' type='text/css'>
+
         @include('custom-css')
         <link href='//fonts.googleapis.com/css?family=Merriweather:300,700%7CLato:400,700&subset=latin,latin' rel='stylesheet' type='text/css'>
 

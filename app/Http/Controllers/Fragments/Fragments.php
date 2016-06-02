@@ -53,37 +53,37 @@ class Fragments extends Controller
      *
      * @method update
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         // transform input
         $request->replace(
             array_merge(
                 $request->only([
-                    'id',
                     'columns_medium',
                     'columns_small',
                     'columns_large',
-                    'classes'
+                    'classes',
+                    'data',
                 ])
             )
         );
         // validate input
          $validator = Validator::make($request->all(), [
-            'id'                => 'required|string',
-            'columns_small'     => 'required|in:'.implode(',',range(0, config('user.grid-sm'))),
-            'columns_medium'    => 'required|in:'.implode(',',range(0, config('user.grid-md'))),
-            'columns_large'     => 'required|in:'.implode(',',range(0, config('user.grid-lg'))),
+            'columns_small'     => 'in:'.implode(',',range(0, config('user.grid-sm'))),
+            'columns_medium'    => 'in:'.implode(',',range(0, config('user.grid-md'))),
+            'columns_large'     => 'in:'.implode(',',range(0, config('user.grid-lg'))),
             'classes'           => 'string',
+            'data'           => 'string',
         ]);
         // if validation fails
         if($validator->fails()){
             return back()
                 ->with(['status' => 'Updating the fragment failed.', 'type' => 'error'])
-                ->withErrors($validator, $request->get('id'))
+                ->withErrors($validator, $id)
                 ->withInput();
         }
         // get current fragment
-        $fragment = (new ApiFragmentService)->get($request->id);
+        $fragment = (new ApiFragmentService)->get($id);
         // store detail
         try{
             $settings = ['columns_small','columns_medium','columns_large','classes'];
@@ -120,6 +120,17 @@ class Fragments extends Controller
                         'id'   => $item['data']['id'],
                     ]);
                 }
+            }
+
+            // update data
+            if( $data = $request->get('data') ){
+                $fragment = (new ApiFragmentService)->update($id,
+                    [
+                        'type' => $fragment->type,
+                        'name' => $fragment->name,
+                        'data' => $data,
+                    ]
+                );
             }
             // redirect on success
             return back()->with([
