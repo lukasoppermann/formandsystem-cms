@@ -30,7 +30,7 @@ class Images extends Controller
                 'type' => 'images',
                 'id'   => $image['data']['id'],
         ]);
-        dd($upload);
+        
         return back();
     }
 }
