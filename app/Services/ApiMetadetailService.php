@@ -38,18 +38,18 @@ class ApiMetadetailService extends AbstractApiService
      *
      * @return App\Entities\Metadetail
      */
-    // public function find(Array $keys)
-    // {
-    //     // API CALL
-    //     $metadetails = $this->getAllItems('/metadetails?filter[type]='.implode(',',$keys));
-    //     // build result array
-    //     $entities = [];
-    //     foreach($metadetails['data'] as $detail){
-    //         $entities[] = new Metadetail($detail, !isset($metadetails['included']) ?: $metadetails['included']);
-    //     }
-    //     // return
-    //     return $entities;
-    // }
+    public function findMany(Array $keys)
+    {
+        // API CALL
+        $metadetails = $this->getAllItems('/metadetails?filter[type]='.implode(',',$keys));
+        // build result array
+        $entities = [];
+        foreach($metadetails['data'] as $detail){
+            $entities[] = new Metadetail($detail, !isset($metadetails['included']) ?: $metadetails['included']);
+        }
+        // return
+        return $entities;
+    }
 
     /**
      * store

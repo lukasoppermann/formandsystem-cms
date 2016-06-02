@@ -60,9 +60,9 @@
 					ch:  cm.getLine(endCursor.line).length
 				});
 				cm.replaceSelection(cm.getSelection().trim());
-				
+
 				if( level !== false && typeof(level) === 'number' )
-				{					
+				{
 					cm.setSelection({
 						line: curCursor.line,
 						ch: 0
@@ -100,7 +100,7 @@
 						}
 						else
 						{
-							cm.replaceSelection( sel.substr(level + (sel.substr(level,level+1) == ' ' ? 1 : 0) ) + new Array( params.level + 1 ).join( params.indicator[0] )+' ');	
+							cm.replaceSelection( sel.substr(level + (sel.substr(level,level+1) == ' ' ? 1 : 0) ) + new Array( params.level + 1 ).join( params.indicator[0] )+' ');
 						}
 					}
 				}
@@ -829,7 +829,6 @@
 			};
 		});
 	}
-	else{
 		window.mark = function( mark, opts )
 		{
 			// loop through editors
@@ -897,6 +896,5 @@
 				});
 			});
 		};
-	}
 	//
 }(window, window.document, window.define, undefined));

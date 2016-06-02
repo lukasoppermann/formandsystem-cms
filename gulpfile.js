@@ -57,7 +57,10 @@ gulp.task('build-js', ['clean-build'], function(){
     // });
     // push prism stuff
     files.push(
-        // 'resources/bower_components/prism/components/prism-php.js',
+        'resources/bower_components/engine/engine.js',
+        'resources/bower_components/engine/functions/on.js',
+        'resources/bower_components/codemirror/lib/codemirror.js',
+        'resources/bower_components/mark/mark.js'
     );
     // push rest of js files
     files.push('resources/js/*.js');

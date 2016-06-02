@@ -23,7 +23,8 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/','Dashboard@index');
     Route::get('/collections', 'Collections@index');
-
+    // Images
+    Route::put('/images', 'Images@upload');
     // Settings
     Route::group(['namespace' => 'Pages'], function() {
         Route::get('/pages', 'Pages@index');

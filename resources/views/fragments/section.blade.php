@@ -1,5 +1,5 @@
 <!-- include sub-fragments -->
-<div class="o-grid">
+<div class="o-user-grid">
     @if($fragment->fragments !== NULL)
         @foreach($fragment->fragments as $subfragment)
             @include('fragments.fragment', ['fragment' => $subfragment, 'page' => $page])

@@ -9,6 +9,7 @@
                 $css.=".o-grid__user-column--".$key."-".$i.'of'.$value.'{';
                 if($i < $value){
                     $css.="flex:0 0 calc(".(100/$value)*$i."% - .5rem);";
+                    $css.="margin-right: .5rem;";
                 }
                 else {
                     $css.="flex:0 0 calc(".(100/$value)*$i."%);";

@@ -43,7 +43,7 @@
         transition: 0.2s ease all;
     }
     /* active state */
-    &__input:focus ~ &__label, &__input:valid ~ &__label, &__textarea:focus ~ &__label, &__textarea:valid ~ &__label{
+    &__input:focus ~ &__label, &__input:not(.is-empty) ~ &__label, &__textarea:focus ~ &__label, &__textarea:not(.is-empty) ~ &__label{
         top: 1.5rem;
         font-size: @type-size-sm;
     }
@@ -257,4 +257,21 @@
 }
 .o-toggle__checkbox {
     display: none;
+}
+/* --------------------------
+ * File
+ */
+.o-file{
+    &__input{
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+    &__label{
+        display: block;
+        cursor: pointer;
+    }
 }

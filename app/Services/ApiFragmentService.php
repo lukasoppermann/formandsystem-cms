@@ -36,9 +36,9 @@ class ApiFragmentService extends AbstractApiService
     protected $endpoint = 'fragments';
 
     /**
-     * store
+     * create
      *
-     * @method store
+     * @method create
      *
      * @return EXCEPTION|array
      */

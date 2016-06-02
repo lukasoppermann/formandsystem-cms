@@ -25,7 +25,7 @@ class Ftp extends Settings
             $type.'_path'           => 'required|Regex:/^[A-Za-z0-9\-\_\/]+$/',
             $type.'_username'       => 'required',
             $type.'_password'       => 'required',
-            $type.'_ssl'            => 'required|boolean',
+            $type.'_ssl'            => 'boolean',
         ], [
             $type.'_host.regex' => 'Please provide a valid domain to access your ftp accont, without http(s)://',
             $type.'_path.regex' => 'A valid path may only contain the following characters: A-Z, a-z, 0-9, /, - and _',

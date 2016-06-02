@@ -14,11 +14,11 @@
             @include('forms.hidden',['name' => 'id', 'value' => $page->id])
 
             <div class="o-grid">
-                <div class="o-grid__column">
+                <div class="o-grid__column o-grid__column--md-6of12">
                     @include('forms.input',['name' =>'menu_label', 'label' => 'Navigation Title', 'value' => $page->label])
                     @include('forms.input',['name' =>'slug', 'label' => 'Path/Slug', 'value' => $page->slug])
                 </div>
-                <div class="o-grid__column">
+                <div class="o-grid__column o-grid__column--md-6of12">
                     @include('forms.input',['name' =>'title', 'label' => 'Meta Title', 'value' => $page->title])
                     @include('forms.textarea',['name' =>'description', 'label' => 'Meta Description', 'value' => $page->description])
                 </div>
