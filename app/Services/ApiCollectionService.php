@@ -35,6 +35,22 @@ class ApiCollectionService extends AbstractApiService
      */
     protected $endpoint = 'collections';
     /**
+     * get all items on all pages
+     *
+     * @method all
+     *
+     * @param  Array $param
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function all(Array $param = NULL){
+        $collections = parent::all($param);
+        // remove pages
+        return $collections->filter(function($item){
+            return $item->slug !== 'pages';
+        });
+    }
+    /**
      * create item
      *
      * @method create

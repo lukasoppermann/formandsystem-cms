@@ -30,6 +30,7 @@
 
         @include('navigation.menu')
         <main class="c-main-content">
+            @include('notice.status')
             @yield('content')
         </main>
     </body>

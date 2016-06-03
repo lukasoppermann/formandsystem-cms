@@ -2,9 +2,10 @@
 <div class="o-dialog o-dialog--absolute is-hidden" data-target="fragment-new-{{$fragment_id}}">
     <div class="o-dialog__box c-fragment-settings-dialog">
         <div class="o-dialog__body o-grid">
-            <a href="/fragments/section?fragment={{$fragment_id}}" class="c-fragment-new__selection o-grid__column o-grid__column--md-4of12">Section</a>
-            <a href="/fragments/text?fragment={{$fragment_id}}" class="c-fragment-new__selection o-grid__column o-grid__column--md-4of12">Text</a>
-            <a href="/fragments/image?fragment={{$fragment_id}}" class="c-fragment-new__selection o-grid__column o-grid__column--md-4of12">Image</a>
+            <a href="/fragments/section?fragment={{$fragment_id}}" class="c-fragment-new__selection o-grid__column o-grid__column--md-6of12">Section</a>
+            <a href="/fragments/text?fragment={{$fragment_id}}" class="c-fragment-new__selection o-grid__column o-grid__column--md-6of12">Text</a>
+            <a href="/fragments/image?fragment={{$fragment_id}}" class="c-fragment-new__selection o-grid__column o-grid__column--md-6of12">Image</a>
+            <a href="/fragments/collection?fragment={{$fragment_id}}" class="c-fragment-new__selection o-grid__column o-grid__column--md-6of12">Collection</a>
         </div>
     </div>
     <div class="o-dialog__bg" data-toggle-dialog="fragment-new-{{$fragment_id}}"></div>

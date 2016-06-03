@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @if( session('status') !== null)
-        @include('notice.status', ['status' => session('status'), 'type' => session('type')])
-    @endif
     @include('pages.settings')
     <div class="o-content o-content--wide o-user-grid o-user-grid--gutter-sm">
 

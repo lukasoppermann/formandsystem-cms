@@ -10,7 +10,6 @@ use App\Services\ApiCollectionService;
 
 class Collections extends Controller
 {
-
     /**
      * main navigation array
      *
@@ -53,10 +52,7 @@ class Collections extends Controller
         $items = (new ApiCollectionService)->all([
             'includes' => false
         ]);
-        // remove pages
-        $items = $items->filter(function($item){
-            return $item->slug !== 'pages';
-        });
+
         // turn pages into array
         $items = $items->map(function($item){
             $item = $item->toArray();
@@ -78,23 +74,69 @@ class Collections extends Controller
     public function index(){
         $data['navigation'] = $this->buildNavigation('/collections');
 
-        return view('dashboard.welcome', $data);
+        return view('collections.dashboard', $data);
     }
 
     public function store()
     {
         $item = (new ApiCollectionService)->create('New Collection','new-collection');
 
+        Cache::forget('global.collections');
+
         return redirect('collections/new-collection');
     }
 
-    public function show($slug)
+    public function show($collection, $page = NULL)
     {
-        $data['navigation'] = $this->buildNavigation('/collections/'.$slug);
 
-        $data['collection'] = (new ApiCollectionService)->first('slug',$slug);
+        $data['collection'] = (new ApiCollectionService)->first('slug',$collection);
 
-        return view('collections.collection', $data);
+        $data['page'] = $data['collection']->pages->filter(function($item) use($page){
+            return $item->slug === $page;
+        });
+
+        if(($page === NULL || $data['page']->isEmpty()) && !$data['collection']->pages->isEmpty() ){
+            return redirect('collections/'.$collection.'/'.$data['collection']->pages->first()->slug);
+        }
+
+        $data['page'] = $data['page']->first();
+
+        $this->navigation = [
+            'header' => [
+                'title' => $data['collection']->name,
+                'link' => '/collections/',
+            ],
+            'lists' => [
+                [
+                    'items' => $data['collection']->pages->map(function($item) use($collection){
+                        $item = $item->toArray();
+                        $item['link'] = '/collections/'.$collection.'/'.$item['slug'];
+                        return $item;
+                    })->toArray(),
+                    'item' => 'pages.navigation-item',
+                    'elements' => [
+                        view('navigation.add', [
+                            'action'    => '/pages',
+                            'method'    => 'post',
+                            'label'     => 'Add Page',
+                            'fields'    => [
+                                'collection'    => $data['collection']->id
+                            ]
+                        ])->render(),
+                    ]
+                ],
+            ]
+        ];
+
+        if($page === NULL){
+            $data['navigation'] = $this->buildNavigation('/collections/'.$collection);
+            return view('collections.dashboard', $data);
+        }
+
+        $data['navigation'] = $this->buildNavigation('/collections/'.$collection.'/'.$page);
+
+        return view('pages.page', $data);
     }
+
 
 }

@@ -4,23 +4,22 @@ namespace App\Entities;
 
 use Illuminate\Support\Collection as LaravelCollection;
 
-abstract class AbstractResourceEntity
+abstract class AbstractResourceEntity extends LaravelCollection
 {
-    protected $entity;
+    protected $items;
 
     public function __construct($item = [], &$included = [])
     {
         // included relationships
         $rel = $this->include($item['relationships'], $included);
         // build entity
-        $this->entity = new LaravelCollection(array_merge([
+        $this->items = array_merge([
                 'id'             => $item['id'],
                 'resource_type'  => $item['type'],
             ],
             $this->attributes($item['attributes'], $rel),
             $rel
-        ));
-
+        );
     }
     /**
      * add included items to Entity
@@ -37,12 +36,12 @@ abstract class AbstractResourceEntity
         $include = [];
 
         foreach($relationships as $type => $rel ){
+            // create collection
+            $include[$type] = new LaravelCollection;
             // include entities if data exists
             if(isset($rel['data']) && count($rel['data']) > 0){
                 // create entity name
                 $entity = '\App\Entities\\'.rtrim(ucfirst($type),'s');
-                // // create collection
-                $include[$type] = new LaravelCollection;
                 // add all items to collection
                 foreach(array_column($rel['data'],'id') as $id){
                     if(($key = array_search($id, array_column($included,'id'))) !== false){
@@ -85,14 +84,14 @@ abstract class AbstractResourceEntity
     public function __get($key)
     {
         // get relationship if requested directly
-        if(!$this->entity->has($key)){
+        if(!$this->has($key)){
             // return relationship if it exists
-            if(isset($this->entity['relationships'][$key])){
-                return $this->entity['relationships'][$key];
+            if(isset($this->items['relationships'][$key])){
+                return $this->items['relationships'][$key];
             }
         }
         // return normal if exists
-        return $this->entity->get($key);
+        return $this->get($key);
     }
     /**
      * call methods on collection if they do not exist on Entity
@@ -106,8 +105,8 @@ abstract class AbstractResourceEntity
      */
     public function __call($method_name, $args)
     {
-        if(!method_exists($this, $method_name) && method_exists($this->entity, $method_name)){
-            return $this->entity->{$method_name}($args);
+        if(!method_exists($this, $method_name) && method_exists($this->items, $method_name)){
+            return $this->items->{$method_name}($args);
         }
     }
     /**

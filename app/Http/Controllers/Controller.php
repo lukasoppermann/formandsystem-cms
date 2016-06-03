@@ -11,6 +11,7 @@ use Formandsystem\Api\Api;
 use App\Services\CacheService;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Validator;
 use Illuminate\Support\Collection as LaravelCollection;
 
 class Controller extends BaseController
@@ -86,5 +87,32 @@ class Controller extends BaseController
         \Config::set('user.grid-sm',2);
         \Config::set('user.grid-md',12);
         \Config::set('user.grid-lg',16);
+    }
+    /**
+     * validate items and get only the validated items
+     *
+     * @method getValidated
+     *
+     * @param  Illuminate\Http\Request      $request
+     * @param  Array                        $rules
+     * @param  Array                        $presets
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getValidated(Request $request, Array $rules, Array $presets = [])
+    {
+        // get data from request
+        $data = array_merge( $presets, array_filter($request->only(array_keys($rules))) );
+        // validate data
+        $validator = Validator::make($data, $rules);
+        // validation fails
+        if($validator->fails()){
+            return new LaravelCollection([
+                'isInvalid'   => true,
+                'validator'   => $validator,
+            ]);
+        }
+        // return data as collection
+        return new LaravelCollection($data);
     }
 }

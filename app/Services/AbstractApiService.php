@@ -45,7 +45,7 @@ abstract class AbstractApiService extends AbstractService
     public function get($ids = NULL, Array $param = []){
         // no ids provided
         if($ids === NULL){
-            return new LaravelCollection();
+            return NULL;
         }
         // turn $ids into array if not
         $many = false;
@@ -55,10 +55,11 @@ abstract class AbstractApiService extends AbstractService
         // get items
         if( !$items = $this->getAllItems($url) ){
             // return empty collection on error
-            return new LaravelCollection();
+            return NULL;
         }
         // success
         $entities = new LaravelCollection();
+
         foreach($items['data'] as $item){
             $entities->push(new $this->entity($item, $items['included']));
         }

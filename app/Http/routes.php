@@ -26,8 +26,9 @@ Route::group(['middleware' => ['auth']], function(){
     Route::group(['namespace' => 'Collections'], function() {
         Route::get('/collections', 'Collections@index');
         Route::get('/collections/create', 'Collections@store');
-        
-        Route::get('/collections/{collection}', 'Collections@show');
+
+        // Route::get('/collections/{collection}', 'Collections@show');
+        Route::get('/collections/{collection}/{page?}', 'Collections@show');
     });
     // Images
     Route::put('/images', 'Images@upload');
@@ -39,11 +40,13 @@ Route::group(['middleware' => ['auth']], function(){
 
         Route::get('/pages/{page}', 'Pages@show');
 
+        Route::post('/pages', 'Pages@store');
+
         Route::patch('/pages', 'Pages@update');
     });
     // Fragments
     Route::group(['namespace' => 'Fragments'], function() {
-        Route::get('/fragments/{type}', 'Fragments@store')->where('type', 'section|text|image');
+        Route::get('/fragments/{type}', 'Fragments@store')->where('type', 'section|text|image|collection');
         Route::get('/fragments/delete/{id}', 'Fragments@delete');
 
         Route::patch('/fragments/{id}', 'Fragments@update');

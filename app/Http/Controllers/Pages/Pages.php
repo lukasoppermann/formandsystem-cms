@@ -129,26 +129,50 @@ class Pages extends Controller
      *
      * @method store
      */
-    public function store()
+    public function store(Request $request)
     {
-        $page = (new ApiPageService)->store([
-            'menu_label' => 'New Page',
-            'slug'       => 'new-page',
+        // get page data
+        $page = $this->getValidated($request, [
+            'menu_label' => 'string',
+            'slug'       => 'string',
+            'published'  => 'boolean',
+            'language'   => 'string',
+        ], [
+            'menu_label' => 'New Item',
+            'slug'       => 'new-item-'.rand(),
             'published'  => false,
             'language'  => 'de',
         ]);
+        // if validation fails
+        if($page->get('isInvalid')){
+            return false;
+        }
+        // get collection data
+        $collection = $this->getValidated($request, [
+            'collection' => 'required|string',
+        ]);
+        // if validation fails
+        if($collection->get('isInvalid')){
+            $collection_id = (new ApiCollectionService)->first('slug','pages')->id;
+        }else{
+            $collection_id = $collection->get('collection');
+        }
 
-        $collection = (new ApiCollectionService)->first('slug','pages');
+        $page = (new ApiPageService)->store($page->toArray());
 
-        $response = $this->api($this->client)->post('/collections/'.$collection->id.'/relationships/pages', [
+        $response = $this->api($this->client)->post('/collections/'.$collection_id.'/relationships/pages', [
             'type' => 'pages',
             'id'   => $page['data']['id'],
         ]);
 
-        Cache::forget('pages.navigation');
-        Cache::forget('pages.collection');
+        if($collection->get('isInvalid')){
+            Cache::forget('pages.navigation');
+            Cache::forget('pages.collection');
 
-        return redirect('pages/new-page');
+            return redirect('pages/'.$page['data']['attributes']['slug']);
+        }
+
+        return redirect('collections/'.(new ApiCollectionService)->get($collection_id)->slug.'/'.$page['data']['attributes']['slug']);
     }
     /**
      * delete a page
@@ -165,7 +189,7 @@ class Pages extends Controller
         Cache::forget('pages.navigation');
         Cache::forget('pages.collection');
 
-        return redirect('pages');
+        return back();
     }
     /**
      * update a page

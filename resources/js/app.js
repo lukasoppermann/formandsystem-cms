@@ -50,7 +50,6 @@ Array.prototype.forEach.call(elements, function(el, i){
 // });
 var elements = document.querySelectorAll('.mark');
 Array.prototype.forEach.call(elements, function(el, i){
-    console.log(el);
     var myCodeMirror = CodeMirror.fromTextArea(el,{
         mode: "gfm"
     });

@@ -64,6 +64,7 @@ class Fragments extends Controller
                     'columns_large',
                     'classes',
                     'data',
+                    'collection',
                 ]),
                 [
                     'columns_medium' => $request->get('columns_medium') === NULL ? config('user.grid-md') : $request->get('columns_medium'),
@@ -78,7 +79,8 @@ class Fragments extends Controller
             'columns_medium'    => 'in:'.implode(',',range(0, config('user.grid-md'))),
             'columns_large'     => 'in:'.implode(',',range(0, config('user.grid-lg'))),
             'classes'           => 'string',
-            'data'           => 'string',
+            'data'              => 'string',
+            'collection'        => 'string',
         ]);
         // if validation fails
         if($validator->fails()){
@@ -137,6 +139,13 @@ class Fragments extends Controller
                         'data' => $data,
                     ]
                 );
+            }
+            // update collection
+            if( $data = $request->get('collection') ){
+                $response = $this->api($this->client)->patch('/fragments/'.$fragment->id.'/relationships/collections', [
+                    'type' => 'collections',
+                    'id'   => $request->get('collection'),
+                ]);
             }
             // redirect on success
             return back()->with([

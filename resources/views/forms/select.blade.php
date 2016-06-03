@@ -13,7 +13,7 @@
 <div class="o-select-box{{$errors->has($name) ? ' o-input--error' : ''}}">
     <label class="o-select__label">{{$label}}</label>
     <div class="o-select">
-        <select class="" name="{{$name}}">
+        <select class="" name="{{$name}}" {{$attr or ''}}>
             @foreach ($values as $key => $value)
                 <option value="{{$key}}" {{$key == $selected ? 'selected' : ''}}>{{$value}}</option>
             @endforeach
