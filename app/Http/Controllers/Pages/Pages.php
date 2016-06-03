@@ -54,7 +54,7 @@ class Pages extends Controller
     public function getPagesCollection()
     {
         if(!Cache::has('pages.collection')){
-            if( !$collection = (new ApiCollectionService)->find('slug','pages') ){
+            if( !$collection = (new ApiCollectionService)->first('slug','pages') ){
                 $collection = (new ApiCollectionService)->create('pages');
             }
             // cache collection
@@ -120,6 +120,7 @@ class Pages extends Controller
     public function show($slug){
         $this->getMenu();
         $data['page'] = (new ApiPageService)->first('slug',$slug);
+        $data['collection'] = $this->collection;
         $data['navigation'] = $this->buildNavigation('/pages/'.$slug);
 
         return view('pages.page', $data);
@@ -207,6 +208,7 @@ class Pages extends Controller
                     'slug',
                     'title',
                     'description',
+                    'collection',
                 ]),
                 [
                     'slug' => $request->get('slug') !== NULL ? strtolower($request->get('slug')) : NULL,
@@ -245,7 +247,13 @@ class Pages extends Controller
                 Cache::forget('pages.collection');
             }
             if($slug = $request->get('slug')){
-                return redirect('/pages/'.$slug)->with([
+                $collection = (new ApiCollectionService)->get($request->get('collection'))->slug;
+
+                if($collection !== 'pages'){
+                    $collection = 'collections/'.$collection;
+                }
+
+                return redirect('/'.$collection.'/'.$slug)->with([
                     'status' => 'This page has been updated successfully.',
                     'type' => 'success'
                 ]);

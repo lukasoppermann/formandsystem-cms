@@ -12,6 +12,7 @@
             {{ csrf_field() }}
             {{ method_field('PATCH') }}
             @include('forms.hidden',['name' => 'id', 'value' => $page->id])
+            @include('forms.hidden',['name' => 'collection', 'value' => $collection->id])
 
             <div class="o-grid">
                 <div class="o-grid__column o-grid__column--md-6of12">

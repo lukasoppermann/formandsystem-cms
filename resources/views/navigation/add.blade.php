@@ -5,9 +5,11 @@
             {{ method_field($method) }}
         @endif
 
-        @foreach($fields as $name => $value)
-            @include('forms.hidden', ['name' => $name, 'value' => $value])
-        @endforeach
+        @if(isset($fields))
+            @foreach($fields as $name => $value)
+                @include('forms.hidden', ['name' => $name, 'value' => $value])
+            @endforeach
+        @endif
 
         <button type="submit" class="c-navigation__link c-navigation__link--with-icon">
             <svg viewBox="0 0 512 512" class="o-icon o-icon--white c-icon--{{$icon or 'plus'}}">

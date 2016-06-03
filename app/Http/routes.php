@@ -25,8 +25,8 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::group(['namespace' => 'Collections'], function() {
         Route::get('/collections', 'Collections@index');
-        Route::get('/collections/create', 'Collections@store');
-
+        Route::post('/collections', 'Collections@store');
+        Route::delete('/collections', 'Collections@delete');
         // Route::get('/collections/{collection}', 'Collections@show');
         Route::get('/collections/{collection}/{page?}', 'Collections@show');
     });

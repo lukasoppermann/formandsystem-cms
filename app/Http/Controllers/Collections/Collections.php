@@ -58,15 +58,21 @@ class Collections extends Controller
             $item = $item->toArray();
             $item['link'] = '/collections/'.$item['slug'];
             $item['label'] = $item['name'];
+            $item['deletable'] = true;
+            $item['action'] = '/collections';
             return $item;
         })->toArray();
         // prepare for navigation
         return [
             [
                 'items' => isset($items) ? $items : [],
-                'add' => [
-                    'link' => '/collections/create'
-                ],
+                'elements' => [
+                    view('navigation.add', [
+                        'action'    => '/collections',
+                        'method'    => 'post',
+                        'label'     => 'Add Collection'
+                    ])->render(),
+                ]
             ]
         ];
     }
@@ -79,7 +85,7 @@ class Collections extends Controller
 
     public function store()
     {
-        $item = (new ApiCollectionService)->create('New Collection','new-collection');
+        $item = (new ApiCollectionService)->create('New Collection','new-collection-'.rand());
 
         Cache::forget('global.collections');
 
@@ -137,6 +143,23 @@ class Collections extends Controller
 
         return view('pages.page', $data);
     }
+    /**
+     * delete a collection
+     *
+     * @method delete
+     */
+    public function delete(Request $request)
+    {
+        $collection = (new ApiCollectionService)->get($request->id);
+        // TODO: deal with errors
+        if($collection->pages->isEmpty()){
+            $response = $this->api($this->client)->delete('/collections/'.$request->id);
 
+            Cache::forget('collections.navigation');
+
+            return back();
+        }
+        return back()->with(['status' => 'You must delete all pages in a collection, before deleting the collection.','type' => 'error']);
+    }
 
 }
