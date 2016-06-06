@@ -18,6 +18,7 @@
     "gulp-plumber": "^1.1.*",
     "gulp-rename": "^1.2.*",
     "gulp-rev": "^7.0.*",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-svgmin": "^1.2.2",
     "gulp-svgstore": "^6.0.0",
     "main-bower-files": "^2.13.*",

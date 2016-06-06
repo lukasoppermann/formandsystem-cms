@@ -14,6 +14,7 @@ var svgmin = require('gulp-svgmin');
 var svgstore = require('gulp-svgstore');
 var cheerio = require('gulp-cheerio');
 var notify = require('gulp-notify');
+var sourcemaps = require('gulp-sourcemaps');
 // actions
 gulp.task('clean-build', function(done){
     del(['public/build']).then(function(){
@@ -24,6 +25,7 @@ gulp.task('clean-build', function(done){
 gulp.task('build-css', ['clean-build'], function(){
     return gulp.src(['resources/less/*'])
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+    .pipe(sourcemaps.init())
     .pipe(less())
     .pipe(concat('app.css'))
     .pipe(prefix({
@@ -31,12 +33,14 @@ gulp.task('build-css', ['clean-build'], function(){
         cascade: false
     }))
     .pipe(cleanCSS())
+    .pipe(sourcemaps.write('/'))
     .pipe(gulp.dest('public/build/css'));
 });
 // external css
 gulp.task('build-external-css', ['clean-build'], function(){
     return gulp.src(['resources/less/external/*'])
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+    .pipe(sourcemaps.init())
     .pipe(less())
     .pipe(concat('external.css'))
     .pipe(prefix({
@@ -44,6 +48,7 @@ gulp.task('build-external-css', ['clean-build'], function(){
         cascade: false
     }))
     .pipe(cleanCSS())
+    .pipe(sourcemaps.write('/'))
     .pipe(gulp.dest('public/build/css'));
 });
 //
@@ -69,8 +74,10 @@ gulp.task('build-js', ['clean-build'], function(){
     files.push('resources/js/*.js');
 
     return gulp.src(files)
+    .pipe(sourcemaps.init())
     .pipe(concat('app.js'))
     .pipe(jsmin())
+    .pipe(sourcemaps.write('/'))
     .pipe(gulp.dest('public/build/js'));
 });
 // build external js
@@ -83,8 +90,10 @@ gulp.task('build-external-js', ['clean-build'], function(){
     files.push('resources/js/external/*.js');
 
     return gulp.src(files)
+    .pipe(sourcemaps.init())
     .pipe(concat('external.js'))
     .pipe(jsmin())
+    .pipe(sourcemaps.write('/'))
     .pipe(gulp.dest('public/build/js'));
 });
 
