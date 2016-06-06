@@ -30,57 +30,6 @@ class ApiMetadetailService extends AbstractApiService
      */
     protected $endpoint = 'metadetails';
     /**
-     * get
-     *
-     * @method find
-     *
-     * @param  array $keys
-     *
-     * @return App\Entities\Metadetail
-     */
-    public function findMany(Array $keys)
-    {
-        // API CALL
-        $metadetails = $this->getAllItems('/metadetails?filter[type]='.implode(',',$keys));
-        // build result array
-        $entities = [];
-        foreach($metadetails['data'] as $detail){
-            $entities[] = new Metadetail($detail, !isset($metadetails['included']) ?: $metadetails['included']);
-        }
-        // return
-        return $entities;
-    }
-
-    /**
-     * store
-     *
-     * @method store
-     *
-     * @return EXCEPTION|array
-     */
-    public function storeMany(Array $details){
-        // prepare details = json_encode if value is array
-        $details = array_map(function($item){
-            if(is_array($item)){
-                return json_encode($item);
-            }
-            return $item;
-        }, $details);
-
-        // loop  all details
-        foreach($details as $type => $data){
-            // TODO: handle errors
-            // make api call
-            $response = $this->api($this->client)->post('/metadetails', [
-                'type' => 'metadetails',
-                'attributes' => [
-                    'type' => $type,
-                    'data' => $data,
-                ]
-            ]);
-        }
-    }
-    /**
      * update or create
      *
      * @method update
@@ -125,34 +74,5 @@ class ApiMetadetailService extends AbstractApiService
                 ]);
             }
         }
-    }
-
-    public function update($id, Array $data){
-        // TODO: handle errors
-        // make api call
-        $response = $this->api($this->client)->patch('/'.$this->endpoint.'/'.$id, [
-            'type' => $this->endpoint,
-            'id'   => $id,
-            'attributes' => $data,
-        ]);
-
-        return $response;
-    }
-    /**
-     * store
-     *
-     * @method store
-     *
-     * @return EXCEPTION|array
-     */
-    public function store(Array $data){
-        // TODO: handle errors
-        // make api call
-        $response = $this->api($this->client)->post('/'.$this->endpoint, [
-            'type' => $this->endpoint,
-            'attributes' => $data,
-        ]);
-
-        return $response;
     }
 }

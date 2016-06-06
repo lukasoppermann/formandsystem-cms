@@ -43,7 +43,6 @@ class Collections extends Controller
         $this->collections = $items = (new ApiCollectionService)->all([
             'includes' => false
         ]);
-
         // turn pages into array
         $items = $items->map(function($item){
             $item = $item->toArray();
@@ -73,17 +72,6 @@ class Collections extends Controller
         return view('collections.dashboard', $data);
     }
 
-    public function store()
-    {
-        $slug = 'new-collection-'.rand();
-        $item = (new ApiCollectionService)->create('New Collection',$slug);
-
-        $this->collections = (new ApiCollectionService)->all([
-            'includes' => false
-        ]);
-
-        return redirect('collections/'.$slug);
-    }
 
     public function show($collection, $page = NULL)
     {
@@ -101,21 +89,6 @@ class Collections extends Controller
         $data['dialog'] = view('collections.settings', [
             'collection' => $data['collection']
         ])->render();
-
-        $data['page'] = $data['collection']->pages->filter(function($item) use($page){
-            return $item->slug === $page;
-        });
-
-        if($page !== NULL && $data['collection']->pages->isEmpty()){
-            return redirect('collections/'.$collection);
-        }
-
-        if(($page === NULL || $data['page']->isEmpty()) && !$data['collection']->pages->isEmpty()){
-            return redirect('collections/'.$collection.'/'.$data['collection']->pages->first()->slug);
-        }
-
-
-        $data['page'] = $data['page']->first();
 
         $this->navigation = [
             'header' => view('collections.collection-header', [
@@ -144,6 +117,24 @@ class Collections extends Controller
             ]
         ];
 
+        $data['page'] = $data['collection']->pages->filter(function($item) use($page){
+            return $item->slug === $page;
+        });
+
+        if($page === NULL){
+            return $this->firstItemOrEmpty($data['collection']);
+        }
+        // if($page !== NULL && $data['collection']->pages->isEmpty()){
+        //     return redirect('collections/'.$collection);
+        // }
+
+        if(($page === NULL || $data['page']->isEmpty()) && !$data['collection']->pages->isEmpty()){
+            return redirect('collections/'.$collection.'/'.$data['collection']->pages->first()->slug);
+        }
+
+
+        $data['page'] = $data['page']->first();
+
         if($page === NULL){
             $data['navigation'] = $this->buildNavigation('/collections/'.$collection);
             return view('collections.dashboard', $data);
@@ -152,6 +143,31 @@ class Collections extends Controller
         $data['navigation'] = $this->buildNavigation('/collections/'.$collection.'/'.$page);
 
         return view('pages.page', $data);
+    }
+    /**
+     * create a collection
+     *
+     * @method store
+     */
+    public function store()
+    {
+        // TODO: needs refactor
+        // create unique slug
+        $slug = 'new-collection-'.rand();
+        while(!(new ApiCollectionService)->find('slug',$slug)->isEmpty()){
+            $slug = 'new-collection-'.rand();
+        }
+
+        $item = (new ApiCollectionService)->create([
+            'name' => 'New Collection',
+            'slug' => $slug,
+        ]);
+
+        $this->collections = (new ApiCollectionService)->all([
+            'includes' => false
+        ]);
+
+        return redirect('collections/'.$slug);
     }
     /**
      * delete a collection
@@ -181,10 +197,36 @@ class Collections extends Controller
     public function update(Request $request, $id)
     {
 
-
         return back()->with([
             'status' => 'Collection updated successfully.',
             'type' => 'success'
         ]);
+    }
+    /**
+     * show the first page or the dashboard
+     *
+     * @method firstItemOrEmpty
+     *
+     * @return view
+     */
+    public function firstItemOrEmpty($collection)
+    {
+        // collection with items
+        $types = [
+            'pages' => 'pages.page',
+            'fragments' => 'fragments.fragment',
+        ];
+        foreach($types as $type => $template){
+            if( !$collection->{$type}->isEmpty() ){
+                $data['navigation'] = $this->buildNavigation('/collections/'.$collection->slug);
+
+                $data[substr($type,0,-1)] = $collection->{$type}->first();
+                return view($template, $data);
+            }
+        }
+        // empty collection
+        $this->navigation['lists'] = NULL;
+        $data['navigation'] = $this->buildNavigation('/collections/'.$collection->slug);
+        return view('collections.empty', $data);
     }
 }

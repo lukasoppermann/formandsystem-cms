@@ -18,7 +18,7 @@ abstract class AbstractApiService extends AbstractService
      */
     public function all(Array $param = NULL){
         // prepare request url
-        $url = trim('/'.$this->endpoint.'?'.trim('&',$this->parameters($param)),'?');
+        $url = trim('/'.$this->endpoint.'?'.trim($this->parameters($param),'&'),'?');
         // get collection
         if( !$items = $this->getAllItems($url) ){
             // return empty collection on error
@@ -88,7 +88,7 @@ abstract class AbstractApiService extends AbstractService
         // turn $values into array if not
         is_array($values) ?: $values = [$values];
         // build url
-        $url = '/'.$this->endpoint.'?filter['.$filter.']='.trim(implode(',',$values),',').'&'.$this->parameters($param);
+        $url = '/'.$this->endpoint.'?filter['.$filter.']='.trim(trim(implode(',',$values),',').'&'.$this->parameters($param),'&');
         // return
         if( !$items = $this->getAllItems($url) ){
             // return empty collection on error
@@ -118,8 +118,41 @@ abstract class AbstractApiService extends AbstractService
         $results = $this->find($filter, $values, $param);
         return $results->first();
     }
-    // public abstract function create(Array $data);
-    // public abstract function update($id, Array $data);
+    /**
+     * create
+     *
+     * @method create
+     *
+     * @return EXCEPTION|array
+     */
+    public function create(Array $data){
+        // TODO: handle errors
+        // make api call
+        $response = $this->api($this->client)->post('/'.$this->endpoint, [
+            'type'       => $this->endpoint,
+            'attributes' => $data,
+        ]);
+
+        return $response;
+    }
+    /**
+     * update
+     *
+     * @method update
+     *
+     * @return EXCEPTION|array
+     */
+    public function update($id, Array $data){
+        // TODO: handle errors
+        // make api call
+        $response = $this->api($this->client)->patch('/'.$this->endpoint.'/'.$id, [
+            'type' => $this->endpoint,
+            'id'   => $id,
+            'attributes' => $data,
+        ]);
+
+        return $response;
+    }
     /**
      * delete an item by id
      *

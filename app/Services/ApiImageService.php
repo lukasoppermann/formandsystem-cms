@@ -30,22 +30,12 @@ class ApiImageService extends AbstractApiService
      */
     protected $endpoint = 'images';
     /**
-     * create
+     * upload
      *
-     * @method create
+     * @method upload
      *
      * @return EXCEPTION|array
      */
-    public function create(Array $data){
-        // TODO: handle errors
-        // make api call
-        $response = $this->api($this->client)->post('/'.$this->endpoint, [
-            'type' => $this->endpoint,
-            'attributes' => $data,
-        ]);
-        return $response;
-    }
-
     public function upload()
     {
 

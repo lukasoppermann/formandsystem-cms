@@ -61,7 +61,10 @@ class Pages extends Controller
     public function getPagesCollection()
     {
         if( !$collection = (new ApiCollectionService)->first('slug','pages') ){
-            $collection = (new ApiCollectionService)->create('pages');
+            $collection = (new ApiCollectionService)->create([
+                'name' => 'pages',
+                'slug' => 'pages',
+            ]);
         }
         // return main pages collection
         return $collection;
@@ -231,15 +234,15 @@ class Pages extends Controller
         }
         // store detail
         try{
-            $item = (new ApiPageService)->update([
-                'id' => $request->input('id'),
-                'attributes' => $request->only([
+            $item = (new ApiPageService)->update(
+                $request->input('id'),
+                $request->only([
                     'menu_label',
                     'slug',
                     'title',
                     'description',
                 ])
-             ]);
+            );
             // redirect on success
             if($slug = $request->get('slug')){
                 $collection = (new ApiCollectionService)->get($request->get('collection'))->slug;

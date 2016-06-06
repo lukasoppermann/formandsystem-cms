@@ -149,3 +149,39 @@ gulp.task('svg-watch', function(){
 
 // gulp tasks
 gulp.task('default', ['clean-build', 'build-css','build-external-css', 'build-js','build-external-js', 'svgsprite', 'rev', 'clean-build-step','asset-watch','svg-watch']);
+
+
+
+
+
+
+
+//-----------------------
+// Gulp check tasks
+var checkPages = require("check-pages");
+gulp.task("checkDev", function(callback) {
+  var options = {
+    pageUrls: [
+      'http://cms.formandsystem.app/',
+      'http://cms.formandsystem.app/pages',
+      'http://cms.formandsystem.app/pages/new-item-509153036'
+    ],
+    checkLinks: true,
+    linksToIgnore: [
+      'http://localhost:8080/broken.html'
+    ],
+    noEmptyFragments: true,
+    noLocalLinks: true,
+    noRedirects: true,
+    onlySameDomain: true,
+    preferSecure: true,
+    queryHashes: true,
+    checkCaching: true,
+    checkCompression: true,
+    summary: true,
+    terse: true,
+    maxResponseTime: 200,
+    userAgent: 'custom-user-agent/1.2.3'
+  };
+  checkPages(console, options, callback);
+});

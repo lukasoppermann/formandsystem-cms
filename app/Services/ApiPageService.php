@@ -34,33 +34,4 @@ class ApiPageService extends AbstractApiService
      * @var string
      */
     protected $endpoint = 'pages';
-    /**
-     * store
-     *
-     * @method store
-     *
-     * @return EXCEPTION|array
-     */
-    public function store(Array $data){
-        // TODO: handle errors
-        // make api call
-        $response = $this->api($this->client)->post('/pages', [
-            'type' => 'pages',
-            'attributes' => $data,
-        ]);
-
-        return $response;
-    }
-
-    public function update(Array $data){
-        // TODO: handle errors
-        // make api call
-        $response = $this->api($this->client)->patch('/pages/'.$data['id'], [
-            'type' => 'pages',
-            'id'   => $data['id'],
-            'attributes' => $data['attributes'],
-        ]);
-
-        return $response;
-    }
 }

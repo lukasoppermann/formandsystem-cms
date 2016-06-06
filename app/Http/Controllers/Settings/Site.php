@@ -29,9 +29,9 @@ class Site extends Settings
         return view('settings.site', $data);
     }
     /**
-     * store site settings
+     * update site settings
      *
-     * @method store
+     * @method update
      *
      * @param  Request $request
      */

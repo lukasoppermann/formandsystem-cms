@@ -50,31 +50,4 @@ class ApiCollectionService extends AbstractApiService
             return $item->slug !== 'pages';
         });
     }
-    /**
-     * create item
-     *
-     * @method create
-     *
-     * @param  string $name
-     * @param  string $slug
-     *
-     * @return App\Entities\Collection
-     */
-    public function create($name, $slug = NULL)
-    {
-        // get slug
-        $slug = $slug !== NULL ? $slug : urlencode($name);
-        // create collection
-        $item = $this->api($this->client)->post('/collections',[
-            'type' => 'collections',
-            'attributes' => [
-                'name' => $name,
-                'slug' => $slug,
-            ]
-        ]);
-
-        //TODO: deal with errors
-        // return entity
-        return new Collection($item['data']);
-    }
 }

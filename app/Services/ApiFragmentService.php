@@ -34,33 +34,4 @@ class ApiFragmentService extends AbstractApiService
      * @var string
      */
     protected $endpoint = 'fragments';
-
-    /**
-     * create
-     *
-     * @method create
-     *
-     * @return EXCEPTION|array
-     */
-    public function create(Array $data){
-        // TODO: handle errors
-        // make api call
-        $response = $this->api($this->client)->post('/fragments', [
-            'type' => 'fragments',
-            'attributes' => $data,
-        ]);
-        return $response;
-    }
-
-    public function update($id, Array $data){
-        // TODO: handle errors
-        // make api call
-        $response = $this->api($this->client)->patch('/'.$this->endpoint.'/'.$id, [
-            'type' => $this->endpoint,
-            'id'   => $id,
-            'attributes' => $data,
-        ]);
-
-        return $response;
-    }
 }
