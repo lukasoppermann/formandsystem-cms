@@ -26,16 +26,19 @@ Route::group(['middleware' => ['auth']], function(){
     Route::group(['namespace' => 'Collections'], function() {
         Route::get('/collections', 'Collections@index');
         Route::post('/collections', 'Collections@store');
-        Route::delete('/collections', 'Collections@delete');
-        // Route::get('/collections/{collection}', 'Collections@show');
+        Route::patch('/collections/{id}', 'Collections@update');
+        Route::delete('/collections/{id}', 'Collections@delete');
+
+        Route::get('/collections/delete/{id}', 'Collections@delete');
+
         Route::get('/collections/{collection}/{page?}', 'Collections@show');
     });
     // Images
     Route::put('/images', 'Images@upload');
+    Route::post('/images', 'Images@upload');
     // Settings
     Route::group(['namespace' => 'Pages'], function() {
         Route::get('/pages', 'Pages@index');
-        Route::get('/pages/create', 'Pages@store');
         Route::get('/pages/delete/{id}', 'Pages@delete');
 
         Route::get('/pages/{page}', 'Pages@show');

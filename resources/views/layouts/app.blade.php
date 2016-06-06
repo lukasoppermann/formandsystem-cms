@@ -30,6 +30,11 @@
 
         @include('navigation.menu')
         <main class="c-main-content">
+
+            @if(isset($dialog))
+                {!!$dialog!!}
+            @endif
+
             @include('notice.status')
             @yield('content')
         </main>

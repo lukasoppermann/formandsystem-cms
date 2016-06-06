@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Pages;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use Cache;
 use Carbon\Carbon;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -32,6 +31,10 @@ class Pages extends Controller
      */
     protected $collection;
     /**
+     * collections
+     */
+    protected $collections;
+    /**
      * construct
      *
      * @method __construct
@@ -43,6 +46,10 @@ class Pages extends Controller
         parent::__construct($request);
         // get the main pages collection
         $this->collection = $this->getPagesCollection();
+
+        $this->collections = $items = (new ApiCollectionService)->all([
+            'includes' => false
+        ]);
     }
     /**
      * get main pages collection or create
@@ -53,41 +60,29 @@ class Pages extends Controller
      */
     public function getPagesCollection()
     {
-        if(!Cache::has('pages.collection')){
-            if( !$collection = (new ApiCollectionService)->first('slug','pages') ){
-                $collection = (new ApiCollectionService)->create('pages');
-            }
-            // cache collection
-            Cache::put(
-                'pages.collection',
-                $collection,
-                Carbon::now()->addMinutes(10)
-            );
+        if( !$collection = (new ApiCollectionService)->first('slug','pages') ){
+            $collection = (new ApiCollectionService)->create('pages');
         }
         // return main pages collection
-        return Cache::get('pages.collection');
+        return $collection;
     }
 
     public function getMenu()
     {
-        if(!Cache::has('pages.navigation')){
-            Cache::forever('pages.navigation', $this->getMenuLists());
-        }
-
-        $this->navigation['lists'] = Cache::get('pages.navigation');
+        $this->navigation['lists'] = $this->getMenuLists();
     }
 
     public function getMenuLists()
     {
         // TODO: deal with errors
         // get pages
+        (new ApiCollectionService)->first('slug','pages',['includes' => ['pages']]);
         $collection = (new ApiCollectionService)->first('slug','pages',['includes' => ['pages']]);
         // get all ids of needed pages
-        if($collection->pages !== NULL){
+        if(!$collection->pages->isEmpty()){
             $page_ids = $collection->pages->map(function($item) {
                 return $item->id;
             });
-            // $page_ids[] = 'cf6a3a83-4c39-34a1-910c-b43d7121a0fa';
             // // get all pages
             $pages = (new ApiPageService)->get($page_ids->toArray(),[
                 'includes' => false
@@ -103,10 +98,14 @@ class Pages extends Controller
         return [
             [
                 'items' => isset($pages) ? $pages : [],
-                'add' => [
-                    'link' => '/pages/create'
-                ],
                 'item' => 'pages.navigation-item',
+                'elements' => [
+                    view('navigation.add', [
+                        'action'    => '/pages',
+                        'method'    => 'post',
+                        'label'     => 'Add Page'
+                    ])->render(),
+                ]
             ]
         ];
     }
@@ -120,7 +119,13 @@ class Pages extends Controller
     public function show($slug){
         $this->getMenu();
         $data['page'] = (new ApiPageService)->first('slug',$slug);
+
+        if($data['page'] === NULL){
+            return redirect('/pages');
+        }
+
         $data['collection'] = $this->collection;
+        $data['collections'] = $this->collections;
         $data['navigation'] = $this->buildNavigation('/pages/'.$slug);
 
         return view('pages.page', $data);
@@ -159,21 +164,18 @@ class Pages extends Controller
             $collection_id = $collection->get('collection');
         }
 
-        $page = (new ApiPageService)->store($page->toArray());
+        $newPage = (new ApiPageService)->store($page->toArray());
 
         $response = $this->api($this->client)->post('/collections/'.$collection_id.'/relationships/pages', [
             'type' => 'pages',
-            'id'   => $page['data']['id'],
+            'id'   => $newPage['data']['id'],
         ]);
 
         if($collection->get('isInvalid')){
-            Cache::forget('pages.navigation');
-            Cache::forget('pages.collection');
-
-            return redirect('pages/'.$page['data']['attributes']['slug']);
+            return redirect('pages/'.$newPage['data']['attributes']['slug']);
         }
 
-        return redirect('collections/'.(new ApiCollectionService)->get($collection_id)->slug.'/'.$page['data']['attributes']['slug']);
+        return redirect('collections/'.(new ApiCollectionService)->get($collection_id)->slug.'/'.$newPage['data']['attributes']['slug']);
     }
     /**
      * delete a page
@@ -186,9 +188,6 @@ class Pages extends Controller
         if($id !== NULL){
             $response = $this->api($this->client)->delete('/pages/'.$id);
         }
-
-        Cache::forget('pages.navigation');
-        Cache::forget('pages.collection');
 
         return back();
     }
@@ -242,10 +241,6 @@ class Pages extends Controller
                 ])
              ]);
             // redirect on success
-            if($request->get('slug') || $request->get('menu_label')){
-                Cache::forget('pages.navigation');
-                Cache::forget('pages.collection');
-            }
             if($slug = $request->get('slug')){
                 $collection = (new ApiCollectionService)->get($request->get('collection'))->slug;
 

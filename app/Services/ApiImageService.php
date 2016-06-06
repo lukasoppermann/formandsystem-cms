@@ -48,6 +48,6 @@ class ApiImageService extends AbstractApiService
 
     public function upload()
     {
-        
+
     }
 }

@@ -1,12 +1,4 @@
 <?php
-    app('cache')->forget('global.collections');
-    if(!app('cache')->has('global.collections')){
-        app('cache')->forever('global.collections', (new \App\Services\ApiCollectionService)->all([
-                'includes' => false
-        ]));
-    }
-    $collections = app('cache')->get('global.collections');
-
     $collection = isset($collection) ? $collection : NULL;
 
     $cols = [];

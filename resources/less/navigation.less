@@ -43,11 +43,27 @@
     background-color: @shadow-color-05;
     z-index: 101
 }
-.c-navigation__header_back_arrow, .c-navigation__icon{
+.c-navigation__icon{
+    cursor: pointer;
     flex: 0 0 @header-height;
     height: 100%;
-}
-.c-navigation__icon{
+    &--right{
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-image: linear-gradient(90deg, fade(@yellow,0) 0, @yellow 20%, @yellow 100%);
+    }
+    &--light{
+        .o-icon{
+            opacity: .25;
+            transition: opacity .3s ease;
+        }
+        &:hover{
+            .o-icon{
+                opacity: 1;
+            }
+        }
+    }
     .o-icon{
         margin: 1.5rem;
         height: 3rem;
@@ -78,14 +94,11 @@
         }
     }
 }
-.c-navigation__header_back_arrow{
-
-}
 .c-navigation__title{
-    height: 1.8rem;
+    height: 2.2rem;
     flex: 1;
     font-size: 1.8rem;
-    line-height: 1.8rem;
+    line-height: 2.2rem;
     padding: 0 1.5rem 0 1rem;
     margin: 1.9rem 0 2.3rem 0;
     overflow: hidden;

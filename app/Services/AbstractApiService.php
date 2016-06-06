@@ -18,7 +18,7 @@ abstract class AbstractApiService extends AbstractService
      */
     public function all(Array $param = NULL){
         // prepare request url
-        $url = trim('/'.$this->endpoint.'?'.$this->parameters($param),'?');
+        $url = trim('/'.$this->endpoint.'?'.trim('&',$this->parameters($param)),'?');
         // get collection
         if( !$items = $this->getAllItems($url) ){
             // return empty collection on error
@@ -51,7 +51,7 @@ abstract class AbstractApiService extends AbstractService
         $many = false;
         is_array($ids) ? $many = true : $ids = [$ids];
         // build url
-        $url = '/'.$this->endpoint.'?filter[id]='.trim(implode(',',$ids),',').$this->parameters($param);
+        $url = '/'.$this->endpoint.'?filter[id]='.trim(implode(',',$ids),',').'&'.$this->parameters($param);
         // get items
         if( !$items = $this->getAllItems($url) ){
             // return empty collection on error
@@ -88,7 +88,7 @@ abstract class AbstractApiService extends AbstractService
         // turn $values into array if not
         is_array($values) ?: $values = [$values];
         // build url
-        $url = '/'.$this->endpoint.'?filter['.$filter.']='.trim(implode(',',$values),',').$this->parameters($param);
+        $url = '/'.$this->endpoint.'?filter['.$filter.']='.trim(implode(',',$values),',').'&'.$this->parameters($param);
         // return
         if( !$items = $this->getAllItems($url) ){
             // return empty collection on error
@@ -161,7 +161,7 @@ abstract class AbstractApiService extends AbstractService
             }
         }
         // return parameters string
-        return !isset($param_string) ? NULL : '&'.trim($param_string,'&');
+        return !isset($param_string) ? NULL : trim($param_string,'&');
     }
     /**
      * build excludes url parameters

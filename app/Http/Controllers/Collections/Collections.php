@@ -10,6 +10,7 @@ use App\Services\ApiCollectionService;
 
 class Collections extends Controller
 {
+    protected $collections;
     /**
      * main navigation array
      *
@@ -32,24 +33,14 @@ class Collections extends Controller
     {
         parent::__construct($request);
         // get the main navigation items
-        $this->getMenu();
-    }
-
-    public function getMenu()
-    {
-        Cache::forget('collections.navigation');
-        if(!Cache::has('collections.navigation')){
-            Cache::forever('collections.navigation', $this->getMenuLists());
-        }
-        $this->navigation['lists'] = Cache::get('collections.navigation');
-
+        $this->navigation['lists'] = $this->getMenuLists();
     }
 
     public function getMenuLists()
     {
         // TODO: deal with errors
         // get all items
-        $items = (new ApiCollectionService)->all([
+        $this->collections = $items = (new ApiCollectionService)->all([
             'includes' => false
         ]);
 
@@ -58,7 +49,6 @@ class Collections extends Controller
             $item = $item->toArray();
             $item['link'] = '/collections/'.$item['slug'];
             $item['label'] = $item['name'];
-            $item['deletable'] = true;
             $item['action'] = '/collections';
             return $item;
         })->toArray();
@@ -85,33 +75,52 @@ class Collections extends Controller
 
     public function store()
     {
-        $item = (new ApiCollectionService)->create('New Collection','new-collection-'.rand());
+        $slug = 'new-collection-'.rand();
+        $item = (new ApiCollectionService)->create('New Collection',$slug);
 
-        Cache::forget('global.collections');
+        $this->collections = (new ApiCollectionService)->all([
+            'includes' => false
+        ]);
 
-        return redirect('collections/new-collection');
+        return redirect('collections/'.$slug);
     }
 
     public function show($collection, $page = NULL)
     {
-
         $data['collection'] = (new ApiCollectionService)->first('slug',$collection);
+        $data['collections'] = $this->collections;
+
+
+        if($data['collection'] === NULL){
+            return redirect('collections')->with([
+                'status' => 'The collection you are trying to edit does not exist',
+                'type' => 'error',
+            ]);
+        }
+
+        $data['dialog'] = view('collections.settings', [
+            'collection' => $data['collection']
+        ])->render();
 
         $data['page'] = $data['collection']->pages->filter(function($item) use($page){
             return $item->slug === $page;
         });
 
-        if(($page === NULL || $data['page']->isEmpty()) && !$data['collection']->pages->isEmpty() ){
+        if($page !== NULL && $data['collection']->pages->isEmpty()){
+            return redirect('collections/'.$collection);
+        }
+
+        if(($page === NULL || $data['page']->isEmpty()) && !$data['collection']->pages->isEmpty()){
             return redirect('collections/'.$collection.'/'.$data['collection']->pages->first()->slug);
         }
+
 
         $data['page'] = $data['page']->first();
 
         $this->navigation = [
-            'header' => [
-                'title' => $data['collection']->name,
-                'link' => '/collections/',
-            ],
+            'header' => view('collections.collection-header', [
+                'collection' => $data['collection']
+            ])->render(),
             'lists' => [
                 [
                     'items' => $data['collection']->pages->map(function($item) use($collection){
@@ -125,6 +134,7 @@ class Collections extends Controller
                             'action'    => '/pages',
                             'method'    => 'post',
                             'label'     => 'Add Page',
+                            'deletable' => true,
                             'fields'    => [
                                 'collection'    => $data['collection']->id
                             ]
@@ -148,18 +158,33 @@ class Collections extends Controller
      *
      * @method delete
      */
-    public function delete(Request $request)
+    public function delete(Request $request, $id)
     {
         $collection = (new ApiCollectionService)->get($request->id);
         // TODO: deal with errors
         if($collection->pages->isEmpty()){
             $response = $this->api($this->client)->delete('/collections/'.$request->id);
-
-            Cache::forget('collections.navigation');
-
-            return back();
+            return redirect('collections');
         }
         return back()->with(['status' => 'You must delete all pages in a collection, before deleting the collection.','type' => 'error']);
     }
+    /**
+     * update the collection
+     *
+     * @method update
+     *
+     * @param  Request $request
+     * @param  string  $id
+     *
+     * @return redirect
+     */
+    public function update(Request $request, $id)
+    {
 
+
+        return back()->with([
+            'status' => 'Collection updated successfully.',
+            'type' => 'success'
+        ]);
+    }
 }

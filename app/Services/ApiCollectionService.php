@@ -72,6 +72,7 @@ class ApiCollectionService extends AbstractApiService
                 'slug' => $slug,
             ]
         ]);
+
         //TODO: deal with errors
         // return entity
         return new Collection($item['data']);
