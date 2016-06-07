@@ -16,10 +16,10 @@
             @if(isset($client_id))
                 {{ method_field('DELETE') }}
                 <p class="o-flex__item o-flex__item--fill"><span class="type--bold">Client ID: </span><span class="type--grey">{{substr($client_id,0,20)}}…</span></p>
-                @include('forms.submit',['label' => 'Delete client credentials', 'classes' => 'o-flex__item o-button--red'])
+                @include('forms.submit',['label' => 'Delete client credentials', 'classes' => 'o-button o-flex__item o-button--red'])
             @else
                 <p class="o-flex__item o-flex__item--fill">No client credentials create.</p>
-                @include('forms.submit',['label' => 'Create client credentials', 'classes' => 'o-flex__item'])
+                @include('forms.submit',['label' => 'Create client credentials', 'classes' => 'o-button o-button--blue o-flex__item'])
             @endif
         </div>
     </form>

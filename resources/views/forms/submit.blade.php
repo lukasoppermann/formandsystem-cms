@@ -1,6 +1,6 @@
 <input
     type="submit"
     value="{{$label}}"
-    class="o-button o-button--blue {{isset($classes) ? $classes : ''}}"
+    class="{{isset($classes) ? $classes : 'o-button o-button--blue'}}"
     {{isset($disabled) ? 'disabled' : ''}}
 >

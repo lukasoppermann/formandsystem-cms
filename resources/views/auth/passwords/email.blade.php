@@ -20,7 +20,7 @@
                 @include('forms.input',['name' => 'email', 'label' => 'E-Mail Address'])
 
                 <div class="o-flex">
-                    @include('forms.submit',['label' => 'Send password link', 'classes' => 'o-button--space-top o-flex__item--fill'])
+                    @include('forms.submit',['label' => 'Send password link', 'classes' => 'o-button o-button--blue o-button--space-top o-flex__item--fill'])
                 </div>
             </form>
 

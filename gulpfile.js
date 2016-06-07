@@ -6,6 +6,7 @@ var rev = require('gulp-rev');
 var del = require('del');
 var prefix = require('gulp-autoprefixer');
 var less = require('gulp-less');
+var postcss = require('gulp-postcss');
 var concat = require('gulp-concat');
 var jsmin = require('gulp-jsmin');
 var cleanCSS = require('gulp-clean-css');
@@ -22,19 +23,26 @@ gulp.task('clean-build', function(done){
     });
 });
 
-gulp.task('build-css', ['clean-build'], function(){
-    return gulp.src(['resources/less/*'])
-    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-    .pipe(sourcemaps.init())
-    .pipe(less())
-    .pipe(concat('app.css'))
-    .pipe(prefix({
-        browsers: ['last 4 versions', 'IE 9', 'IE 8'],
-        cascade: false
-    }))
-    .pipe(cleanCSS())
-    .pipe(sourcemaps.write('/'))
-    .pipe(gulp.dest('public/build/css'));
+gulp.task('build-css', ['clean-build'], function(done){
+
+    return gulp.src(['resources/less/*.less','!resources/css/external.css'])
+        .pipe(sourcemaps.init())
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+        .pipe(less())
+        .pipe(concat('app.css'))
+        // .pipe(prefix({
+        //     browsers: ['last 4 versions', 'IE 9', 'IE 8'],
+        //     cascade: false
+        // }))
+        .pipe(sourcemaps.write('/'))
+        .pipe(gulp.dest('public/build/css'));
+
+    // gulp.src(['public/build/css/*.css'])
+    //     .pipe(sourcemaps.init())
+    //     .pipe(concat('app.css'))
+    //     .pipe(cleanCSS())
+    //     .pipe(sourcemaps.write('/'))
+        // .pipe(gulp.dest('public/css'));
 });
 // external css
 gulp.task('build-external-css', ['clean-build'], function(){
@@ -97,8 +105,8 @@ gulp.task('build-external-js', ['clean-build'], function(){
     .pipe(gulp.dest('public/build/js'));
 });
 
-gulp.task('rev', ['build-external-js','build-external-css','build-js', 'build-css','svgsprite'], function(){
-    return gulp.src(['public/build/css/app.css','public/build/css/external.css', 'public/build/js/app.js', 'public/build/js/external.js','public/build/svgs/svg-sprite.svg'], {base: 'public/build'})
+gulp.task('rev', ['build-external-js','build-external-css','build-js', 'build-css', 'css','svgsprite'], function(){
+    return gulp.src(['public/build/css/app-cssnext.css','public/build/css/app.css','public/build/css/external.css', 'public/build/js/app.js', 'public/build/js/external.js','public/build/svgs/svg-sprite.svg'], {base: 'public/build'})
     .pipe(rev())
     .pipe(gulp.dest('public/build'))
     .pipe(rev.manifest())
@@ -114,7 +122,7 @@ gulp.task('rev', ['build-external-js','build-external-css','build-js', 'build-cs
 // });
 //
 gulp.task('clean-build-step', ['rev'], function(){
-    return del(['public/build/css/app.css','public/build/css/external.css', 'public/build/js/app.js', 'public/build/js/external.js', 'public/build/js/app.js','public/build/svgs/svg-sprite.svg']);
+    return del(['public/build/css/app.css','public/build/css/app-cssnext.css','public/build/css/external.css', 'public/build/js/app.js', 'public/build/js/external.js','public/build/svgs/svg-sprite.svg']);
 });
 
 /* ---------- */
@@ -150,38 +158,37 @@ gulp.task('svg-watch', function(){
 // gulp tasks
 gulp.task('default', ['clean-build', 'build-css','build-external-css', 'build-js','build-external-js', 'svgsprite', 'rev', 'clean-build-step','asset-watch','svg-watch']);
 
-
-
-
-
-
-
 //-----------------------
-// Gulp check tasks
-var checkPages = require("check-pages");
-gulp.task("checkDev", function(callback) {
-  var options = {
-    pageUrls: [
-      'http://cms.formandsystem.app/',
-      'http://cms.formandsystem.app/pages',
-      'http://cms.formandsystem.app/pages/new-item-509153036'
-    ],
-    checkLinks: true,
-    linksToIgnore: [
-      'http://localhost:8080/broken.html'
-    ],
-    noEmptyFragments: true,
-    noLocalLinks: true,
-    noRedirects: true,
-    onlySameDomain: true,
-    preferSecure: true,
-    queryHashes: true,
-    checkCaching: true,
-    checkCompression: true,
-    summary: true,
-    terse: true,
-    maxResponseTime: 200,
-    userAgent: 'custom-user-agent/1.2.3'
-  };
-  checkPages(console, options, callback);
+// POST CSS
+gulp.task('css', ['clean-build'], function(){
+    return gulp.src(['resources/less/includes/*.css','resources/less/*.css'])
+        .pipe(sourcemaps.init())
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+        .pipe(concat('app-cssnext.css'))
+        .pipe(postcss([
+            require("postcss-import")(),
+            require("postcss-url")(),
+            require('postcss-will-change'),
+            require("cssnano")({
+                autoprefixer: false,
+                discardComments: {
+                    removeAll: true
+                },
+                zindex: false
+            }),
+            require("postcss-cssnext")({
+                browsers: ['last 2 versions']
+            }),
+            require("postcss-color-function"),
+            require("postcss-reporter")(),
+        ]))
+        .pipe(sourcemaps.write('/'))
+
+        // .pipe(rev())
+        .pipe(gulp.dest('public/build/css'));
 });
+//-----------------------
+// Require external gulp tasks
+// var gulp = require('gulp');
+// accessibility = require('./gulp_tasks/accessibility.js');
+// gulp.task('access', accessibility(require('gulp'), require('gulp-accessibility')));

@@ -1,0 +1,75 @@
+.o-fragment{
+    position: relative;
+    overflow: hidden;
+    border-radius: .2rem;
+    padding: .5rem;
+    transition: all .5s ease;
+    box-shadow: 0 0 0 .1rem var(--white);
+    min-height: 5rem;
+}
+.o-fragment:hover{
+    box-shadow: 0 0 0 .1rem var(--light-gray);
+}
+.o-fragment .c-settings-panel__toggle{
+    z-index: 500;
+    opacity: 0;
+    transition: opacity .5s ease;
+}
+.o-fragment:hover > .c-settings-panel__toggle{
+    opacity: 1;
+}
+.o-fragment--section{
+    padding: 1rem;
+    position: relative;
+    border: 1px dashed var(--white-gray);
+}
+.o-fragment--section:hover{
+    border: 1px solid var(--white-gray);
+    box-shadow: 0 0 0 .1rem var(--white);
+}
+.o-fragment .c-fragment-new-section{
+    display: none;
+}
+.o-fragment:hover > .o-user-grid > .c-fragment-new-section{
+    display: block;
+}
+
+.o-fragment__image-upload{
+    height: 100%;
+}
+.o-fragment .o-file{
+    height: 100%;
+}
+.c-fragment-settings-dialog{
+    min-width: 30rem;
+}
+.c-fragment-new{
+    box-sizing: border-box;
+    padding: 1.5rem;
+    text-align: center;
+    background: var(--white-gray);
+    cursor: pointer;
+    color: var(--gray);
+    box-shadow: 0 0 0 .1rem var(--white-gray);
+}
+.c-fragment-new:hover{
+    background: var(--light-gray);
+    box-shadow: 0 0 0 .1rem var(--light-gray);
+    color: var(--dark-gray);
+}
+.c-fragment-new__selection{
+    display: block;
+    height: 10rem;
+    border-radius: .3rem;
+    background: var(--white-gray);
+    text-align: center;
+    padding-top: 4rem;
+    color: var(--gray);
+}
+.c-fragment-new__selection:hover{
+    background: var(--blue);
+    color: var(--white);
+}
+.c-fragment-new__selection--no-padding{
+    padding: 0;
+}

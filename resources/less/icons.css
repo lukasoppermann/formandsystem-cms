@@ -1,0 +1,6 @@
+.o-icon{
+    fill: var(--black);
+}
+.o-icon--white{
+    fill: var(--white);
+}

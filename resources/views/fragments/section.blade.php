@@ -2,7 +2,7 @@
 <div class="o-user-grid">
     @if($fragment->fragments !== NULL)
         @foreach($fragment->fragments as $subfragment)
-            @include('fragments.fragment', ['fragment' => $subfragment, 'page' => $page])
+            @include('fragments.fragment', ['fragment' => $subfragment])
         @endforeach
     @endif
 

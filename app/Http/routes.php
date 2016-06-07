@@ -49,7 +49,10 @@ Route::group(['middleware' => ['auth']], function(){
     });
     // Fragments
     Route::group(['namespace' => 'Fragments'], function() {
+        Route::post('/fragments', 'Fragments@store');
+
         Route::get('/fragments/{type}', 'Fragments@store')->where('type', 'section|text|image|collection');
+
         Route::get('/fragments/delete/{id}', 'Fragments@delete');
 
         Route::patch('/fragments/{id}', 'Fragments@update');

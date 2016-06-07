@@ -1,0 +1,16 @@
+.o-link{
+    display: inline-block;
+    color: var(--text-blue);
+    transition: color .3s ease;
+}
+.o-link--quiet{
+    color: var(--text-gray);
+}
+.o-link--quiet:hover{
+    color: var(--text-blue);
+}
+.o-link--full{
+    width: 100%;
+    height: 100%;
+    display: block;
+}

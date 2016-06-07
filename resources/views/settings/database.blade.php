@@ -12,13 +12,13 @@
             @include('forms.input',['name' => 'db_user', 'label' => 'Database user name'])
             @include('forms.input',['name' => 'db_password', 'label' => 'Password for your database', 'type' => 'password'])
             <div class="o-flex">
-                @include('forms.submit',['label' => 'Save', 'classes' => 'o-flex__item--align-right'])
+                @include('forms.submit',['label' => 'Save', 'classes' => 'o-button o-button--blue o-flex__item--align-right'])
             </div>
         @else
             {{ method_field('DELETE') }}
             <div class="o-flex o-flex--row">
                 <p class="o-flex__item o-flex__item--fill"><span class="type--bold">Database connection: </span><span class="type--grey">{{substr($database,0,20)}}</span></p>
-                @include('forms.submit',['label' => 'Delete database connection', 'classes' => 'o-flex__item o-button--red'])
+                @include('forms.submit',['label' => 'Delete database connection', 'classes' => 'o-button o-flex__item o-button--red'])
             </div>
         @endif
     </form>

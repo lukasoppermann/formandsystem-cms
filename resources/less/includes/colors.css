@@ -1,0 +1,24 @@
+:root{
+    --yellow: rgb(255,210,0);
+    --blue: rgb(55,115,215);
+    --red: rgb(245,60,30);
+    --green: rgb(30,170,70);
+
+    --black: rgb(5,7,10);
+    --dark-gray: rgb(50,60,70);
+    --gray: rgb(115, 117, 120);
+    --medium-gray: rgb(150,152,155);
+    --light-gray: rgb(215,217,220);
+    --white-gray: rgb(243,245,247);
+    --white: rgb(255,255,255);
+
+    /* text colors */
+    --text-black: var(--black);
+    --text-dark-gray: var(--gray);
+    --text-gray: var(--gray);
+    --text-light-gray: var(--medium-gray);
+    --text-white: var(--white);
+    --text-blue: var(--blue);
+    --text-red: var(--red);
+    --text-green: var(--green);
+}

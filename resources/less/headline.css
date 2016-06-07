@@ -1,0 +1,7 @@
+.o-headline--first{
+    font-size: var(--type-size-xxl);
+    margin-bottom: var(--type-size-xl);
+}
+.o-headline--second{
+    font-size: var(--type-size-xl);
+}

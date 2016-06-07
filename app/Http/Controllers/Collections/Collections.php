@@ -78,7 +78,6 @@ class Collections extends Controller
         $data['collection'] = (new ApiCollectionService)->first('slug',$collection);
         $data['collections'] = $this->collections;
 
-
         if($data['collection'] === NULL){
             return redirect('collections')->with([
                 'status' => 'The collection you are trying to edit does not exist',
@@ -214,11 +213,12 @@ class Collections extends Controller
         // collection with items
         $types = [
             'pages' => 'pages.page',
-            'fragments' => 'fragments.fragment',
+            'fragments' => 'collections.fragment',
         ];
         foreach($types as $type => $template){
             if( !$collection->{$type}->isEmpty() ){
                 $data['navigation'] = $this->buildNavigation('/collections/'.$collection->slug);
+                $data['collection'] = $collection;
 
                 $data[substr($type,0,-1)] = $collection->{$type}->first();
                 return view($template, $data);
@@ -227,6 +227,8 @@ class Collections extends Controller
         // empty collection
         $this->navigation['lists'] = NULL;
         $data['navigation'] = $this->buildNavigation('/collections/'.$collection->slug);
+        $data['collection'] = $collection;
+
         return view('collections.empty', $data);
     }
 }

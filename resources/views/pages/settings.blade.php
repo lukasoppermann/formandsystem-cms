@@ -26,7 +26,7 @@
             </div>
 
             <div class="o-flex">
-                @include('forms.submit',['label' => 'Save', 'classes' => 'o-flex__item--align-right'])
+                @include('forms.submit',['label' => 'Save', 'classes' => 'o-button o-button--blue o-flex__item--align-right'])
             </div>
 
         </form>

@@ -17,7 +17,7 @@
                 @include('forms.toggle',['name' => 'remember', 'label' => 'Remember Me', 'checked' => true])
 
                 <div class="o-flex">
-                    @include('forms.submit',['label' => 'Login', 'classes' => 'o-button--space-top o-flex__item--fill'])
+                    @include('forms.submit',['label' => 'Login', 'classes' => 'o-button o-button--blue o-button--space-top o-flex__item--fill'])
                 </div>
             </form>
         </div>

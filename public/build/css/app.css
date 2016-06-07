@@ -1,0 +1,297 @@
+.type--bold {
+  font-weight: 600;
+}
+.type--grey {
+  color: #737578;
+}
+.type--cut-off {
+  box-sizing: padding-box;
+  padding-right: 1rem;
+  text-overflow: ellipsis;
+}
+.shadow-default {
+  box-shadow: 0 0.2rem 0.5rem rgba(5, 7, 10, 0.15);
+}
+.shadow-light {
+  box-shadow: 0 0.2rem 0.5rem rgba(5, 7, 10, 0.1);
+}
+.o-form {
+  margin-top: 2rem;
+}
+/* --------------------------
+ * INPUT
+ */
+.o-input {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-top: 2.5rem;
+  /* active state */
+  /* active state */
+}
+.o-input__input,
+.o-input__textarea {
+  background-color: transparent;
+  font-size: 1.8rem;
+  color: #05070a;
+  padding: 1rem 1rem 1rem .5rem;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 0.1rem solid rgba(5, 7, 10, 0.15);
+}
+.o-input__input:focus,
+.o-input__textarea:focus {
+  outline: none;
+  color: #05070a;
+}
+.o-input__textarea {
+  margin-top: 1rem;
+  padding-top: 0;
+  resize: none;
+  height: 10rem;
+}
+.o-input__label {
+  color: rgba(5, 7, 10, 0.25);
+  font-size: 1.8rem;
+  pointer-events: none;
+  position: absolute;
+  left: 5px;
+  top: 3.5rem;
+  transition: 0.2s ease all;
+}
+.o-input__input:focus ~ .o-input__label,
+.o-input__input:not(.is-empty) ~ .o-input__label,
+.o-input__textarea:focus ~ .o-input__label,
+.o-input__textarea:not(.is-empty) ~ .o-input__label {
+  top: 1.5rem;
+  font-size: 1.4rem;
+}
+.o-input__input:focus ~ .o-input__label,
+.o-input__textarea:focus ~ .o-input__label {
+  color: #3773d7;
+}
+.o-input__bar {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+.o-input__bar:before,
+.o-input__bar:after {
+  content: '';
+  height: 2px;
+  width: 0;
+  bottom: 0;
+  position: absolute;
+  background: #3773d7;
+  transition: 0.2s ease all;
+}
+.o-input__bar:before {
+  left: 50%;
+}
+.o-input__bar:after {
+  right: 50%;
+}
+.o-input__errors {
+  padding-top: .5rem;
+  color: #f53c1e;
+  font-size: 1.4rem;
+}
+.o-input__errors .o-input__error_item {
+  display: block;
+  width: 100%;
+}
+.o-input.o-input--error .o-input__input,
+.o-input.o-input--error .o-input__textarea {
+  border-color: #f53c1e;
+}
+.o-input.o-input--error .o-input__bar:before,
+.o-input.o-input--error .o-input__bar:after {
+  background: #f53c1e;
+}
+.o-input.o-input--error .o-input__input:focus ~ .o-input__label,
+.o-input.o-input--error .o-input__textarea:focus ~ .o-input__label {
+  color: #f53c1e;
+}
+.o-input__input:focus ~ .o-input__bar:before,
+.o-input__input:focus ~ .o-input__bar:after,
+.o-input__textarea:focus ~ .o-input__bar:before,
+.o-input__textarea:focus ~ .o-input__bar:after {
+  width: 50%;
+}
+/* --------------------------
+ * Select
+ */
+/* Container used for styling the custom select, the buttom class below adds the
+ * bg gradient, corners, etc. */
+.o-select-box {
+  position: relative;
+  padding-top: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+.o-select__label {
+  color: rgba(5, 7, 10, 0.25);
+  font-size: 1.4rem;
+  pointer-events: none;
+  position: absolute;
+  left: 5px;
+  top: .5rem;
+  transition: 0.2s ease all;
+}
+.o-select {
+  position: relative;
+  display: block;
+  border: 1px solid rgba(5, 7, 10, 0.15);
+  border-radius: .3rem;
+  box-shadow: 0 1px 4px 0 rgba(5, 7, 10, 0.05);
+  background: #ffffff;
+  margin-top: .5rem;
+  /* Hover style */
+  /* This is the native select, we're making everything but the text invisible so
+     * we can see the button styles in the wrapper */
+  /* Focus style */
+}
+.o-select::after {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid rgba(5, 7, 10, 0.25);
+  margin-top: -3px;
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 1em;
+  z-index: 2;
+  pointer-events: none;
+  display: none;
+}
+.o-select:hover {
+  border-color: rgba(5, 7, 10, 0.25);
+}
+.o-select:hover::after {
+  border-top: 6px solid rgba(5, 7, 10, 0.35);
+}
+.o-select select {
+  width: 100%;
+  margin: 0;
+  outline: none;
+  padding: .7rem 1rem .8rem 1rem;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+.o-select select:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px #3773d7, 0 2px 5px 0 rgba(5, 7, 10, 0.15);
+  color: #3773d7;
+  /* Match-02 */
+  border-color: #3773d7;
+}
+@supports ( -webkit-appearance: none ) or ( appearance: none )
+	/* Firefox <= 34 has a false positive on @supports( -moz-appearance: none )
+	 * @supports ( mask-type: alpha ) is Firefox 35+
+	 */
+	or ( ( -moz-appearance: none ) and ( mask-type: alpha ) ) {
+  /* Show custom arrow */
+  .o-select::after {
+    display: block;
+  }
+  /* Remove select styling */
+  .o-select select {
+    padding-right: 2em;
+    /* Match-01 */
+    /* inside @supports so that iOS <= 8 display the native arrow */
+    background: none;
+    /* Match-04 */
+    /* inside @supports so that Android <= 4.3 display the native arrow */
+    border: 1px solid transparent;
+    /* Match-05 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  .o-select select:focus {
+    border-color: #3773d7;
+  }
+}
+/* --------------------------
+ * Toggle
+ */
+.o-toggle {
+  padding-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+.o-toggle__label {
+  display: flex;
+  cursor: pointer;
+}
+.o-toggle__text {
+  flex: 1;
+  padding-left: 1rem;
+  padding-top: .2rem;
+}
+.o-toggle__switch {
+  position: relative;
+  display: block;
+  margin-top: .5rem;
+  height: 16px;
+  width: 44px;
+  background: #d7d9dc;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+}
+.o-toggle__switch:after {
+  left: 20px;
+  position: absolute;
+  left: -2px;
+  top: -0.5rem;
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 100px;
+  background: #ffffff;
+  box-shadow: 0 0.2rem 0.5rem rgba(5, 7, 10, 0.15);
+  content: '';
+  transition: all 0.3s ease;
+}
+.o-toggle__switch:active:after {
+  transform: scale(1.15, 0.85);
+}
+.o-toggle__checkbox:checked ~ .o-toggle__label .o-toggle__switch {
+  background: rgba(55, 115, 215, 0.5);
+}
+.o-toggle__checkbox:checked ~ .o-toggle__label .o-toggle__switch:after {
+  left: 20px;
+  background: #3773d7;
+}
+.o-toggle__checkbox:disabled ~ .o-toggle__label .o-toggle__switch {
+  background: #f3f5f7;
+  pointer-events: none;
+}
+.o-toggle__checkbox:disabled ~ .o-toggle__label .o-toggle__switch:after {
+  background: #d7d9dc;
+  box-shadow: 0 0.2rem 0.5rem rgba(5, 7, 10, 0.1);
+}
+.o-toggle__checkbox {
+  display: none;
+}
+/* --------------------------
+ * File
+ */
+.o-file__input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.o-file__label {
+  display: block;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=app.css.map */

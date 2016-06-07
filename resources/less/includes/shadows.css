@@ -1,0 +1,4 @@
+:root{
+    --shadow-default: 0 .2rem .5rem color(var(--black) alpha(15%));
+    --shadow-light: 0 .2rem .5rem color(var(--black) alpha(10%));
+}

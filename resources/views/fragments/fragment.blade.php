@@ -8,6 +8,6 @@
         </svg>
     </div>
 
-    @include('fragments.'.$fragment->type, ['fragment' => $fragment, 'page' => $page])
+    @include('fragments.'.$fragment->type, ['fragment' => $fragment])
 
 </div>

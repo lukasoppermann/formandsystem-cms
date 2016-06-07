@@ -167,7 +167,7 @@ class Pages extends Controller
             $collection_id = $collection->get('collection');
         }
 
-        $newPage = (new ApiPageService)->store($page->toArray());
+        $newPage = (new ApiPageService)->create($page->toArray());
 
         $response = $this->api($this->client)->post('/collections/'.$collection_id.'/relationships/pages', [
             'type' => 'pages',

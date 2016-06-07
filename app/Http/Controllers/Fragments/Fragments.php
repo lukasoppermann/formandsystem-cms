@@ -12,8 +12,9 @@ use Validator;
 
 class Fragments extends Controller
 {
-    public function store(Request $request, $type)
+    public function store(Request $request, $type = 'section')
     {
+
         $fragment = (new ApiFragmentService)->create(['type' => $type]);
 
         if($item = $request->get('page')){
@@ -28,6 +29,14 @@ class Fragments extends Controller
             $response =
                 $this->api($this->client)->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByFragments', [
                     'type' => 'fragments',
+                    'id'   => $item,
+            ]);
+        }
+
+        if($item = $request->get('collection')){
+            $response =
+                $this->api($this->client)->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByCollections', [
+                    'type' => 'collections',
                     'id'   => $item,
             ]);
         }
@@ -116,7 +125,7 @@ class Fragments extends Controller
                 }
                 // create new
                 if($create === true && $value != null){
-                    $item = (new ApiMetadetailService)->store(
+                    $item = (new ApiMetadetailService)->create(
                         [
                             'type' => $key,
                             'data' => (string)$value,
