@@ -26,7 +26,7 @@
         @endif
     </head>
     <body>
-        <?php include('.'.elixir("svgs/svg-sprite.svg")) ?>
+        <?php include('./'.elixir("svgs/svg-sprite.svg")); ?>
 
         @include('navigation.menu')
         <main class="c-main-content">
