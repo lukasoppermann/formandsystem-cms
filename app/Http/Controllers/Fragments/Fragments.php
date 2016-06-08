@@ -52,6 +52,11 @@ class Fragments extends Controller
     {
         // TODO: deal with errors
         if($id !== NULL){
+            // get & delete connected images
+            foreach((new ApiFragmentService)->get($id)->images as $image){
+                $this->api($this->client)->delete('/images/'.$image->id);
+            }
+
             $response = $this->api($this->client)->delete('/fragments/'.$id);
         }
 

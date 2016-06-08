@@ -37,6 +37,11 @@
 .o-fragment__image-upload{
     height: 100%;
 }
+.o-fragment--image .o-fragment__image{
+    display: inline-block;
+    width: 100%;
+    height: auto;
+}
 .o-fragment .o-file{
     height: 100%;
 }
