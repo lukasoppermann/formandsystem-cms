@@ -27,8 +27,10 @@ class Controller extends BaseController
     public function __construct(Request $request){
         // get current user
         $this->user = $request->user();
+        config(['app.user' => $this->user]);
         // get account
         $this->account = $request->user()->accounts->first();
+        config(['app.account' => $this->account]);
         // api client
         if($client = $this->account->details->where('type','cms_client')->first()){
             $this->client = json_decode($client->data, true);

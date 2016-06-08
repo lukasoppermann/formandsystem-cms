@@ -8,14 +8,9 @@ use Auth;
 abstract class AbstractResourceEntity extends LaravelCollection
 {
     protected $items;
-    protected $user;
-    protected $account;
 
     public function __construct($item = [], &$included = [])
     {
-        // make current user & account available
-        $this->user = Auth::user();
-        $this->account =$this->user->accounts->first();
         // included relationships
         $rel = $this->include($item['relationships'], $included);
         // build entity
@@ -47,7 +42,7 @@ abstract class AbstractResourceEntity extends LaravelCollection
             // include entities if data exists
             if(isset($rel['data']) && count($rel['data']) > 0){
                 // create entity name
-                $entity = '\App\Entities\\'.rtrim(ucfirst($type),'s');
+                $entity = '\App\Entities\\'.str_replace('OwnedBy','',rtrim(ucfirst($type),'s'));
                 // add all items to collection
                 foreach(array_column($rel['data'],'id') as $id){
                     if(($key = array_search($id, array_column($included,'id'))) !== false){

@@ -89,12 +89,6 @@
     transition: width .5s ease;
 }
 
-
-
-
-
-
-
 .c-navigation__title{
     height: 2.2rem;
     flex: 1;
@@ -115,6 +109,13 @@
     height: calc(100vh - var(--header-height));
     overflow-y: scroll;
     padding-bottom: var(--header-height);
+}
+.c-navigation__list-title{
+    width: 100%;
+    display: block;
+    padding: 1.5rem 1rem 1rem 1.5rem;
+    font-size: var(--type-size-sm);
+    color: var(--text-gray)
 }
 .c-navigation__item{
     position: relative;

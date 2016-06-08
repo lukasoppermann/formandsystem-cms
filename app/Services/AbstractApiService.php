@@ -188,9 +188,17 @@ abstract class AbstractApiService extends AbstractService
         if($parameters !== NULL && count($parameters) > 0){
             // get parameter string
             $param_string = !isset($parameters['parameters']) ? NULL : $parameters['parameters'];
+            // add only
+            if(isset($parameters['only']) && ($parameters['only']) > 0){
+                $param_string .= '&'.$this->excludes($parameters['only']);
+            }
             // add excludes
-            if(isset($parameters['includes']) && $parameters['includes'] !== true){
-                $param_string .= '&'.$this->excludes($parameters['includes']);
+            if(isset($parameters['excludes']) && ($parameters['excludes']) > 0){
+                $param_string .= '&exclude='.implode(',',$parameters['excludes']);
+            }
+            // add includes
+            if(isset($parameters['includes']) && ($parameters['includes']) > 0){
+                $param_string .= '&include='.implode(',',$parameters['includes']);
             }
         }
         // return parameters string
@@ -242,6 +250,7 @@ abstract class AbstractApiService extends AbstractService
             // return all items
             return $items;
         }catch(\Exception $e){
+            \Log::error($e);
             return false;
         }
     }

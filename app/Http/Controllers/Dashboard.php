@@ -16,8 +16,6 @@ class Dashboard extends Controller
                 ],
                 'lists' => [
                     [
-                        'title' => 'test',
-                        'slug'  => 'slug',
                         'items' => [
                             [
                                 'label' => 'Pages',

@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Services\ApiCollectionService;
 use App\Services\ApiPageService;
 use App\Entities\Collection;
+use Illuminate\Support\Collection as LaravelCollection;
 
 class Pages extends Controller
 {
@@ -29,7 +30,7 @@ class Pages extends Controller
      *
      * @var App\Entities\Collection
      */
-    protected $collection;
+    protected $navigations;
     /**
      * collections
      */
@@ -49,7 +50,7 @@ class Pages extends Controller
         // echo round(microtime(true) * 1000) - config('app.milliseconds').'s<br />';
         // config(['app.milliseconds' => round(microtime(true) * 1000)]);
         // get the main pages collection
-        $this->collection = $this->getPagesCollection();
+        $this->navigations = $this->getPagesCollections();
 
         $this->collections = $items = (new ApiCollectionService)->all([
             'includes' => false
@@ -62,16 +63,17 @@ class Pages extends Controller
      *
      * @return App\Entities\Collection
      */
-    public function getPagesCollection()
+    public function getPagesCollections()
     {
-        if( !$collection = (new ApiCollectionService)->first('slug','pages') ){
-            $collection = (new ApiCollectionService)->create([
-                'name' => 'pages',
-                'slug' => 'pages',
-            ]);
+        if( ($collections = (new ApiCollectionService)->find('type','navigation'))->isEmpty() ){
+            $collections = new LaravelCollection((new ApiCollectionService)->create([
+                'name' => 'Main Navigation',
+                'slug' => 'main-navigation',
+                'type' => 'navigation'
+            ]));
         }
         // return main pages collection
-        return $collection;
+        return $collections;
     }
 
     public function getMenu()
@@ -81,30 +83,16 @@ class Pages extends Controller
 
     public function getMenuLists()
     {
+        $lists = [];
         // TODO: deal with errors
-        // get pages
-        (new ApiCollectionService)->first('slug','pages',['includes' => ['pages']]);
-        $collection = (new ApiCollectionService)->first('slug','pages',['includes' => ['pages']]);
-        // get all ids of needed pages
-        if(!$collection->pages->isEmpty()){
-            $page_ids = $collection->pages->map(function($item) {
-                return $item->id;
-            });
-            // // get all pages
-            $pages = (new ApiPageService)->get($page_ids->toArray(),[
-                'includes' => false
-            ]);
-            // turn pages into array
-            $pages = $pages->map(function($item){
-                $item = $item->toArray();
-                $item['link'] = '/pages/'.$item['slug'];
-                return $item;
-            })->toArray();
-        }
-        // prepare for navigation
-        return [
-            [
-                'items' => isset($pages) ? $pages : [],
+        foreach($this->navigations as $list) {
+            $lists[$list->slug] = [
+                'title' => $list->name,
+                'items' => $list->pages->map(function($item){
+                    $item = $item->toArray();
+                    $item['link'] = '/pages/'.$item['slug'];
+                    return $item;
+                })->toArray(),
                 'item' => 'pages.navigation-item',
                 'elements' => [
                     view('navigation.add', [
@@ -113,8 +101,10 @@ class Pages extends Controller
                         'label'     => 'Add Page'
                     ])->render(),
                 ]
-            ]
-        ];
+            ];
+        };
+        // prepare for navigation
+        return $lists;
     }
 
     public function index(){
@@ -125,13 +115,13 @@ class Pages extends Controller
 
     public function show($slug){
         $this->getMenu();
-        $data['page'] = (new ApiPageService)->first('slug',$slug);
+        $data['page'] = (new ApiPageService)->first('slug',$slug,['includes' => ['ownedByCollections']]);
 
         if($data['page'] === NULL){
             return redirect('/pages');
         }
 
-        $data['collection'] = $this->collection;
+        $data['collection'] = $data['page']->ownedByCollections->first();
         $data['collections'] = $this->collections;
         $data['navigation'] = $this->buildNavigation('/pages/'.$slug);
 
