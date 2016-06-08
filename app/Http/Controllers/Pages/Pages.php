@@ -43,7 +43,11 @@ class Pages extends Controller
      */
     public function __construct(Request $request)
     {
+        //at beginning
+        // config(['app.milliseconds' => round(microtime(true) * 1000)]);
         parent::__construct($request);
+        // echo round(microtime(true) * 1000) - config('app.milliseconds').'s<br />';
+        // config(['app.milliseconds' => round(microtime(true) * 1000)]);
         // get the main pages collection
         $this->collection = $this->getPagesCollection();
 

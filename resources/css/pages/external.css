@@ -1,5 +1,4 @@
-.c-main-content{
-    width: 100%;
+.c-main-content--yellow{
     background: var(--yellow);
 }
 .login-logo{

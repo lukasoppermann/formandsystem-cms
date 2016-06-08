@@ -25,7 +25,7 @@
     <body>
         <?php include('.'.elixir("svgs/svg-sprite.svg")) ?>
 
-        <main class="c-main-content o-flex">
+        <main class="c-main-content c-main-content--yellow o-flex">
             @yield('content')
         </main>
     </body>

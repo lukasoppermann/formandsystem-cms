@@ -1,3 +1,4 @@
+
 <div class="o-fragment o-fragment--{{$fragment->type}} o-grid__column o-grid__user-column--md-{{$fragment->details->get('columns_medium', '12')}}of{{config('user.grid-md')}}">
 
     @include('fragments.settings')

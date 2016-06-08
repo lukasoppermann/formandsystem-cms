@@ -15,15 +15,13 @@ class Image extends AbstractResourceEntity
      */
     protected function attributes(Array $attributes, $rel = NULL)
     {
-        return $attributes;
-        // return [
-        //     'label'         => $attributes['menu_label'],
-        //     'slug'          => $attributes['slug'],
-        //     'published'     => (bool)$attributes['published'],
-        //     'language'      => $attributes['language'],
-        //     'title'         => $attributes['title'],
-        //     'description'   => $attributes['description'],
-        //     'is_trashed'    => $attributes['is_trashed'],
-        // ];
+        return [
+            'filename'      => $attributes['filename'],
+            'slug'          => $attributes['slug'],
+            'link'          =>
+                trim($this->account->details->where('type','url')->first()->data,'/').'/'
+                .trim($this->account->details->where('type','dir_image')->first()->data,'/').'/'
+                .$attributes['filename'],
+        ];
     }
 }

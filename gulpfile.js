@@ -58,7 +58,10 @@ gulp.task('build-js', ['clean-build'], function(){
     .pipe(sourcemaps.write('/'))
     .pipe(gulp.dest('public/build/js'));
 });
+// ----------------------------------------
+//
 // build external js
+//
 gulp.task('build-external-js', ['clean-build'], function(){
     var files = [];
     // push files
@@ -87,19 +90,6 @@ gulp.task('rev', ['build-external-js','build-js', 'css','svgsprite'], function()
         .pipe(rev.manifest())
         .pipe(gulp.dest('public/build'));
 });
-
-// gulp.task('svg-rev', ['svgsprite'], function(){
-//     gulp.src(['public/build/svgs/svg-sprite.svg'], {base: 'public/build'})
-//     .pipe(rev())
-//     .pipe(gulp.dest('public/build'));
-//
-//     return del(['public/build/svgs/*.svg']);
-// });
-//
-gulp.task('clean-build-step', ['rev'], function(){
-    return del(['public/build/css/app.css','public/build/css/app-cssnext.css','public/build/css/external.css', 'public/build/js/app.js', 'public/build/js/external.js','public/build/svgs/svg-sprite.svg']);
-});
-
 /* ---------- */
 /* svg */
 gulp.task('svgsprite', ['clean-build'], function() {
@@ -124,14 +114,17 @@ gulp.task('svgsprite', ['clean-build'], function() {
 
 // gulp watch
 gulp.task('asset-watch', function(){
-    gulp.watch(['resources/css/*','resources/css/**/*', 'resources/js/*', 'resources/js/external/*'], ['css', 'build-js','build-external-js','rev', 'clean-build-step']);
-});
-gulp.task('svg-watch', function(){
-    gulp.watch(['resources/svg/*'], ['svgsprite']);
+    gulp.watch([
+        'resources/css/*',
+        'resources/css/**/*',
+        'resources/js/*',
+        'resources/js/external/*',
+        'resources/svg/*'
+    ], ['delete-build-files']);
 });
 
 // gulp tasks
-gulp.task('default', ['clean-build', 'build-css','build-external-css', 'build-js','build-external-js', 'svgsprite', 'rev', 'clean-build-step','asset-watch','svg-watch']);
+gulp.task('default', ['delete-build-files','asset-watch']);
 
 //-----------------------
 // POST CSS

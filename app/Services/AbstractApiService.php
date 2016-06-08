@@ -261,7 +261,7 @@ abstract class AbstractApiService extends AbstractService
         $response = $this->api($this->client)->get($url);
         // error handling
         if( isset($response['status_code']) ){
-            \Log::debug('Error '.$response['status_code'].' for '.$url.': '.$response['message']);
+            \Log::error('Error '.$response['status_code'].' for '.$url.': '.$response['message']);
             throw new \Exception('Api Request failed.');
         }
         // merge items

@@ -3,13 +3,19 @@
 namespace App\Entities;
 
 use Illuminate\Support\Collection as LaravelCollection;
+use Auth;
 
 abstract class AbstractResourceEntity extends LaravelCollection
 {
     protected $items;
+    protected $user;
+    protected $account;
 
     public function __construct($item = [], &$included = [])
     {
+        // make current user & account available
+        $this->user = Auth::user();
+        $this->account =$this->user->accounts->first();
         // included relationships
         $rel = $this->include($item['relationships'], $included);
         // build entity
@@ -71,6 +77,17 @@ abstract class AbstractResourceEntity extends LaravelCollection
         }
         // return data
         return $data;
+    }
+    /**
+     * empty function shell
+     *
+     * @method related
+     *
+     * @return Array
+     */
+    public function related()
+    {
+        return [];
     }
     /**
      * get items from collection
