@@ -4,12 +4,9 @@ var mainBowerFiles = require('main-bower-files');
 var rename = require('gulp-rename');
 var rev = require('gulp-rev');
 var del = require('del');
-var prefix = require('gulp-autoprefixer');
-var less = require('gulp-less');
 var postcss = require('gulp-postcss');
 var concat = require('gulp-concat');
 var jsmin = require('gulp-jsmin');
-var cleanCSS = require('gulp-clean-css');
 var plumber = require('gulp-plumber');
 var svgmin = require('gulp-svgmin');
 var svgstore = require('gulp-svgstore');
@@ -22,44 +19,17 @@ gulp.task('clean-build', function(done){
         done();
     });
 });
-
-gulp.task('build-css', ['clean-build'], function(done){
-
-    return gulp.src(['resources/less/*.less','!resources/css/external.css'])
-        .pipe(sourcemaps.init())
-        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-        .pipe(less())
-        .pipe(concat('app.css'))
-        // .pipe(prefix({
-        //     browsers: ['last 4 versions', 'IE 9', 'IE 8'],
-        //     cascade: false
-        // }))
-        .pipe(sourcemaps.write('/'))
-        .pipe(gulp.dest('public/build/css'));
-
-    // gulp.src(['public/build/css/*.css'])
-    //     .pipe(sourcemaps.init())
-    //     .pipe(concat('app.css'))
-    //     .pipe(cleanCSS())
-    //     .pipe(sourcemaps.write('/'))
-        // .pipe(gulp.dest('public/css'));
+gulp.task('delete-build-files', ['rev'], function(done){
+    del([
+        'public/build/css/app.css',
+        'public/build/js/app.js',
+        'public/build/js/external.js',
+        'public/build/svgs/svg-sprite.svg'
+    ]).then(function(){
+        done();
+    });
 });
-// external css
-gulp.task('build-external-css', ['clean-build'], function(){
-    return gulp.src(['resources/less/external/*'])
-    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-    .pipe(sourcemaps.init())
-    .pipe(less())
-    .pipe(concat('external.css'))
-    .pipe(prefix({
-        browsers: ['last 4 versions', 'IE 9', 'IE 8'],
-        cascade: false
-    }))
-    .pipe(cleanCSS())
-    .pipe(sourcemaps.write('/'))
-    .pipe(gulp.dest('public/build/css'));
-});
-//
+
 gulp.task('build-js', ['clean-build'], function(){
     var files = [];
     // var files = mainBowerFiles(['**/*.js'],{
@@ -105,12 +75,17 @@ gulp.task('build-external-js', ['clean-build'], function(){
     .pipe(gulp.dest('public/build/js'));
 });
 
-gulp.task('rev', ['build-external-js','build-external-css','build-js', 'build-css', 'css','svgsprite'], function(){
-    return gulp.src(['public/build/css/app-cssnext.css','public/build/css/app.css','public/build/css/external.css', 'public/build/js/app.js', 'public/build/js/external.js','public/build/svgs/svg-sprite.svg'], {base: 'public/build'})
-    .pipe(rev())
-    .pipe(gulp.dest('public/build'))
-    .pipe(rev.manifest())
-    .pipe(gulp.dest('public/build'));
+gulp.task('rev', ['build-external-js','build-js', 'css','svgsprite'], function(){
+    return gulp.src([
+        'public/build/css/app.css',
+        'public/build/js/app.js',
+        'public/build/js/external.js',
+        'public/build/svgs/svg-sprite.svg'
+    ], {base: 'public/build'})
+        .pipe(rev())
+        .pipe(gulp.dest('public/build'))
+        .pipe(rev.manifest())
+        .pipe(gulp.dest('public/build'));
 });
 
 // gulp.task('svg-rev', ['svgsprite'], function(){
@@ -149,7 +124,7 @@ gulp.task('svgsprite', ['clean-build'], function() {
 
 // gulp watch
 gulp.task('asset-watch', function(){
-    gulp.watch(['resources/less/*','resources/less/**/*', 'resources/js/*', 'resources/js/external/*'], ['build-css','build-external-css', 'build-js','build-external-js','rev', 'clean-build-step']);
+    gulp.watch(['resources/css/*','resources/css/**/*', 'resources/js/*', 'resources/js/external/*'], ['css', 'build-js','build-external-js','rev', 'clean-build-step']);
 });
 gulp.task('svg-watch', function(){
     gulp.watch(['resources/svg/*'], ['svgsprite']);
@@ -161,10 +136,14 @@ gulp.task('default', ['clean-build', 'build-css','build-external-css', 'build-js
 //-----------------------
 // POST CSS
 gulp.task('css', ['clean-build'], function(){
-    return gulp.src(['resources/less/includes/*.css','resources/less/*.css'])
+    return gulp.src([
+            'resources/css/includes/*.css',
+            'resources/css/*.css',
+            'resources/css/pages/*.css'
+        ])
         .pipe(sourcemaps.init())
         .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-        .pipe(concat('app-cssnext.css'))
+        .pipe(concat('app.css'))
         .pipe(postcss([
             require("postcss-import")(),
             require("postcss-url")(),
@@ -187,8 +166,57 @@ gulp.task('css', ['clean-build'], function(){
         // .pipe(rev())
         .pipe(gulp.dest('public/build/css'));
 });
-//-----------------------
-// Require external gulp tasks
-// var gulp = require('gulp');
-// accessibility = require('./gulp_tasks/accessibility.js');
-// gulp.task('access', accessibility(require('gulp'), require('gulp-accessibility')));
+//----------------------------------------------
+//
+// Gulp check tasks
+//
+var checkPages = require("check-pages");
+require('gulp').task("checkDev", function(callback) {
+  var options = {
+    pageUrls: [
+      'http://cms.formandsystem.app/',
+      'http://cms.formandsystem.app/pages',
+      'http://cms.formandsystem.app/pages/new-item-509153036'
+    ],
+    checkLinks: true,
+    linksToIgnore: [
+      'http://localhost:8080/broken.html'
+    ],
+    noEmptyFragments: true,
+    noLocalLinks: true,
+    noRedirects: true,
+    onlySameDomain: true,
+    preferSecure: true,
+    queryHashes: true,
+    checkCaching: true,
+    checkCompression: true,
+    summary: true,
+    terse: true,
+    maxResponseTime: 200,
+    userAgent: 'custom-user-agent/1.2.3'
+  };
+  checkPages(console, options, function(err, count) {
+    if (err) {
+      console.log("Error object: " + err);
+    }
+    console.log("Error count: " + count);
+  });
+});
+//----------------------------------------------
+//
+// Gulp accessibility
+//
+var access = require('gulp-accessibility');
+gulp.task('accessibility', function(){
+    return gulp.src('http://cms.formandsystem.app/')
+        .pipe(access({
+            force: true
+        }))
+        .on('error', console.log)
+        .pipe(access.report({reportType: 'txt'}))
+        .pipe(console.log)
+        .pipe(rename({
+            extname: '.txt'
+        }))
+        .pipe(gulp.dest('reports/txt'));
+});

@@ -211,18 +211,12 @@ class Collections extends Controller
     public function firstItemOrEmpty($collection)
     {
         // collection with items
-        $types = [
-            'pages' => 'pages.page',
-            'fragments' => 'collections.fragment',
-        ];
-        foreach($types as $type => $template){
-            if( !$collection->{$type}->isEmpty() ){
-                $data['navigation'] = $this->buildNavigation('/collections/'.$collection->slug);
-                $data['collection'] = $collection;
+        if( !$collection->pages->isEmpty() ){
+            $data['navigation'] = $this->buildNavigation('/collections/'.$collection->slug);
+            $data['collection'] = $collection;
 
-                $data[substr($type,0,-1)] = $collection->{$type}->first();
-                return view($template, $data);
-            }
+            $data[substr($type,0,-1)] = $collection->pages->first();
+            return view('pages.page', $data);
         }
         // empty collection
         $this->navigation['lists'] = NULL;

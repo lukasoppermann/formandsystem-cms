@@ -18,7 +18,7 @@
         <input name="{{$name}}_{{$key}}" type="hidden" value="{{$v}}">
     @endforeach
 
-    <textarea class="o-input__textarea" name="{{$name}}" type="{{$type or 'text'}}" spellcheck="false" {{$attr or ''}} data-check-empty>{{$value or ''}}</textarea>
+    <textarea class="o-input__textarea{{$value == NULL ? ' is-empty' : ''}}" name="{{$name}}" type="{{$type or 'text'}}" spellcheck="false" {{$attr or ''}} data-check-empty>{{$value or ''}}</textarea>
     <span class="o-input__bar"></span>
     <label class="o-input__label">{{$label}}</label>
     {!! $error_messages or '' !!}

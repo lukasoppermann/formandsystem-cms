@@ -1,0 +1,12 @@
+.c-main-content{
+    width: 100%;
+    background: var(--yellow);
+}
+.login-logo{
+    height: 5rem;
+    width: 12rem;
+    margin-bottom: 1rem;
+}
+.c-login-dialog{
+    min-width: 30rem;
+}

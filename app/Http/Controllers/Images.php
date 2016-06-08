@@ -25,11 +25,11 @@ class Images extends Controller
             'width'     => $width,
             'height'    => $height,
         ]);
-
         $upload =
-            $this->api($this->client)->put($image['data']['links']['upload'], file_get_contents($file->getRealPath()), [
+            $this->api($this->client)->put($image['data']['links']['upload'], fopen($file->getRealPath(), 'r'), [
                 'Content-Type' => $mime
             ]);
+        dd($upload);
         $response =
             $this->api($this->client)->post('/fragments/'.$request->get('fragment').'/relationships/images', [
                 'type' => 'images',
