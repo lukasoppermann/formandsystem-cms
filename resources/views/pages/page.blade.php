@@ -10,7 +10,13 @@
             @endforeach
         @endif
 
-        @include('fragments.new-section', ['page_id' => $page->id])
+        @include('fragments.new-fragment', [
+            'classes' => 'o-grid__column o-grid__column--md-12of12',
+            'label' => 'Create new Section',
+            'related' => 'page',
+            'related_id' => $page->id,
+            'type' => 'section',
+        ])
 
     </div>
 @stop

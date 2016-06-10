@@ -1,12 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Api;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Entities\Fragment;
-
-class ApiFragmentService extends AbstractApiService
+class FragmentService extends CacheableApiService
 {
     /**
      * all available includes

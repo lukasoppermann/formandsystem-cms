@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Fragments;
 
 use App\Services\ApiMetadetailService;
-use App\Services\ApiFragmentService;
+use App\Services\Api\FragmentService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -12,10 +12,9 @@ use Validator;
 
 class Fragments extends Controller
 {
-    public function store(Request $request, $type = 'section')
+    public function store(Request $request)
     {
-
-        $fragment = (new ApiFragmentService)->create(['type' => $type]);
+        $fragment = (new FragmentService)->create(['type' => $request->get('type')]);
 
         if($item = $request->get('page')){
             $response =
@@ -53,7 +52,7 @@ class Fragments extends Controller
         // TODO: deal with errors
         if($id !== NULL){
             // get & delete connected images
-            foreach((new ApiFragmentService)->get($id)->images as $image){
+            foreach((new FragmentService)->get($id)->images as $image){
                 $this->api($this->client)->delete('/images/'.$image->id);
             }
 
@@ -104,7 +103,7 @@ class Fragments extends Controller
                 ->withInput();
         }
         // get current fragment
-        $fragment = (new ApiFragmentService)->get($id);
+        $fragment = (new FragmentService)->get($id);
         // store detail
         try{
             $settings = ['columns_small','columns_medium','columns_large','classes'];
@@ -146,7 +145,7 @@ class Fragments extends Controller
 
             // update data
             if( $data = $request->get('data') ){
-                $fragment = (new ApiFragmentService)->update($id,
+                $fragment = (new FragmentService)->update($id,
                     [
                         'type' => $fragment->type,
                         'name' => $fragment->name,

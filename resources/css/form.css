@@ -23,7 +23,7 @@
     outline:none;
     color: var(--text-black);
 }
-// Textarea specials
+/*Textarea specials*/
 .o-input__textarea{
     margin-top: 1rem;
     padding-top: 0;
@@ -67,7 +67,7 @@
 .o-input__bar:after {
     right:50%;
 }
-// errors
+/* errors */
 .o-input__errors{
     padding-top: .5rem;
     color: var(--text-red);

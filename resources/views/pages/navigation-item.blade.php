@@ -1,11 +1,15 @@
 <li class="c-navigation__item{{ isset($item['is_active']) && $item['is_active'] === true ? ' is-active' : '' }}">
     <!-- Delete button -->
     @if(isset($item['id']))
-        <a class="c-navigation__delete" href="/pages/delete/{{$item['id']}}">
-            <svg viewBox="0 0 512 512" class="o-icon o-icon--white o-icon--small">
-              <use xlink:href="#svg-icon--trash"></use>
-            </svg>
-        </a>
+        <form class="" action="/pages/{{$item['id']}}" method="post">
+            {{ csrf_field() }}
+            {{ method_field('DELETE') }}
+            <button type="submit" class="o-button-none c-navigation__delete">
+                <svg viewBox="0 0 512 512" class="o-icon o-icon--white o-icon--small">
+                  <use xlink:href="#svg-icon--trash"></use>
+                </svg>
+            </button>
+        </form>
     @endif
     <!-- END Delete button -->
     <a class="c-navigation__link{{ isset($item['icon']) ? ' c-navigation__link--with-icon' : '' }}" href="{{url($item['link'])}}">

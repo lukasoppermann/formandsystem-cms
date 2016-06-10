@@ -23,6 +23,19 @@ class AccountDetail extends BaseModel
      */
     protected $fillable = ['id','type','data'];
     /**
+     * Get data
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getDataAttribute($value)
+    {
+        if(is_array(json_decode($value, true))){
+            return json_decode($value);
+        }
+        return $value;
+    }
+    /**
      * The fragments that belong to the fragment.
      */
     public function accounts()

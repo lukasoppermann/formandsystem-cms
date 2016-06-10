@@ -54,6 +54,7 @@ class Fragment extends AbstractResourceEntity
             'type'         => $attributes['type'],
             'name'         => $attributes['name'],
             'data'         => $this->json_decode($attributes['data']),
+            'created_at'   => $attributes['created_at'],
             'is_trashed'   => $attributes['is_trashed'],
             'details'      => $details,
         ], $this->related());

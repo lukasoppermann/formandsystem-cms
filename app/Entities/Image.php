@@ -20,7 +20,7 @@ class Image extends AbstractResourceEntity
             'slug'          => $attributes['slug'],
             'link'          =>
                 trim(config('app.account')->details->where('type','url')->first()->data,'/').'/'
-                .trim(config('app.account')->details->where('type','dir_image')->first()->data,'/').'/'
+                .trim(config('app.account')->details->where('type','directory')->where('name','images')->first()->data,'/').'/'
                 .$attributes['filename'],
         ];
     }

@@ -33,7 +33,7 @@ class Controller extends BaseController
         config(['app.account' => $this->account]);
         // api client
         if($client = $this->account->details->where('type','cms_client')->first()){
-            $this->client = json_decode($client->data, true);
+            $this->client = (array) $client->data;
         }
         // set user config
         $this->setUserConfig();

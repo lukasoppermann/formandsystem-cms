@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Services\ApiImageService;
+use App\Services\Api\ImageService;
 
 class Images extends Controller
 {
@@ -15,7 +15,7 @@ class Images extends Controller
         list($width, $height) = getimagesize($file);
         $mime = $file->getMimeType();
 
-        $image = (new ApiImageService)->create([
+        $image = (new ImageService)->create([
             'slug'      => substr($filename,0,strpos($filename,'.')),
             'filename'  => $filename,
             'bytesize'  => filesize($file->getRealPath()),
@@ -26,7 +26,7 @@ class Images extends Controller
             $this->api($this->client)->put($image['data']['links']['upload'], fopen($file->getRealPath(), 'r'), [
                 'Content-Type' => $mime
             ]);
-        
+
         $response =
             $this->api($this->client)->post('/fragments/'.$request->get('fragment').'/relationships/images', [
                 'type' => 'images',

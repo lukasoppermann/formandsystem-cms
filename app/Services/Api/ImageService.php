@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Account;
 use App\Entities\Collection;
 
-class ApiImageService extends AbstractApiService
+class ImageService extends CacheableApiService
 {
     /**
      * all available includes

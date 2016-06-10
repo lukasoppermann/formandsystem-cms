@@ -63,13 +63,17 @@
     color: var(--dark-gray);
 }
 .c-fragment-new__selection{
+    box-shadow: none;
     display: block;
     height: 10rem;
     border-radius: .3rem;
     background: var(--white-gray);
     text-align: center;
-    padding-top: 4rem;
+    padding-top: 2rem;
     color: var(--gray);
+}
+.c-fragment-new__image{
+    padding-top: 4rem;
 }
 .c-fragment-new__selection:hover{
     background: var(--blue);

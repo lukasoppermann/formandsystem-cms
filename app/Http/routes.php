@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('/test', 'Test@index');
 // login
 Route::get('/login','Auth\AuthController@showLoginForm');
 Route::post('/login','Auth\AuthController@login');
@@ -39,7 +40,7 @@ Route::group(['middleware' => ['auth']], function(){
     // Settings
     Route::group(['namespace' => 'Pages'], function() {
         Route::get('/pages', 'Pages@index');
-        Route::get('/pages/delete/{id}', 'Pages@delete');
+        Route::delete('/pages/{id}', 'Pages@delete');
 
         Route::get('/pages/{page}', 'Pages@show');
 
@@ -49,13 +50,12 @@ Route::group(['middleware' => ['auth']], function(){
     });
     // Fragments
     Route::group(['namespace' => 'Fragments'], function() {
-        Route::post('/fragments', 'Fragments@store');
 
-        Route::get('/fragments/{type}', 'Fragments@store')->where('type', 'section|text|image|collection');
+        Route::post('/fragments', 'Fragments@store');
+        Route::patch('/fragments/{id}', 'Fragments@update');
 
         Route::get('/fragments/delete/{id}', 'Fragments@delete');
 
-        Route::patch('/fragments/{id}', 'Fragments@update');
     });
     // Settings
     Route::group(['namespace' => 'Settings'], function() {

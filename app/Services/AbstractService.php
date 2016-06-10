@@ -30,7 +30,7 @@ abstract class AbstractService
     {
         $this->account = Auth::user()->accounts->first();
         if($client = $this->account->details->where('type','cms_client')->first()){
-            $this->client = json_decode($client->data, true);
+            $this->client = (array) $client->data;
         }
         // set cms api settings
         $this->config['cms'] = [

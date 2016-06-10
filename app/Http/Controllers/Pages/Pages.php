@@ -7,8 +7,8 @@ use App\Http\Requests;
 use Carbon\Carbon;
 use Validator;
 use App\Http\Controllers\Controller;
-use App\Services\ApiCollectionService;
-use App\Services\ApiPageService;
+use App\Services\Api\CollectionService;
+use App\Services\Api\PageService;
 use App\Entities\Collection;
 use Illuminate\Support\Collection as LaravelCollection;
 
@@ -50,11 +50,6 @@ class Pages extends Controller
         // echo round(microtime(true) * 1000) - config('app.milliseconds').'s<br />';
         // config(['app.milliseconds' => round(microtime(true) * 1000)]);
         // get the main pages collection
-        $this->navigations = $this->getPagesCollections();
-
-        $this->collections = $items = (new ApiCollectionService)->all([
-            'includes' => false
-        ]);
     }
     /**
      * get main pages collection or create
@@ -65,8 +60,10 @@ class Pages extends Controller
      */
     public function getPagesCollections()
     {
-        if( ($collections = (new ApiCollectionService)->find('type','navigation'))->isEmpty() ){
-            $collections = new LaravelCollection((new ApiCollectionService)->create([
+        if( ($collections = (new CollectionService)->find('type','navigation',[
+                'includes' => ['pages','fragments']
+            ]))->isEmpty() ){
+            $collections = new LaravelCollection((new CollectionService)->create([
                 'name' => 'Main Navigation',
                 'slug' => 'main-navigation',
                 'type' => 'navigation'
@@ -108,14 +105,25 @@ class Pages extends Controller
     }
 
     public function index(){
+        $this->navigations = $this->getPagesCollections();
+
+        $this->collections = $items = (new CollectionService)->all([
+            'includes' => false
+        ]);
+
         $this->getMenu();
         $data['navigation'] = $this->buildNavigation('/pages');
         return view('pages.dashboard', $data);
     }
 
     public function show($slug){
+        $this->navigations = $this->getPagesCollections();
+
+        $this->collections = $items = (new CollectionService)->all([
+            'includes' => false
+        ]);
         $this->getMenu();
-        $data['page'] = (new ApiPageService)->first('slug',$slug,['includes' => ['ownedByCollections']]);
+        $data['page'] = (new PageService)->first('slug',$slug,['includes' => ['ownedByCollections']]);
 
         if($data['page'] === NULL){
             return redirect('/pages');
@@ -156,12 +164,12 @@ class Pages extends Controller
         ]);
         // if validation fails
         if($collection->get('isInvalid')){
-            $collection_id = (new ApiCollectionService)->first('slug','pages')->id;
+            $collection_id = (new CollectionService)->first('slug','pages')->id;
         }else{
             $collection_id = $collection->get('collection');
         }
 
-        $newPage = (new ApiPageService)->create($page->toArray());
+        $newPage = (new PageService)->create($page->toArray());
 
         $response = $this->api($this->client)->post('/collections/'.$collection_id.'/relationships/pages', [
             'type' => 'pages',
@@ -172,7 +180,7 @@ class Pages extends Controller
             return redirect('pages/'.$newPage['data']['attributes']['slug']);
         }
 
-        return redirect('collections/'.(new ApiCollectionService)->get($collection_id)->slug.'/'.$newPage['data']['attributes']['slug']);
+        return redirect('collections/'.(new CollectionService)->get($collection_id)->slug.'/'.$newPage['data']['attributes']['slug']);
     }
     /**
      * delete a page
@@ -183,7 +191,7 @@ class Pages extends Controller
     {
         // TODO: deal with errors
         if($id !== NULL){
-            $response = $this->api($this->client)->delete('/pages/'.$id);
+            $response = (new PageService)->delete($id);
         }
 
         return back();
@@ -228,7 +236,7 @@ class Pages extends Controller
         }
         // store detail
         try{
-            $item = (new ApiPageService)->update(
+            $item = (new PageService)->update(
                 $request->input('id'),
                 $request->only([
                     'menu_label',
@@ -239,7 +247,7 @@ class Pages extends Controller
             );
             // redirect on success
             if($slug = $request->get('slug')){
-                $collection = (new ApiCollectionService)->get($request->get('collection'))->slug;
+                $collection = (new CollectionService)->get($request->get('collection'))->slug;
 
                 if($collection !== 'pages'){
                     $collection = 'collections/'.$collection;

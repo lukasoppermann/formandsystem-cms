@@ -1,13 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Api;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Models\Account;
-use App\Entities\Page;
-
-class ApiPageService extends AbstractApiService
+class CollectionService extends CacheableApiService
 {
     /**
      * all available includes
@@ -15,23 +10,23 @@ class ApiPageService extends AbstractApiService
      * @var array
      */
     protected $includes = [
-        'fragments',
         'pages',
-        'collections',
-        'metadetails',
         'ownedByPages',
+        'collections',
         'ownedByCollections',
+        'fragments',
+        'ownedByFragments',
     ];
     /**
      * the name of the entity
      *
      * @var string
      */
-    protected $entity = '\App\Entities\Page';
+    protected $entity = '\App\Entities\Collection';
     /**
      * the api endpoint to connect to
      *
      * @var string
      */
-    protected $endpoint = 'pages';
+    protected $endpoint = 'collections';
 }
