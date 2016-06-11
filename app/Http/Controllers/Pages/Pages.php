@@ -176,6 +176,8 @@ class Pages extends Controller
             'id'   => $newPage['data']['id'],
         ]);
 
+        (new CollectionService)->clearCache();
+
         if($collection->get('isInvalid')){
             return redirect('pages/'.$newPage['data']['attributes']['slug']);
         }
@@ -193,7 +195,9 @@ class Pages extends Controller
         if($id !== NULL){
             $response = (new PageService)->delete($id);
         }
-
+        // clear cache
+        (new CollectionService)->clearCache();
+        // return to pages
         return back();
     }
     /**
@@ -230,7 +234,7 @@ class Pages extends Controller
         // if validation fails
         if($validator->fails()){
             return back()
-                ->with(['status' => 'Updating the page failed.', 'type' => 'error'])
+                ->with(['status' => 'Updating the page failed. Please check the settings section.', 'type' => 'error'])
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -245,6 +249,8 @@ class Pages extends Controller
                     'description',
                 ])
             );
+            // clear collection cache
+            (new CollectionService)->clearCache();
             // redirect on success
             if($slug = $request->get('slug')){
                 $collection = (new CollectionService)->get($request->get('collection'))->slug;

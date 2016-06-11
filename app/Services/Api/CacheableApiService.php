@@ -23,13 +23,16 @@ abstract class CacheableApiService extends AbstractApiService
     public function storeInCache($data, $suffix = NULL)
     {
         // get cache list
-        $cacheList = (array)Cache::get('cacheList.'.$this->cacheName());
+        $cacheList = (array)Cache::get($this->cacheName('cacheList'));
         // check if exists in cache list
         if (!in_array($this->cacheName($suffix), $cacheList)){
             // store in cache list
             $cacheList[] = $this->cacheName($suffix);
-            Cache::forget('cacheList.'.$this->cacheName());
-            Cache::forever('cacheList.'.$this->cacheName(), $cacheList);
+            // dd(Cache::get($this->cacheName('cacheList')));
+            Cache::forget($this->cacheName('cacheList'));
+            // dd(Cache::get($this->cacheName('cacheList')));
+            Cache::forever($this->cacheName('cacheList'), $cacheList);
+            // dd(Cache::get($this->cacheName('cacheList')));
         }
         // put to cache
         return Cache::put($this->cacheName($suffix), $data, $this->cache_minutes);
@@ -62,16 +65,18 @@ abstract class CacheableApiService extends AbstractApiService
     /**
      * removes all of current service's caches
      *
-     * @method deleteThisCache
+     * @method clearCache
      *
      * @return boolean
      */
-    public function deleteThisCache()
+    public function clearCache($endpoint = NULL)
     {
-        foreach((array)Cache::get('cacheList.'.$this->cacheName()) as $cache ){
+        foreach((array)Cache::get($this->cacheName('cacheList', $endpoint)) as $cache){
             Cache::forget($cache);
         }
-        Cache::forget('cacheList.'.$this->cacheName());
+        Cache::forget($this->cacheName('cacheList', $endpoint));
+        //
+        return true;
     }
     /**
      * returns current cache name
@@ -80,9 +85,13 @@ abstract class CacheableApiService extends AbstractApiService
      *
      * @return string
      */
-    public function cacheName($suffix = NULL)
+    public function cacheName($suffix = NULL, $endpoint = NULL)
     {
-        return Auth::user()->id.'-'.$this->endpoint.$suffix;
+        if($endpoint === NULL){
+            $endpoint = $this->endpoint;
+        }
+        // return name
+        return Auth::user()->id.'-'.$endpoint.$suffix;
     }
     /**
      * get all items on all pages
@@ -119,7 +128,7 @@ abstract class CacheableApiService extends AbstractApiService
      */
     public function create(Array $data){
         // delete all caches
-        $this->deleteThisCache();
+        $this->clearCache();
         // call parent fn
         return call_user_func_array("parent::create", func_get_args());
     }
@@ -132,7 +141,7 @@ abstract class CacheableApiService extends AbstractApiService
      */
     public function update($id, Array $data){
         // delete all caches
-        $this->deleteThisCache();
+        $this->clearCache();
         // call parent fn
         return call_user_func_array("parent::update", func_get_args());
     }
@@ -147,9 +156,9 @@ abstract class CacheableApiService extends AbstractApiService
      */
     public function delete($id = NULL){
         // delete all caches
-        $this->deleteThisCache();
+        $this->clearCache();
         // call parent fn
-        // return call_user_func_array("parent::delete", func_get_args());
+        return call_user_func_array("parent::delete", func_get_args());
     }
     /**
      * call a function but with cache

@@ -22,19 +22,6 @@ class Collections extends Controller
             'link' => '/',
         ]
     ];
-    /**
-     * construct
-     *
-     * @method __construct
-     *
-     * @param  Request     $request
-     */
-    public function __construct(Request $request)
-    {
-        parent::__construct($request);
-        // get the main navigation items
-        $this->navigation['lists'] = $this->getMenuLists();
-    }
 
     public function getMenuLists()
     {
@@ -67,14 +54,19 @@ class Collections extends Controller
     }
 
     public function index(){
-        $data['navigation'] = $this->buildNavigation('/collections');
+        // get the main navigation items
+        $this->navigation['lists'] = $this->getMenuLists();
 
+        $data['navigation'] = $this->buildNavigation('/collections');
         return view('collections.dashboard', $data);
     }
 
 
     public function show($collection, $page = NULL)
     {
+        // get the main navigation items
+        $this->navigation['lists'] = $this->getMenuLists();
+
         $data['collection'] = (new CollectionService)->first('slug',$collection);
         $data['collections'] = $this->collections;
 
