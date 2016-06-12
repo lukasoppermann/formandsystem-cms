@@ -57,12 +57,11 @@ class Collections extends Controller
      *
      * @method index
      *
-     * @return [type]
+     * @return View
      */
     public function index(){
         return view('collections.dashboard');
     }
-
     /**
      * show collection
      *
@@ -82,55 +81,30 @@ class Collections extends Controller
                 'type' => 'error',
             ]);
         }
-        // check if collection is empty
-        if($collection->pages->isEmpty() && $collection->fragments->isEmpty()){
-            return view('collections.empty', [
-                'collection' => $collection
-            ]);
+        // if no page was set redirect to first page or empty page
+        if($page === NULL){
+            return $this->firstItemOrEmpty($collection);
         }
+        // --------------------------
+        // BUILD NAVIGATION
         // get pages
         if(!$collection->pages->isEmpty()){
-            $type = 'pages';
-            $slug = 'slug';
-            $items = $collection->{$type}->map(function($item) use ($collection, $type, $slug){
-                // $item = $item->toArray();
-                // $item->put('link','test');
-                $item->put('link', '/collections/'.$collection->slug.'/'.$item->{$slug});
-                return $item;
+            $content_type = 'pages';
+            $items = $collection->pages->map(function($item) use ($collection){
+                return $item->put('link', '/collections/'.$collection->slug.'/'.$item->slug);
             });
         }
-        dd($items);
         // get fragments
-        if(!$collection->pages->isEmpty()){
-
+        if(!$collection->fragments->isEmpty()){
+            $content_type = 'fragments';
+            $items = $collection->fragments->map(function($item) use ($collection){
+                return $item->put('link', '/collections/'.$collection->slug.'/'.$item->id);
+            });
         }
-
-
-        if(!$data['collection']->pages->isEmpty()){
-            $type = 'pages';
-            $items = $data['collection']->pages->map(function($item) use($collection){
-                $item = $item->toArray();
-                $item['link'] = '/collections/'.$collection.'/'.$item['slug'];
-                return $item;
-            })->toArray();
-        }else if(!$data['collection']->fragments->isEmpty()){
-            $type = 'fragments';
-            $items = $data['collection']->fragments->map(function($item) use($collection){
-                $item = $item->toArray();
-                $item['link'] = '/collections/'.$collection.'/'.$item['id'];
-                $created = Carbon::parse($item['created_at'])->format('d.m.Y');
-                $item['label'] = ucfirst($item['type']).' '.$created;
-                return $item;
-            })->toArray();
-        }
-
-        $data['collections'] = (new CollectionService)->find('type', 'posts',[
-            'includes' => false
-        ]);
 
         $this->navigation = [
             'header' => view('collections.collection-header', [
-                'collection' => $data['collection']
+                'collection' => $collection
             ])->render(),
             'lists' => [
                 [
@@ -143,36 +117,48 @@ class Collections extends Controller
                             'label'     => 'Add Page',
                             'deletable' => true,
                             'fields'    => [
-                                'collection'    => $data['collection']->id
+                                'collection'    => $collection->id
                             ]
                         ])->render(),
                     ]
                 ],
             ]
         ];
-
-        $data['page'] = $data['collection']->pages->filter(function($item) use($page){
-            return $item->slug === $page;
-        });
-
-        if($data['page']->isEmpty()){
-            return $this->firstItemOrEmpty($data['collection'], $data, $type);
+        // -------------------------
+        // if pages collection
+        if($content_type === 'pages'){
+            // get item
+            $item = $collection->pages->filter(function($item) use ($page){
+                return $item->slug === $page;
+            })->first();
+            // show item if exists
+            if(!$item->isEmpty()){
+                return view('pages.page', [
+                    'dialog' => view('collections.settings', [
+                            'collection' => $collection,
+                        ])->render(),
+                    'item' => $item,
+                    'collection' => $collection,
+                ]);
+            }
         }
-
-        if(($page === NULL || $data['page']->isEmpty()) && !$data['collection']->pages->isEmpty()){
-            return redirect('collections/'.$collection.'/'.$data['collection']->pages->first()->slug);
+        // -------------------------
+        // if fragments collection
+        if($content_type === 'fragments'){
+            // get item
+            $item = $collection->fragments->filter(function($item) use ($page){
+                return $item->id === $page;
+            })->first();
+            // show item if exists
+            if(!$item->isEmpty()){
+                return view('collections.fragment', [
+                    'dialog' => view('fragments.settings', [
+                        ])->render(),
+                    'item' => $item,
+                    'collection' => $collection,
+                ]);
+            }
         }
-
-        $data['page'] = $data['page']->first();
-
-        $data['navigation'] = $this->buildNavigation('/collections/'.$collection.'/'.$page);
-
-        return view('pages.page', [
-            'dialog' => view('collections.settings', [
-                    'collection' => $collection
-                ])->render(),
-
-        ]);
     }
     /**
      * create a collection
@@ -254,28 +240,21 @@ class Collections extends Controller
      *
      * @return view
      */
-    public function firstItemOrEmpty($collection, $data)
+    public function firstItemOrEmpty($collection)
     {
-        $items_types = ['pages', 'fragments'];
+        $items_types = [
+            'pages' => 'slug',
+            'fragments' => 'id',
+        ];
         // collection with items
-        foreach($items_types as $type){
+        foreach($items_types as $type => $slug){
             if( !$collection->{$type}->isEmpty() ){
-                $data['navigation'] = $this->buildNavigation('/collections/'.$collection->slug);
-                $data['collection'] = $collection;
-
-                $data[substr($type,0,-1)] = $collection->{$type}->first();
-                $slug = $data[substr($type,0,-1)]->slug;
-                $slug = isset($slug) ? $slug : $data[substr($type,0,-1)]->id;
-                // $data['page'] = $collection->pages->first();
-                return view('collections.dashboard', $data);
-                return redirect('/collections/'.$collection->slug.'/'.$slug);
+                return redirect('collections/'.$collection->slug.'/'.$collection->{$type}->first()->{$slug});
             }
         }
-        // empty collection
-        $this->navigation['lists'] = NULL;
-        $data['navigation'] = $this->buildNavigation('/collections/'.$collection->slug);
-        $data['collection'] = $collection;
-
-        return view('collections.empty', $data);
+        // if collection is empty
+        return view('collections.empty', [
+            'collection' => $collection
+        ]);
     }
 }

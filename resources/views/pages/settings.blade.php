@@ -1,3 +1,6 @@
+<?php
+    $item = isset($page) ? $page : $item;
+?>
 <div class="c-settings-panel__toggle" data-toggle="settings-panel">
     <svg viewBox="0 0 512 512" class="o-icon">
       <use xlink:href="#svg-icon--settings"></use>
@@ -11,17 +14,17 @@
         <form class="o-form" action="/pages" method="POST" autocomplete="off">
             {{ csrf_field() }}
             {{ method_field('PATCH') }}
-            @include('forms.hidden',['name' => 'id', 'value' => $page->id])
-            @include('forms.hidden',['name' => 'collection', 'value' => $collection->id])
+            @include('forms.hidden',['name' => 'id', 'value' => $item->id])
+            @include('forms.hidden',['name' => 'collection', 'value' => $collection->get('id')])
 
             <div class="o-grid">
                 <div class="o-grid__column o-grid__column--md-6of12">
-                    @include('forms.input',['name' =>'menu_label', 'label' => 'Navigation Title', 'value' => $page->label])
-                    @include('forms.input',['name' =>'slug', 'label' => 'Path/Slug', 'value' => $page->slug])
+                    @include('forms.input',['name' =>'menu_label', 'label' => 'Navigation Title', 'value' => $item->label])
+                    @include('forms.input',['name' =>'slug', 'label' => 'Path/Slug', 'value' => $item->slug])
                 </div>
                 <div class="o-grid__column o-grid__column--md-6of12">
-                    @include('forms.input',['name' =>'title', 'label' => 'Meta Title', 'value' => $page->title])
-                    @include('forms.textarea',['name' =>'description', 'label' => 'Meta Description', 'value' => $page->description])
+                    @include('forms.input',['name' =>'title', 'label' => 'Meta Title', 'value' => $item->title])
+                    @include('forms.textarea',['name' =>'description', 'label' => 'Meta Description', 'value' => $item->description])
                 </div>
             </div>
 

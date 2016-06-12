@@ -1,12 +1,15 @@
+<?php
+    $item = isset($page) ? $page : $item;
+?>
 @extends('layouts.app')
 
 @section('content')
     @include('pages.settings')
-    <div class="o-content o-content--wide o-user-grid o-user-grid--gutter-sm">
+    <div class="o-content o-content--wide o-user-grid o-user-gritemid--gutter-sm">
 
-        @if( $page->fragments !== null)
-            @foreach($page->fragments as $fragment)
-                @include('fragments.fragment', ['fragment' => $fragment, 'page' => $page])
+        @if( $item->fragments !== null)
+            @foreach($item->fragments as $fragment)
+                @include('fragments.fragment', ['fragment' => $fragment, 'page' => $item])
             @endforeach
         @endif
 
@@ -14,7 +17,7 @@
             'classes' => 'o-grid__column o-grid__column--md-12of12',
             'label' => 'Create new Section',
             'related' => 'page',
-            'related_id' => $page->id,
+            'related_id' => $item->id,
             'type' => 'section',
         ])
 
