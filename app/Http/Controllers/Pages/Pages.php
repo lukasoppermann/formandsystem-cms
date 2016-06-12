@@ -26,12 +26,6 @@ class Pages extends Controller
         ],
     ];
     /**
-     * pages collection
-     *
-     * @var App\Entities\Collection
-     */
-    protected $navigations;
-    /**
      * collections
      */
     protected $collections;
@@ -75,14 +69,9 @@ class Pages extends Controller
 
     public function getMenu()
     {
-        $this->navigation['lists'] = $this->getMenuLists();
-    }
-
-    public function getMenuLists()
-    {
         $lists = [];
         // TODO: deal with errors
-        foreach($this->navigations as $list) {
+        foreach($this->getPagesCollections() as $list) {
             $lists[$list->slug] = [
                 'title' => $list->name,
                 'items' => $list->pages->map(function($item){
@@ -101,29 +90,32 @@ class Pages extends Controller
             ];
         };
         // prepare for navigation
-        return $lists;
+        $this->navigation['lists'] = $lists;
     }
 
-    public function index(){
-        $this->navigations = $this->getPagesCollections();
 
+    public function index(){
         $this->collections = $items = (new CollectionService)->all([
             'includes' => false
         ]);
-
-        $this->getMenu();
-        $data['navigation'] = $this->buildNavigation('/pages');
-        return view('pages.dashboard', $data);
+        // $data['navigation'] = $this->buildNavigation('/pages');
+        return view('pages.dashboard');
     }
 
     public function show($slug){
-        $this->navigations = $this->getPagesCollections();
 
         $this->collections = $items = (new CollectionService)->all([
             'includes' => false
         ]);
-        $this->getMenu();
-        $data['page'] = (new PageService)->first('slug',$slug,['includes' => ['ownedByCollections']]);
+
+        $data['page'] = (new PageService)->first('slug',$slug,['includes' => [
+            'ownedByCollections',
+            'metadetails',
+            'fragments',
+            'fragments.images',
+            'fragments.metadetails',
+            'fragments.fragments',
+        ]]);
 
         if($data['page'] === NULL){
             return redirect('/pages');

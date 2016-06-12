@@ -23,11 +23,11 @@ class Collections extends Controller
         ]
     ];
 
-    public function getMenuLists()
+    public function getMenu()
     {
         // TODO: deal with errors
         // get all items
-        $this->collections = $items = (new CollectionService)->find('type', 'posts',[
+        $items = (new CollectionService)->find('type', 'posts',[
             'includes' => false
         ]);
         // turn pages into array
@@ -39,7 +39,7 @@ class Collections extends Controller
             return $item;
         })->toArray();
         // prepare for navigation
-        return [
+        $this->navigation['lists'] = [
             [
                 'items' => isset($items) ? $items : [],
                 'elements' => [
@@ -52,34 +52,59 @@ class Collections extends Controller
             ]
         ];
     }
-
+    /**
+     * collection dashboard
+     *
+     * @method index
+     *
+     * @return [type]
+     */
     public function index(){
-        // get the main navigation items
-        $this->navigation['lists'] = $this->getMenuLists();
-
-        $data['navigation'] = $this->buildNavigation('/collections');
-        return view('collections.dashboard', $data);
+        return view('collections.dashboard');
     }
 
-
+    /**
+     * show collection
+     *
+     * @method show
+     *
+     * @param  string $collection [description]
+     * @param  string $page       [description]
+     *
+     * @return View
+     */
     public function show($collection, $page = NULL)
     {
-        // get the main navigation items
-        $this->navigation['lists'] = $this->getMenuLists();
-
-        $data['collection'] = (new CollectionService)->first('slug',$collection);
-        $data['collections'] = $this->collections;
-
-        if($data['collection'] === NULL){
+        // get collection
+        if(($collection = (new CollectionService)->first('slug',$collection)) === NULL){
             return redirect('collections')->with([
                 'status' => 'The collection you are trying to edit does not exist',
                 'type' => 'error',
             ]);
         }
+        // check if collection is empty
+        if($collection->pages->isEmpty() && $collection->fragments->isEmpty()){
+            return view('collections.empty', [
+                'collection' => $collection
+            ]);
+        }
+        // get pages
+        if(!$collection->pages->isEmpty()){
+            $type = 'pages';
+            $slug = 'slug';
+            $items = $collection->{$type}->map(function($item) use ($collection, $type, $slug){
+                // $item = $item->toArray();
+                // $item->put('link','test');
+                $item->put('link', '/collections/'.$collection->slug.'/'.$item->{$slug});
+                return $item;
+            });
+        }
+        dd($items);
+        // get fragments
+        if(!$collection->pages->isEmpty()){
 
-        $data['dialog'] = view('collections.settings', [
-            'collection' => $data['collection']
-        ])->render();
+        }
+
 
         if(!$data['collection']->pages->isEmpty()){
             $type = 'pages';
@@ -98,6 +123,10 @@ class Collections extends Controller
                 return $item;
             })->toArray();
         }
+
+        $data['collections'] = (new CollectionService)->find('type', 'posts',[
+            'includes' => false
+        ]);
 
         $this->navigation = [
             'header' => view('collections.collection-header', [
@@ -136,14 +165,14 @@ class Collections extends Controller
 
         $data['page'] = $data['page']->first();
 
-        if($data['page'] === NULL){
-            $data['navigation'] = $this->buildNavigation('/collections/'.$collection);
-            return view('collections.dashboard', $data);
-        }
-
         $data['navigation'] = $this->buildNavigation('/collections/'.$collection.'/'.$page);
 
-        return view('pages.page', $data);
+        return view('pages.page', [
+            'dialog' => view('collections.settings', [
+                    'collection' => $collection
+                ])->render(),
+
+        ]);
     }
     /**
      * create a collection
@@ -162,10 +191,6 @@ class Collections extends Controller
         $item = (new CollectionService)->create([
             'name' => 'New Collection',
             'slug' => $slug,
-        ]);
-
-        $this->collections = (new CollectionService)->all([
-            'includes' => false
         ]);
 
         return redirect('collections/'.$slug);

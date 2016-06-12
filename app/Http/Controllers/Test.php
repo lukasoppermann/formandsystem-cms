@@ -31,7 +31,7 @@ class Test extends Controller
         //
         // $fragments = (new FragmentService)->all();
         // \Log::debug('Fragments: '.$fragments->count());
-        (new CollectionService)->delete('390c3b9d-d37e-43a8-a06e-e51745f959a6');
+        dd((new CollectionService)->find('slug','yo'));
         // $pages = (new CollectionService)->all(['includes' =>[
         //     'pages',
         //     ]

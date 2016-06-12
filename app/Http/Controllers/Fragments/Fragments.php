@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Fragments;
 
-use App\Services\ApiMetadetailService;
+use App\Services\Api\MetadetailService;
 use App\Services\Api\FragmentService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -118,7 +118,7 @@ class Fragments extends Controller
 
                     if($detail !== NULL){
                         $create = false;
-                        $item = (new ApiMetadetailService)->update(
+                        $item = (new MetadetailService)->update(
                             $detail->id,
                             [
                                 'type' => $key,
@@ -129,7 +129,7 @@ class Fragments extends Controller
                 }
                 // create new
                 if($create === true && $value != null){
-                    $item = (new ApiMetadetailService)->create(
+                    $item = (new MetadetailService)->create(
                         [
                             'type' => $key,
                             'data' => (string)$value,

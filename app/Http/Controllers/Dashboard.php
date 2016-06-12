@@ -8,40 +8,50 @@ use App\Http\Requests;
 
 class Dashboard extends Controller
 {
-    public function index(){
-        $data = [
-            'navigation' => [
-                'header' => [
-                    'title' => 'Form&System',
-                ],
-                'lists' => [
+    /**
+     * main navigation array
+     *
+     * @var array
+     */
+    protected $navigation = [
+        'header' => [
+            'title' => 'Form&System',
+        ],
+        'lists' => [
+            [
+                'items' => [
                     [
-                        'items' => [
-                            [
-                                'label' => 'Pages',
-                                'link'  => '/pages',
-                            ],
-                            [
-                                'label' => 'Collections',
-                                'link'  => '/collections',
-                            ],
-                            [
-                                'label' => 'Settings',
-                                'link'  => '/settings',
-                            ],
-                            [
-                                'label' => 'Users',
-                                'link'  => '/users',
-                            ],
-                            [
-                                'label' => 'Profile',
-                                'link'  => '/users/me',
-                            ],
-                        ]
-                    ]
+                        'label' => 'Pages',
+                        'link'  => '/pages',
+                    ],
+                    [
+                        'label' => 'Collections',
+                        'link'  => '/collections',
+                    ],
+                    [
+                        'label' => 'Settings',
+                        'link'  => '/settings/site',
+                    ],
+                    // [
+                    //     'label' => 'Users',
+                    //     'link'  => '/users',
+                    // ],
+                    // [
+                    //     'label' => 'Profile',
+                    //     'link'  => '/users/me',
+                    // ],
                 ]
             ]
-        ];
-        return view('dashboard.welcome', $data);
+        ]
+    ];
+    /**
+     * index
+     *
+     * @method index
+     *
+     * @return View
+     */
+    public function index(){
+        return view('dashboard.welcome');
     }
 }

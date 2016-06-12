@@ -86,9 +86,21 @@ abstract class AbstractApiService extends AbstractService
             return new LaravelCollection();
         }
         // turn $values into array if not
-        is_array($values) ?: $values = [$values];
+        if(!is_array($values)){
+            $values = [[$values]]; // double array needed!
+        }elseif( !is_array($values[key($values)]) ){
+            $values = [$values];
+        }
+        // indexed array
+        $values = array_values($values);
+        $filter = is_array($filter) ? array_values($filter) : [$filter];
+        $filters = "";
+        // build filters
+        foreach( $filter as $key => $filtername){
+            $filters .= '&filter['.$filtername.']='.trim(implode(',',$values[$key]),',');
+        }
         // build url
-        $url = '/'.$this->endpoint.'?filter['.$filter.']='.trim(trim(implode(',',$values),',').'&'.$this->parameters($param),'&');
+        $url = '/'.$this->endpoint.'?'.trim($filters.'&'.$this->parameters($param),'&');
         // return
         if( !$items = $this->getAllItems($url) ){
             // return empty collection on error

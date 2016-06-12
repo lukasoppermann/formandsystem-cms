@@ -59,6 +59,12 @@ Route::group(['middleware' => ['auth']], function(){
     });
     // Settings
     Route::group(['namespace' => 'Settings'], function() {
+        Route::get('/settings', function(){
+            return redirect('/settings/site');
+        });
+        // Site
+        Route::get('/settings/{site}', 'Site@show');
+        Route::post('/settings/site', 'Site@update');
         // Developers
         Route::get('/settings/developers/{item?}', 'Developers@show');
             // Developers / Client
@@ -70,10 +76,6 @@ Route::group(['middleware' => ['auth']], function(){
             // Developers / Database
             Route::post('/settings/developers/ftp', 'Ftp@store');
             Route::delete('/settings/developers/ftp', 'Ftp@delete');
-
-        // Site
-        Route::get('/settings/{site?}', 'Site@show');
-        Route::post('/settings/site', 'Site@update');
     });
 
 

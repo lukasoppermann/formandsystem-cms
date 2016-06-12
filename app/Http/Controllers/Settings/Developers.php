@@ -10,23 +10,21 @@ class Developers extends Settings
 {
 
     public function show(Request $request){
-        // get navigation
-        $data['navigation'] = $this->buildNavigation('/settings/developers');
         // get client id
         if($client = $this->account->details->where('type','client')->first()){
-            $data['client_id'] = json_decode($client->data, true)['client_id'];
+            $data['client_id'] = $client->data->client_id;
         }
         // get db connection
         if($db_connection = $this->account->details->where('type','database')->first()){
-            $data['database'] = json_decode($db_connection->data, true)['data'];
+            $data['database'] = $db_connection->data->data;
         }
         // get ftp images
         if($ftp_image = $this->account->details->where('type','ftp_image')->first()){
-            $data['ftp_image'] = json_decode($ftp_image->data, true)['data'];
+            $data['ftp_image'] = $ftp_image->data->data;
         }
         // get ftp backup
         if($ftp_backup = $this->account->details->where('type','ftp_backup')->first()){
-            $data['ftp_backup'] = json_decode($ftp_backup->data, true)['data'];
+            $data['ftp_backup'] = $ftp_backup->data->data;
         }
         // get notice
         if( session('notice') !== NULL ){

@@ -19,18 +19,19 @@ class Controller extends BaseController
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
     protected $config;
-
     protected $account;
     protected $user;
     protected $client;
 
     public function __construct(Request $request){
+        \Log::debug('Cache user & account');
         // get current user
         $this->user = $request->user();
         config(['app.user' => $this->user]);
         // get account
         $this->account = $request->user()->accounts->first();
         config(['app.account' => $this->account]);
+        \Log::debug('Get Metadetails e.g. image_dir & site_url & store with account');
         // api client
         if($client = $this->account->details->where('type','cms_client')->first()){
             $this->client = (array) $client->data;
@@ -43,6 +44,22 @@ class Controller extends BaseController
             'client_secret' => env('FS_API_CLIENT_SECRET'),
             'scopes' => ['client.post','client.delete','client.get'],
         ];
+        // Build navigation
+        $this->navigation();
+    }
+
+    protected function navigation()
+    {
+        if( app('request')->method() === 'GET' ){
+            // get menu if needed
+            if( method_exists($this, 'getMenu') ){
+                $this->getMenu();
+            }
+            // active menu item urls
+            view()->share('active_item', '/'.trim(app('request')->path(),'/'));
+            // navigation
+            view()->share('navigation', $this->buildNavigation());
+        }
     }
 
     protected function buildNavigation($active = false){

@@ -30,7 +30,6 @@
 
         @include('navigation.menu')
         <main class="c-main-content">
-            Add url, image_dir, etc. to settings
             @if(isset($dialog))
                 {!!$dialog!!}
             @endif

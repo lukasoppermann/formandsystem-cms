@@ -5,20 +5,29 @@ namespace App\Http\Controllers\Settings;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
-use App\Services\ApiMetadetailService;
+use App\Services\Api\MetadetailService;
 
 class Site extends Settings
 {
     public function show(){
         // get navigation
-        $data['navigation'] = $this->buildNavigation('/settings/site');
+        // $data['navigation'] = $this->buildNavigation('/settings/site');
         // get settings data
-        $settings = (new ApiMetadetailService)->find('type',[
+        $settings = (new MetadetailService)->find('type',[
             'site_name',
             'analytics_code',
             'analytics_anonymize_ip',
+            'site_url',
+            'dir_images',
         ]);
 
+        // $settings = array_merge(
+        //     (new MetadetailService)->find('type',[
+        //         'site_name',
+        //         'analytics_code',
+        //         'analytics_anonymize_ip',
+        //     ])
+        // , $settings);
         // flatten
         $data['form'] = [];
 
@@ -28,6 +37,7 @@ class Site extends Settings
 
         return view('settings.site', $data);
     }
+
     /**
      * update site settings
      *
@@ -36,30 +46,52 @@ class Site extends Settings
      * @param  Request $request
      */
     public function update(Request $request){
-        $items = [
-            'site_name',
-            'analytics_code',
-            'analytics_anonymize_ip',
-        ];
-        $request_input      = $request->only($items);
-        $request_input_ids  = $request->only(array_map(function($item){
-            return $item.'_id';
-        }, $items));
-        // validate input
-        $validator = Validator::make($request_input, [
-            'site_name'         => 'string',
-            'analytics_code'    => 'regex:/^UA-\d{7}-\d{2}$/',
+
+        $data = $this->getValidated($request, [
+            'site_name_id' => '',
+            'site_name' => 'string',
+            'site_url' => 'required|url',
+            'site_url_id' => '',
+            'dir_images' => 'required',
+            'dir_images_id' => '',
+            'analytics_code' => '',
+            'analytics_code' => 'regex:/^UA-\d{7}-\d{2}$/',
+            'analytics_anonymize_ip_id' => '',
+            'analytics_anonymize_ip' => '',
+        ], [
+            'dir_images' => 'images',
         ]);
+
+        // dd($data);
+        //
+        // $request_input_ids  = $request->only(array_map(function($item){
+        //     return $item.'_id';
+        // }, $items));
         // if validation fails
-        if($validator->fails()){
+        if($data->get('isInvalid')){
             return redirect('settings/site')
-                ->withErrors($validator)
+                ->withErrors($data->get('validator'))
                 ->withInput();
         }
         // TODO: deal with errors
         // if validation succeeds
         try{
-            (new ApiMetadetailService)->updateMany($request_input, $request_input_ids);
+            $metadetails = ['site_name','analytics_code','analytics_anonymize_ip','site_url','dir_images'];
+            foreach($metadetails as $meta){
+                if(isset($data[$meta])){
+                    if (isset($data[$meta.'_id'])){
+                        (new MetadetailService)->update($data[$meta.'_id'], [
+                            'data' => $data[$meta],
+                        ]);
+                    }
+                    else {
+                        (new MetadetailService)->create([
+                            'type' => $meta,
+                            'data' => $data[$meta],
+                        ]);
+                    }
+                }
+            }
             // redirect on success
             return redirect('settings/site')->with([
                 'status' => 'Your settings have been updated.',
@@ -67,8 +99,10 @@ class Site extends Settings
             ]);
         }catch(Exception $e){
             \Log::error($e);
+            // exception email
+            // TODO: send exception email to support@formandsystem.com
+            // return error
+            return redirect('settings/site')->with(['status' => 'Saving your settings failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
         }
-        // return error
-        return redirect('settings/site')->with(['status' => 'Saving your settings failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
     }
 }

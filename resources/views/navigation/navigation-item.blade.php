@@ -1,4 +1,4 @@
-<li class="c-navigation__item{{ isset($item['is_active']) && $item['is_active'] === true ? ' is-active' : '' }}">
+<li class="c-navigation__item{{ $item['link'] === $active_item ? ' is-active' : '' }}">
     @if(isset($item['deletable']) && isset($item['id']))
         <form action="{{$action or ''}}" method="post">
             @include('forms.hidden', ['name' => 'id', 'value' => $item['id']])
