@@ -203,13 +203,9 @@ var access = require('gulp-accessibility');
 gulp.task('accessibility', function(){
     return gulp.src('http://cms.formandsystem.app/')
         .pipe(access({
-            force: true
+            force: true,
+            verbose: true,
+            domElement: true,
         }))
-        .on('error', console.log)
-        .pipe(access.report({reportType: 'txt'}))
-        .pipe(console.log)
-        .pipe(rename({
-            extname: '.txt'
-        }))
-        .pipe(gulp.dest('reports/txt'));
+        .on('error', console.log);
 });

@@ -52,7 +52,7 @@ class NavigationService
     {
         return view('navigation.menu', [
             'active'        => $this->active,
-            'navigation'    => $this->getNavItems(),
+            'navigation'    => $this->getNav(),
         ]);
     }
     /**
@@ -62,44 +62,180 @@ class NavigationService
      *
      * @return array
      */
-    protected function getNavItems()
+    protected function getNav()
     {
         // get config
         $nav = Config::get('navigation');
-        // preset header & lists
-        $header = $nav['header']['dashboard'];
-        $lists = $nav['lists']['dashboard'];
-        // get header
-        if(isset($nav['header'][$this->active['section']])){
-            $header = $nav['header'][$this->active['section']];
-        }
-        // get lists
-        if( isset($nav['lists'][$this->active['section']]) ){
+        $lists = NULL;
+        if(isset($nav['lists'][$this->active['section']])){
             $lists = $nav['lists'][$this->active['section']];
+        }
+        elseif(isset($nav['lists']['dashboard'])){
+            $lists = $nav['lists']['dashboard'];
         }
         // return array
         return [
-            'header' => $header,
-            'lists'  => $this->prepareItems($lists),
+            'header' => $this->getHeader($nav['header']),
+            'lists'  => $this->getLists($lists),
         ];
     }
     /**
-     * call function to get items if not preset as array
+     * get navigation header for each section
      *
-     * @method prepareItems
+     * @method getHeader
      *
-     * @param  Array       $lists [description]
+     * @param  array    $headers [description]
+     *
+     * @return array
+     */
+    protected function getHeader($headers = NULL)
+    {
+        // try to get header from service
+        if( method_exists($this, 'getHeader'.ucfirst($this->active['section'])) ){
+            $header = $this->{'getHeader'.ucfirst($this->active['section'])}();
+            if(is_array($header) && isset($header['title'])){
+                return $header;
+            }
+        }
+        // if header is set in settings
+        if(isset($headers[$this->active['section']])){
+            return $headers[$this->active['section']];
+        }
+        // return dashboard header
+        return is_array($headers['dashboard']) ? $headers['dashboard'] : [];
+    }
+    /**
+     * get navigation lists for each section
+     *
+     * @method getLists
+     *
+     * @param  array    $lists [description]
+     *
+     * @return array
+     */
+    protected function getLists($lists = NULL)
+    {
+        // try to get header from service
+        if( method_exists($this, 'getList'.ucfirst($this->active['section'])) ){
+            if($result = $this->{'getList'.ucfirst($this->active['section'])}($lists)){
+                return $result;
+            }
+        }
+        // return dashboard lists
+        if( method_exists($this, 'getListDashboard') ){
+            return $this->getListDashboard($lists);
+        }
+        // nothing is available
+        return [];
+    }
+    /**
+     * build the lists for dashboard
+     *
+     * @method getListDashboard
+     *
+     * @param  Array           $lists [description]
      *
      * @return Array
      */
-    protected function prepareItems($lists)
-    {
+    protected function getListDashboard($lists = NULL){
         foreach($lists as $key => $list){
-            if( !is_array($list['items']) ){
-                $lists[$key] = (new \App\Services\Api\CollectionService)->navigation($this->active['item']);
+            if($list['items'] === '$collections'){
+                $lists[$key] = array_merge($lists[$key], [
+                    'items' => (new \App\Services\Api\CollectionService)->find('type','posts', [
+                        'only' => false
+                    ]),
+                    'elements' => [
+                        view('navigation.add', [
+                            'action'    => '/collections',
+                            'method'    => 'post',
+                            'label'     => 'Add Collection'
+                        ])->render()
+                    ]
+                ]);
             }
         }
-        // return prepared lists array
+        // return
         return $lists;
+    }
+    /**
+     * build the lists for pages
+     *
+     * @method getListPages
+     *
+     * @param  Array           $lists [description]
+     *
+     * @return Array
+     */
+    protected function getListPages($lists = NULL){
+        // get lists
+        $items = (new \App\Services\Api\CollectionService)->find('type','navigation', [
+            'only' => 'pages'
+        ]);
+        // prepare lists
+        $lists = [];
+        foreach($items as $key => $list){
+            $lists[$key] = [
+                'title'       => $list->name,
+                'items'       => $list->pages,
+                'template'    => 'navigation.item-page',
+                'elements' => [
+                    view('navigation.add', [
+                        'action'    => '/pages',
+                        'method'    => 'post',
+                        'label'     => 'Add Page'
+                    ])->render()
+                ]
+            ];
+        }
+        // return
+        return $lists;
+    }
+    /**
+     * build the lists for Collections
+     *
+     * @method getListCollections
+     *
+     * @param  Array           $lists [description]
+     *
+     * @return Array
+     */
+    protected function getListCollections($lists = NULL){
+        // get lists
+        $items = (new \App\Services\Api\CollectionService)->first('slug',$this->active['item'], [
+            'only' => 'pages'
+        ]);
+        // return false if no pages exists
+        if($items->pages->isEmpty()){
+            return NULL;
+        }
+        // return
+        return [
+            [
+                'items'     => $items->pages,
+                'template'  => 'navigation.item-page'
+            ]
+        ];
+    }
+    /**
+     * build header for collections
+     *
+     * @method getHeaderCollections
+     *
+     * @return Array
+     */
+    public function getHeaderCollections()
+    {
+        $items = (new \App\Services\Api\CollectionService)->first('slug',$this->active['item'], [
+            'only' => 'pages'
+        ]);
+        // return false if no pages exists
+        if($items->pages->isEmpty()){
+            return false;
+        }
+        // if pages are set
+        return [
+            'title' => $items->name,
+            'link'  => '/',
+        ];
     }
 }

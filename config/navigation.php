@@ -17,6 +17,10 @@ return [
             'title' => 'Settings',
             'link'  => '/',
         ],
+        'pages' => [
+            'title' => 'Pages',
+            'link'  => '/',
+        ],
         'users' => [
             'title' => 'Users',
             'link'  => '/',
@@ -41,9 +45,10 @@ return [
                 ]
             ],
             [
-                'title' => 'Collections',
-                'items' => 'collections',
-                'item'  => 'navigation.collection-item'
+                'title'     => 'Collections',
+                'items'     => '$collections',
+                'classes'   => 'c-navigation__list--dark',
+                'template'  => 'navigation.item-collection'
             ],
             [
                 'items' => [

@@ -5,7 +5,7 @@
         {!!$navigation['header']!!}
     @endif
 
-    @if(isset($navigation['lists']))
+    @if(is_array($navigation['lists']))
         @each('navigation.navigation-list', $navigation['lists'], 'list')
     @endif
 </nav>

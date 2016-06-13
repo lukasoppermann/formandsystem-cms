@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth']], function(){
     // Images
     Route::put('/images', 'Images@upload');
     Route::post('/images', 'Images@upload');
-    // Settings
+    // Pages
     Route::group(['namespace' => 'Pages'], function() {
         Route::get('/pages', 'Pages@index');
         Route::delete('/pages/{id}', 'Pages@delete');
@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth']], function(){
             return redirect('/settings/site');
         });
         // Site
-        Route::get('/settings/{site}', 'Site@show');
+        Route::get('/settings/site', 'Site@show');
         Route::post('/settings/site', 'Site@update');
         // Developers
         Route::get('/settings/developers/{item?}', 'Developers@show');

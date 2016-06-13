@@ -210,7 +210,7 @@ abstract class AbstractApiService extends AbstractService
             }
             // add includes
             if(isset($parameters['includes']) && count($parameters['includes']) > 0){
-                $param_string .= '&include='.implode(',',$parameters['includes']);
+                $param_string .= '&include='.implode(',',(array)$parameters['includes']);
             }
         }
         // return parameters string
