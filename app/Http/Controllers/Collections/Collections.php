@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Collections;
 
-use Illuminate\Http\Request;
+
+use App\Http\Requests;
 use Cache;
 use Carbon\Carbon;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Services\Api\CollectionService;
 
@@ -76,7 +76,7 @@ class Collections extends Controller
     {
         // get collection
         if(($collection = (new CollectionService)->first('slug',$collection)) === NULL){
-            return redirect('collections')->with([
+            return redirect('/')->with([
                 'status' => 'The collection you are trying to edit does not exist',
                 'type' => 'error',
             ]);

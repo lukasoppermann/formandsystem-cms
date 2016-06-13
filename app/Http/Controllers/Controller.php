@@ -11,6 +11,7 @@ use Formandsystem\Api\Api;
 use App\Services\CacheService;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Services\NavigationService;
 use Validator;
 use Illuminate\Support\Collection as LaravelCollection;
 
@@ -22,6 +23,7 @@ class Controller extends BaseController
     protected $account;
     protected $user;
     protected $client;
+    protected $navigation;
 
     public function __construct(Request $request){
         \Log::debug('Cache user & account');
@@ -46,6 +48,7 @@ class Controller extends BaseController
         ];
         // Build navigation
         $this->navigation();
+        // $navigation->get();
     }
 
     protected function navigation()

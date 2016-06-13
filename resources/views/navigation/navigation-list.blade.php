@@ -4,7 +4,7 @@
             @include('navigation.navigation-title', ['title' => $items])
         @endif
         @if($type === 'items')
-            @each( isset($list['item']) ? $list['item'] : 'navigation.navigation-item', $items, 'item')
+            @each( isset($list['template']) ? $list['template'] : 'navigation.navigation-item', $items, 'item')
         @endif
         <!-- Add elements -->
         @if($type === 'elements')

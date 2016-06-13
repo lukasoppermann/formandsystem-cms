@@ -29,4 +29,29 @@ class CollectionService extends CacheableApiService
      * @var string
      */
     protected $endpoint = 'collections';
+    /**
+     * navigation
+     *
+     * @method navigation
+     *
+     * @param  string     $active_collection [description]
+     *
+     * @return array
+     */
+    public function navigation($active_collection = NULL)
+    {
+        if($active_collection !== NULL){
+            return (new \App\Services\Api\CollectionService)->find('slug',$active_collection, [
+                'only' => 'pages'
+            ])->first();
+        }
+        // if no collection is active
+        return [
+            'title' => 'Collections',
+            'items' => (new \App\Services\Api\CollectionService)->find('type','posts', [
+                'only' => false
+            ]),
+            'template' => 'navigation.collection-item',
+        ];
+    }
 }

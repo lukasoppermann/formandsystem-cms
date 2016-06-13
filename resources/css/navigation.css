@@ -106,9 +106,8 @@
 }
 .c-navigation__list{
     list-style: none;
-    height: calc(100vh - var(--header-height));
+    max-height: calc(100vh - var(--header-height));
     overflow-y: scroll;
-    padding-bottom: var(--header-height);
 }
 .c-navigation__list-title{
     width: 100%;
@@ -154,7 +153,7 @@
 .c-navigation__link{
     height: 100%;
     width: 100%;
-    padding: 1.5rem 1rem 1.9rem 1.5rem;
+    padding: 1.5rem 1rem 1.5rem 1.5rem;
     position: relative;
     z-index: 10;
     color: color(var(--white) alpha(65%));

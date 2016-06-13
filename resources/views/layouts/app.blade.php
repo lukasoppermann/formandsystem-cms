@@ -27,8 +27,8 @@
     </head>
     <body>
         <?php include('./'.elixir("svgs/svg-sprite.svg")); ?>
-
-        @include('navigation.menu')
+        {!!$app['Nav']->render()!!}
+        
         <main class="c-main-content">
             @if(isset($dialog))
                 {!!$dialog!!}

@@ -201,15 +201,15 @@ abstract class AbstractApiService extends AbstractService
             // get parameter string
             $param_string = !isset($parameters['parameters']) ? NULL : $parameters['parameters'];
             // add only
-            if(isset($parameters['only']) && ($parameters['only']) > 0){
+            if(isset($parameters['only']) && count($parameters['only']) > 0){
                 $param_string .= '&'.$this->excludes($parameters['only']);
             }
             // add excludes
-            if(isset($parameters['excludes']) && ($parameters['excludes']) > 0){
+            if(isset($parameters['excludes']) && count($parameters['excludes']) > 0){
                 $param_string .= '&exclude='.implode(',',$parameters['excludes']);
             }
             // add includes
-            if(isset($parameters['includes']) && ($parameters['includes']) > 0){
+            if(isset($parameters['includes']) && count($parameters['includes']) > 0){
                 $param_string .= '&include='.implode(',',$parameters['includes']);
             }
         }

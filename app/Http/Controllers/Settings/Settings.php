@@ -15,23 +15,6 @@ class Settings extends Controller
             'title' => 'Settings',
             'link' => '/',
         ],
-        'lists' => [
-            [
-                'items' => [
-                    [
-                        'label' => 'Site',
-                        'link'  => '/settings/site',
-                    ],
-                    [
-                        'label' => 'Developers',
-                        'link'  => '/settings/developers',
-                    ],
-                    [
-                        'label' => 'Logout',
-                        'link'  => '/logout',
-                    ],
-                ]
-            ]
-        ]
+        
     ];
 }

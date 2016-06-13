@@ -8,6 +8,9 @@ use App\Http\Requests;
 
 class Users extends Controller
 {
+    public function index(){
+        return view('dashboard.welcome');
+    }
     public function show(){
         $data = [
             'navigation' => [
