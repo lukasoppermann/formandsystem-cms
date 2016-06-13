@@ -62,7 +62,7 @@ class Collections extends Controller
         }
         // -------------------------
         // if pages collection
-        if($content_type === 'pages'){
+        if(isset($content_type) && $content_type === 'pages'){
             // get item
             $item = $collection->pages->filter(function($item) use ($page){
                 return $item->slug === $page;
@@ -80,7 +80,7 @@ class Collections extends Controller
         }
         // -------------------------
         // if fragments collection
-        if($content_type === 'fragments'){
+        if(isset($content_type) && $content_type === 'fragments'){
             // get item
             $item = $collection->fragments->filter(function($item) use ($page){
                 return $item->id === $page;
@@ -95,6 +95,10 @@ class Collections extends Controller
                 ]);
             }
         }
+        if($page !== NULL){
+            return redirect('/collections/'.$collection->slug);
+        }
+        return redirect('/collections/');
     }
     /**
      * create a collection
