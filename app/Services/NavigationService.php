@@ -31,6 +31,7 @@ class NavigationService
         if( app('request')->method() === 'GET' ){
             // get active path
             $this->active['path'] = '/'.trim(app('request')->path(),'/');
+            view()->share('active_item', '/'.trim($this->active['path'],'/'));
             // active section
             if(!($this->active['section'] = app('request')->segment(1))){
                 $this->active['section'] = 'dashboard';

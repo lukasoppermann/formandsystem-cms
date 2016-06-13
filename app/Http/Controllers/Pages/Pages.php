@@ -15,17 +15,6 @@ use Illuminate\Support\Collection as LaravelCollection;
 class Pages extends Controller
 {
     /**
-     * main navigation array
-     *
-     * @var array
-     */
-    protected $navigation = [
-        'header' => [
-            'title' => 'Pages',
-            'link' => '/',
-        ],
-    ];
-    /**
      * collections
      */
     protected $collections;
@@ -67,38 +56,10 @@ class Pages extends Controller
         return $collections;
     }
 
-    public function getMenu()
-    {
-        $lists = [];
-        // TODO: deal with errors
-        foreach($this->getPagesCollections() as $list) {
-            $lists[$list->slug] = [
-                'title' => $list->name,
-                'items' => $list->pages->map(function($item){
-                    $item = $item->toArray();
-                    $item['link'] = '/pages/'.$item['slug'];
-                    return $item;
-                })->toArray(),
-                'item' => 'pages.navigation-item',
-                'elements' => [
-                    view('navigation.add', [
-                        'action'    => '/pages',
-                        'method'    => 'post',
-                        'label'     => 'Add Page'
-                    ])->render(),
-                ]
-            ];
-        };
-        // prepare for navigation
-        $this->navigation['lists'] = $lists;
-    }
-
-
     public function index(){
         $this->collections = $items = (new CollectionService)->all([
             'includes' => false
         ]);
-        // $data['navigation'] = $this->buildNavigation('/pages');
         return view('pages.dashboard');
     }
 
@@ -123,7 +84,6 @@ class Pages extends Controller
 
         $data['collection'] = $data['page']->ownedByCollections->first();
         $data['collections'] = $this->collections;
-        $data['navigation'] = $this->buildNavigation('/pages/'.$slug);
 
         return view('pages.page', $data);
     }

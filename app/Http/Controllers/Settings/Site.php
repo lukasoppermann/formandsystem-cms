@@ -10,8 +10,6 @@ use App\Services\Api\MetadetailService;
 class Site extends Settings
 {
     public function show(){
-        // get navigation
-        // $data['navigation'] = $this->buildNavigation('/settings/site');
         // get settings data
         $settings = (new MetadetailService)->find('type',[
             'site_name',

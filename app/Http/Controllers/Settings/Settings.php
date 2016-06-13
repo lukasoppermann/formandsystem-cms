@@ -10,11 +10,4 @@ use App\Http\Controllers\Controller;
 class Settings extends Controller
 {
 
-    protected $navigation = [
-        'header' => [
-            'title' => 'Settings',
-            'link' => '/',
-        ],
-        
-    ];
 }

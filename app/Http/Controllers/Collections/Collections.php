@@ -12,47 +12,6 @@ use App\Services\Api\CollectionService;
 class Collections extends Controller
 {
     /**
-     * main navigation array
-     *
-     * @var array
-     */
-    protected $navigation = [
-        'header' => [
-            'title' => 'Collections',
-            'link' => '/',
-        ]
-    ];
-
-    public function getMenu()
-    {
-        // TODO: deal with errors
-        // get all items
-        $items = (new CollectionService)->find('type', 'posts',[
-            'includes' => false
-        ]);
-        // turn pages into array
-        $items = $items->map(function($item){
-            $item = $item->toArray();
-            $item['link'] = '/collections/'.$item['slug'];
-            $item['label'] = $item['name'];
-            $item['action'] = '/collections';
-            return $item;
-        })->toArray();
-        // prepare for navigation
-        $this->navigation['lists'] = [
-            [
-                'items' => isset($items) ? $items : [],
-                'elements' => [
-                    view('navigation.add', [
-                        'action'    => '/collections',
-                        'method'    => 'post',
-                        'label'     => 'Add Collection'
-                    ])->render(),
-                ]
-            ]
-        ];
-    }
-    /**
      * collection dashboard
      *
      * @method index
@@ -101,29 +60,6 @@ class Collections extends Controller
                 return $item->put('link', '/collections/'.$collection->slug.'/'.$item->id);
             });
         }
-
-        $this->navigation = [
-            'header' => view('collections.collection-header', [
-                'collection' => $collection
-            ])->render(),
-            'lists' => [
-                [
-                    'items' => $items,
-                    'item' => 'pages.navigation-item',
-                    'elements' => [
-                        view('navigation.add', [
-                            'action'    => '/pages',
-                            'method'    => 'post',
-                            'label'     => 'Add Page',
-                            'deletable' => true,
-                            'fields'    => [
-                                'collection'    => $collection->id
-                            ]
-                        ])->render(),
-                    ]
-                ],
-            ]
-        ];
         // -------------------------
         // if pages collection
         if($content_type === 'pages'){

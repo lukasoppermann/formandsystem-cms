@@ -23,7 +23,6 @@ class Controller extends BaseController
     protected $account;
     protected $user;
     protected $client;
-    protected $navigation;
 
     public function __construct(Request $request){
         \Log::debug('Cache user & account');
@@ -46,40 +45,37 @@ class Controller extends BaseController
             'client_secret' => env('FS_API_CLIENT_SECRET'),
             'scopes' => ['client.post','client.delete','client.get'],
         ];
-        // Build navigation
-        $this->navigation();
-        // $navigation->get();
     }
 
-    protected function navigation()
-    {
-        if( app('request')->method() === 'GET' ){
-            // get menu if needed
-            if( method_exists($this, 'getMenu') ){
-                $this->getMenu();
-            }
-            // active menu item urls
-            view()->share('active_item', '/'.trim(app('request')->path(),'/'));
-            // navigation
-            view()->share('navigation', $this->buildNavigation());
-        }
-    }
+    // protected function navigation()
+    // {
+    //     if( app('request')->method() === 'GET' ){
+    //         // get menu if needed
+    //         if( method_exists($this, 'getMenu') ){
+    //             $this->getMenu();
+    //         }
+    //         // active menu item urls
+    //         view()->share('active_item', '/'.trim(app('request')->path(),'/'));
+    //         // navigation
+    //         view()->share('navigation', $this->buildNavigation());
+    //     }
+    // }
 
-    protected function buildNavigation($active = false){
-
-        // get navigation array to not change original
-        $navigation = $this->navigation;
-        // set active item active
-        if($active !== false && isset($navigation['lists'])){
-            foreach($navigation['lists'] as $key => $list){
-                // build array
-                if( isset($list['items']) && count($list['items']) > 0 && ($found = array_search($active, array_column($list['items'], 'link'))) !== false ){
-                    $navigation['lists'][$key]['items'][$found]['is_active']= true;
-                }
-            }
-        }
-        return $navigation;
-    }
+    // protected function buildNavigation($active = false){
+    //
+    //     // get navigation array to not change original
+    //     $navigation = $this->navigation;
+    //     // set active item active
+    //     if($active !== false && isset($navigation['lists'])){
+    //         foreach($navigation['lists'] as $key => $list){
+    //             // build array
+    //             if( isset($list['items']) && count($list['items']) > 0 && ($found = array_search($active, array_column($list['items'], 'link'))) !== false ){
+    //                 $navigation['lists'][$key]['items'][$found]['is_active']= true;
+    //             }
+    //         }
+    //     }
+    //     return $navigation;
+    // }
     /**
      * returns an api wrapper instance
      *
