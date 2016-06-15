@@ -9,7 +9,7 @@
     "check-pages": "^0.10.0",
     "cssnano": "^3.7.0",
     "del": "^2.2.*",
-    "gulp": "^3.9.*",
+    "gulp": "^4.0.*",
     "gulp-accessibility": "^2.0.1",
     "gulp-cheerio": "^0.6.2",
     "gulp-concat": "^2.6.0",

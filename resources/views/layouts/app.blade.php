@@ -28,11 +28,11 @@
     <body>
         <?php include('./'.elixir("svgs/svg-sprite.svg")); ?>
         {!!$app['Nav']->render()!!}
-        
+
         <main class="c-main-content">
-            @if(isset($dialog))
-                {!!$dialog!!}
-            @endif
+            @include('notice.dialog')
+
+
 
             @include('notice.status')
             @yield('content')

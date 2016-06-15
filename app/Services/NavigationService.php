@@ -93,8 +93,7 @@ class NavigationService
     {
         // try to get header from service
         if( method_exists($this, 'getHeader'.ucfirst($this->active['section'])) ){
-            $header = $this->{'getHeader'.ucfirst($this->active['section'])}();
-            if(is_array($header) && isset($header['title'])){
+            if($header = $this->{'getHeader'.ucfirst($this->active['section'])}()){
                 return $header;
             }
         }
@@ -149,7 +148,7 @@ class NavigationService
                         view('navigation.add', [
                             'action'    => '/collections',
                             'method'    => 'post',
-                            'label'     => 'Add Collection'
+                            'label'     => 'New Collection'
                         ])->render()
                     ]
                 ]);
@@ -183,7 +182,7 @@ class NavigationService
                     view('navigation.add', [
                         'action'    => '/pages',
                         'method'    => 'post',
-                        'label'     => 'Add Page'
+                        'label'     => 'New Page'
                     ])->render()
                 ]
             ];
@@ -226,17 +225,16 @@ class NavigationService
      */
     public function getHeaderCollections()
     {
-        $items = (new \App\Services\Api\CollectionService)->first('slug',$this->active['item'], [
+        $item = (new \App\Services\Api\CollectionService)->first('slug',$this->active['item'], [
             'only' => 'pages'
         ]);
         // return false if no pages exists
-        if($items->pages->isEmpty()){
+        if($item->pages->isEmpty()){
             return false;
         }
         // if pages are set
-        return [
-            'title' => $items->name,
-            'link'  => '/',
-        ];
+        return view('navigation.header-collection', [
+            'item' => $item
+        ])->render();
     }
 }

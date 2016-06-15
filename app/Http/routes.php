@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/','Dashboard@index');
 
     Route::group(['namespace' => 'Collections'], function() {
-        Route::get('/collections', 'Collections@index');
+        // Route::get('/collections', 'Collections@index');
         Route::post('/collections', 'Collections@store');
         Route::patch('/collections/{id}', 'Collections@update');
         Route::delete('/collections/{id}', 'Collections@delete');
@@ -81,4 +81,6 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/users', 'Users@index');
     Route::get('/users/{user}', 'Users@show');
+
+    Route::get('/dialog/{type}', 'DialogService@show');
 });

@@ -45,8 +45,10 @@ gulp.task('build-js', ['clean-build'], function(){
         'resources/bower_components/codemirror/lib/codemirror.js',
         'resources/bower_components/codemirror/addon/mode/overlay.js',
         'resources/bower_components/codemirror/mode/markdown/markdown.js',
-        'resources/bower_components/codemirror/mode/gfm/gfm.js'
+        'resources/bower_components/codemirror/mode/gfm/gfm.js',
         // 'resources/bower_components/mark/mark.js'
+        'resources/bower_components/es6-promise/es6-promise.js',
+        'resources/bower_components/fetch/fetch.js'
     );
     // push rest of js files
     files.push('resources/js/*.js');

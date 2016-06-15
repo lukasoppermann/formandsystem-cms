@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Collections;
 use App\Http\Requests;
 use Cache;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Api\CollectionService;
 
@@ -98,7 +99,7 @@ class Collections extends Controller
         if($page !== NULL){
             return redirect('/collections/'.$collection->slug);
         }
-        return redirect('/collections/');
+        return redirect('/');
     }
     /**
      * create a collection
@@ -151,13 +152,13 @@ class Collections extends Controller
         // get page data
         $item = $this->getValidated($request, [
             'name'      => 'required|string',
-            'slug'      => 'required|string',
+            'slug'      => 'required|alpha_dash',
         ]);
         // if validation fails
         if($item->get('isInvalid')){
             return back()->with([
-                'status' => 'Collection update failed.',
-                'type' => 'error'
+                'status'            => 'Collection update failed: '.implode(' ',$item->get('validator')->errors()->all()),
+                'type'              => 'error',
             ])->withErrors($item->get('validator'))
             ->withInput();
         }
@@ -167,6 +168,14 @@ class Collections extends Controller
             'name' => $item->get('name'),
             'slug' => $item->get('slug'),
         ]);
+        // if invalid response
+        if(isset($response['errors'])){
+            $errors = "";
+            foreach($response['errors'] as $msg){
+                $errors .= implode(' ',$msg);
+            }
+            return back()->with(['status' => 'Update failed: '.$errors,'type' => 'error']);
+        }
 
         return redirect('collections/'.$response['data']['attributes']['slug'])->with([
             'status' => 'Collection updated successfully.',
