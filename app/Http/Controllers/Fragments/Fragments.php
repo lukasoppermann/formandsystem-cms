@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Fragments;
 
+use App\Services\Api\PageService;
+use App\Services\Api\CollectionService;
 use App\Services\Api\MetadetailService;
 use App\Services\Api\FragmentService;
 use App\Http\Controllers\Controller;
@@ -22,6 +24,7 @@ class Fragments extends Controller
                     'type' => 'pages',
                     'id'   => $item,
             ]);
+            (new PageService)->clearCache();
         }
 
         if($item = $request->get('fragment')){
@@ -30,6 +33,8 @@ class Fragments extends Controller
                     'type' => 'fragments',
                     'id'   => $item,
             ]);
+            (new FragmentService)->clearCache();
+            (new PageService)->clearCache();
         }
 
         if($item = $request->get('collection')){
@@ -38,6 +43,7 @@ class Fragments extends Controller
                     'type' => 'collections',
                     'id'   => $item,
             ]);
+            (new CollectionService)->clearCache();
         }
 
         return back();
@@ -47,7 +53,7 @@ class Fragments extends Controller
      *
      * @method delete
      */
-    public function delete($id = NULL)
+    public function delete(Request $request, $id = NULL)
     {
         // TODO: deal with errors
         if($id !== NULL){
@@ -56,7 +62,9 @@ class Fragments extends Controller
                 $this->api($this->client)->delete('/images/'.$image->id);
             }
 
-            $response = $this->api($this->client)->delete('/fragments/'.$id);
+            $response = (new FragmentService)->delete($id);
+            // clear cache
+            (new CollectionService)->clearCache();
         }
 
         return back();

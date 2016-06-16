@@ -145,10 +145,10 @@ class NavigationService
                         'only' => false
                     ]),
                     'elements' => [
-                        view('navigation.add', [
-                            'action'    => '/collections',
-                            'method'    => 'post',
-                            'label'     => 'New Collection'
+                        view('navigation.item', [
+                            'label'     => 'New Collection',
+                            'icon'      => 'plus',
+                            'attr'      => 'data-dialog-link=/dialog/newCollection',
                         ])->render()
                     ]
                 ]);
@@ -176,7 +176,9 @@ class NavigationService
         foreach($items as $key => $list){
             $lists[$key] = [
                 'title'       => $list->name,
-                'items'       => $list->pages,
+                'items'       => $list->pages->map(function($item){
+                    return $item->put('collection', 'pages');
+                }),
                 'template'    => 'navigation.item-page',
                 'elements' => [
                     view('navigation.add', [
@@ -208,6 +210,9 @@ class NavigationService
         if($items->pages->isEmpty()){
             return NULL;
         }
+        $items->pages->map(function($item) use($items){
+            return $item->put('collection', 'collections/'.$items->slug);
+        });
         // return
         return [
             [

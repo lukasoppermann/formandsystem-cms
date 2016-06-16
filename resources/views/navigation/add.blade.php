@@ -11,7 +11,7 @@
             @endforeach
         @endif
 
-        <button type="submit" class="c-navigation__link c-navigation__link--with-icon">
+        <button type="submit" class="c-navigation__link c-navigation__link--with-icon" {{ $attr or '' }}>
             <svg viewBox="0 0 512 512" class="o-icon o-icon--white c-icon--{{$icon or 'plus'}}">
               <use xlink:href="#svg-icon--{{$icon or 'plus'}}"></use>
             </svg>

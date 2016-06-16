@@ -12,39 +12,43 @@
         $grid_lg_columns[$i] = $i.' of '.$lg_col;
     }
     $dialog_is_hidden = "";
-    if(!isset($errors) || $errors->{$fragment->id}->isEmpty()){
+    if(!isset($errors) || $errors->{$item->id}->isEmpty()){
         $dialog_is_hidden = ' is-hidden';
     }
 ?>
 
-<div class="o-dialog o-dialog--absolute {{$dialog_is_hidden}}" data-target="fragment-settings-{{$fragment->id}}">
+<div class="o-dialog o-dialog--absolute {{$dialog_is_hidden}}" data-target="fragment-settings-{{$item->id}}">
     <div class="o-dialog__box c-fragment-settings-dialog">
         <div class="o-dialog__body">
             <h4 class="o-headline o-headline--second">Fragment Settings</h4>
-            <form class="o-form" action="/fragments/{{$fragment->id}}" method="POST" autocomplete="off">
+            <form class="o-form" action="/fragments/{{$item->id}}" method="POST" autocomplete="off">
                 {{ csrf_field() }}
                 {{ method_field('PATCH') }}
 
-                @include('forms.select',['name' => 'columns_medium', 'label' => 'Columns', 'values' => $grid_md_columns, 'selected' => $fragment->details->get('columns_medium'), 'error_bag' => $fragment->id])
+                @include('forms.select',['name' => 'columns_medium', 'label' => 'Columns', 'values' => $grid_md_columns, 'selected' => $item->details->get('columns_medium'), 'error_bag' => $item->id])
 
                 @include('forms.select',[
                     'name' => 'columns_small',
                     'label' => 'Columns for small screens',
                     'values' => $grid_sm_columns,
-                    'selected' => $fragment->details->get('columns_small'),
-                    'error_bag' => $fragment->id,
+                    'selected' => $item->details->get('columns_small'),
+                    'error_bag' => $item->id,
                 ])
 
-                @include('forms.select',['name' => 'columns_large', 'label' => 'Columns for large screens', 'values' => $grid_lg_columns, 'selected' => $fragment->details->get('columns_large'), 'error_bag' => $fragment->id])
+                @include('forms.select',['name' => 'columns_large', 'label' => 'Columns for large screens', 'values' => $grid_lg_columns, 'selected' => $item->details->get('columns_large'), 'error_bag' => $item->id])
 
-                @include('forms.textarea',['name' =>'classes', 'label' => 'Classes', 'value' => $fragment->details->get('classes'), 'error_bag' => $fragment->id])
+                @include('forms.textarea',['name' =>'classes', 'label' => 'Classes', 'value' => $item->details->get('classes'), 'error_bag' => $item->id])
 
                 <div class="o-grid">
-                    <a class="o-grid__column o-button o-button--link o-button--link--red o-flex__item--auto" href="/fragments/delete/{{$fragment->id}}">Delete</a>
-                    @include('forms.submit',['label' => 'Save', 'classes' => 'o-button o-button--blue  o-grid__column o-flex__item--align-right o-flex__item--auto'])
+                    @include('forms.submit',['label' => 'Save', 'classes' => 'o-button o-button--blue  o-grid__column o-flex__item--align-right o-flex__item--none'])
                 </div>
+            </form>
+            <form class="o-form o-grid" action="/fragments/{{$item->id}}" method="POST" autocomplete="off">
+                {{ csrf_field() }}
+                {{ method_field('DELETE') }}
+                @include('forms.submit',['label' => 'Delete', 'classes' => 'o-grid__column o-button o-button--link o-button--link--red o-flex__item--none o-flex__item--align-right'])
             </form>
         </div>
     </div>
-    <div class="o-dialog__bg" data-toggle-dialog="fragment-settings-{{$fragment->id}}"></div>
+    <div class="o-dialog__bg" data-toggle-dialog="fragment-settings-{{$item->id}}"></div>
 </div>

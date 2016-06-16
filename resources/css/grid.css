@@ -2,7 +2,12 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  margin-bottom: -2rem;
+}
+.o-grid--columns{
+    flex-flow: column wrap;
+}
+.o-grid:last-child{
+    margin-bottom: -2rem;
 }
 .o-grid__column {
   flex: 1;

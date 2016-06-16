@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Support\Collection as LaravelCollection;
+
 
 class AccountDetail extends BaseModel
 {
@@ -31,7 +33,7 @@ class AccountDetail extends BaseModel
     public function getDataAttribute($value)
     {
         if(is_array(json_decode($value, true))){
-            return json_decode($value);
+            return new LaravelCollection(json_decode($value, true));
         }
         return $value;
     }

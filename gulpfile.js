@@ -48,10 +48,13 @@ gulp.task('build-js', ['clean-build'], function(){
         'resources/bower_components/codemirror/mode/gfm/gfm.js',
         // 'resources/bower_components/mark/mark.js'
         'resources/bower_components/es6-promise/es6-promise.js',
-        'resources/bower_components/fetch/fetch.js'
+        'resources/bower_components/fetch/fetch.js',
+        'resources/js/input.js',
+        'resources/js/dialog-colllection.js',
+        'resources/js/app.js'
     );
     // push rest of js files
-    files.push('resources/js/*.js');
+    // files.push('resources/js/*.js');
 
     return gulp.src(files)
     .pipe(sourcemaps.init())

@@ -2,7 +2,7 @@
 
     {{-- Edit button --}}
     @if(isset($item['id']))
-        <button class="o-button-none c-navigation__delete" data-open-dialog="edit-collection" data-link="/dialog/editCollection?id={{$item['id']}}">
+        <button class="o-button-none c-navigation__delete" data-dialog-link="/dialog/editCollection?id={{$item['id']}}">
             <svg viewBox="0 0 512 512" class="o-icon o-icon--white o-icon--small">
               <use xlink:href="#svg-icon--edit"></use>
             </svg>

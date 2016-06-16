@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Collections;
 
 use App\Http\Requests;
 use Cache;
+use App\Services\Api\PageService;
+use App\Services\Api\FragmentService;
+use App\Services\Api\MetadetailService;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -41,14 +45,14 @@ class Collections extends Controller
                 'type' => 'error',
             ]);
         }
-        // if no page was set redirect to first page or empty page
-        if($page === NULL){
-            return $this->firstItemOrEmpty($collection);
-        }
         // --------------------------
         // BUILD NAVIGATION
         // get pages
         if(!$collection->pages->isEmpty()){
+            // if no page was set redirect to first page or empty page
+            if($page === NULL){
+                return $this->firstItemOrEmpty($collection);
+            }
             $content_type = 'pages';
             $items = $collection->pages->map(function($item) use ($collection){
                 return $item->put('link', '/collections/'.$collection->slug.'/'.$item->slug);
@@ -82,45 +86,87 @@ class Collections extends Controller
         // -------------------------
         // if fragments collection
         if(isset($content_type) && $content_type === 'fragments'){
-            // get item
-            $item = $collection->fragments->filter(function($item) use ($page){
-                return $item->id === $page;
-            })->first();
             // show item if exists
-            if(!$item->isEmpty()){
-                return view('collections.fragment', [
-                    'dialog' => view('fragments.settings', [
-                        ])->render(),
-                    'item' => $item,
+            if(!$collection->fragments->isEmpty()){
+                return view('collections.fragments', [
+                    'items' => $collection->fragments,
                     'collection' => $collection,
+                    'fragment' => config('app.account')->details->where('type', 'fragment')->where('name',$collection->fragments->first()->type)->first()->data
                 ]);
             }
         }
-        if($page !== NULL){
-            return redirect('/collections/'.$collection->slug);
+        if($page === NULL){
+            return $this->firstItemOrEmpty($collection);
         }
-        return redirect('/');
+
+        return redirect('/collections/'.$collection->slug);
+        // return redirect('/');
     }
     /**
      * create a collection
      *
      * @method store
      */
-    public function store()
+    public function store(Request $request)
     {
-        // TODO: needs refactor
-        // create unique slug
-        $slug = 'new-collection-'.rand();
-        while(!(new CollectionService)->find('slug',$slug)->isEmpty()){
-            $slug = 'new-collection-'.rand();
-        }
-
-        $item = (new CollectionService)->create([
-            'name' => 'New Collection',
-            'slug' => $slug,
+        $slugs = (new CollectionService)->all([
+            'only' => false
+        ])->pluck('slug')->toArray();
+        // get page data
+        $item = $this->getValidated($request, [
+            'name'      => 'required|string',
+            'slug'      => 'required|alpha_dash|not_in:'.implode(',',$slugs),
+            'type'      => 'required|in:pages,news',
         ]);
 
-        return redirect('collections/'.$slug);
+        // if validation fails
+        if($item->get('isInvalid')){
+            return back()->with([
+                'status'            => 'Creating collection failed: '.implode(' ',$item->get('validator')->errors()->all()),
+                'type'              => 'error',
+            ])->withErrors($item->get('validator'))
+            ->withInput();
+        }
+        $response = (new CollectionService)->create([
+            'name' => $item->get('name'),
+            'slug' => $item->get('slug'),
+            'type' => 'posts',
+        ]);
+        // if invalid response
+        if(isset($response['errors'])){
+            $errors = "";
+            foreach($response['errors'] as $msg){
+                $errors .= implode(' ',$msg);
+            }
+            return back()->with(['status' => 'Update failed: '.$errors,'type' => 'error']);
+        }
+
+        if($item->get('type') === 'pages'){
+            $newPage = (new PageService)->create([
+                'menu_label'    => 'New Page',
+                'slug'          => $item->get('slug').'-new-page',
+                'language'      => 'de',
+                'published'     => true,
+            ]);
+
+            $rel = $this->api($this->client)->post('/collections/'.$response['data']['id'].'/relationships/pages', [
+                'type' => 'pages',
+                'id'   => $newPage['data']['id'],
+            ]);
+        }
+
+        if($item->get('type') === 'news'){
+            $new = (new FragmentService)->create([
+                'type'    => 'news',
+            ]);
+
+            $rel = $this->api($this->client)->post('/collections/'.$response['data']['id'].'/relationships/fragments', [
+                'type' => 'fragments',
+                'id'   => $new['data']['id'],
+            ]);
+        }
+
+        return redirect('collections/'.$item->get('slug'));
     }
     /**
      * delete a collection
@@ -131,11 +177,11 @@ class Collections extends Controller
     {
         $collection = (new CollectionService)->get($request->id);
         // TODO: deal with errors
-        if($collection->pages->isEmpty()){
-            $response = $this->api($this->client)->delete('/collections/'.$request->id);
-            return redirect('collections');
+        if($collection->pages->isEmpty() && $collection->fragments->isEmpty()){
+            $response = (new CollectionService)->delete($request->id);
+            return redirect('/');
         }
-        return back()->with(['status' => 'You must delete all pages in a collection, before deleting the collection.','type' => 'error']);
+        return back()->with(['status' => 'You must delete all items in a collection, before deleting the collection.','type' => 'error']);
     }
     /**
      * update the collection

@@ -20,4 +20,9 @@ class DialogService extends Controller
         }
         return false;
     }
+
+    protected function dialogNewCollection(Request $request)
+    {
+        return view('notice.dialog.new-collection')->render();
+    }
 }

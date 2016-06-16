@@ -1,11 +1,12 @@
 // Toggle dialog js
-var elements = document.querySelectorAll('[data-open-dialog=edit-collection]');
+var elements = document.querySelectorAll('[data-dialog-link]');
 Array.prototype.forEach.call(elements, function(el, i){
-    el.addEventListener('click', function(){
+    el.addEventListener('click', function(evt){
+        evt.preventDefault()
         // show dialog
         document.querySelector('[data-dialog]').classList.remove('is-hidden');
 
-        fetch(el.getAttribute('data-link'), {
+        fetch(el.getAttribute('data-dialog-link'), {
             credentials: 'same-origin'
         })
         .then(function(response) {
@@ -13,6 +14,7 @@ Array.prototype.forEach.call(elements, function(el, i){
         }).then(function(dialog) {
             document.querySelector('[data-dialog-loading]').classList.add('is-hidden');
             document.querySelector('[data-dialog-content]').innerHTML = dialog;
+            inputs();
         });
     });
 });

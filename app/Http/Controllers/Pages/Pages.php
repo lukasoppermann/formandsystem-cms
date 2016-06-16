@@ -65,11 +65,11 @@ class Pages extends Controller
 
     public function show($slug){
 
-        $this->collections = $items = (new CollectionService)->all([
+        $collections = (new CollectionService)->all([
             'includes' => false
         ]);
 
-        $data['page'] = (new PageService)->first('slug',$slug,['includes' => [
+        $page = (new PageService)->first('slug',$slug,['includes' => [
             'ownedByCollections',
             'metadetails',
             'fragments',
@@ -78,14 +78,15 @@ class Pages extends Controller
             'fragments.fragments',
         ]]);
 
-        if($data['page'] === NULL){
+        if($page === NULL){
             return redirect('/pages');
         }
-
-        $data['collection'] = $data['page']->ownedByCollections->first();
-        $data['collections'] = $this->collections;
-
-        return view('pages.page', $data);
+        
+        return view('pages.page', [
+            'page'          => $page,
+            'collection'    => $page->ownedByCollections->first(),
+            'collections'   => $collections,
+        ]);
     }
     /**
      * create new page instance
@@ -103,7 +104,7 @@ class Pages extends Controller
         ], [
             'menu_label' => 'New Item',
             'slug'       => 'new-item-'.rand(),
-            'published'  => false,
+            'published'  => true,
             'language'  => 'de',
         ]);
         // if validation fails
@@ -120,7 +121,6 @@ class Pages extends Controller
         }else{
             $collection_id = $collection->get('collection');
         }
-
         $newPage = (new PageService)->create($page->toArray());
 
         $response = $this->api($this->client)->post('/collections/'.$collection_id.'/relationships/pages', [

@@ -53,8 +53,7 @@ Route::group(['middleware' => ['auth']], function(){
 
         Route::post('/fragments', 'Fragments@store');
         Route::patch('/fragments/{id}', 'Fragments@update');
-
-        Route::get('/fragments/delete/{id}', 'Fragments@delete');
+        Route::delete('/fragments/{id}', 'Fragments@delete');
 
     });
     // Settings

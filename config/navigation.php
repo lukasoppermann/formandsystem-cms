@@ -52,26 +52,26 @@ return [
             ],
             [
                 'items' => [
-                    [
-                        'label' => 'Media',
-                        'link'  => '/media',
-                    ],
-                    [
-                        'label' => 'Fragments',
-                        'link'  => '/fragments',
-                    ],
+                    // [
+                    //     'label' => 'Media',
+                    //     'link'  => '/media',
+                    // ],
+                    // [
+                    //     'label' => 'Fragments',
+                    //     'link'  => '/fragments',
+                    // ],
                     [
                         'label' => 'Settings',
                         'link'  => '/settings/site',
                     ],
-                    [
-                        'label' => 'Users',
-                        'link'  => '/users',
-                    ],
-                    [
-                        'label' => 'Profile',
-                        'link'  => '/users/me',
-                    ],
+                    // [
+                    //     'label' => 'Users',
+                    //     'link'  => '/users',
+                    // ],
+                    // [
+                    //     'label' => 'Profile',
+                    //     'link'  => '/users/me',
+                    // ],
                 ]
             ]
         ],

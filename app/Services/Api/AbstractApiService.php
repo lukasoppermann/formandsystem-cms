@@ -51,7 +51,7 @@ abstract class AbstractApiService extends AbstractService
         $many = false;
         is_array($ids) ? $many = true : $ids = [$ids];
         // build url
-        $url = '/'.$this->endpoint.'?filter[id]='.trim(implode(',',$ids),',').'&'.$this->parameters($param);
+        $url = '/'.$this->endpoint.'?filter[id]='.trim(trim(implode(',',$ids),',').'&'.$this->parameters($param),'&');
         // get items
         if( !$items = $this->getAllItems($url) ){
             // return empty collection on error

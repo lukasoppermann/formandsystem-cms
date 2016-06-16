@@ -29,22 +29,6 @@ Array.prototype.forEach.call(elements, function(el, i){
         });
     });
 });
-// input
-var elements = document.querySelectorAll('[data-check-empty]');
-Array.prototype.forEach.call(elements, function(el, i){
-    if(el.value == ""){
-        el.classList.add('is-empty');
-    }else{
-        el.classList.remove('is-empty');
-    }
-    el.addEventListener('keyup', function(){
-        if(el.value == ""){
-            el.classList.add('is-empty');
-        }else{
-            el.classList.remove('is-empty');
-        }
-    });
-});
 // Toggle on change js
 // var elements = document.querySelectorAll('[data-toggle-if-filled]');
 // Array.prototype.forEach.call(elements, function(el, i){

@@ -9,7 +9,7 @@
 
         @if( $item->fragments !== null)
             @foreach($item->fragments as $fragment)
-                @include('fragments.fragment', ['fragment' => $fragment, 'page' => $item])
+                @include('fragments.fragment', ['item' => $fragment, 'page' => $item])
             @endforeach
         @endif
 

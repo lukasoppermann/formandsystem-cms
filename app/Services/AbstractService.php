@@ -30,7 +30,7 @@ abstract class AbstractService
     {
         $this->account = Auth::user()->accounts->first();
         if($client = $this->account->details->where('type','cms_client')->first()){
-            $this->client = (array) $client->data;
+            $this->client = $client->data;
         }
         // set cms api settings
         $this->config['cms'] = [
@@ -52,8 +52,7 @@ abstract class AbstractService
             'client_id'     => NULL,
             'client_secret' => NULL,
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
-        ], $config);
-
+        ], $config->toArray());
         // return new API instance
         return new Api($config, new CacheService);
     }

@@ -1,0 +1,15 @@
+/* hide radio button items */
+.o-radio-button input[type="radio"] {
+	opacity: 0; /* hidden but still tabable */
+	position: absolute;
+}
+.o-radio-button {
+	cursor: pointer;
+}
+.o-radio-button input[type="radio"]:checked + span {
+	color: #D9E7FD;
+    background-color: #4285F4;
+}
+.o-radio-button input[type="radio"]:focus + span {
+	color: #fff;
+}

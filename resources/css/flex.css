@@ -10,6 +10,9 @@
     flex: 1;
 }
 .o-flex__item--auto{
+    flex: 1 1 auto !important;
+}
+.o-flex__item--none{
     flex: 0 0 auto !important;
 }
 .o-flex__item--align-left{

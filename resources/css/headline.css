@@ -5,3 +5,6 @@
 .o-headline--second{
     font-size: var(--type-size-xl);
 }
+.o-headline--thrid{
+    font-size: var(--type-size-lg);
+}

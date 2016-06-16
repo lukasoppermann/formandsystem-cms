@@ -35,7 +35,7 @@ class Controller extends BaseController
         \Log::debug('Get Metadetails e.g. image_dir & site_url & store with account');
         // api client
         if($client = $this->account->details->where('type','cms_client')->first()){
-            $this->client = (array) $client->data;
+            $this->client = $client->data;
         }
         // set user config
         $this->setUserConfig();
@@ -91,7 +91,7 @@ class Controller extends BaseController
             'client_id'     => env('USER_API_CLIENT_ID'),
             'client_secret' => env('USER_API_CLIENT_SECRET'),
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
-        ], $config);
+        ], $config->toArray());
         // return new API instance
         return new Api($config, new CacheService);
     }

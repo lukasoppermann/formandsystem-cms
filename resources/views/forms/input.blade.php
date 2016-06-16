@@ -13,7 +13,7 @@
     $additional_values = isset($additional_values) ? array_filter($additional_values) : [];
 ?>
 
-<div class="o-input{{$errors->has($name) ? ' o-input--error' : ''}}">
+<div class="o-input{{$errors->has($name) ? ' o-input--error' : ''}} {{$classes or ''}}">
     @foreach($additional_values as $key => $v)
         <input name="{{$name}}_{{$key}}" type="hidden" value="{{$v}}">
     @endforeach
