@@ -16,6 +16,7 @@ class Fragments extends Controller
 {
     public function store(Request $request)
     {
+
         $fragment = (new FragmentService)->create(['type' => $request->get('type')]);
 
         if($item = $request->get('page')){
@@ -45,7 +46,6 @@ class Fragments extends Controller
             ]);
             (new CollectionService)->clearCache();
         }
-
         return back();
     }
     /**
@@ -76,104 +76,150 @@ class Fragments extends Controller
      */
     public function update(Request $request, $id)
     {
-        // transform input
-        $request->replace(
-            array_merge(
-                $request->only([
-                    'columns_medium',
-                    'columns_small',
-                    'columns_large',
-                    'classes',
-                    'data',
-                    'collection',
-                ]),
-                [
-                    'columns_medium' => $request->get('columns_medium') === NULL ? config('user.grid-md') : $request->get('columns_medium'),
-                    'columns_small' => $request->get('columns_small') === NULL ? config('user.grid-sm') : $request->get('columns_small'),
-                    'columns_large' => $request->get('columns_large') === NULL ? config('user.grid-lg') : $request->get('columns_large'),
-                ]
-            )
-        );
+        // // transform input
+        // $request->replace(
+        //     array_merge(
+        //         $request->only([
+        //             'columns_medium',
+        //             'columns_small',
+        //             'columns_large',
+        //             'classes',
+        //             'data',
+        //             'collection',
+        //         ]),
+        //         [
+        //             'columns_medium' => $request->get('columns_medium') === NULL ? config('user.grid-md') : $request->get('columns_medium'),
+        //             'columns_small' => $request->get('columns_small') === NULL ? config('user.grid-sm') : $request->get('columns_small'),
+        //             'columns_large' => $request->get('columns_large') === NULL ? config('user.grid-lg') : $request->get('columns_large'),
+        //         ]
+        //     )
+        // );
         // validate input
-         $validator = Validator::make($request->all(), [
-            'columns_small'     => 'in:'.implode(',',range(0, config('user.grid-sm'))),
-            'columns_medium'    => 'in:'.implode(',',range(0, config('user.grid-md'))),
-            'columns_large'     => 'in:'.implode(',',range(0, config('user.grid-lg'))),
-            'classes'           => 'string',
-            'data'              => 'string',
-            'collection'        => 'string',
-        ]);
+        //  $validator = Validator::make($request->all(), [
+        //     'data'              => 'string',
+        //     'collection'        => 'string',
+        // ]);
         // if validation fails
-        if($validator->fails()){
-            return back()
-                ->with(['status' => 'Updating the fragment failed.', 'type' => 'error'])
-                ->withErrors($validator, $id)
-                ->withInput();
-        }
+        // if($validator->fails()){
+        //     return back()
+        //         ->with(['status' => 'Updating the fragment failed.', 'type' => 'error'])
+        //         ->withErrors($validator, $id)
+        //         ->withInput();
+        // }
         // get current fragment
-        $fragment = (new FragmentService)->get($id);
-        // store detail
-        try{
-            $settings = ['columns_small','columns_medium','columns_large','classes'];
-            foreach($request->only($settings) as $key => $value){
-                // variable to determin creation of detail
-                $create = true;
-
-                if($fragment->metadetails !== null){
-                    $detail = $fragment->metadetails->filter(function($item) use($key){
-                        return $item->type === $key;
-                    })->first();
-
-                    if($detail !== NULL){
-                        $create = false;
-                        $item = (new MetadetailService)->update(
-                            $detail->id,
-                            [
-                                'type' => $key,
-                                'data' => $value,
-                            ]
-                        );
-                    }
-                }
-                // create new
-                if($create === true && $value != null){
-                    $item = (new MetadetailService)->create(
-                        [
-                            'type' => $key,
-                            'data' => (string)$value,
-                        ]
-                    );
-
-                    $response = $this->api($this->client)->post('/fragments/'.$fragment->id.'/relationships/metadetails', [
-                        'type' => 'metadetails',
-                        'id'   => $item['data']['id'],
-                    ]);
-                }
+        $fragment = (new FragmentService)->get($id, [
+            'includes' => [
+                'ownedByPages',
+                'ownedByCollections',
+                'ownedByFragments',
+            ]
+        ]);
+        // update the details for the current fragment
+        $this->updateFragmentDetails($request, $fragment);
+        // update the fragment data
+        //     // get collection data
+        //     $collection = $this->getValidated($request, [
+        //         'collection' => 'required|string',
+        //     ]);
+        //     // update data
+        //     if( $data = $request->get('data') ){
+        //         $fragment = (new FragmentService)->update($id,
+        //             [
+        //                 'type' => $fragment->type,
+        //                 'name' => $fragment->name,
+        //                 'data' => $data,
+        //             ]
+        //         );
+        //     }
+        //     // update collection
+        //     if( $data = $request->get('collection') ){
+        //         $response = $this->api($this->client)->patch('/fragments/'.$fragment->id.'/relationships/collections', [
+        //             'type' => 'collections',
+        //             'id'   => $request->get('collection'),
+        //         ]);
+        //     }
+            // clear cache
+            if(!$fragment->ownedByPages->isEmpty()){
+                (new PageService)->clearCache();
             }
-
-            // update data
-            if( $data = $request->get('data') ){
-                $fragment = (new FragmentService)->update($id,
-                    [
-                        'type' => $fragment->type,
-                        'name' => $fragment->name,
-                        'data' => $data,
-                    ]
-                );
+            if(!$fragment->ownedByCollections->isEmpty()){
+                (new CollectionService)->clearCache();
             }
-            // update collection
-            if( $data = $request->get('collection') ){
-                $response = $this->api($this->client)->patch('/fragments/'.$fragment->id.'/relationships/collections', [
-                    'type' => 'collections',
-                    'id'   => $request->get('collection'),
-                ]);
+            if(!$fragment->ownedByFragments->isEmpty()){
+                (new PageService)->clearCache();
+                (new CollectionService)->clearCache();
+                (new FragmentService)->clearCache();
             }
             // redirect on success
             return back()->with([
                 'status' => 'This fragment has been updated successfully.',
                 'type' => 'success'
             ]);
-        }catch(Exception $e){
+        // }catch(Exception $e){
+        //     \Log::error($e);
+        //
+            // return back()->with(['status' => 'Saving this fragment failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
+        // }
+    }
+    /**
+     * update the details of a given fragment
+     *
+     * @method updateFragmentDetails
+     *
+     * @param  [type]                $details [description]
+     *
+     * @return [type]
+     */
+    protected function updateFragmentDetails(Request $request, $fragment)
+    {
+        // get details data
+        $details = $this->getValidated($request, [
+            'columns_small'     => 'in:'.implode(',',range(0, config('user.grid-sm'))),
+            'columns_medium'    => 'in:'.implode(',',range(0, config('user.grid-md'))),
+            'columns_large'     => 'in:'.implode(',',range(0, config('user.grid-lg'))),
+            'classes'           => 'string',
+        ], [
+            'columns_medium' => $request->get('columns_medium') === NULL ? config('user.grid-md') : $request->get('columns_medium'),
+            'columns_small' => $request->get('columns_small') === NULL ? config('user.grid-sm') : $request->get('columns_small'),
+            'columns_large' => $request->get('columns_large') === NULL ? config('user.grid-lg') : $request->get('columns_large'),
+        ]);
+        // if validation fails
+        if($details->get('isInvalid')){
+            return back()
+                ->with(['status' => 'Updating the fragment failed.', 'type' => 'error'])
+                ->withErrors($details->get('validator'), $id)
+                ->withInput();
+        }
+        // store detail
+        try{
+            foreach($details as $key => $value){
+                // update or add details
+                $detail = $fragment->metadetails->filter(function($item) use($key){
+                    return $item->type === $key;
+                })->first();
+                if($detail !== NULL && $detail->data !== $value){
+                    (new MetadetailService)->update(
+                        $detail->id,
+                        [
+                            'type' => $key,
+                            'data' => $value,
+                        ]
+                    );
+                } elseif($detail === NULL) {
+                    $detail = (new MetadetailService)->create(
+                        [
+                            'type' => $key,
+                            'data' => $value,
+                        ]
+                    );
+                    $response = $this->api($this->client)->post('/fragments/'.$fragment->id.'/relationships/metadetails', [
+                        'type' => 'metadetails',
+                        'id'   => $detail['data']['id'],
+                    ]);
+                }
+            }
+        }
+        catch(Exception $e){
             \Log::error($e);
 
             return back()->with(['status' => 'Saving this fragment failed. Please contact us at support@formandsystem.com', 'type' => 'error']);

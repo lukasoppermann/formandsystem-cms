@@ -8,13 +8,13 @@
         }
     });
 
-    if(!$fragment->collections->isEmpty()){
-        $collection_id = $fragment->collections->first()->id;
+    if(!$item->collections->isEmpty()){
+        $collection_id = $item->collections->first()->id;
     }
 
 
 ?>
-<form action="/fragments/{{$fragment->id}}" method="POST">
+<form action="/fragments/{{$item->id}}" method="POST">
     {{ csrf_field() }}
     {{ method_field('PATCH') }}
     @include('forms.select', [

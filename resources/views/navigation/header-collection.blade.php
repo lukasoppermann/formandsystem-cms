@@ -8,7 +8,7 @@
         </a>
     </div>
 
-    <div class="c-navigation__icon c-navigation__icon--right c-navigation__icon--light" data-open-dialog="edit-collection" data-link="/dialog/editCollection?id={{$item->id}}">
+    <div class="c-navigation__icon c-navigation__icon--right c-navigation__icon--light" data-dialog-link="/dialog/editCollection?id={{$item['id']}}">
         <svg viewBox="0 0 512 512" class="o-icon">
           <use xlink:href="#svg-icon--edit"></use>
         </svg>

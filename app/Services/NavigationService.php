@@ -203,21 +203,31 @@ class NavigationService
      */
     protected function getListCollections($lists = NULL){
         // get lists
-        $items = (new \App\Services\Api\CollectionService)->first('slug',$this->active['item'], [
+        $collection = (new \App\Services\Api\CollectionService)->first('slug',$this->active['item'], [
             'only' => 'pages'
         ]);
         // return false if no pages exists
-        if($items->pages->isEmpty()){
+        if($collection->pages->isEmpty()){
             return NULL;
         }
-        $items->pages->map(function($item) use($items){
-            return $item->put('collection', 'collections/'.$items->slug);
+        $collection->pages->map(function($item) use($collection){
+            return $item->put('collection', 'collections/'.$collection->slug);
         });
         // return
         return [
             [
-                'items'     => $items->pages,
-                'template'  => 'navigation.item-page'
+                'items'     => $collection->pages,
+                'template'  => 'navigation.item-page',
+                'elements' => [
+                    view('navigation.add', [
+                        'action'    => '/pages/',
+                        'method'    => 'post',
+                        'label'     => 'New Page',
+                        'fields'    => [
+                            'collection' => $collection->id
+                        ]
+                    ])->render()
+                ]
             ]
         ];
     }

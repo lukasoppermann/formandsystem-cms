@@ -11,6 +11,7 @@
 }
 
 .o-button{
+    display: inline-block;
     position: relative;
     cursor: pointer;
     font-size: var(--type-size-default);
@@ -18,8 +19,24 @@
     border-radius: 5rem;
     border: 2px solid color(var(--black) alpha(15%));
     color: var(--text-gray);
-    background: transparent;
+    background-color: transparent;
     transition: color .5s ease, background-color .5s ease;
+}
+.o-button--icon{
+    position: relative;
+    padding-left: 4.5rem;
+}
+.o-button--icon .o-icon{
+    position: absolute;
+    height: 2rem;
+    top: calc(50% - 1rem);
+    left: 1.5rem;
+    fill: currentColor;
+    transition: fill .3s ease;
+}
+.o-button--icon .o-icon--sm{
+    height: 1.5rem;
+    top: calc(50% - .75rem);
 }
 .o-button:disabled{
     cursor:not-allowed;
@@ -88,4 +105,16 @@
 }
 .o-button--space-top{
     margin-top: 2rem;
+}
+.o-button--squared{
+    border-radius: .3rem;
+    border: 1px solid color(var(--black) alpha(15%));
+    background-image: linear-gradient(180deg, var(--white), var(--white-gray));
+    text-align: center;
+    box-shadow: 0 1px 3px color(var(--black) alpha(15%));
+    transition: background-image .3s ease, box-shadow .3s ease;
+}
+.o-button--squared:hover{
+    box-shadow: 0 1px 1px color(var(--black) alpha(10%));
+    background-image: linear-gradient(180deg, color(var(--white) shade(1%)), color(var(--white-gray) shade(2%)));
 }

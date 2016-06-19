@@ -46,3 +46,6 @@ button{
     cursor: pointer;
     text-align: left;
 }
+.is-hidden{
+    display: none;
+}

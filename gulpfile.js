@@ -160,7 +160,6 @@ gulp.task('css', ['clean-build'], function(){
             require("postcss-reporter")(),
         ]))
         .pipe(sourcemaps.write('/'))
-
         // .pipe(rev())
         .pipe(gulp.dest('public/build/css'));
 });

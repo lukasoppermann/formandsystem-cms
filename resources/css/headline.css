@@ -4,7 +4,9 @@
 }
 .o-headline--second{
     font-size: var(--type-size-xl);
+    margin-bottom: var(--type-size-lg);
 }
-.o-headline--thrid{
+.o-headline--third{
     font-size: var(--type-size-lg);
+    margin-bottom: var(--type-size-md);
 }

@@ -1,10 +1,10 @@
 <!-- include sub-fragments -->
 <div class="o-user-grid">
-    @if($fragment->fragments !== NULL)
-        @foreach($fragment->fragments as $subfragment)
-            @include('fragments.fragment', ['fragment' => $subfragment])
+    @if($item->fragments !== NULL)
+        @foreach($item->fragments as $subfragment)
+            @include('fragments.fragment', ['item' => $subfragment])
         @endforeach
     @endif
 
-    @include('fragments.new', ['fragment_id' => $fragment->id])
+    @include('fragments.new', ['fragment_id' => $item->id])
 </div>

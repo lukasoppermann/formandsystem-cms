@@ -81,5 +81,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/users', 'Users@index');
     Route::get('/users/{user}', 'Users@show');
 
-    Route::get('/dialog/{type}', 'DialogService@show');
+    Route::get('/dialog/{type}', function(Illuminate\Http\Request $request, $type){
+        return (new \App\Services\DialogService)->show($request, $type);
+    });
 });

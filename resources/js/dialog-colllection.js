@@ -15,6 +15,7 @@ Array.prototype.forEach.call(elements, function(el, i){
             document.querySelector('[data-dialog-loading]').classList.add('is-hidden');
             document.querySelector('[data-dialog-content]').innerHTML = dialog;
             inputs();
+            formsubmit();
         });
     });
 });

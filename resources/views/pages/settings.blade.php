@@ -23,8 +23,8 @@
                     @include('forms.input',['name' =>'slug', 'label' => 'Path/Slug', 'value' => $item->slug])
                 </div>
                 <div class="o-grid__column o-grid__column--md-6of12">
-                    @include('forms.input',['name' =>'title', 'label' => 'Meta Title', 'value' => $item->title])
-                    @include('forms.textarea',['name' =>'description', 'label' => 'Meta Description', 'value' => $item->description])
+                    @include('forms.input',['name' =>'title', 'label' => 'Meta Title', 'value' => $item->title, 'attr' => 'required'])
+                    @include('forms.textarea',['name' =>'description', 'label' => 'Meta Description', 'value' => $item->description, 'attr' => 'required'])
                 </div>
             </div>
 

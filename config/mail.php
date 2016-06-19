@@ -16,8 +16,8 @@ return [
     |
     */
 
-    // 'driver' => env('MAIL_DRIVER', 'sparkpost'),
-    'driver' => env('MAIL_DRIVER', 'log'),
+    'driver' => env('MAIL_DRIVER', 'sparkpost'),
+    // 'driver' => env('MAIL_DRIVER', 'log'),
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address

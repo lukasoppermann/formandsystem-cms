@@ -81,9 +81,9 @@ class Pages extends Controller
         if($page === NULL){
             return redirect('/pages');
         }
-        
+
         return view('pages.page', [
-            'page'          => $page,
+            'item'          => $page,
             'collection'    => $page->ownedByCollections->first(),
             'collections'   => $collections,
         ]);

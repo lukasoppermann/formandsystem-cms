@@ -45,6 +45,16 @@
 .o-fragment .o-file{
     height: 100%;
 }
+.c-fragment--custom-add{
+    border: 1px dashed var(--white-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.c-fragment--custom-add:hover{
+    box-shadow: none;
+    border: 1px dashed var(--light-gray);
+}
 .c-fragment-settings-dialog{
     min-width: 30rem;
 }

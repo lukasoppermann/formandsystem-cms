@@ -43,3 +43,13 @@ Array.prototype.forEach.call(elements, function(el, i){
         mode: "gfm"
     });
 });
+
+var formsubmit = function(){
+    var elements = document.querySelectorAll('[data-submit-form]');
+    Array.prototype.forEach.call(elements, function(el, i){
+        el.addEventListener('click', function(){
+            var element = document.querySelector('[name='+el.getAttribute('data-submit-form')+']');
+            element.querySelector('[type=submit]').click();
+        });
+    });
+}

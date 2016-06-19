@@ -4,3 +4,11 @@
 .o-icon--white{
     fill: var(--white);
 }
+.o-icon--sm{
+   height: 2rem;
+   width: auto;
+}
+ .o-icon--md{
+    height: 3rem;
+    width: auto;
+ }

@@ -162,8 +162,12 @@ abstract class AbstractApiService extends AbstractService
             'id'   => $id,
             'attributes' => $data,
         ]);
-
+        // error
+        if(!isset($response['data'])){
+            return $response;
+        }
         return $response;
+        // return new $this->entity($response['data'], $response['data']['included']);
     }
     /**
      * delete an item by id

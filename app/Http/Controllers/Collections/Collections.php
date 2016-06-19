@@ -8,7 +8,6 @@ use Cache;
 use App\Services\Api\PageService;
 use App\Services\Api\FragmentService;
 use App\Services\Api\MetadetailService;
-
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -73,7 +72,7 @@ class Collections extends Controller
                 return $item->slug === $page;
             })->first();
             // show item if exists
-            if(!$item->isEmpty()){
+            if($item !== NULL){
                 return view('pages.page', [
                     'dialog' => view('collections.settings', [
                             'collection' => $collection,
@@ -89,9 +88,15 @@ class Collections extends Controller
             // show item if exists
             if(!$collection->fragments->isEmpty()){
                 return view('collections.fragments', [
-                    'items' => $collection->fragments,
-                    'collection' => $collection,
-                    'fragment' => config('app.account')->details->where('type', 'fragment')->where('name',$collection->fragments->first()->type)->first()->data
+                    'items'         => $collection->fragments,
+                    'collection'    => $collection,
+                    'fragment'      => config('app.account')->details->where('type', 'fragment')->where('name',$collection->fragments->first()->type)->first()->data,
+                    'elements'      => [
+                        view('fragments.add-custom-fragment', [
+                            'collection' => $collection,
+                            'type'       => $collection->fragments->first()->type,
+                        ])->render()
+                    ]
                 ]);
             }
         }
@@ -129,7 +134,7 @@ class Collections extends Controller
         }
         $response = (new CollectionService)->create([
             'name' => $item->get('name'),
-            'slug' => $item->get('slug'),
+            'slug' => strtolower($item->get('slug')),
             'type' => 'posts',
         ]);
         // if invalid response

@@ -1,11 +1,8 @@
-<?php
-    $item = isset($page) ? $page : $item;
-?>
 @extends('layouts.app')
 
 @section('content')
     @include('pages.settings')
-    <div class="o-content o-content--wide o-user-grid o-user-gritemid--gutter-sm">
+    <div class="o-content o-content--wide o-user-grid">
 
         @if( $item->fragments !== null)
             @foreach($item->fragments as $fragment)
