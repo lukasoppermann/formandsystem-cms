@@ -13,12 +13,13 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        'Illuminate\Auth\Events\Login' => [
+            'App\Listeners\UpdateLastLoginDate',
+        ],
         'App\Events\ClientWasDeleted' => [
             'App\Listeners\DeleteSettingsOnClientDelete',
         ],
     ];
-
-
     /**
      * Register any other events for your application.
      *

@@ -117,44 +117,24 @@ class Fragments extends Controller
         // update the details for the current fragment
         $this->updateFragmentDetails($request, $fragment);
         // update the fragment data
-        //     // get collection data
-        //     $collection = $this->getValidated($request, [
-        //         'collection' => 'required|string',
-        //     ]);
-        //     // update data
-        //     if( $data = $request->get('data') ){
-        //         $fragment = (new FragmentService)->update($id,
-        //             [
-        //                 'type' => $fragment->type,
-        //                 'name' => $fragment->name,
-        //                 'data' => $data,
-        //             ]
-        //         );
-        //     }
-        //     // update collection
-        //     if( $data = $request->get('collection') ){
-        //         $response = $this->api($this->client)->patch('/fragments/'.$fragment->id.'/relationships/collections', [
-        //             'type' => 'collections',
-        //             'id'   => $request->get('collection'),
-        //         ]);
-        //     }
-            // clear cache
-            if(!$fragment->ownedByPages->isEmpty()){
-                (new PageService)->clearCache();
-            }
-            if(!$fragment->ownedByCollections->isEmpty()){
-                (new CollectionService)->clearCache();
-            }
-            if(!$fragment->ownedByFragments->isEmpty()){
-                (new PageService)->clearCache();
-                (new CollectionService)->clearCache();
-                (new FragmentService)->clearCache();
-            }
-            // redirect on success
-            return back()->with([
-                'status' => 'This fragment has been updated successfully.',
-                'type' => 'success'
-            ]);
+        $this->updateFragment($request, $id, $fragment);
+        // clear cache
+        if(!$fragment->ownedByPages->isEmpty()){
+            (new PageService)->clearCache();
+        }
+        if(!$fragment->ownedByCollections->isEmpty()){
+            (new CollectionService)->clearCache();
+        }
+        if(!$fragment->ownedByFragments->isEmpty()){
+            (new PageService)->clearCache();
+            (new CollectionService)->clearCache();
+            (new FragmentService)->clearCache();
+        }
+        // redirect on success
+        return back()->with([
+            'status' => 'This fragment has been updated successfully.',
+            'type' => 'success'
+        ]);
         // }catch(Exception $e){
         //     \Log::error($e);
         //
@@ -166,7 +146,8 @@ class Fragments extends Controller
      *
      * @method updateFragmentDetails
      *
-     * @param  [type]                $details [description]
+     * @param  Request               $request  [description]
+     * @param  Entity                $fragment [description]
      *
      * @return [type]
      */
@@ -223,6 +204,41 @@ class Fragments extends Controller
             \Log::error($e);
 
             return back()->with(['status' => 'Saving this fragment failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
+        }
+    }
+    /**
+     * update the given fragment
+     *
+     * @method updateFragment
+     *
+     * @param  Request               $request  [description]
+     * @param  Entity                $fragment [description]
+     *
+     * @return [type]
+     */
+    protected function updateFragment(Request $request, $id, $fragment)
+    {
+        // get collection data
+        $data = $this->getValidated($request, [
+            'collection' => 'string',
+            'data'       => 'string',
+        ]);
+        // update data
+        if( $data->get('data') !== NULL ){
+            $fragment = (new FragmentService)->update($id,
+                [
+                    'type' => $fragment->type,
+                    'name' => $fragment->name,
+                    'data' => $data->get('data'),
+                ]
+            );
+        }
+        // update collection
+        if( $data->get('collection') !== NULL ){
+            $response = $this->api($this->client)->patch('/fragments/'.$fragment->id.'/relationships/collections', [
+                'type' => 'collections',
+                'id'   => $data->get('collection'),
+            ]);
         }
     }
 }

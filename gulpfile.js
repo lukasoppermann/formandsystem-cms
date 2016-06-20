@@ -71,9 +71,9 @@ gulp.task('build-external-js', ['clean-build'], function(){
     var files = [];
     // push files
     files.push(
-        // 'resources/bower_components/prism/components/prism-php.js',
+        'resources/js/input.js',
+        'resources/js/external/*.js'
     );
-    files.push('resources/js/external/*.js');
 
     return gulp.src(files)
     .pipe(sourcemaps.init())
@@ -157,7 +157,11 @@ gulp.task('css', ['clean-build'], function(){
                 browsers: ['last 2 versions']
             }),
             require("postcss-color-function"),
-            require("postcss-reporter")(),
+            require("postcss-reporter")({
+                plugins: [
+                    "postcss-color-function"
+                ]
+            }),
         ]))
         .pipe(sourcemaps.write('/'))
         // .pipe(rev())

@@ -13,13 +13,14 @@
             </form>
 
             @foreach (config('app.account')->details->where('type','fragment') as $content_type)
-
-                <form action="/fragments" method="post" class="c-fragment-new__selection c-fragment-new__selection--no-padding o-grid__column o-grid__column--md-6of12">
-                    {{ csrf_field() }}
-                    @include('forms.hidden', ['name' => 'collection', 'value' => $collection->id])
-                    @include('forms.hidden', ['name' => 'type', 'value' => $content_type->name])
-                    @include('forms.submit', ['label' => 'Create new '.$content_type->data->get('meta')['label'], 'classes' => 'o-button-none'])
-                </form>
+                @if($content_type->data->get('meta')['available_in']['collections'] === true)
+                    <form action="/fragments" method="post" class="c-fragment-new__selection c-fragment-new__selection--no-padding o-grid__column o-grid__column--md-6of12">
+                        {{ csrf_field() }}
+                        @include('forms.hidden', ['name' => 'collection', 'value' => $collection->id])
+                        @include('forms.hidden', ['name' => 'type', 'value' => $content_type->name])
+                        @include('forms.submit', ['label' => 'Create new '.$content_type->data->get('meta')['label'], 'classes' => 'o-button-none'])
+                    </form>
+                @endif
             @endforeach
 
         </div>

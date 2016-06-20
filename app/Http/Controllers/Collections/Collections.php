@@ -74,9 +74,9 @@ class Collections extends Controller
             // show item if exists
             if($item !== NULL){
                 return view('pages.page', [
-                    'dialog' => view('collections.settings', [
-                            'collection' => $collection,
-                        ])->render(),
+                    // 'dialog' => view('collections.settings', [
+                    //         'collection' => $collection,
+                    //     ])->render(),
                     'item' => $item,
                     'collection' => $collection,
                 ]);
@@ -90,6 +90,7 @@ class Collections extends Controller
                 return view('collections.fragments', [
                     'items'         => $collection->fragments,
                     'collection'    => $collection,
+                    'collections'   => (new CollectionService)->all(),
                     'fragment'      => config('app.account')->details->where('type', 'fragment')->where('name',$collection->fragments->first()->type)->first()->data,
                     'elements'      => [
                         view('fragments.add-custom-fragment', [
