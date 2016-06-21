@@ -65,6 +65,7 @@ class Fragments extends Controller
             $response = (new FragmentService)->delete($id);
             // clear cache
             (new CollectionService)->clearCache();
+            (new PageService)->clearCache();
         }
 
         return back();
@@ -183,14 +184,14 @@ class Fragments extends Controller
                         $detail->id,
                         [
                             'type' => $key,
-                            'data' => $value,
+                            'data' => (string)$value,
                         ]
                     );
                 } elseif($detail === NULL) {
                     $detail = (new MetadetailService)->create(
                         [
                             'type' => $key,
-                            'data' => $value,
+                            'data' => (string)$value,
                         ]
                     );
                     $response = $this->api($this->client)->post('/fragments/'.$fragment->id.'/relationships/metadetails', [
