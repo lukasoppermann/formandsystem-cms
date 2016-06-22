@@ -16,9 +16,9 @@
             </div>
         @else
             {{ method_field('DELETE') }}
-            <div class="o-flex o-flex--row">
-                <p class="o-flex__item o-flex__item--fill"><span class="type--bold">Database connection: </span><span class="type--grey">{{substr($database,0,20)}}</span></p>
-                @include('forms.submit',['label' => 'Delete database connection', 'classes' => 'o-button o-flex__item o-button--red'])
+            <div class="o-flex-bar">
+                <p class="o-flex-bar__item o-flex-bar__item--fill"><span class="type--bold">Database connection: </span><span class="type--grey">{{substr($database,0,20)}}</span></p>
+                @include('forms.submit',['label' => 'Delete database connection', 'classes' => 'o-button o-flex__item o-flex__item--fill o-button--red'])
             </div>
         @endif
     </form>

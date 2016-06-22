@@ -12,11 +12,11 @@
 
     <form class="o-form" action="/settings/developers/api-access" method="POST">
         {{ csrf_field() }}
-        <div class="o-flex o-flex--row">
+        <div class="o-flex-bar">
             @if(isset($client_id))
                 {{ method_field('DELETE') }}
-                <p class="o-flex__item o-flex__item--fill"><span class="type--bold">Client ID: </span><span class="type--grey">{{substr($client_id,0,20)}}…</span></p>
-                @include('forms.submit',['label' => 'Delete client credentials', 'classes' => 'o-button o-flex__item o-button--red'])
+                <p class="o-flex-bar__item o-flex-bar__item--fill"><span class="type--bold">Client ID: </span><span class="type--grey">{{substr($client_id,0,20)}}…</span></p>
+                @include('forms.submit',['label' => 'Delete client credentials', 'classes' => 'o-button o-flex-bar__item o-flex-bar__item--right o-button--red'])
             @else
                 <p class="o-flex__item o-flex__item--fill">No client credentials create.</p>
                 @include('forms.submit',['label' => 'Create client credentials', 'classes' => 'o-button o-button--blue o-flex__item'])

@@ -14,7 +14,7 @@
 
     /* text colors */
     --text-black: var(--black);
-    --text-dark-gray: var(--gray);
+    --text-dark-gray: var(--dark-gray);
     --text-gray: var(--gray);
     --text-light-gray: var(--medium-gray);
     --text-white: var(--white);

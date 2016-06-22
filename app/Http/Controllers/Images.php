@@ -22,6 +22,7 @@ class Images extends Controller
             'width'     => $width,
             'height'    => $height,
         ]);
+
         $upload =
             $this->api($this->client)->put($image['data']['links']['upload'], fopen($file->getRealPath(), 'r'), [
                 'Content-Type' => $mime
@@ -32,7 +33,6 @@ class Images extends Controller
                 'type' => 'images',
                 'id'   => $image['data']['id'],
         ]);
-
         return back();
     }
 }

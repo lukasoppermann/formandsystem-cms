@@ -167,12 +167,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/formandsystem/api.git",
-                "reference": "6e59039e5e9c4bc868ea29514ee98b5fa88c779e"
+                "reference": "a9291b962aab6f6895b46509d518aa7ca4cc7e56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/formandsystem/api/zipball/6e59039e5e9c4bc868ea29514ee98b5fa88c779e",
-                "reference": "6e59039e5e9c4bc868ea29514ee98b5fa88c779e",
+                "url": "https://api.github.com/repos/formandsystem/api/zipball/a9291b962aab6f6895b46509d518aa7ca4cc7e56",
+                "reference": "a9291b962aab6f6895b46509d518aa7ca4cc7e56",
                 "shasum": ""
             },
             "require": {
@@ -211,7 +211,7 @@
                 "source": "https://github.com/formandsystem/api/tree/master",
                 "issues": "https://github.com/formandsystem/api/issues"
             },
-            "time": "2016-06-20 18:34:16"
+            "time": "2016-06-22 12:35:24"
         },
         {
             "name": "guzzlehttp/guzzle",
