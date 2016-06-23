@@ -15,13 +15,22 @@ class Image extends AbstractResourceEntity
      */
     protected function attributes(Array $attributes, $rel = NULL)
     {
+        $site_url = $img_dir = "";
+        if(config('app.account') !== NULL && !config('app.account')->details->isEmpty()){
+            $site_url = config('app.account')->details->where('name','site_url');
+            $img_dir = config('app.account')->details->where('type','directory')->where('name','images');
+            if(!$site_url->isEmpty()){
+                $site_url = $site_url->first()->data;
+            }
+            if(!$img_dir->isEmpty()){
+                $img_dir = $img_dir->first()->data;
+            }
+        }
+
         return [
             'filename'      => $attributes['filename'],
             'slug'          => $attributes['slug'],
-            'link'          =>
-                trim(config('app.account')->details->where('type','site_url')->first()->data,'/').'/'
-                .trim(config('app.account')->details->where('type','directory')->where('name','images')->first()->data,'/').'/'
-                .$attributes['filename'],
+            'link'          => trim($site_url.'/').'/'.trim($img_dir,'/').'/'.$attributes['filename'],
         ];
     }
 }

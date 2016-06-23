@@ -3,6 +3,7 @@
 namespace App\Services;
 use Formandsystem\Api\Api;
 use App\Services\CacheService;
+use Illuminate\Http\Request;
 use Auth;
 
 abstract class AbstractService
@@ -32,6 +33,10 @@ abstract class AbstractService
         if($client = $this->account->details->where('type','cms_client')->first()){
             $this->client = $client->data;
         }
+        // get current user
+        config(['app.user' => Auth::user()]);
+        // get account
+        config(['app.account' => Auth::user()->accounts->first()]);
         // set cms api settings
         $this->config['cms'] = [
             'client_id' => env('FS_API_CLIENT_ID'),

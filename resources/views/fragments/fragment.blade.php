@@ -7,9 +7,9 @@
     </div>
 
     @if (in_array($item->type, ['image','section','text','collection']))
-        @include('fragments.'.$item->type)
+        @include('fragments.'.$item->type, ['fragment' => $item])
     @else
-        @include('fragments.custom')
+        @include('fragments.custom', ['fragment' => $item])
     @endif
 
 

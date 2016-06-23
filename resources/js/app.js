@@ -40,7 +40,12 @@ Array.prototype.forEach.call(elements, function(el, i){
 var elements = document.querySelectorAll('.mark');
 Array.prototype.forEach.call(elements, function(el, i){
     var myCodeMirror = CodeMirror.fromTextArea(el,{
-        mode: "gfm"
+        theme: "mark",
+        mode: {
+            name: "gfm",
+            highlightFormatting: true
+        },
+        lineWrapping: true,
     });
 });
 

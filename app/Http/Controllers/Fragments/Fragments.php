@@ -86,6 +86,7 @@ class Fragments extends Controller
         //             'columns_large',
         //             'classes',
         //             'data',
+        //
         //             'collection',
         //         ]),
         //         [
