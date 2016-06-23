@@ -30,7 +30,7 @@ class Image extends AbstractResourceEntity
         return [
             'filename'      => $attributes['filename'],
             'slug'          => $attributes['slug'],
-            'link'          => trim($site_url.'/').'/'.trim($img_dir,'/').'/'.$attributes['filename'],
+            'link'          => trim($site_url,'/').'/'.trim($img_dir,'/').'/'.$attributes['filename'],
         ];
     }
 }

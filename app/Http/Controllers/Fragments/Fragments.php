@@ -18,7 +18,7 @@ class Fragments extends Controller
     {
 
         $fragment = (new FragmentService)->create(['type' => $request->get('type')]);
-
+        
         if($item = $request->get('page')){
             $response =
                 $this->api($this->client)->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByPages', [

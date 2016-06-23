@@ -17,20 +17,31 @@ class Images extends Controller
         $file = $request->file('file');
         $filename = str_replace([' ','+'],['-','-'],$file->getClientOriginalName());
         list($width, $height) = getimagesize($file);
-        $mime = $file->getMimeType();
+        $mime = trim($file->getMimeType());
 
         $image = (new ImageService)->create([
             'slug'      => substr($filename,0,strpos($filename,'.')),
             'filename'  => $filename,
             'bytesize'  => filesize($file->getRealPath()),
-            'width'     => $width,
-            'height'    => $height,
+            'width'     => isset($width) ? $width : 0,
+            'height'    => isset($height) ? $height : 0,
         ]);
+        // deal with file info errors
+        if(isset($image['message'])){
+            return back()->with([
+                'status'            => 'Uploading image failed: '.$image['message'],
+                'type'              => 'error',
+            ]);
+        }
 
+        // upload file
         $upload =
             $this->api($this->client)->put($image['data']['links']['upload'], fopen($file->getRealPath(), 'r'), [
-                'Content-Type' => $mime
+                'Content-Type' => $mime,
             ]);
+        \Log::debug('-'.$mime.'-');
+        \Log::debug('-'.trim($mime).'-');
+        \Log::debug($upload);
 
         $response =
             $this->api($this->client)->post('/fragments/'.$request->get('fragment').'/relationships/images', [
