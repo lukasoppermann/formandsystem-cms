@@ -39,9 +39,6 @@ class Images extends Controller
             $this->api($this->client)->put($image['data']['links']['upload'], fopen($file->getRealPath(), 'r'), [
                 'Content-Type' => $mime,
             ]);
-        \Log::debug('-'.$mime.'-');
-        \Log::debug('-'.trim($mime).'-');
-        \Log::debug($upload);
 
         $response =
             $this->api($this->client)->post('/fragments/'.$request->get('fragment').'/relationships/images', [
