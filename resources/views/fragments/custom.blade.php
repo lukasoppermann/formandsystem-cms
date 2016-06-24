@@ -1,15 +1,13 @@
-<?php
-    $available_types = ['image','markdown','input','text','collection'];
-?>
-@foreach ($fragment->get('elements') as $name => $section)
-    @if(in_array($section['type'], $available_types))
-        @include('fragments.'.$section['type'], [
-            'fragment'      => $item,
-            'name'          => $name,
-            'collection'    => $item->ownedByCollections->first(),
-            'collections'   => $collections,
-            'validation'    => $section['validation'],
-            'classes'       => $section['classes'],
-        ])
+<div class="">
+    @if(!$fragment->relationships->get('fragments')->isEmpty())
+        @foreach ($fragment->relationships->get('fragments') as $subfragment)
+            <?php
+                $blueprint = config('custom.fragments')[$fragment->name]->data->get('elements')[$subfragment->name];
+            ?>
+            @includeIf('fragments.'.$subfragment->type, [
+                'fragment'  => $subfragment,
+                'label'     => isset($blueprint['label']) ? $blueprint['label'] : ''
+            ])
+        @endforeach
     @endif
-@endforeach
+</div>

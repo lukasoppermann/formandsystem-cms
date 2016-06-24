@@ -10,6 +10,7 @@
 
     --line-height-xxl: var(--type-size-xl);
     --line-height-xl: var(--type-size-lg);
+    --line-height-default: calc(var(--type-size-default)*1.5);
 
     --bold: 600;
 

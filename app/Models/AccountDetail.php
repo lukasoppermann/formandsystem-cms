@@ -32,6 +32,7 @@ class AccountDetail extends BaseModel
      */
     public function getDataAttribute($value)
     {
+        \Log::debug($value);
         if(is_array(json_decode($value, true))){
             return new LaravelCollection(json_decode($value, true));
         }

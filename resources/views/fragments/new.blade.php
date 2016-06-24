@@ -4,7 +4,7 @@
         <div class="o-dialog__body o-grid">
 
             @include('fragments.new-fragment', [
-                'classes' => 'o-grid__column o-grid__column--md-6of12',
+                'classes' => 'o-grid__column o-grid__column--md-4of12',
                 'label' => 'Text',
                 'related' => 'fragment',
                 'related_id' => $fragment_id,
@@ -13,7 +13,7 @@
             ])
 
             @include('fragments.new-fragment', [
-                'classes' => 'o-grid__column o-grid__column--md-6of12',
+                'classes' => 'o-grid__column o-grid__column--md-4of12',
                 'label' => 'Image',
                 'related' => 'fragment',
                 'related_id' => $fragment_id,
@@ -22,7 +22,7 @@
             ])
 
             @include('fragments.new-fragment', [
-                'classes' => 'o-grid__column o-grid__column--md-6of12',
+                'classes' => 'o-grid__column o-grid__column--md-4of12',
                 'label' => 'Collection',
                 'related' => 'fragment',
                 'related_id' => $fragment_id,
@@ -31,13 +31,29 @@
             ])
 
             @include('fragments.new-fragment', [
-                'classes' => 'o-grid__column o-grid__column--md-6of12',
+                'classes' => 'o-grid__column o-grid__column--md-4of12',
                 'label' => 'Section',
                 'related' => 'fragment',
                 'related_id' => $fragment_id,
                 'type' => 'section',
                 'button_classes' => 'c-fragment-new__selection',
             ])
+
+            @foreach (config('custom.fragments') as $type => $custom)
+                <?php
+                    $custom = json_decode($custom, true)['data'];
+                ?>
+                @if($custom['meta']['available_in']['pages'] == 'true')
+                    @include('fragments.new-fragment', [
+                        'classes' => 'o-grid__column o-grid__column--md-4of12',
+                        'label' => $custom['meta']['label'],
+                        'type' => $type,
+                        'related' => 'fragment',
+                        'related_id' => $fragment_id,
+                        'button_classes' => 'c-fragment-new__selection',
+                    ])
+                @endif
+            @endforeach
 
         </div>
     </div>

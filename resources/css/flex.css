@@ -11,6 +11,9 @@
 .o-flex-bar--spaced{
     justify-content: space-between;
 }
+.o-flex-bar--middle{
+    align-items: center;
+}
 .o-flex-bar__item{
     flex-grow: 0;
     flex-shrink: 1;

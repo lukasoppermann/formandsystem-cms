@@ -16,9 +16,18 @@ class Fragments extends Controller
 {
     public function store(Request $request)
     {
+        $default_fragments = ['section','image','text','dropdown','input','button'];
+        // requested type
+        $type = $request->get('type');
+        // check if custom fragment
+        if( in_array($type, $default_fragments) ){
+            $fragment = (new FragmentService)->create(['type' => $type]);
+        } else {
+            $fragment = $this->newCustomFragment($type);
+        }
+        // TODO: deal with errors
 
-        $fragment = (new FragmentService)->create(['type' => $request->get('type')]);
-        
+
         if($item = $request->get('page')){
             $response =
                 $this->api($this->client)->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByPages', [
@@ -242,5 +251,42 @@ class Fragments extends Controller
                 'id'   => $data->get('collection'),
             ]);
         }
+    }
+    /**
+     * create a custom fragment and all subfragments
+     *
+     * @method newCustomFragment
+     *
+     * @param  string            $type [description]
+     *
+     * @return model
+     */
+    protected function newCustomFragment($type = NULL)
+    {
+        // create section as main container
+        $fragment = (new FragmentService)->create([
+            'type' => $type,
+            'name' => $type
+        ]);
+        // get custom fragment blueprint
+        $blueprint = config('app.account')->details->where('type','fragment')->where('name', $type)->first()->data;
+        // add hidden css
+
+        // add subfragments
+        foreach($blueprint['elements'] as $name => $element){
+            // create fragment
+            $subfragment = (new FragmentService)->create([
+                'type' => $element['type'],
+                'name' => $name,
+            ]);
+            // connect to main fragment
+            $response =
+                $this->api($this->client)->post('/fragments/'.$fragment['data']['id'].'/relationships/fragments', [
+                    'type' => 'fragments',
+                    'id'   => $subfragment['data']['id'],
+            ]);
+        }
+        // return fragment
+        return $fragment;
     }
 }

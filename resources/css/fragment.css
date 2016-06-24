@@ -92,3 +92,12 @@
 .c-fragment-new__selection--no-padding{
     padding: 0;
 }
+.c-fragment--custom{
+    padding: 1rem;
+    position: relative;
+    border: 1px dashed var(--white-gray);
+}
+.c-fragment--custom:hover{
+    border: 1px solid var(--white-gray);
+    box-shadow: 0 0 0 .1rem var(--white);
+}

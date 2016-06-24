@@ -14,8 +14,11 @@
     display: inline-block;
     position: relative;
     cursor: pointer;
+    box-sizing: content-box;
     font-size: var(--type-size-default);
-    padding: 1rem 2rem;
+    line-height: var(--line-height-default);
+    padding: .75rem 2rem;
+    height: var(--line-height-default);
     border-radius: 5rem;
     border: 2px solid color(var(--black) alpha(15%));
     color: var(--text-gray);

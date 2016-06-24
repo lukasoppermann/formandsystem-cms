@@ -6,6 +6,7 @@
 	background: transparent;
 	color: rgb(60,60,60);
 	font-family: inherit;
+	box-shadow: 0 0 0 1px rgb(225, 230, 235);
 }
 .cm-s-mark.CodeMirror:focus{
 	outline: none;
