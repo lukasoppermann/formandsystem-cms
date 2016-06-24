@@ -19,7 +19,7 @@
                 @include('forms.submit',['label' => 'Delete client credentials', 'classes' => 'o-button o-flex-bar__item o-flex-bar__item--right o-button--red'])
             @else
                 <p class="o-flex__item o-flex__item--fill">No client credentials create.</p>
-                @include('forms.submit',['label' => 'Create client credentials', 'classes' => 'o-button o-button--blue o-flex__item'])
+                @include('forms.submit',['label' => 'Create client credentials', 'classes' => 'o-button o-button--blue o-flex-bar__item o-flex-bar__item--right'])
             @endif
         </div>
     </form>

@@ -45,6 +45,7 @@ class ApiClientDetailService extends AbstractService
                 ]
             ]
         ]);
+        // dd($response);
         // TODO: deal with errors
         // store detail with account
         if( !isset($response['status_code']) ){

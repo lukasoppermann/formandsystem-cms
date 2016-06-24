@@ -10,6 +10,7 @@ class Developers extends Settings
 {
 
     public function show(Request $request){
+        $data = [];
         // get client id
         if($client = config('app.account')->details->where('type','client')->first()){
             $data['client_id'] = $client->data['client_id'];

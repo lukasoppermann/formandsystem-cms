@@ -25,9 +25,14 @@ class ApiAccess extends Settings
                 'template' => 'settings.credentials',
                 'type' => 'success',
             ]]);
-        }catch(Exception $e){
+        }catch(\Exception $e){
             \Log::error($e);
         }
+
+        return back()->with([
+            'status' => 'Creating your api token failed. Please contact us at support@formandsystem.com',
+            'type' => 'error'
+        ]);
     }
     /**
      * delete an API CLIENT

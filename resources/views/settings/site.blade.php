@@ -23,7 +23,7 @@
                     ]
                 ])
                 @include('forms.input',[
-                    'name' => 'dir_image',
+                    'name' => 'dir_images',
                     'label' => 'Public directory where your images are stored',
                     'value' => (isset($form['dir_images']) ? $form['dir_images']->data : NULL),
                     'additional_values' => [

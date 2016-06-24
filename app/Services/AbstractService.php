@@ -5,6 +5,7 @@ use Formandsystem\Api\Api;
 use App\Services\CacheService;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Collection as LaravelCollection;
 
 abstract class AbstractService
 {
@@ -51,13 +52,14 @@ abstract class AbstractService
      *
      * @return object
      */
-    protected function api($config = []){
+    protected function api($config = NULL){
+        $config = new LaravelCollection($config);
         // prepare config
         $config = array_merge([
             'client_id'     => NULL,
             'client_secret' => NULL,
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
-        ], $config->toArray());
+        ], $config->toArray() );
         // return new API instance
         return new Api($config, new CacheService);
     }

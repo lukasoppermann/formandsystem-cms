@@ -52,15 +52,13 @@ class Site extends Settings
             'site_url_id' => '',
             'dir_images' => 'required',
             'dir_images_id' => '',
-            'analytics_code' => '',
+            'analytics_code_id' => '',
             'analytics_code' => 'regex:/^UA-\d{7}-\d{2}$/',
             'analytics_anonymize_ip_id' => '',
             'analytics_anonymize_ip' => '',
-        ], [
-            'dir_images' => 'images',
         ]);
 
-        // dd($data);
+        // dd($data);3
         //
         // $request_input_ids  = $request->only(array_map(function($item){
         //     return $item.'_id';

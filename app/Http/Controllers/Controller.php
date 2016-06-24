@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Api\MetadetailService;
+
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -102,6 +104,10 @@ class Controller extends BaseController
      */
     public function setUserConfig()
     {
+        // URLS & DIRECTORIES
+        \Config::set('site_url', (new MetadetailService)->first('type','site_url')->get('data'));
+        \Config::set('img_dir', (new MetadetailService)->first('type','dir_images')->get('data'));
+        // GRID
         \Config::set('user.grid-sm',2);
         \Config::set('user.grid-md',12);
         \Config::set('user.grid-lg',16);

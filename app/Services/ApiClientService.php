@@ -20,7 +20,9 @@ class ApiClientService extends AbstractService
      */
     public function create(Account $account){
         // generate clients
-        $clients = $this->generateApiAccess($account->name);
+        if( ! $clients = $this->generateApiAccess($account->name) ){
+            throw new \Exception("Creating API token failes");
+        }
         // store client to account
         $account->details()->save((new AccountDetail)->create([
             'type'  => 'client',
@@ -41,6 +43,7 @@ class ApiClientService extends AbstractService
         // TODO: add logging
         // return client
         return $clients['client'];
+
     }
     /**
      * delete a client
@@ -97,7 +100,7 @@ class ApiClientService extends AbstractService
                 'name' => $name,
                 'scopes' => 'content.get',
             ]
-        ])['data'];
+        ]);
         // get new cms client
         $cms = $this->api($this->config['cms'])->post('/clients', [
             'type' => 'clients',
@@ -105,17 +108,20 @@ class ApiClientService extends AbstractService
                 'name' => '[cms] '.$name,
                 'scopes' => 'content.get,content.post,content.patch,content.delete',
             ]
-        ])['data'];
-        // return client and cms client
-        return [
-            'client' => [
-                'client_id'     => $client['id'],
-                'client_secret' => $client['attributes']['secret'],
-            ],
-            'cms' => [
-                'client_id'     => $cms['id'],
-                'client_secret' => $cms['attributes']['secret'],
-            ],
-        ];
+        ]);
+        if( isset($client['data']) && isset($cms['data']) ){
+            // return client and cms client
+            return [
+                'client' => [
+                    'client_id'     => $client['data']['id'],
+                    'client_secret' => $client['data']['attributes']['secret'],
+                ],
+                'cms' => [
+                    'client_id'     => $cms['data']['id'],
+                    'client_secret' => $cms['data']['attributes']['secret'],
+                ],
+            ];
+        }
+        return false;
     }
 }
