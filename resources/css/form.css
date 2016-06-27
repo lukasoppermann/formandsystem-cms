@@ -5,6 +5,7 @@
     border-radius: .3rem;
     border: .1rem solid var(--light-gray);
     padding: .5rem;
+    margin-top: 1rem;
 }
 /* --------------------------
  * INPUT

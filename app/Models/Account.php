@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cache;
 
 class Account extends BaseModel
 {
@@ -35,8 +36,7 @@ class Account extends BaseModel
     /**
      * The fragments that belong to the fragment.
      */
-    public function details()
-    {
+     public function accountdetails(){
         return $this->belongsToMany('App\Models\AccountDetail');
-    }
+     }
 }

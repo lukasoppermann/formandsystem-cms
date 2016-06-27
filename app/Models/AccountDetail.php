@@ -23,7 +23,7 @@ class AccountDetail extends BaseModel
      *
      * @var array
      */
-    protected $fillable = ['id','type','data'];
+    protected $fillable = ['id','type','name','data'];
     /**
      * Get data
      *
@@ -32,7 +32,6 @@ class AccountDetail extends BaseModel
      */
     public function getDataAttribute($value)
     {
-        \Log::debug($value);
         if(is_array(json_decode($value, true))){
             return new LaravelCollection(json_decode($value, true));
         }

@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 use Formandsystem\Api\Api;
 use App\Services\CacheService;
 use Illuminate\Http\Request;
+use App\Entities\User;
 use App\Http\Requests;
 use App\Services\NavigationService;
 use Validator;
@@ -29,16 +30,17 @@ class Controller extends BaseController
     public function __construct(Request $request){
         \Log::debug('Cache user & account');
         // get current user
-        $this->user = $request->user();
-        config(['app.user' => $this->user]);
+        config(['app.user' => new User($request->user()->id)]);
         // get account
-        $this->account = $request->user()->accounts->first();
-        config(['app.account' => $this->account]);
+        config(['app.active_account' => config('app.user')->accounts()->first()->get('id')]);
+        config(['app.account' => config('app.user')->account()]);
         \Log::debug('Get Metadetails e.g. image_dir & site_url & store with account');
         // api client
-        if($client = $this->account->details->where('type','cms_client')->first()){
-            $this->client = $client->data;
+        if($client = config('app.user')->account()->details()->where('type','cms_client')->first()){
+            config(['app.user_client' => $client->get('data')]);
         }
+        // TODO: replace everywhere
+        $this->client = config('app.user_client');
         // set user config
         $this->setUserConfig();
         // set cms api settings
@@ -65,7 +67,8 @@ class Controller extends BaseController
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
         ], $config->toArray());
         // return new API instance
-        return new Api($config, new CacheService);
+        $d = debugbar();
+        return new Api($config, new CacheService, $d);
     }
     /**
      * get user & account config from DB & set as config
@@ -75,10 +78,11 @@ class Controller extends BaseController
     public function setUserConfig()
     {
         // URLS & DIRECTORIES
-        \Config::set('site_url', (new MetadetailService)->first('type','site_url')->get('data'));
-        \Config::set('img_dir', (new MetadetailService)->first('type','dir_images')->get('data'));
+        $details = (new MetadetailService)->find('type',['site_url','dir_images']);
+        \Config::set('site_url', $details->where('type','site_url')->first()->get('data'));
+        \Config::set('img_dir', $details->where('type','dir_images')->first()->get('data'));
         // GRID
-        \Config::set('custom.fragments', config('app.account')->details->where('type','fragment')->keyBy('name'));
+        \Config::set('custom.fragments', config('app.account')->details()->where('type','fragment')->keyBy('name'));
         // GRID
         \Config::set('user.grid-sm',2);
         \Config::set('user.grid-md',12);

@@ -30,14 +30,7 @@ abstract class AbstractService
 
     public function __construct()
     {
-        $this->account = Auth::user()->accounts->first();
-        if($client = $this->account->details->where('type','cms_client')->first()){
-            $this->client = $client->data;
-        }
-        // get current user
-        config(['app.user' => Auth::user()]);
-        // get account
-        config(['app.account' => Auth::user()->accounts->first()]);
+        $this->client = config('app.user_client');
         // set cms api settings
         $this->config['cms'] = [
             'client_id' => env('FS_API_CLIENT_ID'),
@@ -61,6 +54,6 @@ abstract class AbstractService
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
         ], $config->toArray() );
         // return new API instance
-        return new Api($config, new CacheService);
+        return new Api($config, new CacheService, debugbar());
     }
 }

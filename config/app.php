@@ -122,7 +122,9 @@ return [
     */
 
     'providers' => [
-
+        // Debug
+        Barryvdh\Debugbar\ServiceProvider::class,
+        GuzzleHttp\Profiling\Debugbar\Support\Laravel\ServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
@@ -201,6 +203,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        // DEBUG
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

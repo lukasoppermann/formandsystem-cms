@@ -42,6 +42,7 @@ gulp.task('build-js', ['clean-build'], function(){
     files.push(
         // 'resources/bower_components/engine/engine.js',
         // 'resources/bower_components/engine/functions/on.js',
+        'resources/bower_components/html.sortable/dist/html.sortable.js',
         'resources/bower_components/codemirror/lib/codemirror.js',
         'resources/bower_components/codemirror/addon/mode/overlay.js',
         'resources/bower_components/codemirror/mode/markdown/markdown.js',

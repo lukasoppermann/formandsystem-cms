@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Entities\User;
+use App\Entities\AccountDetail;
 use App\Http\Requests;
 
 class Users extends Controller
@@ -11,8 +12,29 @@ class Users extends Controller
     public function index(){
         return view('dashboard.welcome');
     }
-    public function show(){
+    public function show($user){
+        if( $user === 'me' ){
+            $user = config('app.user')->get('id');
+        }
+        // dd('FINISH CREATE IN AbstractEntity at bottom, cache is created, but needs to be added to correct parent as well if created through parent');
+
+        // (new AccountDetail([
+        //     'name' => rand(),
+        //     'type' => 'fragment',
+        // ]));
+        (new User($user))->account()->attach((new AccountDetail([
+            'name' => rand(),
+            'type' => 'fragment',
+        ])));
+        // (new User($user))->account()->details()->where('type','fragment')->first()->update([
+        //     'name' => rand()
+        // ]);
+        // (new User($user))->account()->details()->where('type','fragment')->first()->update([
+        //     'name' => rand()
+        // ]);
+
         $data = [
+            'content' => (new User($user))->account()->details()->where('type','fragment'),
             'navigation' => [
                 'header' => [
                     'title' => 'Users',

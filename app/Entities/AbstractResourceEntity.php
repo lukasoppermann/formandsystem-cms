@@ -3,7 +3,6 @@
 namespace App\Entities;
 
 use Illuminate\Support\Collection as LaravelCollection;
-use Auth;
 
 abstract class AbstractResourceEntity extends LaravelCollection
 {
