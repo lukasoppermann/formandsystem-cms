@@ -78,7 +78,8 @@ class Controller extends BaseController
     public function setUserConfig()
     {
         // URLS & DIRECTORIES
-        $details = (new MetadetailService)->find('type',['site_url','dir_images']);
+        $details = config('app.user')->account()->metadetails();
+
         \Config::set('site_url', $details->where('type','site_url')->first()->get('data'));
         \Config::set('img_dir', $details->where('type','dir_images')->first()->get('data'));
         // GRID

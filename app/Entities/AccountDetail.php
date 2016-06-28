@@ -2,13 +2,13 @@
 
 namespace App\Entities;
 
-use App\Entities\AbstractEntity;
+use App\Entities\AbstractModelEntity;
 use App\Models\AccountDetail as AccountDetailModel;
 use Cache;
 
-class AccountDetail extends AbstractEntity
+class AccountDetail extends AbstractModelEntity
 {
-    protected $cacheModel = true;
+    protected $cacheSource = true;
     /**
      * get model for this entity
      *
@@ -29,5 +29,31 @@ class AccountDetail extends AbstractEntity
         }
         // return model from cache
         return Cache::get($id);
+    }
+    /**
+     * validate user data
+     *
+     * @method validateUpdate
+     *
+     * @param  array          $data [description]
+     *
+     * @return array
+     */
+    protected function validateUpdate(array $data)
+    {
+        return $data;
+    }
+    /**
+     * validate user data
+     *
+     * @method validateCreate
+     *
+     * @param  array          $data [description]
+     *
+     * @return array
+     */
+    protected function validateCreate(array $data)
+    {
+        return $data;
     }
 }

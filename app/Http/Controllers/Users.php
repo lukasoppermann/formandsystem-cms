@@ -22,17 +22,21 @@ class Users extends Controller
         //     'name' => rand(),
         //     'type' => 'fragment',
         // ]));
-        (new User($user))->account()->attach((new AccountDetail([
-            'name' => rand(),
-            'type' => 'fragment',
-        ])));
+        // dd((new User($user))->isModelEntity());
+        // (new User($user))->account()->attach((new AccountDetail([
+        //     'name' => rand(),
+        //     'type' => 'fragment',
+        // ])));
+        // (new User($user))->account()->details()->where('type','fragment')->first()->update([
+        //     'name' => 'Test_'.rand()
+        // ]);
+        // (new User($user))->account()->details()->where('type','fragment')->slice(2,1)->first()->delete();
         // (new User($user))->account()->details()->where('type','fragment')->first()->update([
         //     'name' => rand()
         // ]);
         // (new User($user))->account()->details()->where('type','fragment')->first()->update([
         //     'name' => rand()
         // ]);
-
         $data = [
             'content' => (new User($user))->account()->details()->where('type','fragment'),
             'navigation' => [

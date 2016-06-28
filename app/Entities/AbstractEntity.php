@@ -7,47 +7,73 @@ use Cache;
 
 abstract class AbstractEntity extends LaravelCollection
 {
-    protected $items;
     /**
-     * current entities model
+     * source of data for entity
      *
-     * @var Illuminate\Database\Eloquent\Model
+     * @var mixed
      */
-    protected $model;
+    protected $source;
+    /**
+     * entities items
+     *
+     * @var array
+     */
+    protected $items;
     /**
      * retrieve model and build collection
      *
      * @method __construct
      *
-     * @param  mixed     $item [description]
+     * @param  mixed     $data [description]
      */
-    public function __construct($model)
+    public function __construct($data)
     {
         // TODO: deal with errors e.g. when no model exists, etc.
-        // create model if array given
-        if(is_array($model)){
-            $model = $this->create($model);
+        // create source if array given
+        if(is_array($data)){
+            $source = $this->entityCreate($data);
         }
-        // get user model
-        if(!is_a($model, 'Illuminate\Database\Eloquent\Model')){
-            // check if active user is requested user
-            $model = $this->getModel($model);
+        // get source
+        if(!isset($source)){
+            $source = $this->getSource($data);
         }
-        // set model
-        $this->model = $this->cacheModel($model);
         // set items
-        $this->items = $this->model->toArray();
+        $this->setItems($this->getSourceArray($source));
+        // set model
+        $this->source = $this->cacheSource($source);
     }
     /**
-     * return current entities model
+     * set items to provided array
      *
-     * @method model
+     * @method setItems
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @param  Array    $items [description]
      */
-    public function model()
+    public function setItems(Array $items)
     {
-        return $this->model;
+        $this->items = $items;
+    }
+    /**
+     * get the source model or data object
+     *
+     * @method source
+     *
+     * @return mixed
+     */
+    public function source()
+    {
+        return $this->source;
+    }
+    /**
+     * check if entity is a model entity
+     *
+     * @method isModelEntity
+     *
+     * @return bool
+     */
+    public function isModelEntity()
+    {
+        return is_a($this->source, 'Illuminate\Database\Eloquent\Model');
     }
     /**
      * get classname for current class without namespace
@@ -57,11 +83,12 @@ abstract class AbstractEntity extends LaravelCollection
      * @return string
      */
     protected function getClassName($class = NULL) {
-        $class !== NULL ?: $class = $this;
-        // get class namespace
-        $namespaced_class = explode('\\', get_class($class));
+        // set class to $this if not set
+        $class !== NULL ? : $class = $this;
+        // get class name
+        $class_name = explode('\\', get_class($class));
         // return class
-        return array_pop($namespaced_class);
+        return array_pop($class_name);
     }
     /**
      * get a cache name for the current entity
@@ -74,68 +101,76 @@ abstract class AbstractEntity extends LaravelCollection
      */
     protected function getCacheName($suffix = NULL)
     {
-        return trim($this->getClassName().'.'.$this->model->id.'.'.$suffix,'.');
+        return trim($this->getClassName().'.'.$this->getId().'.'.$suffix,'.');
     }
     /**
-     * cache current model by id
+     * cache current source by its id
      *
-     * @method cacheModel
+     * @method cacheSource
      *
      * @param  string       $suffix [description]
      *
      * @return string
      */
-    protected function cacheModel($model){
-        // cache model by id
-        if(isset($this->cacheModel) && $this->cacheModel === true){
-            Cache::put($model->id,$model,1440);
+    protected function cacheSource($source){
+        // cache source by id
+        if(isset($this->cacheSource) && $this->cacheSource === true){
+            Cache::put($this->items['id'],$source,1440);
         }
         // return model
-        return $model;
+        return $source;
     }
     /**
-     * get model instance fo given $id
+     * get ID of current entity
      */
-    abstract protected function getModel($id);
+    abstract protected function getId();
     /**
-     * update the current entities model
+     * get an array from the source of current entity
      */
-    // abstract protected function makeUpdate($data);
-    protected function makeUpdate($data){
-        // update model
-        $this->model->update($data);
-        // return updated model
-        return $this->model;
-    }
-    protected function makeDelete(){
-        // update model
-        $this->model->delete();
-    }
-
-    protected function create($data){
-        // get model name
-        $model_name = 'App\Models\\'.$this->getClassName();
-        // check if model exists
-        if(class_exists($model_name)){
-           // return newly created model
-           return (new $model_name())->create($data);
-       }
-    }
+    abstract protected function getSourceArray($source);
     /**
-     * update
+     * get the source of current entity
      */
-    public function update($data){
-        // make update and return model
-        return $this->newEntity($this->makeUpdate($data));
+    abstract protected function getSource($source);
+    /**
+     * method to update the entities real data via api or model
+     */
+    abstract protected function entityUpdate(Array $data);
+    /**
+     * method to delete the entities real data via api or model
+     */
+    abstract protected function entityDelete();
+    /**
+     * method to create the entities real data via api or model
+     */
+    abstract protected function entityCreate(Array $data);
+    /**
+     * update entity & entities cache
+     *
+     * @method update
+     *
+     * @param  Array  $data [description]
+     *
+     * @return [type]
+     */
+    public function update(Array $data){
+        // make update and new entity
+        // to force-refresh cache
+        return $this->newEntity($this->entityUpdate($data));
     }
     /**
-     * delete
+     * delete entity and remove entities cache
+     *
+     * @method delete
+     *
+     * @return boolean
      */
     public function delete(){
-        $this->makeDelete();
-        // remove cache
-        Cache::forget($this->items['id']);
-        // make update and return model
+        // delete entity
+        $this->entityDelete();
+        // remove entity from cache
+        Cache::forget($this->getId());
+        // return
         return true;
     }
     /**
@@ -143,17 +178,25 @@ abstract class AbstractEntity extends LaravelCollection
      *
      * @method newEntity
      *
-     * @param  Illuminate\Database\Eloquent\Model      $model [description]
+     * @param  mixed      $source [description]
      *
      * @return App\Entities\{Entity}
      */
-    protected function newEntity($model){
+    protected function newEntity($source){
         // get name of current class
         $classname = get_class($this);
         // return new instance of itself
         // to break cache
-        return new $classname($model);
+        return new $classname($source);
     }
+    /**
+     * add a relationship to current entity in db or via api
+     *
+     * @method addRelationship
+     *
+     * @param  App\Entities\AbstractEntity  $entity [description]
+     */
+    abstract protected function addRelationship(AbstractEntity $entity);
     /**
      * attach an entity to current entity
      *
@@ -161,7 +204,7 @@ abstract class AbstractEntity extends LaravelCollection
      *
      * @param App\Entities\{Entity} $entity [description]
      *
-     * @return $this
+     * @return void
      */
     public function attach(AbstractEntity $entity)
     {
@@ -169,14 +212,9 @@ abstract class AbstractEntity extends LaravelCollection
         $this->addRelationship($entity);
         // get cache name
         $cache_name = $this->getCacheName($this->getClassName($entity));
-        // add to cache array
-        if(($attached = Cache::get($cache_name)) === NULL){
-            $attached = new LaravelCollection();
-        }
-        $attached->push($entity->get('id'));
-        // cache
+        // add entity to attached array
+        $attached = Cache::get($cache_name, new LaravelCollection())->push($entity->get('id'));
+        // cache array
         Cache::put($cache_name,$attached,1440);
-        // return
-        return $this;
     }
 }

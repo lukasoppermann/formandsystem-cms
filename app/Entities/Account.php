@@ -2,15 +2,16 @@
 
 namespace App\Entities;
 
-use App\Entities\AbstractEntity;
+use App\Entities\AbstractModelEntity;
 use App\Entities\AccountDetail;
 use App\Models\Account;
+use App\Services\Api\MetadetailService;
 use Illuminate\Support\Collection as LaravelCollection;
 use Cache;
 
-class Account extends AbstractEntity
+class Account extends AbstractModelEntity
 {
-    protected $cacheModel = true;
+    protected $cacheSource = true;
     /**
      * get model for this entity
      *
@@ -24,8 +25,8 @@ class Account extends AbstractEntity
         if(!Cache::has($id)){
             // throw expection if account is not found
             if( config('app.user') === NULL
-                || config('app.user')->model()->accounts === NULL
-                || !$account = config('app.user')->model()->accounts->where('id',$id)->first()
+                || config('app.user')->source->accounts === NULL
+                || !$account = config('app.user')->source->accounts->where('id',$id)->first()
             ){
                 throw new \ErrorException('No account with ID: '.$id.' found.');
             }
@@ -49,7 +50,7 @@ class Account extends AbstractEntity
         // check cache
         if(!Cache::has($cache_name)){
             // get all items from model
-            $details = $this->model->details;
+            $details = $this->source->accountdetails;
             foreach($details as $item){
                 $ids[] = $item->id;
                 // cache to reduce DB queries
@@ -79,12 +80,35 @@ class Account extends AbstractEntity
         // return collection
         return $details;
     }
-
-    protected function addRelationship(AbstractEntity $entity)
+    public function metadetails()
     {
-        $related_name = strtolower($this->getClassName($entity)).'s';
-        if(method_exists($this->model, $related_name)){
-            $this->model->{$related_name}()->save($entity->model());
-        }
+        return (new MetadetailService)->find('type',['site_url','dir_images','analytics_code','analytics_anonymize_ip','site_name']);
     }
+    /**
+     * validate user data
+     *
+     * @method validateUpdate
+     *
+     * @param  array          $data [description]
+     *
+     * @return array
+     */
+    protected function validateUpdate(array $data)
+    {
+        return $data;
+    }
+    /**
+     * validate user data
+     *
+     * @method validateCreate
+     *
+     * @param  array          $data [description]
+     *
+     * @return array
+     */
+    protected function validateCreate(array $data)
+    {
+        return $data;
+    }
+
 }
