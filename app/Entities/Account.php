@@ -28,7 +28,7 @@ class Account extends AbstractModelEntity
                 || config('app.user')->source->accounts === NULL
                 || !$account = config('app.user')->source->accounts->where('id',$id)->first()
             ){
-                throw new \EmptyException('No account with ID: '.$id.' found.');
+                throw new \App\Exceptions\EmptyException('No account with ID: '.$id.' found.');
             }
             // store account in cache
             Cache::put($id,$account,1440);

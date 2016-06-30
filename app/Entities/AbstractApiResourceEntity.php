@@ -40,26 +40,6 @@ abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
         });
     }
     /**
-     * create a new entity in DB
-     *
-     * @method entityCreate
-     *
-     * @param  Array        $data [description]
-     *
-     * @return Illuminate\Support\Collection
-     */
-    protected function entityCreate(Array $data){
-    //     // get model name
-    //     $model = isset($this->model) ? $this->model : $this->getClassName();
-    //     // get model namepsave
-    //     $model_name = 'App\Models\\'.$model;
-    //     // check if model exists
-    //     if(class_exists($model_name)){
-    //        // return newly created model
-    //        return (new $model_name())->create($validatedData);
-    //    }
-    }
-    /**
      * get data for this entity
      *
      * @method getData
@@ -72,7 +52,7 @@ abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
         if(!Cache::has($id)){
             // throw expection if account is not found
             if( !$item = $this->resourceService()->first('id', $id) ){
-                throw new \EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
+                throw new \App\Exceptions\EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
             }
             // store item in cache
             Cache::put($id,$item,1440);
@@ -88,6 +68,7 @@ abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
      * @return void
      */
     protected function entityDelete(){
+        // TODO: deal with errors
         // delete from api
         $deleted = $this->resourceService()->delete($this->getId());
     }
@@ -101,10 +82,51 @@ abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
      * @return Illuminate\Database\Eloquent\Model
      */
     protected function entityUpdate(Array $data){
+        // TODO: deal with errors
         // update model
         $updated = $this->resourceService()->update($this->getId(), $data);
         // return updated model
         return new LaravelCollection($updated['data']);
+    }
+    /**
+     * create a new entity in DB
+     *
+     * @method entityCreate
+     *
+     * @param  Array        $data [description]
+     *
+     * @return Illuminate\Support\Collection
+     */
+    protected function entityCreate(Array $data){
+        // TODO: deal with errors
+        // insert new items
+        $inserted = $this->resourceService()->create($data);
+        // return item
+        return new LaravelCollection($inserted['data']);
+    }
+    /**
+     * add a relationship to the entities model
+     *
+     * @method addRelationship
+     *
+     * @param  App\Entities\AbstractEntity  $entity [description]
+     */
+    protected function addRelationship(AbstractEntity $entity)
+    {
+        // attach item
+        $attach = $this->resourceService()->attach($this->getId(), [
+            'type' => $entity->get('resource_type'),
+            'id' => $entity->get('id')
+        ]);
+
+        $relationships = $this->source['relationships'];
+        $relationships[$entity->get('resource_type')]['data'] = array_merge($relationships[$entity->get('resource_type')]['data'],[[
+            'type' => $entity->get('resource_type'),
+            'id' => $entity->get('id')
+        ]]);
+        $this->source->put('relationships', $relationships);
+
+        $this->cacheSource($this->source);
     }
     /**
      * return thje service to get api data

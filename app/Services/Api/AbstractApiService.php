@@ -130,7 +130,7 @@ abstract class AbstractApiService extends AbstractService
     public function first($filter = NULL, $values = NULL, Array $param = [])
     {
         $results = $this->find($filter, $values, $param)['data'];
-        return array_values($results)[0] === NULL ? [] : array_values($results)[0];
+        return count($results) === 0 ? [] : array_values($results)[0];
     }
     /**
      * create
@@ -323,6 +323,17 @@ abstract class AbstractApiService extends AbstractService
             $items[] = $included[array_search($id, array_column($included, 'id'))];
         }
         return $items;
+    }
+    public function attach($id, Array $related)
+    {
+        $attach = $this->api($this->client)->post('/'.$this->endpoint.'/'.$id.'/relationships/'.$related['type'], [
+            [
+                'type'  => $related['type'],
+                'id'    => $related['id'],
+            ]
+        ]);
+
+        return $attach;
     }
 
 }

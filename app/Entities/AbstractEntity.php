@@ -252,6 +252,7 @@ abstract class AbstractEntity extends LaravelCollection
         $items = $this->attributes($this->getSourceArray($source));
         // set items
         $this->setItems($items);
+
     }
     /**
      * delete entity and remove entities cache

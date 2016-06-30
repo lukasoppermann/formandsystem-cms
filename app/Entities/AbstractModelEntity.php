@@ -134,7 +134,7 @@ abstract class AbstractModelEntity extends AbstractEntity
         if(!Cache::has($id)){
             // throw expection if model is not found
             if( !$model = (new $this->getModelName($this))->find($id) ){
-                throw new \EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
+                throw new \App\Exceptions\EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
             }
             // store account in cache
             Cache::put($model->id,$model,1440);

@@ -58,22 +58,6 @@ abstract class AbstractCollectionEntity extends AbstractEntity
         return $source;
     }
     /**
-     * add a relationship to the entities model
-     *
-     * @method addRelationship
-     *
-     * @param  App\Entities\AbstractEntity  $entity [description]
-     */
-    protected function addRelationship(AbstractEntity $entity)
-    {
-        // // create the models name
-        // $related_name = isset($entity->source()->model) ? $entity->source()->model : strtolower($this->getClassName($entity)).'s';
-        // // attach if model exists
-        // if(method_exists($this->source, $related_name)){
-        //     $this->source->{$related_name}()->save($entity->source);
-        // }
-    }
-    /**
      * validate data before update
      */
     abstract protected function validateUpdate(Array $data);

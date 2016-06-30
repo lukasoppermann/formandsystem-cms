@@ -58,12 +58,22 @@ class Pages extends Controller
     }
 
     public function index(){
-        $page = new Page('278a37b3-57c3-40c1-8737-4ffcbee90e12');
-        \Log::debug($page->get('label'));
-        $page->update([
-            'menu_label' => 'Tester '.rand()
-        ]);
-        \Log::debug($page);
+
+        // $page = new Page([
+        //     'menu_label'    => 'Tester '.rand(),
+        //     'slug'          => 'slug',
+        //     'published'     => 1,
+        //     'language'      => 'de'
+        // ]);
+        // \Log::debug(new Page($page['id']));
+        $page = new Page('bd958340-617a-4fd2-b786-9790d0065b05');
+        // $page->attach(new \App\Entities\Metadetail([
+        //     'type' => 'Test-'.rand(),
+        //     'data' => 'yo'
+        // ]));
+
+        dd($page->metadetails());
+
         // dd($page);
         // $this->collections = $items = (new CollectionService)->all([
         //     'includes' => false
