@@ -20,7 +20,7 @@ abstract class AbstractEntity extends LaravelCollection
      */
     protected $items;
     /**
-     * retrieve model and build collection
+     * retrieve data and build collection
      *
      * @method __construct
      *
@@ -28,6 +28,7 @@ abstract class AbstractEntity extends LaravelCollection
      */
     public function __construct($data)
     {
+        \Log::debug('Automatic build of relationship functions in DataEntity via __call and an array with related data');
         // TODO: deal with errors e.g. when no model exists, etc.
         // create source if array given
         if(is_array($data)){
@@ -37,8 +38,10 @@ abstract class AbstractEntity extends LaravelCollection
         if(!isset($source)){
             $source = $this->getSource($data);
         }
+        // prepare items
+        $items = $this->attributes($this->getSourceArray($source));
         // set items
-        $this->setItems($this->getSourceArray($source));
+        $this->setItems($items);
         // set model
         $this->source = $this->cacheSource($source);
     }
@@ -101,7 +104,9 @@ abstract class AbstractEntity extends LaravelCollection
      */
     protected function getCacheName($suffix = NULL)
     {
-        return trim($this->getClassName().'.'.$this->getId().'.'.$suffix,'.');
+        if($this->getId() !== FALSE){
+            return trim($this->getClassName().'.'.$this->getId().'.'.$suffix,'.');
+        }
     }
     /**
      * cache current source by its id
@@ -115,10 +120,87 @@ abstract class AbstractEntity extends LaravelCollection
     protected function cacheSource($source){
         // cache source by id
         if(isset($this->cacheSource) && $this->cacheSource === true){
-            Cache::put($this->items['id'],$source,1440);
+            Cache::put($this->getId(),$source,1440);
         }
         // return model
         return $source;
+    }
+    /**
+     * get entities with array of entity ids & entity name
+     *
+     * @method getEntities
+     *
+     * @param  Array      $ids    [description]
+     * @param  String      $entity [description]
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function getEntities(Array $ids = NULL, $entity = NULL)
+    {
+        return (new LaravelCollection($ids))
+            ->map(function($item) use ($entity) {
+                try{
+                    return new $entity($item);
+                }catch(\EmptyException $e){
+                    return NULL;
+                }catch(\Exception $e){
+                    \Log::error($e);
+                    return NULL;
+                }
+            })->reject(function($item){
+                return empty($item);
+            });
+    }
+    /**
+     * cache original item by its ID
+     *
+     * @method cacheRawItems
+     *
+     * @param  Collection|Model        $items [description]
+     *
+     * @return void
+     */
+    protected function cacheRawItems($items)
+    {
+        // loop through
+        foreach($items as $item){
+            // cache item by it
+            Cache::put((new LaravelCollection($item))->get('id'), $item, 1440);
+        }
+    }
+    /**
+     * get data from cache or from original source
+     *
+     * @method getCacheOrRetrieve
+     *
+     * @param  string             $entity_name [description]
+     *
+     * @return Illuminate\Support\Collection
+     */
+    protected function getCacheOrRetrieve($cache_suffix, $entity_name)
+    {
+        // build cache name
+        $cache_name = $this->getCacheName($this->getClassName().$cache_suffix);
+        // check cache
+        if(!Cache::has($cache_name)){
+            // get items from db or api
+            $items = $this->{'retrieve'.$cache_suffix}();
+            // detect included items
+            if(isset($items['data']) && isset($items['included'])){
+                // cache included items
+                $this->cacheRawItems($items['included']);
+                // set $items to entities
+                $items = $items['data'];
+            }
+            // cache entities
+            $this->cacheRawItems($items);
+            // store in cache
+            Cache::put($cache_name, $items->pluck('id'), 1440);
+        }
+        // get entities
+        $ids = Cache::get($cache_name, new LaravelCollection())->toArray();
+        // return items
+        return $this->getEntities($ids, 'App\Entities\\'.$entity_name);
     }
     /**
      * get ID of current entity
@@ -216,5 +298,43 @@ abstract class AbstractEntity extends LaravelCollection
         $attached = Cache::get($cache_name, new LaravelCollection())->push($entity->get('id'));
         // cache array
         Cache::put($cache_name,$attached,1440);
+    }
+    /**
+     * return data as a collection
+     *
+     * @method collectionData
+     *
+     * @param  LaravelCollection $collection [description]
+     * @param  string            $field      [description]
+     * @param  string            $key        [description]
+     * @param  boolean            $first      [description]
+     *
+     * @return Illuminate\Support\Collection
+     */
+    protected function collectionData(LaravelCollection $collection, $field = NULL, $key = NULL, $first = false)
+    {
+        // check if specific items should be selected
+        if($field !== NULL && $key !== NULL){
+            $collection = $collection->where($field, $key);
+        }
+        // if only first item is supposed to be returned
+        if($first === true){
+            return $collection->first();
+        }
+        // return
+        return $collection;
+    }
+    /**
+     * prepare attributes
+     *
+     * @method attributes
+     *
+     * @param  mixed     $source [description]
+     *
+     * @return mixed
+     */
+    protected function attributes($source)
+    {
+        return $source;
     }
 }

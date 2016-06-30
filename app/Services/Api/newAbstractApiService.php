@@ -5,7 +5,7 @@ namespace App\Services\Api;
 use App\Services\AbstractService;
 use Illuminate\Support\Collection as LaravelCollection;
 
-abstract class AbstractApiService extends AbstractService
+abstract class newAbstractApiService extends AbstractService
 {
     /**
      * get all items on all pages
@@ -57,6 +57,7 @@ abstract class AbstractApiService extends AbstractService
             // return empty collection on error
             return NULL;
         }
+        return $items['data'];
         // success
         $entities = new LaravelCollection();
 
@@ -105,15 +106,15 @@ abstract class AbstractApiService extends AbstractService
         // return
         if( !$items = $this->getAllItems($url) ){
             // return empty collection on error
-            return new LaravelCollection();
+            return [];
         }
         // success
-        $entities = new LaravelCollection();
-        foreach($items['data'] as $item){
-            $entities->push(new $this->entity(new LaravelCollection($item), $items['included']));
-        }
+        // $entities = new LaravelCollection();
+        // foreach($items['data'] as $item){
+        //     $entities->push(new $this->entity(new LaravelCollection($item), $items['included']));
+        // }
         // return
-        return $entities;
+        return $items;
     }
     /**
      * returns first result from find query

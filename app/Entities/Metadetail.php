@@ -2,8 +2,34 @@
 
 namespace App\Entities;
 
-class Metadetail extends AbstractResourceEntity
+use App\Entities\AbstractCollectionEntity;
+use App\Services\Api\MetadetailService;
+use Illuminate\Support\Collection as LaravelCollection;
+use Cache;
+
+class Metadetail extends AbstractApiResourceEntity
 {
+    /**
+     * get model for this entity
+     *
+     * @method getData
+     *
+     * @param  string   $id
+     *
+     * @return Illuminate\Support\Collection
+     */
+    protected function getData($id){
+        if(!Cache::has($id)){
+            // throw expection if account is not found
+            if( !$item = (new MetadetailService)->get($id) ){
+                throw new \EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
+            }
+            // store account in cache
+            Cache::put($id,$item,1440);
+        }
+        // return model from cache
+        return new LaravelCollection(Cache::get($id));
+    }
     /**
      * transform attributes
      *
@@ -13,12 +39,41 @@ class Metadetail extends AbstractResourceEntity
      *
      * @return array
      */
-    protected function attributes(Array $attributes, $rel = NULL)
+    protected function attributes($attributes)
     {
         return [
-            'type'         => $attributes['type'],
-            'data'         => $this->json_decode($attributes['data']),
-            'is_trashed'   => $attributes['is_trashed'],
+            'id'                => $attributes['id'],
+            'resource_type'     => $attributes['type'],
+            'type'              => $attributes['attributes']['type'],
+            'data'              => $this->json_decode($attributes['attributes']['data']),
+            'is_trashed'        => $attributes['attributes']['is_trashed'],
         ];
     }
+    /**
+     * validate user data
+     *
+     * @method validateUpdate
+     *
+     * @param  array          $data [description]
+     *
+     * @return array
+     */
+    protected function validateUpdate(array $data)
+    {
+        return $data;
+    }
+    /**
+     * validate user data
+     *
+     * @method validateCreate
+     *
+     * @param  array          $data [description]
+     *
+     * @return array
+     */
+    protected function validateCreate(array $data)
+    {
+        return $data;
+    }
+
 }

@@ -4,8 +4,8 @@ namespace App\Entities;
 
 use App\Entities\AbstractModelEntity;
 use App\Entities\AccountDetail;
-use App\Models\Account;
 use App\Services\Api\MetadetailService;
+use App\Services\Api\newCollectionService;
 use Illuminate\Support\Collection as LaravelCollection;
 use Cache;
 
@@ -28,61 +28,112 @@ class Account extends AbstractModelEntity
                 || config('app.user')->source->accounts === NULL
                 || !$account = config('app.user')->source->accounts->where('id',$id)->first()
             ){
-                throw new \ErrorException('No account with ID: '.$id.' found.');
+                throw new \EmptyException('No account with ID: '.$id.' found.');
             }
             // store account in cache
-            Cache::put($account->id,$account,1440);
+            Cache::put($id,$account,1440);
         }
         // return model from cache
         return Cache::get($id);
     }
     /**
-     * get details for the given account
+     * return details that are related to account
      *
      * @method details
      *
+     * @param  string      $field [description]
+     * @param  string      $key   [description]
+     * @param  bool      $first [description]
+     *
      * @return Illuminate\Support\Collection
      */
-    public function details()
+    public function details($field = NULL, $key = NULL, $first = false)
     {
-        // build cache name
-        $cache_name = $this->getCacheName('AccountDetail');
-        // check cache
-        if(!Cache::has($cache_name)){
-            // get all items from model
-            $details = $this->source->accountdetails;
-            foreach($details as $item){
-                $ids[] = $item->id;
-                // cache to reduce DB queries
-                Cache::put($item->id, $item, 1440);
-            }
-            // store in cache
-            Cache::put($cache_name, new LaravelCollection($ids), 1440);
-        }
-        $cached = Cache::get($cache_name);
-        $count = count($cached);
-        // return from cache
-        $details = (new LaravelCollection(
-            $cached->map(function($item){
-                try{
-                    return new AccountDetail($item);
-                }catch(\ErrorException $e){
-                    return NULL;
-                }
-            })->reject(function($item){
-                return empty($item);
-            })
-        ))->keyBy('id');
-        // reset cache
-        if(count($details) !== $count){
-            Cache::put($cache_name, new LaravelCollection($details->keys()), 1440);
-        }
+        // get data
+        $data = $this->getCacheOrRetrieve('AccountDetail', 'AccountDetail');
         // return collection
-        return $details;
+        return $this->collectionData($data, $field, $key, $first);
     }
-    public function metadetails()
+    /**
+     * return metadetails that are related to account
+     *
+     * @method metadetails
+     *
+     * @param  string      $field [description]
+     * @param  string      $key   [description]
+     * @param  bool      $first [description]
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function metadetails($field = NULL, $key = NULL, $first = false)
     {
-        return (new MetadetailService)->find('type',['site_url','dir_images','analytics_code','analytics_anonymize_ip','site_name']);
+        // get data
+        $data = $this->getCacheOrRetrieve('AccountMetadetail', 'Metadetail');
+        // return collection
+        return $this->collectionData($data, $field, $key, $first);
+    }
+    /**
+     * return navigation for account
+     *
+     * @method navigation
+     *
+     * @param  string      $field [description]
+     * @param  string      $key   [description]
+     * @param  bool      $first [description]
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function navigation($field = NULL, $key = NULL, $first = false)
+    {
+        // get data
+        $data = $this->getCacheOrRetrieve('Navigation','Collection');
+        // return collection
+        return $this->collectionData($data, $field, $key, $first);
+    }
+    /**
+     * get metadetails for account from API
+     *
+     * @method retrieveAccountMetadetail
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function retrieveAccountMetadetail()
+    {
+        $metadetails = (new MetadetailService)->find('type',['site_url','dir_images','analytics_code','analytics_anonymize_ip','site_name']);
+        // return data & included
+        return [
+            'data'      => new LaravelCollection($metadetails['data']),
+            'included'  => new LaravelCollection($metadetails['included']),
+        ];
+    }
+    /**
+     * get account details from accounts relationship
+     *
+     * @method retrieveAccountdetail
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function retrieveAccountdetail()
+    {
+        return $this->source->accountdetails;
+    }
+    /**
+     * get navigation collection for account from API
+     *
+     * @method retrieveNavigation
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function retrieveNavigation()
+    {
+        $items = (new newCollectionService)->find('type','navigation', [
+            'only' => 'pages'
+        ]);
+        // return data & included
+        return [
+            'data'      => new LaravelCollection($items['data']),
+            'included'  => new LaravelCollection($items['included']),
+        ];
     }
     /**
      * validate user data

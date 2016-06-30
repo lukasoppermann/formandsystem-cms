@@ -49,6 +49,7 @@ abstract class AbstractService
         $config = new LaravelCollection($config);
         // prepare config
         $config = array_merge([
+            'url'           => 'http://formandsystem-api.dev',
             'client_id'     => NULL,
             'client_secret' => NULL,
             'scopes'        => ['content.get','content.post','content.delete','content.patch']

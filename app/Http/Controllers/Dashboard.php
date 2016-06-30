@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Api\CollectionService;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

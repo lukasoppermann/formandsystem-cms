@@ -7,20 +7,27 @@ use Illuminate\Support\Collection as LaravelCollection;
 
 abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
 {
-    protected $items;
-
-    public function __construct($item = [], &$included = [])
+    public function __call($method, $args)
     {
-        // included relationships
-        $rel = $this->include($item['relationships'], $included);
-        // build entity
-        $this->items = array_merge([
-                'id'             => $item['id'],
-                'resource_type'  => $item['type'],
-            ],
-            $this->attributes($item['attributes'], $rel),
-            $rel
-        );
+        // automatically include relationships
+        if(array_key_exists($method, $this->source['relationships']) ){
+            $this->relatedEntities($this->source['relationships'][$method]['data']);
+        }
+    }
+    public function relatedEntities($relatedData)
+    {
+        $data = (new LaravelCollection($relatedData))->map(function($item){
+            // get entity class
+            $entity = '\App\Entities\\'.ucfirst(substr($item['type'],0 ,-1));
+            // return entity if valid
+            if(class_exists($entity)){
+                return new $entity($item['id']);
+            }
+            // return item if invalid entity
+            return $item;
+        });
+
+        dd($data);
     }
     /**
      * add included items to Entity
@@ -105,30 +112,4 @@ abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
         // return normal if exists
         return $this->get($key);
     }
-    /**
-     * call methods on collection if they do not exist on Entity
-     *
-     * @method __call
-     *
-     * @param  string $method_name
-     * @param  mixed $args
-     *
-     * @return mixed
-     */
-    public function __call($method_name, $args)
-    {
-        if(!method_exists($this, $method_name) && method_exists($this->items, $method_name)){
-            return $this->items->{$method_name}($args);
-        }
-    }
-    /**
-     * transform attributes
-     *
-     * @method attributes
-     *
-     * @param  Array      $attributes
-     *
-     * @return array
-     */
-    protected abstract function attributes(Array $attributes, $rel = NULL);
 }

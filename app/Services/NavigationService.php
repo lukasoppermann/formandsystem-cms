@@ -140,6 +140,7 @@ class NavigationService
     protected function getListDashboard($lists = NULL){
         foreach($lists as $key => $list){
             if($list['items'] === '$collections'){
+
                 $lists[$key] = array_merge($lists[$key], [
                     'items' => (new \App\Services\Api\CollectionService)->find('type','posts', [
                         'only' => false
@@ -168,15 +169,13 @@ class NavigationService
      */
     protected function getListPages($lists = NULL){
         // get lists
-        $items = (new \App\Services\Api\CollectionService)->find('type','navigation', [
-            'only' => 'pages'
-        ]);
+        $items = config('app.user')->account()->navigation();
         // prepare lists
         $lists = [];
         foreach($items as $key => $list){
             $lists[$key] = [
                 'title'       => $list->name,
-                'items'       => $list->pages->map(function($item){
+                'items'       => $list->pages()->map(function($item){
                     return $item->put('collection', 'pages');
                 }),
                 'template'    => 'navigation.item-page',

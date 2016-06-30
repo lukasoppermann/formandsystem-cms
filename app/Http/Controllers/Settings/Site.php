@@ -11,21 +11,7 @@ class Site extends Settings
 {
     public function show(){
         // get settings data
-        $settings = (new MetadetailService)->find('type',[
-            'site_name',
-            'analytics_code',
-            'analytics_anonymize_ip',
-            'site_url',
-            'dir_images',
-        ]);
-
-        // $settings = array_merge(
-        //     (new MetadetailService)->find('type',[
-        //         'site_name',
-        //         'analytics_code',
-        //         'analytics_anonymize_ip',
-        //     ])
-        // , $settings);
+        $settings = config('app.user')->account()->metadetails();
         // flatten
         $data['form'] = [];
 
@@ -58,11 +44,7 @@ class Site extends Settings
             'analytics_anonymize_ip' => '',
         ]);
 
-        // dd($data);3
-        //
-        // $request_input_ids  = $request->only(array_map(function($item){
-        //     return $item.'_id';
-        // }, $items));
+
         // if validation fails
         if($data->get('isInvalid')){
             return redirect('settings/site')

@@ -16,6 +16,9 @@ abstract class AbstractCollectionEntity extends AbstractEntity
      */
     protected function getId()
     {
+        if(!isset($this->source)){
+            return FALSE;
+        }
         return $this->source->get('id');
     }
     /**
@@ -42,7 +45,6 @@ abstract class AbstractCollectionEntity extends AbstractEntity
      */
     protected function getSource($source)
     {
-        // TODO: DO
         // if source is not a model
         if(!is_a($source, 'Illuminate\Support\Collection')){
             return $this->getData($source);
@@ -60,17 +62,17 @@ abstract class AbstractCollectionEntity extends AbstractEntity
      * @return Illuminate\Database\Eloquent\Model
      */
     protected function entityCreate(Array $data){
-        // validate user data
-        $validatedData = $this->validateCreate($data);
-        // get model name
-        $model = isset($this->model) ? $this->model : $this->getClassName();
-        // get model namepsave
-        $model_name = 'App\Models\\'.$model;
-        // check if model exists
-        if(class_exists($model_name)){
-           // return newly created model
-           return (new $model_name())->create($validatedData);
-       }
+    //     // validate user data
+    //     $validatedData = $this->validateCreate($data);
+    //     // get model name
+    //     $model = isset($this->model) ? $this->model : $this->getClassName();
+    //     // get model namepsave
+    //     $model_name = 'App\Models\\'.$model;
+    //     // check if model exists
+    //     if(class_exists($model_name)){
+    //        // return newly created model
+    //        return (new $model_name())->create($validatedData);
+    //    }
     }
     /**
      * update current entity in db
@@ -82,12 +84,12 @@ abstract class AbstractCollectionEntity extends AbstractEntity
      * @return Illuminate\Database\Eloquent\Model
      */
     protected function entityUpdate(Array $data){
-        // validate user data
-        $validatedData = $this->validateUpdate($data);
-        // update model
-        $this->source->update($validatedData);
-        // return updated model
-        return $this->source;
+        // // validate user data
+        // $validatedData = $this->validateUpdate($data);
+        // // update model
+        // $this->source->update($validatedData);
+        // // return updated model
+        // return $this->source;
     }
     /**
      * delete item from database
@@ -98,7 +100,7 @@ abstract class AbstractCollectionEntity extends AbstractEntity
      */
     protected function entityDelete(){
         // update model
-        $this->source->delete();
+        // $this->source->delete();
     }
     /**
      * add a relationship to the entities model
@@ -109,12 +111,12 @@ abstract class AbstractCollectionEntity extends AbstractEntity
      */
     protected function addRelationship(AbstractEntity $entity)
     {
-        // create the models name
-        $related_name = isset($entity->source()->model) ? $entity->source()->model : strtolower($this->getClassName($entity)).'s';
-        // attach if model exists
-        if(method_exists($this->source, $related_name)){
-            $this->source->{$related_name}()->save($entity->source);
-        }
+        // // create the models name
+        // $related_name = isset($entity->source()->model) ? $entity->source()->model : strtolower($this->getClassName($entity)).'s';
+        // // attach if model exists
+        // if(method_exists($this->source, $related_name)){
+        //     $this->source->{$related_name}()->save($entity->source);
+        // }
     }
     /**
      * validate data before update

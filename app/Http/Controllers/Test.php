@@ -13,7 +13,8 @@ use App\Services\Api\FragmentService;
 use App\Services\Api\PageService;
 
 class Test
-extends Controller
+extends BaseController
+// extends Controller
 {
     public function __construct(Request $request)
     {
@@ -24,6 +25,7 @@ extends Controller
 
     public function index()
     {
-        dd(config('app.user')->account()->details());
+        dd(config('app.user'));
+        dd(config('app.user')->account()->metadetails());
     }
 }

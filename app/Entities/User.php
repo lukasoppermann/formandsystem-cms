@@ -2,7 +2,7 @@
 
 namespace App\Entities;
 
-use App\Models\User;
+use App\Models\User as UserModel;
 use App\Entities\Account;
 use App\Entities\AbstractModelEntity;
 use Cache;
@@ -10,6 +10,7 @@ use Illuminate\Support\Collection as LaravelCollection;
 
 class User extends AbstractModelEntity
 {
+    // TODO: add caching for User Listing view
     /**
      * get request user if current user, or from DB
      *
@@ -24,7 +25,7 @@ class User extends AbstractModelEntity
             return \Auth::user();
         }
         // get user from DB
-        return (new User)->find($id);
+        return (new UserModel)->find($id);
     }
     /**
      * returns all accounts that a user is assosiated with
@@ -33,25 +34,23 @@ class User extends AbstractModelEntity
      *
      * @return Illuminate\Support\Collection
      */
-    public function accounts()
+    public function accounts($field = NULL, $key = NULL, $first = false)
     {
-        // build cache name
-        $cache_name = $this->getCacheName('account_ids');
-        // check cache
-        if(!Cache::has($cache_name)){
-            // get all items from model
-            foreach($this->source->accounts as $item){
-                $ids[] = $item->id;
-            }
-            // store in cache
-            Cache::put($cache_name, new LaravelCollection($ids), 1440);
-        }
-        // return from cache
-        return new LaravelCollection(
-            Cache::get($cache_name)->map(function($item){
-                return new Account($item);
-            })->keyBy('id')
-        );
+        // get data
+        $data = $this->getCacheOrRetrieve('Accounts', 'Account');
+        // return collection
+        return $this->collectionData($data, $field, $key, $first);
+    }
+    /**
+     * get accounts from users relationship
+     *
+     * @method retrieveAccount
+     *
+     * @return Illuminate\Support\Collection
+     */
+    protected function retrieveAccounts()
+    {
+        return new LaravelCollection($this->source->accounts);
     }
     /**
      * current active account
@@ -63,7 +62,7 @@ class User extends AbstractModelEntity
     public function account()
     {
         // return specified user account
-        if($account = $this->accounts()->get(config('app.active_account')) ){
+        if($account = $this->accounts('id', config('app.active_account'), true)){
             return $account;
         }
         // if no account is selected return first account

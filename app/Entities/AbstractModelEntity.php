@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Entities\AbstractEntity;
+use Cache;
 
 abstract class AbstractModelEntity extends AbstractEntity
 {
@@ -15,6 +16,9 @@ abstract class AbstractModelEntity extends AbstractEntity
      */
     protected function getId()
     {
+        if(!isset($this->source)){
+            return FALSE;
+        }
         return $this->source->id;
     }
     /**
@@ -60,10 +64,8 @@ abstract class AbstractModelEntity extends AbstractEntity
     protected function entityCreate(Array $data){
         // validate user data
         $validatedData = $this->validateCreate($data);
-        // get model name
-        $model = isset($this->model) ? $this->model : $this->getClassName();
-        // get model namepsave
-        $model_name = 'App\Models\\'.$model;
+        // get model namespaced name
+        $model_name = 'App\Models\\'.$this->getModelName($this);
         // check if model exists
         if(class_exists($model_name)){
            // return newly created model
@@ -108,11 +110,50 @@ abstract class AbstractModelEntity extends AbstractEntity
     protected function addRelationship(AbstractEntity $entity)
     {
         // create the models name
-        $related_name = isset($entity->source()->model) ? $entity->source()->model : strtolower($this->getClassName($entity)).'s';
+        $related_name = $this->getModelName($entity);
         // attach if model exists
         if(method_exists($this->source, $related_name)){
             $this->source->{$related_name}()->save($entity->source);
         }
+    }
+    /**
+     * get model for this entity
+     *
+     * @method getModel
+     *
+     * @param  string   $id
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    protected function getModel($id){
+        if(!Cache::has($id)){
+            // throw expection if model is not found
+            if( !$model = (new $this->getModelName($this))->find($id) ){
+                throw new \EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
+            }
+            // store account in cache
+            Cache::put($model->id,$model,1440);
+        }
+        // return model from cache
+        return Cache::get($id);
+    }
+    /**
+     * get model name for given entity
+     *
+     * @method getModelName
+     *
+     * @param  App\Entities\AbstractEntity $entity [description]
+     *
+     * @return string
+     */
+    protected function getModelName($entity)
+    {
+        // if modelname is set in entity
+        if(isset($entity->source()->model)){
+            return $entity->source()->model;
+        }
+        // else try to make name
+        return strtolower($this->getClassName($entity)).'s';
     }
     /**
      * validate data before update
@@ -122,8 +163,4 @@ abstract class AbstractModelEntity extends AbstractEntity
      * validate data before create
      */
     abstract protected function validateCreate(Array $data);
-    /**
-     * get model instance for given $id
-     */
-    abstract protected function getModel($id);
 }

@@ -28,19 +28,26 @@ class Controller extends BaseController
     protected $client;
 
     public function __construct(Request $request){
-        \Log::debug('Cache user & account');
+        \Debugbar::stopMeasure('routes');
+        \Debugbar::startMeasure('user','Get Current User');
         // get current user
         config(['app.user' => new User($request->user()->id)]);
+        \Debugbar::stopMeasure('user');
+        \Debugbar::startMeasure('active-account-id','Get Active Account ID');
         // get account
         config(['app.active_account' => config('app.user')->accounts()->first()->get('id')]);
+        \Debugbar::stopMeasure('active-account-id');
+        \Debugbar::startMeasure('active-account','Get Active Account');
         config(['app.account' => config('app.user')->account()]);
-        \Log::debug('Get Metadetails e.g. image_dir & site_url & store with account');
+        \Debugbar::stopMeasure('active-account');
+        \Debugbar::startMeasure('get-api-client','Get API Client Data');
         // api client
-        if($client = config('app.user')->account()->details()->where('type','cms_client')->first()){
+        if($client = config('app.user')->account()->details('type','cms_client',true)){
             config(['app.user_client' => $client->get('data')]);
         }
         // TODO: replace everywhere
         $this->client = config('app.user_client');
+        \Debugbar::stopMeasure('get-api-client');
         // set user config
         $this->setUserConfig();
         // set cms api settings
@@ -49,6 +56,7 @@ class Controller extends BaseController
             'client_secret' => env('FS_API_CLIENT_SECRET'),
             'scopes' => ['client.post','client.delete','client.get'],
         ];
+        \Debugbar::addMeasure('Controller Setup done', LARAVEL_START, microtime(true));
     }
     /**
      * returns an api wrapper instance
@@ -62,13 +70,13 @@ class Controller extends BaseController
     protected function api($config = []){
         // prepare api config
         $config = array_merge([
+            'url'           => 'http://formandsystem-api.dev',
             'client_id'     => env('USER_API_CLIENT_ID'),
             'client_secret' => env('USER_API_CLIENT_SECRET'),
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
         ], $config->toArray());
         // return new API instance
-        $d = debugbar();
-        return new Api($config, new CacheService, $d);
+        return new Api($config, new CacheService, debugbar());
     }
     /**
      * get user & account config from DB & set as config
@@ -77,13 +85,15 @@ class Controller extends BaseController
      */
     public function setUserConfig()
     {
+        \Debugbar::startMeasure('get-account-metadetails','Get Account Site_url & IMG Dir');
         // URLS & DIRECTORIES
-        $details = config('app.user')->account()->metadetails();
-
-        \Config::set('site_url', $details->where('type','site_url')->first()->get('data'));
-        \Config::set('img_dir', $details->where('type','dir_images')->first()->get('data'));
+        \Config::set('site_url', config('app.user')->account()->metadetails('type','site_url', true));
+        \Config::set('img_dir', config('app.user')->account()->metadetails('type','img_dir', true));
+        \Debugbar::stopMeasure('get-account-metadetails');
         // GRID
-        \Config::set('custom.fragments', config('app.account')->details()->where('type','fragment')->keyBy('name'));
+        \Debugbar::startMeasure('custom-fragments','Get Custom Fragment Blueprints');
+        \Config::set('custom.fragments', config('app.user')->account()->details()->where('type','fragment')->keyBy('name'));
+        \Debugbar::stopMeasure('custom-fragments');
         // GRID
         \Config::set('user.grid-sm',2);
         \Config::set('user.grid-md',12);

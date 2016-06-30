@@ -10,6 +10,9 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Debugbar::startMeasure('routes','Routing');
+
+\Log::debug('Make routes cachable');
 
 Route::get('/test', 'Test@index');
 // login
