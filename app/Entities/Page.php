@@ -9,6 +9,7 @@ use Cache;
 
 class Page extends AbstractApiResourceEntity
 {
+        protected $cacheSource = true;
     /**
      * transform attributes
      *
@@ -32,33 +33,14 @@ class Page extends AbstractApiResourceEntity
             'is_trashed'    => $attributes['attributes']['is_trashed'],
         ];
     }
+    /**
+     * return the service to get api data
+     *
+     * @method resourceService
+     *
+     * @return App\Services\Api\AbsrtactApiService
+     */
     protected function resourceService(){
         return new ResourceService();
-    }
-    /**
-     * validate user data
-     *
-     * @method validateUpdate
-     *
-     * @param  array          $data [description]
-     *
-     * @return array
-     */
-    protected function validateUpdate(array $data)
-    {
-        return $data;
-    }
-    /**
-     * validate user data
-     *
-     * @method validateCreate
-     *
-     * @param  array          $data [description]
-     *
-     * @return array
-     */
-    protected function validateCreate(array $data)
-    {
-        return $data;
     }
 }

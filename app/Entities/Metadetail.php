@@ -9,6 +9,7 @@ use Cache;
 
 class Metadetail extends AbstractApiResourceEntity
 {
+    protected $cacheSource = true;
     /**
      * get model for this entity
      *
@@ -49,6 +50,13 @@ class Metadetail extends AbstractApiResourceEntity
             'is_trashed'        => $attributes['attributes']['is_trashed'],
         ];
     }
+    /**
+     * return thje service to get api data
+     *
+     * @method resourceService
+     *
+     * @return App\Services\Api\AbsrtactApiService
+     */
     protected function resourceService(){
         return new ResourceService();
     }

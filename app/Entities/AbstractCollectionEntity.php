@@ -14,12 +14,17 @@ abstract class AbstractCollectionEntity extends AbstractEntity
      *
      * @return string
      */
-    protected function getId()
+    protected function getId($source = NULL)
     {
-        if(!isset($this->source)){
+        if($source === NULL && !isset($this->source)){
             return FALSE;
         }
-        return $this->source->get('id');
+
+        if($source === NULL){
+            $source = $this->source;
+        }
+
+        return $source->get('id');
     }
     /**
      * return current entities source as array
@@ -51,57 +56,6 @@ abstract class AbstractCollectionEntity extends AbstractEntity
         }
         // return source
         return $source;
-    }
-    /**
-     * create a new entity in DB
-     *
-     * @method entityCreate
-     *
-     * @param  Array        $data [description]
-     *
-     * @return Illuminate\Database\Eloquent\Model
-     */
-    protected function entityCreate(Array $data){
-    //     // validate user data
-    //     $validatedData = $this->validateCreate($data);
-    //     // get model name
-    //     $model = isset($this->model) ? $this->model : $this->getClassName();
-    //     // get model namepsave
-    //     $model_name = 'App\Models\\'.$model;
-    //     // check if model exists
-    //     if(class_exists($model_name)){
-    //        // return newly created model
-    //        return (new $model_name())->create($validatedData);
-    //    }
-    }
-    /**
-     * update current entity in db
-     *
-     * @method entityUpdate
-     *
-     * @param  array       $data [description]
-     *
-     * @return Illuminate\Database\Eloquent\Model
-     */
-    protected function entityUpdate(Array $data){
-        // // validate user data
-        // $validatedData = $this->validateUpdate($data);
-        // // update model
-        // $this->source->update($validatedData);
-        // // return updated model
-        // return $this->source;
-    }
-    /**
-     * delete item from database
-     *
-     * @method entityDelete
-     *
-     * @return void
-     */
-    protected function entityDelete(){
-        // delete from api
-        dd($this->source);
-        $this->source->delete();
     }
     /**
      * add a relationship to the entities model

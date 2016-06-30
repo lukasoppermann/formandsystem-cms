@@ -9,6 +9,7 @@ use App\Services\Api\ImageService;
 
 class Image extends AbstractApiResourceEntity
 {
+    protected $cacheSource = true;
     /**
      * get data for this entity
      *

@@ -9,6 +9,7 @@ use Cache;
 
 class Collection extends AbstractApiResourceEntity
 {
+    protected $cacheSource = true;
     /**
      * get model for this entity
      *

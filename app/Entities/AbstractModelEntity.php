@@ -14,12 +14,17 @@ abstract class AbstractModelEntity extends AbstractEntity
      *
      * @return string
      */
-    protected function getId()
+    protected function getId($source = NULL)
     {
-        if(!isset($this->source)){
+        if($source === NULL && !isset($this->source)){
             return FALSE;
         }
-        return $this->source->id;
+
+        if($source === NULL){
+            $source = $this->source;
+        }
+
+        return $source->id;
     }
     /**
      * return current entities source as array

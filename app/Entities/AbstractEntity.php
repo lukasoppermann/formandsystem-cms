@@ -29,20 +29,7 @@ abstract class AbstractEntity extends LaravelCollection
     public function __construct($data)
     {
         // TODO: deal with errors e.g. when no model exists, etc.
-        // create source if array given
-        if(is_array($data)){
-            $source = $this->entityCreate($data);
-        }
-        // get source
-        if(!isset($source)){
-            $source = $this->getSource($data);
-        }
-        // cache source
-        $this->source = $this->cacheSource($source);
-        // prepare items
-        $items = $this->attributes($this->getSourceArray($source));
-        // set items
-        $this->setItems($items);
+        $this->refreshSelf($data);
     }
     /**
      * set items to provided array
@@ -119,7 +106,7 @@ abstract class AbstractEntity extends LaravelCollection
     protected function cacheSource($source){
         // cache source by id
         if(isset($this->cacheSource) && $this->cacheSource === true){
-            Cache::put($this->getId(),$source,1440);
+            Cache::put($this->getId($source),$source,1440);
         }
         // return model
         return $source;
@@ -237,7 +224,34 @@ abstract class AbstractEntity extends LaravelCollection
     public function update(Array $data){
         // make update and new entity
         // to force-refresh cache
-        return $this->newEntity($this->entityUpdate($data));
+        return $this->refreshSelf($this->entityUpdate($data));
+    }
+    /**
+     * set the current entity to new values
+     *
+     * @method refreshSelf
+     *
+     * @param  mixed      $data [description]
+     *
+     * @return void
+     */
+    public function refreshSelf($data)
+    {
+        // TODO: deal with errors e.g. when no model exists, etc.
+        // create source if array given
+        if(is_array($data)){
+            $source = $this->entityCreate($data);
+        }
+        // get source
+        if(!isset($source)){
+            $source = $this->getSource($data);
+        }
+        // cache source
+        $this->source = $this->cacheSource($source);
+        // prepare items
+        $items = $this->attributes($this->getSourceArray($source));
+        // set items
+        $this->setItems($items);
     }
     /**
      * delete entity and remove entities cache
