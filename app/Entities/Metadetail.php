@@ -21,7 +21,7 @@ class Metadetail extends AbstractApiResourceEntity
     protected function getData($id){
         if(!Cache::has($id)){
             // throw expection if account is not found
-            if( !$item = (new MetadetailService)->get($id) ){
+            if( !$item = (new MetadetailService)->first('id', $id) ){
                 throw new \EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
             }
             // store account in cache

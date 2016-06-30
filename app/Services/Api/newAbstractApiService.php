@@ -129,8 +129,8 @@ abstract class newAbstractApiService extends AbstractService
      */
     public function first($filter = NULL, $values = NULL, Array $param = [])
     {
-        $results = $this->find($filter, $values, $param);
-        return $results->first() === NULL ? new LaravelCollection() : $results->first();
+        $results = $this->find($filter, $values, $param)['data'];
+        return array_values($results)[0] === NULL ? [] : array_values($results)[0];
     }
     /**
      * create

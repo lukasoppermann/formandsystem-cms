@@ -28,7 +28,6 @@ abstract class AbstractEntity extends LaravelCollection
      */
     public function __construct($data)
     {
-        \Log::debug('Automatic build of relationship functions in DataEntity via __call and an array with related data');
         // TODO: deal with errors e.g. when no model exists, etc.
         // create source if array given
         if(is_array($data)){
@@ -38,12 +37,12 @@ abstract class AbstractEntity extends LaravelCollection
         if(!isset($source)){
             $source = $this->getSource($data);
         }
+        // cache source
+        $this->source = $this->cacheSource($source);
         // prepare items
         $items = $this->attributes($this->getSourceArray($source));
         // set items
         $this->setItems($items);
-        // set model
-        $this->source = $this->cacheSource($source);
     }
     /**
      * set items to provided array

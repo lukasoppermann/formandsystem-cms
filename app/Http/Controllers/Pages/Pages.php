@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Api\CollectionService;
 use App\Services\Api\PageService;
 use App\Entities\Collection;
+use App\Entities\Page;
 use Illuminate\Support\Collection as LaravelCollection;
 
 class Pages extends Controller
@@ -57,9 +58,12 @@ class Pages extends Controller
     }
 
     public function index(){
-        $this->collections = $items = (new CollectionService)->all([
-            'includes' => false
-        ]);
+        $page = new Page('b1f2d26f-496c-4aac-bb41-14cf3e3b8a0e');
+        // $page->delete();
+        dd($page);
+        // $this->collections = $items = (new CollectionService)->all([
+        //     'includes' => false
+        // ]);
         return view('pages.dashboard');
     }
 

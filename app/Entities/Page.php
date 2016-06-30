@@ -3,7 +3,7 @@
 namespace App\Entities;
 
 use App\Entities\AbstractCollectionEntity;
-use App\Services\Api\CollectionService;
+use App\Services\Api\newPageService;
 use Illuminate\Support\Collection as LaravelCollection;
 use Cache;
 
@@ -21,13 +21,13 @@ class Page extends AbstractApiResourceEntity
     protected function getData($id){
         if(!Cache::has($id)){
             // throw expection if account is not found
-            if( !$items = (new PageService)->get($id) ){
+            if( !$item = (new newPageService)->first('id', $id) ){
                 throw new \EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
             }
-            // store account in cache
-            Cache::put($id,$items,1440);
+            // store item in cache
+            Cache::put($id,$item,1440);
         }
-        // return model from cache
+        // return from cache
         return new LaravelCollection(Cache::get($id));
     }
     /**

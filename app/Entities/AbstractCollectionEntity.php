@@ -99,8 +99,9 @@ abstract class AbstractCollectionEntity extends AbstractEntity
      * @return void
      */
     protected function entityDelete(){
-        // update model
-        // $this->source->delete();
+        // delete from api
+        dd($this->source);
+        $this->source->delete();
     }
     /**
      * add a relationship to the entities model

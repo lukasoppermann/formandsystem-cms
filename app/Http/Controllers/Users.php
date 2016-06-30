@@ -16,7 +16,6 @@ class Users extends Controller
         if( $user === 'me' ){
             $user = config('app.user')->get('id');
         }
-        dd(config('app.user')->account()->navigation()->first()->pages());
         // dd('FINISH CREATE IN AbstractEntity at bottom, cache is created, but needs to be added to correct parent as well if created through parent');
 
         // (new AccountDetail([

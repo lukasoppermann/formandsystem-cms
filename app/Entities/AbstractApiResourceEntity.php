@@ -11,12 +11,13 @@ abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
     {
         // automatically include relationships
         if(array_key_exists($method, $this->source['relationships']) ){
-            $this->relatedEntities($this->source['relationships'][$method]['data']);
+            return $this->relatedEntities($this->source['relationships'][$method]['data']);
         }
     }
+
     public function relatedEntities($relatedData)
     {
-        $data = (new LaravelCollection($relatedData))->map(function($item){
+        return (new LaravelCollection($relatedData))->map(function($item){
             // get entity class
             $entity = '\App\Entities\\'.ucfirst(substr($item['type'],0 ,-1));
             // return entity if valid
@@ -26,8 +27,6 @@ abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
             // return item if invalid entity
             return $item;
         });
-
-        dd($data);
     }
     /**
      * add included items to Entity
