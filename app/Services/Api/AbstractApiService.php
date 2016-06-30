@@ -57,6 +57,7 @@ abstract class AbstractApiService extends AbstractService
             // return empty collection on error
             return NULL;
         }
+        return $items['data'];
         // success
         $entities = new LaravelCollection();
 
@@ -105,15 +106,15 @@ abstract class AbstractApiService extends AbstractService
         // return
         if( !$items = $this->getAllItems($url) ){
             // return empty collection on error
-            return new LaravelCollection();
+            return [];
         }
         // success
-        $entities = new LaravelCollection();
-        foreach($items['data'] as $item){
-            $entities->push(new $this->entity(new LaravelCollection($item), $items['included']));
-        }
+        // $entities = new LaravelCollection();
+        // foreach($items['data'] as $item){
+        //     $entities->push(new $this->entity(new LaravelCollection($item), $items['included']));
+        // }
         // return
-        return $entities;
+        return $items;
     }
     /**
      * returns first result from find query
@@ -128,8 +129,8 @@ abstract class AbstractApiService extends AbstractService
      */
     public function first($filter = NULL, $values = NULL, Array $param = [])
     {
-        $results = $this->find($filter, $values, $param);
-        return $results->first() === NULL ? new LaravelCollection() : $results->first();
+        $results = $this->find($filter, $values, $param)['data'];
+        return array_values($results)[0] === NULL ? [] : array_values($results)[0];
     }
     /**
      * create

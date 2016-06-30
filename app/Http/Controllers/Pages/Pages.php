@@ -60,7 +60,7 @@ class Pages extends Controller
     public function index(){
         $page = new Page('b1f2d26f-496c-4aac-bb41-14cf3e3b8a0e');
         // $page->delete();
-        dd($page);
+        // dd($page);
         // $this->collections = $items = (new CollectionService)->all([
         //     'includes' => false
         // ]);

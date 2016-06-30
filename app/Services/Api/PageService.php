@@ -2,7 +2,7 @@
 
 namespace App\Services\Api;
 
-class PageService extends CacheableApiService
+class PageService extends AbstractApiService
 {
     /**
      * all available includes

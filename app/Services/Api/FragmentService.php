@@ -2,7 +2,7 @@
 
 namespace App\Services\Api;
 
-class FragmentService extends CacheableApiService
+class FragmentService extends AbstractApiService
 {
     /**
      * all available includes

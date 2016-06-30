@@ -2,7 +2,7 @@
 
 namespace App\Services\Api;
 
-class CollectionService extends CacheableApiService
+class CollectionService extends AbstractApiService
 {
     /**
      * all available includes

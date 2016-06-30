@@ -174,7 +174,7 @@ class NavigationService
         $lists = [];
         foreach($items as $key => $list){
             $lists[$key] = [
-                'title'       => $list->name,
+                'title'       => $list->get('name'),
                 'items'       => $list->pages()->map(function($item){
                     return $item->put('collection', 'pages');
                 }),

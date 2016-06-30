@@ -5,7 +5,7 @@ namespace App\Entities;
 use App\Entities\AbstractModelEntity;
 use App\Entities\AccountDetail;
 use App\Services\Api\MetadetailService;
-use App\Services\Api\newCollectionService;
+use App\Services\Api\CollectionService;
 use Illuminate\Support\Collection as LaravelCollection;
 use Cache;
 
@@ -126,7 +126,7 @@ class Account extends AbstractModelEntity
      */
     public function retrieveNavigation()
     {
-        $items = (new newCollectionService)->find('type','navigation', [
+        $items = (new CollectionService)->find('type','navigation', [
             'only' => 'pages'
         ]);
         // return data & included

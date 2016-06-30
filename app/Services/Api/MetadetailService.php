@@ -2,7 +2,7 @@
 
 namespace App\Services\Api;
 
-class MetadetailService extends newAbstractApiService
+class MetadetailService extends AbstractApiService
 {
     /**
      * all available includes

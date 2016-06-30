@@ -4,9 +4,12 @@ namespace App\Entities;
 
 use App\Entities\AbstractCollectionEntity;
 use Illuminate\Support\Collection as LaravelCollection;
+use Cache;
 
 abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
 {
+    protected $resourceService;
+
     public function __call($method, $args)
     {
         // automatically include relationships
@@ -29,86 +32,26 @@ abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
         });
     }
     /**
-     * add included items to Entity
+     * get data for this entity
      *
-     * @method include
+     * @method getData
      *
-     * @param  array  $relationships
-     * @param  array  $included
+     * @param  string   $id
      *
-     * @return array
+     * @return Illuminate\Support\Collection
      */
-    public function include($relationships = [], $included = [])
-    {
-        $include = [];
+    protected function getData($id){
+        if(!Cache::has($id)){
+            // throw expection if account is not found
+            if( !$item = (new $this->resourceService())->first('id', $id) ){
+                throw new \EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
+            }
+            // store item in cache
+            Cache::put($id,$item,1440);
+        }
+        // return from cache
+        return new LaravelCollection(Cache::get($id));
+    }
 
-        foreach($relationships as $type => $rel ){
-            // create collection
-            $include[$type] = new LaravelCollection;
-            // include entities if data exists
-            if(isset($rel['data']) && count($rel['data']) > 0){
-                // create entity name
-                $entity = '\App\Entities\\'.str_replace('OwnedBy','',rtrim(ucfirst($type),'s'));
-                // add all items to collection
-                foreach(array_column($rel['data'],'id') as $id){
-                    if(($key = array_search($id, array_column($included,'id'))) !== false){
-                        $include[$type]->push(new $entity($included[$key], $included));
-                    }
-                }
-            }
-        }
-        return [
-            'relationships' => new LaravelCollection($include)
-        ];
-    }
-    /**
-     * decode json or return string
-     *
-     * @method json_decode
-     *
-     * @param  string      $data
-     *
-     * @return array|string
-     */
-    public function json_decode($data)
-    {
-        // decode if json
-        if( !is_array($data) && json_decode($data) !== null ){
-            return json_decode($data);
-        }
-        // return data
-        return $data;
-    }
-    /**
-     * empty function shell
-     *
-     * @method related
-     *
-     * @return Array
-     */
-    public function related()
-    {
-        return [];
-    }
-    /**
-     * get items from collection
-     *
-     * @method __get
-     *
-     * @param  string $key
-     *
-     * @return mixed
-     */
-    public function __get($key)
-    {
-        // get relationship if requested directly
-        if(!$this->has($key)){
-            // return relationship if it exists
-            if(isset($this->items['relationships'][$key])){
-                return $this->items['relationships'][$key];
-            }
-        }
-        // return normal if exists
-        return $this->get($key);
-    }
+    abstract protected function resourceService();
 }

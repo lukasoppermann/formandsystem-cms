@@ -18,18 +18,18 @@ class Metadetail extends AbstractApiResourceEntity
      *
      * @return Illuminate\Support\Collection
      */
-    protected function getData($id){
-        if(!Cache::has($id)){
-            // throw expection if account is not found
-            if( !$item = (new MetadetailService)->first('id', $id) ){
-                throw new \EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
-            }
-            // store account in cache
-            Cache::put($id,$item,1440);
-        }
-        // return model from cache
-        return new LaravelCollection(Cache::get($id));
-    }
+    // protected function getData($id){
+    //     if(!Cache::has($id)){
+    //         // throw expection if account is not found
+    //         if( !$item = (new MetadetailService)->first('id', $id) ){
+    //             throw new \EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
+    //         }
+    //         // store account in cache
+    //         Cache::put($id,$item,1440);
+    //     }
+    //     // return model from cache
+    //     return new LaravelCollection(Cache::get($id));
+    // }
     /**
      * transform attributes
      *
@@ -48,6 +48,9 @@ class Metadetail extends AbstractApiResourceEntity
             'data'              => $this->json_decode($attributes['attributes']['data']),
             'is_trashed'        => $attributes['attributes']['is_trashed'],
         ];
+    }
+    protected function resourceService(){
+        return new ResourceService();
     }
     /**
      * validate user data

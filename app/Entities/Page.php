@@ -3,33 +3,12 @@
 namespace App\Entities;
 
 use App\Entities\AbstractCollectionEntity;
-use App\Services\Api\newPageService;
+use App\Services\Api\PageService as ResourceService;
 use Illuminate\Support\Collection as LaravelCollection;
 use Cache;
 
 class Page extends AbstractApiResourceEntity
 {
-    /**
-     * get data for this entity
-     *
-     * @method getData
-     *
-     * @param  string   $id
-     *
-     * @return Illuminate\Support\Collection
-     */
-    protected function getData($id){
-        if(!Cache::has($id)){
-            // throw expection if account is not found
-            if( !$item = (new newPageService)->first('id', $id) ){
-                throw new \EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
-            }
-            // store item in cache
-            Cache::put($id,$item,1440);
-        }
-        // return from cache
-        return new LaravelCollection(Cache::get($id));
-    }
     /**
      * transform attributes
      *
@@ -52,6 +31,9 @@ class Page extends AbstractApiResourceEntity
             'description'   => $attributes['attributes']['description'],
             'is_trashed'    => $attributes['attributes']['is_trashed'],
         ];
+    }
+    protected function resourceService(){
+        return new ResourceService();
     }
     /**
      * validate user data

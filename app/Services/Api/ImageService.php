@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Models\Account;
 use App\Entities\Collection;
 
-class ImageService extends CacheableApiService
+class ImageService extends AbstractApiService
 {
     /**
      * all available includes
