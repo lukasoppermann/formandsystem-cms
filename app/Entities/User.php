@@ -16,6 +16,12 @@ class User extends AbstractModelEntity
      * @var boolean
      */
     protected $cacheSelf = false;
+    /**
+     * model namespace or model instance
+     *
+     * @var string|Model
+     */
+    protected $model = '\App\Models\User';
     // TODO: add caching for User Listing view
     /**
      * get request user if current user, or from DB
@@ -46,7 +52,6 @@ class User extends AbstractModelEntity
     {
         // get data
         $data = $this->getCacheOrRetrieve('Accounts', 'Account');
-        dd($data);
         // return collection
         return $this->collectionData($data, $field, $key, $first);
     }
@@ -59,7 +64,7 @@ class User extends AbstractModelEntity
      */
     protected function retrieveAccounts()
     {
-        return $this->model->accounts;
+        return $this->getModel()->accounts;
     }
     /**
      * current active account
@@ -86,8 +91,8 @@ class User extends AbstractModelEntity
      *
      * @return array
      */
-    protected function attributes($source)
+    protected function attributes($model)
     {
-        return $source;
+        return $model->toArray();
     }
 }

@@ -105,8 +105,10 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         });
 
         $this->source->put('relationships', $relationships);
-        // return
-        return $data;
+        // cache included
+        $this->cacheRawItems($data['included']);
+        // return data
+        return $data['data'];
     }
     /**
      * get data for this entity

@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Entities\AbstractEntity;
+use Illuminate\Support\Collection as LaravelCollection;
 use Cache;
 
 abstract class AbstractModelEntity extends AbstractEntity
@@ -12,7 +13,25 @@ abstract class AbstractModelEntity extends AbstractEntity
      *
      * @var mixed
      */
-    protected $model;
+    protected $model = NULL;
+    /**
+     * get an entity form cache or source by its id
+     *
+     * @method getEntityFromId
+     *
+     * @param  string          $id [description]
+     *
+     * @return App\Entities\AbstractEntity
+     */
+    public function getEntityFromId(string $id)
+    {
+        // try to get from cache
+        if(\Cache::has($id)){
+            return \Cache::get($id);
+        }
+        // get from model
+        return new $this($this->getModel()->find($id));
+    }
     /**
      * get id for current entity from source
      *
@@ -28,6 +47,23 @@ abstract class AbstractModelEntity extends AbstractEntity
              \Log::error($e);
              return FALSE;
          }
+     }
+     /**
+      * get the model for the current entity
+      *
+      * @method getModel
+      *
+      * @return [type]
+      */
+     public function getModel($id = NULL)
+     {
+        if(is_a($this->model, 'Illuminate\Database\Eloquent\Model')){
+            return $this->model;
+        }
+        if($id !== null){
+            return (new $this->model)->find($id);
+        }
+        return (new $this->model);
      }
     /**
      * return current entities source as array
@@ -51,15 +87,15 @@ abstract class AbstractModelEntity extends AbstractEntity
      *
      * @return Illuminate\Database\Eloquent\Model
      */
-    protected function getSource($source)
-    {
-        // if source is not a model
-        if(!is_a($source, 'Illuminate\Database\Eloquent\Model')){
-            return $this->getModel($source);
-        }
-        // return source
-        return $source;
-    }
+    // protected function getSource($source)
+    // {
+    //     // if source is not a model
+    //     if(!is_a($source, 'Illuminate\Database\Eloquent\Model')){
+    //         return $this->getModel($source);
+    //     }
+    //     // return source
+    //     return $source;
+    // }
     /**
      * create a new entity in DB
      *
@@ -70,15 +106,10 @@ abstract class AbstractModelEntity extends AbstractEntity
      * @return Illuminate\Support\Collection
      */
     protected function entityCreate(Array $data){
-        // get model namespaced name
-        $model_name = 'App\Models\\'.$this->getModelName($this);
-        // check if model exists
-        if(class_exists($model_name)){
-           // create model
-           $this->model = (new $model_name())->create($validatedData);
-           // return collection
-           return new LaravelCollection($this->model);
-       }
+       // create model
+       $this->model = $this->getModel()->create($data);
+       // return collection
+       return $this->model;
     }
     /**
      * update current entity in db
@@ -134,31 +165,31 @@ abstract class AbstractModelEntity extends AbstractEntity
         // create the models name
         $related_name = $this->getModelName($entity);
         // attach if model exists
-        if(method_exists($this->source, $related_name)){
-            $this->source->{$related_name}()->detach($entity->get('id'));
+        if(method_exists($this->getModel(), $related_name)){
+            $this->getModel()->{$related_name}()->detach($entity->get('id'));
         }
     }
-    /**
-     * get model for this entity
-     *
-     * @method getModel
-     *
-     * @param  string   $id
-     *
-     * @return Illuminate\Database\Eloquent\Model
-     */
-    protected function getModel($id){
-        if(!Cache::has($id)){
-            // throw expection if model is not found
-            if( !$model = (new $this->getModelName($this))->find($id) ){
-                throw new \App\Exceptions\EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
-            }
-            // store account in cache
-            Cache::put($model->id,$model,1440);
-        }
-        // return model from cache
-        return Cache::get($id);
-    }
+    // /**
+    //  * get model for this entity
+    //  *
+    //  * @method getModel
+    //  *
+    //  * @param  string   $id
+    //  *
+    //  * @return Illuminate\Database\Eloquent\Model
+    //  */
+    // protected function getModel($id){
+    //     if(!Cache::has($id)){
+    //         // throw expection if model is not found
+    //         if( !$model = (new $this->getModelName($this))->find($id) ){
+    //             throw new \App\Exceptions\EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
+    //         }
+    //         // store account in cache
+    //         Cache::put($model->id,$model,1440);
+    //     }
+    //     // return model from cache
+    //     return Cache::get($id);
+    // }
     /**
      * get model name for given entity
      *

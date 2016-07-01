@@ -11,7 +11,12 @@ use Cache;
 
 class Account extends AbstractModelEntity
 {
-    
+    /**
+     * model namespace or model instance
+     *
+     * @var string|Model
+     */
+    protected $model = '\App\Models\Account';
     /**
      * get model for this entity
      *
@@ -102,6 +107,7 @@ class Account extends AbstractModelEntity
     public function retrieveAccountMetadetail()
     {
         $metadetails = (new MetadetailService)->find('type',['site_url','dir_images','analytics_code','analytics_anonymize_ip','site_name']);
+        dd($metadetails);
         // return data & included
         return [
             'data'      => new LaravelCollection($metadetails['data']),
@@ -117,7 +123,7 @@ class Account extends AbstractModelEntity
      */
     public function retrieveAccountdetail()
     {
-        return $this->source->accountdetails;
+        return $this->getModel()->accountdetails;
     }
     /**
      * get navigation collection for account from API
@@ -146,8 +152,8 @@ class Account extends AbstractModelEntity
      *
      * @return array
      */
-    protected function attributes($source)
+    protected function attributes($model)
     {
-        return $source;
+        return $model->toArray();
     }
 }
