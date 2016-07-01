@@ -44,7 +44,8 @@ abstract class AbstractEntity extends LaravelCollection
         }
         // if is string = id given
         if(is_string($data)){
-            $this->refreshSelf($this->getEntityFromId($data));
+            // $this->refreshSelf($this->getEntityFromId($data));
+            $this->setEntityToId($data);
         }
         // if model or collection is given
         else {
@@ -52,9 +53,14 @@ abstract class AbstractEntity extends LaravelCollection
             if(is_a($data, 'Illuminate\Database\Eloquent\Model')){
                 // set entities model
                 $this->model = $data;
+                $this->items = $this->attributes($data);
             }
-            // prepare items
-            $this->items = $this->attributes($data);
+            elseif(is_subclass_of($data, '\App\Entities\AbstractEntity')){
+                dd($data);
+                $this->items = $data->items;
+            }elseif(is_a($data, 'Illuminate\Support\Collection')){
+                $this->items = $this->attributes($data);
+            }
             // cache itself
             $this->cacheSelf();
         }
@@ -91,17 +97,21 @@ abstract class AbstractEntity extends LaravelCollection
         $cache_name = $this->getCacheName($this->getClassName().$cache_suffix);
         // check cache
         if(!Cache::has($cache_name)){
-            $this->retrieveAndCache($entity_name, $cache_name, $cache_suffix);
+            $ids = $this->retrieveIds($entity_name, $cache_name, $cache_suffix);
+            Cache::put($cache_name, $ids, 1440);
         }
         // get entities
         $ids = Cache::get($cache_name)->toArray();
+        // TODO: delete forget
+        \Log::debug('remove forget in AbstractEntity line 107');
+        Cache::forget($cache_name);
         // return items
         return $this->getEntities($ids, $entity_name);
     }
     /**
-     * retrieve items and cache their ids
+     * retrieve item ids
      *
-     * @method retrieveAndCache
+     * @method retrieveIds
      *
      * @param  string           $entity_name  [description]
      * @param  string           $cache_name   [description]
@@ -109,17 +119,20 @@ abstract class AbstractEntity extends LaravelCollection
      *
      * @return void
      */
-    public function retrieveAndCache($entity_name, $cache_name, $cache_suffix)
+    public function retrieveIds($entity_name, $cache_name, $cache_suffix)
     {
         // get items from db or api
         $items = $this->{'retrieve'.$cache_suffix}();
         // get entities
-        $entities = new LaravelCollection();
+        $entities = new LaravelCollection([]);
         foreach($items as $item){
+            if($entity_name == '\App\Entities\Metadetail'){
+                new $entity_name($item);
+            }
             $entities->push(new $entity_name($item));
         }
-        // store in cache
-        Cache::put($cache_name, $entities->pluck('id'), 1440);
+        // return ids
+        return $entities->pluck('id');
     }
     /**
      * get classname for current class without namespace
@@ -347,16 +360,6 @@ abstract class AbstractEntity extends LaravelCollection
      */
     abstract protected function attributes($data);
     /**
-     * get data of current entity as array
-     *
-     * @method getDataArray
-     *
-     * @param  mixed     $data [description]
-     *
-     * @return Array
-     */
-    abstract protected function getDataArray($data);
-    /**
      * get an entity form cache or source by its id
      *
      * @method getEntityFromId
@@ -365,5 +368,5 @@ abstract class AbstractEntity extends LaravelCollection
      *
      * @return App\Entities\AbstractEntity
      */
-    abstract protected function getEntityFromId(string $id);
+    abstract protected function setEntityToId(string $id);
 }

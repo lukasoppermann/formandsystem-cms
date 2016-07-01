@@ -32,14 +32,30 @@ class User extends AbstractModelEntity
      *
      * @return Illuminate\Database\Eloquent\Model
      */
-    protected function getDataArray($id){
-        if(\Auth::user()->id === $id){
-            $this->model = \Auth::user();
-        }else {
-            $this->model = (new UserModel)->find($id);
-        }
-        // get user from DB
-        return $this->model->toArray();
+    //  public function getEntityFromId(string $id)
+    //  {
+    //     // try to get from cache
+    //     if(\Auth::user()->id === $id){
+    //         $model = \Auth::user();
+    //     }
+    //     else {
+    //         $model = $this->getModel()->find($id);
+    //     }
+    //      // get from model
+    //      return new $this($model);
+    //  }
+    public function setEntityToId(string $id)
+    {
+       // try to get from cache
+       if(\Auth::user()->id === $id){
+           $this->model = \Auth::user();
+       }
+       else {
+           $this->model = $this->getModel()->find($id);
+       }
+       $this->items = $this->attributes($this->model);
+        // get from model
+        // return new $this($model);
     }
     /**
      * returns all accounts that a user is assosiated with

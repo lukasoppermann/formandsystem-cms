@@ -32,6 +32,17 @@ abstract class AbstractModelEntity extends AbstractEntity
         // get from model
         return new $this($this->getModel()->find($id));
     }
+    public function setEntityToId(string $id)
+    {
+        // try to get from cache
+        if(\Cache::has($id)){
+            $entity = \Cache::get($id);
+        }else {
+            $entity = new $this($this->getModel()->find($id));
+        }
+        $this->model = $entity->model;
+        $this->items = $entity->items;
+    }
     /**
      * get id for current entity from source
      *
@@ -59,6 +70,9 @@ abstract class AbstractModelEntity extends AbstractEntity
      {
         if(is_a($this->model, 'Illuminate\Database\Eloquent\Model')){
             return $this->model;
+        }
+        if($id === NULL && isset($this->items['id'])){
+            $id = $this->items['id'];
         }
         if($id !== null){
             return (new $this->model)->find($id);

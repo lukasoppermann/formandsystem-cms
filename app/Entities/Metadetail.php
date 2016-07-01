@@ -9,7 +9,7 @@ use Cache;
 
 class Metadetail extends AbstractApiResourceEntity
 {
-    
+
     /**
      * transform attributes
      *
@@ -21,11 +21,14 @@ class Metadetail extends AbstractApiResourceEntity
      */
     protected function attributes($attributes)
     {
+        if(!isset($attributes['attributes'])){
+            dd($attributes);
+        }
         return [
             'id'                => $attributes['id'],
             'resource_type'     => $attributes['type'],
             'type'              => $attributes['attributes']['type'],
-            'data'              => $this->json_decode($attributes['attributes']['data']),
+            'data'              => $this->jsonDecode($attributes['attributes']['data']),
             'is_trashed'        => $attributes['attributes']['is_trashed'],
         ];
     }

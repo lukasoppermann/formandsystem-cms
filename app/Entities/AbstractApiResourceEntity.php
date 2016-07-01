@@ -8,21 +8,48 @@ use Cache;
 
 abstract class AbstractApiResourceEntity extends AbstractEntity
 {
-    /**
-     * source of data for entity
-     *
-     * @var mixed
-     */
-    protected $source;
 
     protected $resourceService;
+    protected $relationships = [];
 
     public function __call($method, $args)
     {
         // automatically include relationships
-        if(array_key_exists($method, $this->source['relationships']) ){
+        if(array_key_exists($method, $this->relationships) ){
             return $this->relatedEntities($method);
         }
+    }
+    /**
+     * get an entity form cache or source by its id
+     *
+     * @method getEntityFromId
+     *
+     * @param  string          $id [description]
+     *
+     * @return App\Entities\AbstractEntity
+     */
+    // public function getEntityFromId(string $id)
+    // {
+    //     // try to get from cache
+    //     if(\Cache::has($id)){
+    //         return \Cache::get($id);
+    //     }
+    //
+    //     // get from model
+    //     return new $this(new LaravelCollection($this->resourceService()->first('id',$id)));
+    // }
+    public function setEntityToId(string $id)
+    {
+        // try to get from cache
+        if(\Cache::has($id)){
+            $entity = \Cache::get($id);
+        }else {
+            $entity = new $this(new LaravelCollection($this->resourceService()->first('id',$id)));
+        }
+        //
+        $this->items = $entity->items;
+        //#
+        $this->relationships = $entity->relationships;
     }
     /**
      * get id for current entity from source
@@ -54,22 +81,23 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         return $source->toArray();
     }
     /**
-     * return current entities source from cache, db or api, etc.
+     * return json as array or string, if not valid json
      *
-     * @method getSource
+     * @method jsonDecode
      *
      * @param  [type]    $source [description]
      *
      * @return Illuminate\Database\Eloquent\Model
      */
-    protected function getSource($source)
+    protected function jsonDecode($str)
     {
-        // if source is not a model
-        if(!is_a($source, 'Illuminate\Support\Collection')){
-            return $this->getData($source);
+        // try to convert json
+        $json = json_decode($str,true);
+        if(is_array($json)){
+            return $json;
         }
-        // return source
-        return $source;
+        // if not return string
+        return $str;
     }
     /**
      * return realted entities

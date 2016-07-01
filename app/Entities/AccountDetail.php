@@ -3,12 +3,16 @@
 namespace App\Entities;
 
 use App\Entities\AbstractModelEntity;
-use App\Models\AccountDetail as AccountDetailModel;
 use Cache;
 
 class AccountDetail extends AbstractModelEntity
 {
-    
+    /**
+     * model namespace or model instance
+     *
+     * @var string|Model
+     */
+    protected $model = '\App\Models\AccountDetail';
     /**
      * prepare attributes
      *
@@ -18,8 +22,8 @@ class AccountDetail extends AbstractModelEntity
      *
      * @return array
      */
-    protected function attributes($source)
-    {
-        return $source;
-    }
+     protected function attributes($model)
+     {
+         return $model->toArray();
+     }
 }

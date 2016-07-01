@@ -26,23 +26,23 @@ class Account extends AbstractModelEntity
      *
      * @return Array
      */
-    protected function getDataArray($id){
-        if(!Cache::has($id)){
-            // throw expection if account is not found
-            if( config('app.user') === NULL
-                || config('app.user')->accounts() === NULL
-                || !$account = config('app.user')->model->accounts->where('id',$id)->first()
-            ){
-                throw new \App\Exceptions\EmptyException('No account with ID: '.$id.' found.');
-            }
-            // store account in cache
-            // Cache::put($id,$account,1440);
-            $this->model = $account;
-            return $account->toArray();
-        }
-        // return model from cache
-        return Cache::get($id);
-    }
+    // protected function getDataArray($id){
+    //     if(!Cache::has($id)){
+    //         // throw expection if account is not found
+    //         if( config('app.user') === NULL
+    //             || config('app.user')->accounts() === NULL
+    //             || !$account = config('app.user')->model->accounts->where('id',$id)->first()
+    //         ){
+    //             throw new \App\Exceptions\EmptyException('No account with ID: '.$id.' found.');
+    //         }
+    //         // store account in cache
+    //         // Cache::put($id,$account,1440);
+    //         $this->model = $account;
+    //         return $account->toArray();
+    //     }
+    //     // return model from cache
+    //     return Cache::get($id);
+    // }
     /**
      * return details that are related to account
      *
@@ -107,12 +107,12 @@ class Account extends AbstractModelEntity
     public function retrieveAccountMetadetail()
     {
         $metadetails = (new MetadetailService)->find('type',['site_url','dir_images','analytics_code','analytics_anonymize_ip','site_name']);
-        dd($metadetails);
         // return data & included
-        return [
-            'data'      => new LaravelCollection($metadetails['data']),
-            'included'  => new LaravelCollection($metadetails['included']),
-        ];
+        \Log::debug('Cache included data');
+        //     'included'  => new LaravelCollection($metadetails['included']),
+        return (new LaravelCollection($metadetails['data']))->map(function($item){
+            return new LaravelCollection($item);
+        });
     }
     /**
      * get account details from accounts relationship
@@ -121,7 +121,7 @@ class Account extends AbstractModelEntity
      *
      * @return Illuminate\Support\Collection
      */
-    public function retrieveAccountdetail()
+    public function retrieveAccountDetail()
     {
         return $this->getModel()->accountdetails;
     }

@@ -142,7 +142,7 @@ abstract class AbstractApiService extends AbstractService
     public function create(Array $data){
         // TODO: handle errors
         // make api call
-        $response = $this->api($this->client)->post('/'.$this->endpoint, [
+        $response = $this->api(config('app.user_client'))->post('/'.$this->endpoint, [
             'type'       => $this->endpoint,
             'attributes' => $data,
         ]);
@@ -159,7 +159,7 @@ abstract class AbstractApiService extends AbstractService
     public function update($id, Array $data){
         // TODO: handle errors
         // make api call
-        $response = $this->api($this->client)->patch('/'.$this->endpoint.'/'.$id, [
+        $response = $this->api(config('app.user_client'))->patch('/'.$this->endpoint.'/'.$id, [
             'type' => $this->endpoint,
             'id'   => $id,
             'attributes' => $data,
@@ -186,7 +186,7 @@ abstract class AbstractApiService extends AbstractService
             return false;
         }
         // try deleting
-        if(!$this->api($this->client)->delete('/'.$this->endpoint.'/'.$id)){
+        if(!$this->api(config('app.user_client'))->delete('/'.$this->endpoint.'/'.$id)){
             return true;
         }
         // no deletion
@@ -285,7 +285,7 @@ abstract class AbstractApiService extends AbstractService
     protected function getWhileNext(&$items, $url)
     {
         // make request
-        $response = $this->api($this->client)->get($url);
+        $response = $this->api(config('app.user_client'))->get($url);
         // error handling
         if( isset($response['status_code']) ){
             \Log::error('Error '.$response['status_code'].' for '.$url.': '.$response['message']);
@@ -326,7 +326,7 @@ abstract class AbstractApiService extends AbstractService
     }
     public function attach($id, Array $related)
     {
-        $attach = $this->api($this->client)->post('/'.$this->endpoint.'/'.$id.'/relationships/'.$related['type'], [
+        $attach = $this->api(config('app.user_client'))->post('/'.$this->endpoint.'/'.$id.'/relationships/'.$related['type'], [
             [
                 'type'  => $related['type'],
                 'id'    => $related['id'],
