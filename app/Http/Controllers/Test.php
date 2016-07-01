@@ -26,7 +26,8 @@ extends BaseController
     public function index()
     {
         config(['app.active_account' => config('app.user')->accounts()->first()->get('id')]);
-        dd(config('app.user')->account());
-        dd(config('app.user')->account()->metadetails());
+        echo config('app.user')->account()->get('name');
+        // dd();
+        // dd(config('app.user')->account()->metadetails());
     }
 }
