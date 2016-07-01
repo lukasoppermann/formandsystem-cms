@@ -11,7 +11,7 @@ use Cache;
 
 class Account extends AbstractModelEntity
 {
-    protected $cacheSource = true;
+    
     /**
      * get model for this entity
      *
@@ -19,19 +19,21 @@ class Account extends AbstractModelEntity
      *
      * @param  string   $id
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return Array
      */
-    protected function getModel($id){
+    protected function getDataArray($id){
         if(!Cache::has($id)){
             // throw expection if account is not found
             if( config('app.user') === NULL
-                || config('app.user')->source->accounts === NULL
-                || !$account = config('app.user')->source->accounts->where('id',$id)->first()
+                || config('app.user')->accounts() === NULL
+                || !$account = config('app.user')->model->accounts->where('id',$id)->first()
             ){
                 throw new \App\Exceptions\EmptyException('No account with ID: '.$id.' found.');
             }
             // store account in cache
-            Cache::put($id,$account,1440);
+            // Cache::put($id,$account,1440);
+            $this->model = $account;
+            return $account->toArray();
         }
         // return model from cache
         return Cache::get($id);

@@ -9,7 +9,7 @@ use Cache;
 
 class Metadetail extends AbstractApiResourceEntity
 {
-    protected $cacheSource = true;
+    
     /**
      * transform attributes
      *

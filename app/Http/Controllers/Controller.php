@@ -28,6 +28,7 @@ class Controller extends BaseController
     protected $client;
 
     public function __construct(Request $request){
+        \Cache::flush();
         \Debugbar::stopMeasure('routes');
         \Debugbar::startMeasure('user','Get Current User');
         // get current user
@@ -35,6 +36,7 @@ class Controller extends BaseController
         \Debugbar::stopMeasure('user');
         \Debugbar::startMeasure('active-account-id','Get Active Account ID');
         // get account
+        dd(config('app.user')->accounts());
         config(['app.active_account' => config('app.user')->accounts()->first()->get('id')]);
         \Debugbar::stopMeasure('active-account-id');
         \Debugbar::startMeasure('active-account','Get Active Account');

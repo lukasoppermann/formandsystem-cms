@@ -9,7 +9,7 @@ use App\Services\Api\FragmentService;
 
 class Fragment extends AbstractApiResourceEntity
 {
-    protected $cacheSource = true;
+    
     /**
      * get data for this entity
      *

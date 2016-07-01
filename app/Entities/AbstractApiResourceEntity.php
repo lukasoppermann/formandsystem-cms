@@ -8,6 +8,13 @@ use Cache;
 
 abstract class AbstractApiResourceEntity extends AbstractEntity
 {
+    /**
+     * source of data for entity
+     *
+     * @var mixed
+     */
+    protected $source;
+
     protected $resourceService;
 
     public function __call($method, $args)
@@ -26,15 +33,12 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
      */
     protected function getId($source = NULL)
     {
-        if($source === NULL && !isset($this->source)){
+        try{
+            return $this->get('id');
+        }catch(\Exception $e){
+            \Log::error($e);
             return FALSE;
         }
-
-        if($source === NULL){
-            $source = $this->source;
-        }
-
-        return $source->get('id');
     }
     /**
      * return current entities source as array
@@ -101,7 +105,6 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         });
 
         $this->source->put('relationships', $relationships);
-        $this->cacheSource($this->source);
         // return
         return $data;
     }
@@ -191,8 +194,6 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
             'id' => $entity->get('id')
         ]]);
         $this->source->put('relationships', $relationships);
-
-        $this->cacheSource($this->source);
     }
     /**
      * remove a relationship from the entities source

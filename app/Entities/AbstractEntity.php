@@ -8,12 +8,6 @@ use Cache;
 abstract class AbstractEntity extends LaravelCollection
 {
     /**
-     * source of data for entity
-     *
-     * @var mixed
-     */
-    protected $source;
-    /**
      * entities items
      *
      * @var array
@@ -30,39 +24,6 @@ abstract class AbstractEntity extends LaravelCollection
     {
         // TODO: deal with errors e.g. when no model exists, etc.
         $this->refreshSelf($data);
-    }
-    /**
-     * set items to provided array
-     *
-     * @method setItems
-     *
-     * @param  Array    $items [description]
-     */
-    public function setItems(Array $items)
-    {
-        $this->items = $items;
-    }
-    /**
-     * get the source model or data object
-     *
-     * @method source
-     *
-     * @return mixed
-     */
-    public function source()
-    {
-        return $this->source;
-    }
-    /**
-     * check if entity is a model entity
-     *
-     * @method isModelEntity
-     *
-     * @return bool
-     */
-    public function isModelEntity()
-    {
-        return is_a($this->source, 'Illuminate\Database\Eloquent\Model');
     }
     /**
      * get classname for current class without namespace
@@ -93,23 +54,6 @@ abstract class AbstractEntity extends LaravelCollection
         if($this->getId() !== FALSE){
             return trim($this->getClassName().'.'.$this->getId().'.'.$suffix,'.');
         }
-    }
-    /**
-     * cache current source by its id
-     *
-     * @method cacheSource
-     *
-     * @param  string       $suffix [description]
-     *
-     * @return string
-     */
-    protected function cacheSource($source){
-        // cache source by id
-        if(isset($this->cacheSource) && $this->cacheSource === true){
-            Cache::put($this->getId($source),$source,1440);
-        }
-        // return model
-        return $source;
     }
     /**
      * get entities with array of entity ids & entity name
@@ -209,7 +153,13 @@ abstract class AbstractEntity extends LaravelCollection
      */
     abstract protected function entityDelete();
     /**
-     * method to create the entities real data via api or model
+     * create a new entity in DB
+     *
+     * @method entityCreate
+     *
+     * @param  Array        $data [description]
+     *
+     * @return Illuminate\Support\Collection
      */
     abstract protected function entityCreate(Array $data);
     /**
@@ -240,19 +190,29 @@ abstract class AbstractEntity extends LaravelCollection
         // TODO: deal with errors e.g. when no model exists, etc.
         // create source if array given
         if(is_array($data)){
-            $source = $this->entityCreate($data);
+            $data = $this->entityCreate($data);
         }
         // get source
-        if(!isset($source)){
-            $source = $this->getSource($data);
-        }
-        // cache source
-        $this->source = $this->cacheSource($source);
+        $items = $this->getDataArray($data);
         // prepare items
-        $items = $this->attributes($this->getSourceArray($source));
-        // set items
-        $this->setItems($items);
-
+        $this->items = $this->attributes($items);
+        // cache itself
+        $this->cacheSelf();
+    }
+    /**
+     * cache current entity by its id
+     *
+     * @method cacheSelf
+     *
+     * @param  string       $suffix [description]
+     *
+     * @return void
+     */
+    protected function cacheSelf(){
+        // cache entity by id
+        if($this->cacheSelf !== false){
+            Cache::put($this->get('id'),$this,1440);
+        }
     }
     /**
      * delete entity and remove entities cache
@@ -373,9 +333,19 @@ abstract class AbstractEntity extends LaravelCollection
      *
      * @method attributes
      *
-     * @param  mixed     $source [description]
+     * @param  mixed     $data [description]
      *
      * @return array
      */
-    abstract protected function attributes($source);
+    abstract protected function attributes($data);
+    /**
+     * get data of current entity as array
+     *
+     * @method getDataArray
+     *
+     * @param  mixed     $data [description]
+     *
+     * @return Array
+     */
+    abstract protected function getDataArray($data);
 }

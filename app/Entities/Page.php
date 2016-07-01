@@ -9,7 +9,7 @@ use Cache;
 
 class Page extends AbstractApiResourceEntity
 {
-        protected $cacheSource = true;
+        
     /**
      * transform attributes
      *

@@ -10,6 +10,12 @@ use Illuminate\Support\Collection as LaravelCollection;
 
 class User extends AbstractModelEntity
 {
+    /**
+     * determins if entity gets cached
+     *
+     * @var boolean
+     */
+    protected $cacheSelf = false;
     // TODO: add caching for User Listing view
     /**
      * get request user if current user, or from DB
@@ -20,12 +26,14 @@ class User extends AbstractModelEntity
      *
      * @return Illuminate\Database\Eloquent\Model
      */
-    protected function getModel($id){
+    protected function getDataArray($id){
         if(\Auth::user()->id === $id){
-            return \Auth::user();
+            $this->model = \Auth::user();
+        }else {
+            $this->model = (new UserModel)->find($id);
         }
         // get user from DB
-        return (new UserModel)->find($id);
+        return $this->model->toArray();
     }
     /**
      * returns all accounts that a user is assosiated with
@@ -38,6 +46,7 @@ class User extends AbstractModelEntity
     {
         // get data
         $data = $this->getCacheOrRetrieve('Accounts', 'Account');
+        dd($data);
         // return collection
         return $this->collectionData($data, $field, $key, $first);
     }
@@ -50,7 +59,7 @@ class User extends AbstractModelEntity
      */
     protected function retrieveAccounts()
     {
-        return new LaravelCollection($this->source->accounts);
+        return $this->model->accounts;
     }
     /**
      * current active account

@@ -8,24 +8,27 @@ use Cache;
 abstract class AbstractModelEntity extends AbstractEntity
 {
     /**
+     * source of data for entity
+     *
+     * @var mixed
+     */
+    protected $model;
+    /**
      * get id for current entity from source
      *
      * @method getId
      *
      * @return string
      */
-    protected function getId($source = NULL)
-    {
-        if($source === NULL && !isset($this->source)){
-            return FALSE;
-        }
-
-        if($source === NULL){
-            $source = $this->source;
-        }
-
-        return $source->id;
-    }
+     protected function getId($source = NULL)
+     {
+         try{
+             return $this->get('id');
+         }catch(\Exception $e){
+             \Log::error($e);
+             return FALSE;
+         }
+     }
     /**
      * return current entities source as array
      *
@@ -64,15 +67,17 @@ abstract class AbstractModelEntity extends AbstractEntity
      *
      * @param  Array        $data [description]
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return Illuminate\Support\Collection
      */
     protected function entityCreate(Array $data){
         // get model namespaced name
         $model_name = 'App\Models\\'.$this->getModelName($this);
         // check if model exists
         if(class_exists($model_name)){
-           // return newly created model
-           return (new $model_name())->create($validatedData);
+           // create model
+           $this->model = (new $model_name())->create($validatedData);
+           // return collection
+           return new LaravelCollection($this->model);
        }
     }
     /**

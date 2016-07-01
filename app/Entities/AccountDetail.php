@@ -8,7 +8,7 @@ use Cache;
 
 class AccountDetail extends AbstractModelEntity
 {
-    protected $cacheSource = true;
+    
     /**
      * prepare attributes
      *
