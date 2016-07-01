@@ -294,6 +294,14 @@ abstract class AbstractEntity extends LaravelCollection
      */
     abstract protected function addRelationship(AbstractEntity $entity);
     /**
+     * remove a relationship to current entity in db or via api
+     *
+     * @method removeRelationship
+     *
+     * @param  App\Entities\AbstractEntity  $entity [description]
+     */
+    abstract protected function removeRelationship(AbstractEntity $entity);
+    /**
      * attach an entity to current entity
      *
      * @method attach
@@ -310,6 +318,28 @@ abstract class AbstractEntity extends LaravelCollection
         $cache_name = $this->getCacheName($this->getClassName($entity));
         // add entity to attached array
         $attached = Cache::get($cache_name, new LaravelCollection())->push($entity->get('id'));
+        // cache array
+        Cache::put($cache_name,$attached,1440);
+    }
+    /**
+     * detach an entity from current entity
+     *
+     * @method detach
+     *
+     * @param App\Entities\{Entity} $entity [description]
+     *
+     * @return void
+     */
+    public function detach(AbstractEntity $entity)
+    {
+        // add relationship to model
+        $this->removeRelationship($entity);
+        // get cache name
+        $cache_name = $this->getCacheName($this->getClassName($entity));
+        // add entity to attached array
+        $attached = Cache::get($cache_name)->reject(function ($value) {
+            return $value === $attached->$entity->get('id');
+        });
         // cache array
         Cache::put($cache_name,$attached,1440);
     }
@@ -345,10 +375,7 @@ abstract class AbstractEntity extends LaravelCollection
      *
      * @param  mixed     $source [description]
      *
-     * @return mixed
+     * @return array
      */
-    protected function attributes($source)
-    {
-        return $source;
-    }
+    abstract protected function attributes($source);
 }

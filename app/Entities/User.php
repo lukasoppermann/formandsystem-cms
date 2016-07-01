@@ -69,29 +69,16 @@ class User extends AbstractModelEntity
         return $this->accounts()->first();
     }
     /**
-     * validate user data
+     * prepare attributes
      *
-     * @method validateUpdate
+     * @method attributes
      *
-     * @param  array          $data [description]
-     *
-     * @return array
-     */
-    protected function validateUpdate(array $data)
-    {
-        return $data;
-    }
-    /**
-     * validate user data
-     *
-     * @method validateCreate
-     *
-     * @param  array          $data [description]
+     * @param  mixed     $source [description]
      *
      * @return array
      */
-    protected function validateCreate(array $data)
+    protected function attributes($source)
     {
-        return $data;
+        return $source;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Entities;
 
-use App\Entities\AbstractCollectionEntity;
+use App\Entities\AbstractApiResourceEntity;
 use App\Services\Api\PageService as ResourceService;
 use Illuminate\Support\Collection as LaravelCollection;
 use Cache;

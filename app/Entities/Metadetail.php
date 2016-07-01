@@ -2,7 +2,7 @@
 
 namespace App\Entities;
 
-use App\Entities\AbstractCollectionEntity;
+use App\Entities\AbstractApiResourceEntity;
 use App\Services\Api\MetadetailService as ResourceService;
 use Illuminate\Support\Collection as LaravelCollection;
 use Cache;
@@ -39,31 +39,4 @@ class Metadetail extends AbstractApiResourceEntity
     protected function resourceService(){
         return new ResourceService();
     }
-    /**
-     * validate user data
-     *
-     * @method validateUpdate
-     *
-     * @param  array          $data [description]
-     *
-     * @return array
-     */
-    protected function validateUpdate(array $data)
-    {
-        return $data;
-    }
-    /**
-     * validate user data
-     *
-     * @method validateCreate
-     *
-     * @param  array          $data [description]
-     *
-     * @return array
-     */
-    protected function validateCreate(array $data)
-    {
-        return $data;
-    }
-
 }

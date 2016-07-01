@@ -2,11 +2,11 @@
 
 namespace App\Entities;
 
-use App\Entities\AbstractCollectionEntity;
+use App\Entities\AbstractEntity;
 use Illuminate\Support\Collection as LaravelCollection;
 use Cache;
 
-abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
+abstract class AbstractApiResourceEntity extends AbstractEntity
 {
     protected $resourceService;
 
@@ -14,8 +14,58 @@ abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
     {
         // automatically include relationships
         if(array_key_exists($method, $this->source['relationships']) ){
-            return $this->relatedEntities($this->source['relationships'][$method]['data']);
+            return $this->relatedEntities($method);
         }
+    }
+    /**
+     * get id for current entity from source
+     *
+     * @method getId
+     *
+     * @return string
+     */
+    protected function getId($source = NULL)
+    {
+        if($source === NULL && !isset($this->source)){
+            return FALSE;
+        }
+
+        if($source === NULL){
+            $source = $this->source;
+        }
+
+        return $source->get('id');
+    }
+    /**
+     * return current entities source as array
+     *
+     * @method getSourceArray
+     *
+     * @param Illuminate\Support\Collection $source [description]
+     *
+     * @return Array
+     */
+    protected function getSourceArray($source)
+    {
+        return $source->toArray();
+    }
+    /**
+     * return current entities source from cache, db or api, etc.
+     *
+     * @method getSource
+     *
+     * @param  [type]    $source [description]
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    protected function getSource($source)
+    {
+        // if source is not a model
+        if(!is_a($source, 'Illuminate\Support\Collection')){
+            return $this->getData($source);
+        }
+        // return source
+        return $source;
     }
     /**
      * return realted entities
@@ -26,18 +76,34 @@ abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
      *
      * @return Illuminate\Support\Collection
      */
-    public function relatedEntities($relatedData)
+    public function relatedEntities($relatedType)
     {
-        return (new LaravelCollection($relatedData))->map(function($item){
+        $data = (new LaravelCollection($this->source['relationships'][$relatedType]['data']))->map(function($item){
             // get entity class
             $entity = '\App\Entities\\'.ucfirst(substr($item['type'],0 ,-1));
             // return entity if valid
-            if(class_exists($entity)){
-                return new $entity($item['id']);
+            try{
+                if(class_exists($entity)){
+                    return new $entity($item['id']);
+                }
+            }catch(\App\Exceptions\EmptyException $e){
+                return NULL;
             }
-            // return item if invalid entity
-            return $item;
+        })->reject(function($item){
+            return empty($item);
         });
+        $relationships = $this->source['relationships'];
+        $relationships[$relatedType]['data'] = $data->pluck('id')->map(function($item) use ($relatedType){
+            return [
+                'type' => $relatedType,
+                'id'   => $item,
+            ];
+        });
+
+        $this->source->put('relationships', $relationships);
+        $this->cacheSource($this->source);
+        // return
+        return $data;
     }
     /**
      * get data for this entity
@@ -129,6 +195,22 @@ abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
         $this->cacheSource($this->source);
     }
     /**
+     * remove a relationship from the entities source
+     *
+     * @method removeRelationship
+     *
+     * @param  App\Entities\AbstractEntity  $entity [description]
+     */
+    protected function removeRelationship(AbstractEntity $entity)
+    {
+        // create the models name
+        $related_name = $this->getModelName($entity);
+        // attach if model exists
+        if(method_exists($this->source, $related_name)){
+            $this->source->{$related_name}()->detach($entity->get('id'));
+        }
+    }
+    /**
      * return thje service to get api data
      *
      * @method resourceService
@@ -136,34 +218,4 @@ abstract class AbstractApiResourceEntity extends AbstractCollectionEntity
      * @return App\Services\Api\AbsrtactApiService
      */
     abstract protected function resourceService();
-
-    // SHOULD BE MOVED TO SERVICES
-
-
-    /**
-     * validate user data
-     *
-     * @method validateUpdate
-     *
-     * @param  array          $data [description]
-     *
-     * @return array
-     */
-    protected function validateUpdate(array $data)
-    {
-        return $data;
-    }
-    /**
-     * validate user data
-     *
-     * @method validateCreate
-     *
-     * @param  array          $data [description]
-     *
-     * @return array
-     */
-    protected function validateCreate(array $data)
-    {
-        return $data;
-    }
 }

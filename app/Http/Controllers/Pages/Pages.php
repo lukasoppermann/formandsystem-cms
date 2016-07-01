@@ -67,11 +67,12 @@ class Pages extends Controller
         // ]);
         // \Log::debug(new Page($page['id']));
         $page = new Page('bd958340-617a-4fd2-b786-9790d0065b05');
+        // dd('Automatic realted items e.g. metadetails need to remove on Item not found due to delete.');
+        // (new \App\Entities\Metadetail('ffe8b203-1e05-4046-9a53-b6bd6dcd45a4'))->delete();
         // $page->attach(new \App\Entities\Metadetail([
         //     'type' => 'Test-'.rand(),
         //     'data' => 'yo'
         // ]));
-
         dd($page->metadetails());
 
         // dd($page);

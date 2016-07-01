@@ -2,7 +2,7 @@
 
 namespace App\Entities;
 
-use App\Entities\AbstractCollectionEntity;
+use App\Entities\AbstractApiResourceEntity;
 use Illuminate\Support\Collection as LaravelCollection;
 use Cache;
 use App\Services\Api\ImageService;
@@ -49,31 +49,5 @@ class Image extends AbstractApiResourceEntity
             'slug'          => $attributes['attributes']['slug'],
             'link'          => trim(config('site_url'),'/').'/'.trim(config('img_dir'),'/').'/'.$attributes['attributes']['filename'],
         ];
-    }
-    /**
-     * validate user data
-     *
-     * @method validateUpdate
-     *
-     * @param  array          $data [description]
-     *
-     * @return array
-     */
-    protected function validateUpdate(array $data)
-    {
-        return $data;
-    }
-    /**
-     * validate user data
-     *
-     * @method validateCreate
-     *
-     * @param  array          $data [description]
-     *
-     * @return array
-     */
-    protected function validateCreate(array $data)
-    {
-        return $data;
     }
 }

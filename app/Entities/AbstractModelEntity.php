@@ -67,8 +67,6 @@ abstract class AbstractModelEntity extends AbstractEntity
      * @return Illuminate\Database\Eloquent\Model
      */
     protected function entityCreate(Array $data){
-        // validate user data
-        $validatedData = $this->validateCreate($data);
         // get model namespaced name
         $model_name = 'App\Models\\'.$this->getModelName($this);
         // check if model exists
@@ -87,8 +85,6 @@ abstract class AbstractModelEntity extends AbstractEntity
      * @return Illuminate\Database\Eloquent\Model
      */
     protected function entityUpdate(Array $data){
-        // validate user data
-        $validatedData = $this->validateUpdate($data);
         // update model
         $this->source->update($validatedData);
         // return updated model
@@ -119,6 +115,22 @@ abstract class AbstractModelEntity extends AbstractEntity
         // attach if model exists
         if(method_exists($this->source, $related_name)){
             $this->source->{$related_name}()->save($entity->source);
+        }
+    }
+    /**
+     * remove a relationship from the entities model
+     *
+     * @method removeRelationship
+     *
+     * @param  App\Entities\AbstractEntity  $entity [description]
+     */
+    protected function removeRelationship(AbstractEntity $entity)
+    {
+        // create the models name
+        $related_name = $this->getModelName($entity);
+        // attach if model exists
+        if(method_exists($this->source, $related_name)){
+            $this->source->{$related_name}()->detach($entity->get('id'));
         }
     }
     /**
@@ -160,12 +172,4 @@ abstract class AbstractModelEntity extends AbstractEntity
         // else try to make name
         return strtolower($this->getClassName($entity)).'s';
     }
-    /**
-     * validate data before update
-     */
-    abstract protected function validateUpdate(Array $data);
-    /**
-     * validate data before create
-     */
-    abstract protected function validateCreate(Array $data);
 }
