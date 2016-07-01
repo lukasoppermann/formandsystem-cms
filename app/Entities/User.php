@@ -23,27 +23,6 @@ class User extends AbstractModelEntity
      */
     protected $model = '\App\Models\User';
     // TODO: add caching for User Listing view
-    /**
-     * get request user if current user, or from DB
-     *
-     * @method getModel
-     *
-     * @param  string   $id
-     *
-     * @return Illuminate\Database\Eloquent\Model
-     */
-    //  public function getEntityFromId(string $id)
-    //  {
-    //     // try to get from cache
-    //     if(\Auth::user()->id === $id){
-    //         $model = \Auth::user();
-    //     }
-    //     else {
-    //         $model = $this->getModel()->find($id);
-    //     }
-    //      // get from model
-    //      return new $this($model);
-    //  }
     public function setEntityToId(string $id)
     {
        // try to get from cache
@@ -53,9 +32,8 @@ class User extends AbstractModelEntity
        else {
            $this->model = $this->getModel()->find($id);
        }
+
        $this->items = $this->attributes($this->model);
-        // get from model
-        // return new $this($model);
     }
     /**
      * returns all accounts that a user is assosiated with

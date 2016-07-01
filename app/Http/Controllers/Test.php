@@ -23,6 +23,7 @@ extends BaseController
         if($client = config('app.user')->account()->details('type','cms_client',true)){
             config(['app.user_client' => $client->get('data')]);
         }
+        new User($request->user()->id);
         // dd(new Metadetail('9d215353-8752-4b9e-812d-c8c2dcbd5e26'));
         // // TODO: replace everywhere
         $this->client = config('app.user_client');
@@ -34,7 +35,7 @@ extends BaseController
     {
 
         config(['app.active_account' => config('app.user')->accounts()->first()->get('id')]);
-        dd(config('app.user')->account()->metadetails());
+        config('app.user')->account()->metadetails();
         \Log::debug(config('app.user')->account()->details());
         // echo config('app.user')->account()->get('name');
         echo "yo";

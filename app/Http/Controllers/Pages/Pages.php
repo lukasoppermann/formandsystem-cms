@@ -73,7 +73,7 @@ class Pages extends Controller
         //     'type' => 'Test-'.rand(),
         //     'data' => 'yo'
         // ]));
-        dd($page->metadetails());
+
 
         // dd($page);
         // $this->collections = $items = (new CollectionService)->all([

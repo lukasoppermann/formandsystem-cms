@@ -76,7 +76,7 @@ abstract class AbstractEntity extends LaravelCollection
      */
     protected function cacheSelf(){
         // cache entity by id
-        if(isset($this->cacheSelf) && $this->cacheSelf !== false){
+        if(!isset($this->cacheSelf) || (isset($this->cacheSelf) && $this->cacheSelf === true) ){
             Cache::put($this->get('id'),$this,1440);
         }
     }
@@ -102,9 +102,6 @@ abstract class AbstractEntity extends LaravelCollection
         }
         // get entities
         $ids = Cache::get($cache_name)->toArray();
-        // TODO: delete forget
-        \Log::debug('remove forget in AbstractEntity line 107');
-        Cache::forget($cache_name);
         // return items
         return $this->getEntities($ids, $entity_name);
     }

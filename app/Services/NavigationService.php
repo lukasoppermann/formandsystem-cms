@@ -140,11 +140,8 @@ class NavigationService
     protected function getListDashboard($lists = NULL){
         foreach($lists as $key => $list){
             if($list['items'] === '$collections'){
-
                 $lists[$key] = array_merge($lists[$key], [
-                    'items' => (new \App\Services\Api\CollectionService)->find('type','posts', [
-                        'only' => false
-                    ]),
+                    'items' => config('app.user')->account()->collections(),
                     'elements' => [
                         view('navigation.item', [
                             'label'     => 'New Collection',

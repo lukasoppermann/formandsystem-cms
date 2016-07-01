@@ -98,6 +98,43 @@ class Account extends AbstractModelEntity
         return $this->collectionData($data, $field, $key, $first);
     }
     /**
+     * return collections for account
+     *
+     * @method collections
+     *
+     * @param  string      $field [description]
+     * @param  string      $key   [description]
+     * @param  bool      $first [description]
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function collections($field = NULL, $key = NULL, $first = false)
+    {
+        // get data
+        $data = $this->getCacheOrRetrieve('Collections','Collection');
+        // return collection
+        return $this->collectionData($data, $field, $key, $first);
+    }
+    /**
+     * get metadetails for account from API
+     *
+     * @method retrieveAccountMetadetail
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function retrieveCollections()
+    {
+        $collections = (new \App\Services\Api\CollectionService)->find('type','posts', [
+            'only' => false
+        ]);
+        // return data & included
+        \Log::debug('Cache included data');
+        //     'included'  => new LaravelCollection($metadetails['included']),
+        return (new LaravelCollection($collections['data']))->map(function($item){
+            return new LaravelCollection($item);
+        });
+    }
+    /**
      * get metadetails for account from API
      *
      * @method retrieveAccountMetadetail
