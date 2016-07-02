@@ -58,16 +58,14 @@ class Page extends AbstractApiResourceEntity
      */
     protected function retrieveParentCollection()
     {
-        if($this->relationships->get('ownedByCollections') !== NULL){
-            return $this->relationships->get('ownedByCollections');
-        }
-
         $related = $this->resourceService()->relationship($this->get('id'), 'ownedByCollections');
 
         if(!isset($related['data'])){
             return NULL;
         }
-
+        // cache included
+        $this->cacheAsEntities($related['included']);
+        // return as collection
         return (new LaravelCollection($related['data']))->map(function($item){
             return new LaravelCollection($item);
         });

@@ -19,25 +19,6 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
             return $this->relatedEntities($method);
         }
     }
-    /**
-     * get an entity form cache or source by its id
-     *
-     * @method getEntityFromId
-     *
-     * @param  string          $id [description]
-     *
-     * @return App\Entities\AbstractEntity
-     */
-    // public function getEntityFromId(string $id)
-    // {
-    //     // try to get from cache
-    //     if(\Cache::has($id)){
-    //         return \Cache::get($id);
-    //     }
-    //
-    //     // get from model
-    //     return new $this(new LaravelCollection($this->resourceService()->first('id',$id)));
-    // }
     public function setEntityToId(string $id)
     {
         // try to get from cache
@@ -66,19 +47,6 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
             \Log::error($e);
             return FALSE;
         }
-    }
-    /**
-     * return current entities source as array
-     *
-     * @method getSourceArray
-     *
-     * @param Illuminate\Support\Collection $source [description]
-     *
-     * @return Array
-     */
-    protected function getSourceArray($source)
-    {
-        return $source->toArray();
     }
     /**
      * return json as array or string, if not valid json
@@ -110,6 +78,7 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
      */
     public function relatedEntities($relatedType)
     {
+        // build entities
         $data = (new LaravelCollection($this->relationships[$relatedType]))->map(function($id) use ($relatedType){
             // get entity class
             $entity = '\App\Entities\\'.ucfirst(substr($relatedType,0 ,-1));
@@ -146,18 +115,18 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
      *
      * @return Illuminate\Support\Collection
      */
-    protected function getData($id){
-        if(!Cache::has($id)){
-            // throw expection if account is not found
-            if( !$item = $this->resourceService()->first('id', $id) ){
-                throw new \App\Exceptions\EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
-            }
-            // store item in cache
-            Cache::put($id,$item,1440);
-        }
-        // return from cache
-        return new LaravelCollection(Cache::get($id));
-    }
+    // protected function getData($id){
+    //     if(!Cache::has($id)){
+    //         // throw expection if account is not found
+    //         if( !$item = $this->resourceService()->first('id', $id) ){
+    //             throw new \App\Exceptions\EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
+    //         }
+    //         // store item in cache
+    //         Cache::put($id,$item,1440);
+    //     }
+    //     // return from cache
+    //     return new LaravelCollection(Cache::get($id));
+    // }
     /**
      * delete item from database
      *

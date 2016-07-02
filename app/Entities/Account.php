@@ -18,32 +18,6 @@ class Account extends AbstractModelEntity
      */
     protected $model = '\App\Models\Account';
     /**
-     * get model for this entity
-     *
-     * @method getModel
-     *
-     * @param  string   $id
-     *
-     * @return Array
-     */
-    // protected function getDataArray($id){
-    //     if(!Cache::has($id)){
-    //         // throw expection if account is not found
-    //         if( config('app.user') === NULL
-    //             || config('app.user')->accounts() === NULL
-    //             || !$account = config('app.user')->model->accounts->where('id',$id)->first()
-    //         ){
-    //             throw new \App\Exceptions\EmptyException('No account with ID: '.$id.' found.');
-    //         }
-    //         // store account in cache
-    //         // Cache::put($id,$account,1440);
-    //         $this->model = $account;
-    //         return $account->toArray();
-    //     }
-    //     // return model from cache
-    //     return Cache::get($id);
-    // }
-    /**
      * return details that are related to account
      *
      * @method details
@@ -127,9 +101,9 @@ class Account extends AbstractModelEntity
         $collections = (new \App\Services\Api\CollectionService)->find('type','posts', [
             'only' => false
         ]);
-        // return data & included
-        \Log::debug('Cache included data');
-        //     'included'  => new LaravelCollection($metadetails['included']),
+        // cache included
+        $this->cacheAsEntities($collections['included']);
+        // return as collection
         return (new LaravelCollection($collections['data']))->map(function($item){
             return new LaravelCollection($item);
         });
@@ -144,9 +118,9 @@ class Account extends AbstractModelEntity
     public function retrieveAccountMetadetail()
     {
         $metadetails = (new MetadetailService)->find('type',['site_url','dir_images','analytics_code','analytics_anonymize_ip','site_name']);
-        // return data & included
-        \Log::debug('Cache included data');
-        //     'included'  => new LaravelCollection($metadetails['included']),
+        // cache included
+        $this->cacheAsEntities($metadetails['included']);
+        // return as collections
         return (new LaravelCollection($metadetails['data']))->map(function($item){
             return new LaravelCollection($item);
         });
@@ -171,14 +145,13 @@ class Account extends AbstractModelEntity
      */
     public function retrieveNavigation()
     {
+        // get collection with only pages
         $items = (new CollectionService)->find('type','navigation', [
             'only' => 'pages'
         ]);
-        // return data & included
-        // return [
-        //     'data'      => new LaravelCollection($items['data']),
-        //     'included'  => new LaravelCollection($items['included']),
-        // ];
+        // cache included items
+        $this->cacheAsEntities($items['included']);
+        // return as collections
         return (new LaravelCollection($items['data']))->map(function($item){
             return new LaravelCollection($item);
         });

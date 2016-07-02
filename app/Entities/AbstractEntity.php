@@ -141,6 +141,27 @@ abstract class AbstractEntity extends LaravelCollection
         }
     }
     /**
+     * cache realted items as entities
+     *
+     * @method cacheAsEntities
+     *
+     * @param  Array           $items [description]
+     *
+     * @return void
+     */
+    public function cacheAsEntities(Array $items)
+    {
+        // loop through items
+        foreach($items as $related){
+            // get entity class
+            $entity = '\App\Entities\\'.substr(ucfirst($related['type']),0,-1);
+            // make new entity if class exists
+            if(class_exists($entity)){
+                new $entity(new LaravelCollection($related));
+            }
+        }
+    }
+    /**
      * get classname for current class without namespace
      *
      * @method getClassName
