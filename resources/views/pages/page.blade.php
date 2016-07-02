@@ -3,8 +3,8 @@
 @section('content')
     @include('pages.settings')
     <div class="o-content o-content--wide o-user-grid">
-
         @if( $item->fragments() !== null)
+
             @foreach($item->fragments() as $fragment)
                 @include('fragments.fragment', ['item' => $fragment, 'page' => $item])
             @endforeach

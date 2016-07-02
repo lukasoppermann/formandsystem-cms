@@ -61,8 +61,6 @@ class Pages extends Controller
 
     public function show($slug)
     {
-
-
         $page = NULL;
         foreach(config('app.user')->account()->navigation() as $collection){
             if( $new_page = $collection->pages()->where('slug', $slug)){
@@ -80,9 +78,10 @@ class Pages extends Controller
         //     'fragments.fragments',
         // ]]);
 
-        // if($page === NULL){
-        //     return redirect('/pages');
-        // }
+        if($page === NULL){
+            return redirect('/pages');
+        }
+
         return view('pages.page', [
             'item'          => $page,
             'collection'    => $page->parentCollection(),

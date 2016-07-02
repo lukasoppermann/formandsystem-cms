@@ -36,22 +36,6 @@ class Page extends AbstractApiResourceEntity
         ];
     }
     /**
-     * cache current entity by its id
-     *
-     * @method cacheSelf
-     *
-     * @param  string       $suffix [description]
-     *
-     * @return void
-     */
-    protected function cacheSelf(){
-        // cache entity by id
-        if(!isset($this->cacheSelf) || (isset($this->cacheSelf) && $this->cacheSelf === true) ){
-            Cache::put($this->get('id'),$this,1440);
-            Cache::put(config('app.user')->account()->get('id').'.pages.'.$this->get('slug'),$this,1440);
-        }
-    }
-    /**
      * get the collection the current page is in
      *
      * @method parentCollection

@@ -1,10 +1,10 @@
 <div class="">
-    @if(!$fragment->relationships->get('fragments')->isEmpty())
-        @foreach ($fragment->relationships->get('fragments') as $subfragment)
+    @if(!$fragment->fragments()->isEmpty())
+        @foreach ($fragment->fragments() as $subfragment)
             <?php
-                $blueprint = config('custom.fragments')[$fragment->name]->data->get('elements')[$subfragment->name];
+                $blueprint = config('custom.fragments')[$fragment->get('name')]->get('data')->get('elements')[$subfragment->get('name')];
             ?>
-            @includeIf('fragments.'.$subfragment->type, [
+            @includeIf('fragments.'.$subfragment->get('type'), [
                 'fragment'  => $subfragment,
                 'label'     => isset($blueprint['label']) ? $blueprint['label'] : ''
             ])

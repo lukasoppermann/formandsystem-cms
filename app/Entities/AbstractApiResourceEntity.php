@@ -121,17 +121,19 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
             }catch(\App\Exceptions\EmptyException $e){
                 return NULL;
             }
-        })->reject(function($item){
+        });
+        // remove deleted items
+        $data->reject(function($item){
             return empty($item);
         });
+        // get ids
         $newRelationships = $data->pluck('id')->map(function($item) use ($relatedType){
-            return [
-                'type' => $relatedType,
-                'id'   => $item,
-            ];
+            return $item;
         });
-
+        // update relationships
         $this->relationships->put($relatedType, $newRelationships);
+        // update cache
+        $this->cacheSelf();
         // return data
         return $data;
     }
