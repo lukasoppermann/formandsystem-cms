@@ -324,6 +324,16 @@ abstract class AbstractApiService extends AbstractService
         }
         return $items;
     }
+    /**
+     * attach a relationship to an item
+     *
+     * @method attach
+     *
+     * @param  string $id      resource id
+     * @param  Array  $related [description]
+     *
+     * @return [type]
+     */
     public function attach($id, Array $related)
     {
         $attach = $this->api(config('app.user_client'))->post('/'.$this->endpoint.'/'.$id.'/relationships/'.$related['type'], [
@@ -334,6 +344,25 @@ abstract class AbstractApiService extends AbstractService
         ]);
 
         return $attach;
+    }
+    /**
+     * get a relationship
+     *
+     * @method relationship
+     *
+     * @param  string       $value [description]
+     *
+     * @return [type]
+     */
+    public function relationship($id, $relationship)
+    {
+        $url = trim('/'.$this->endpoint.'/'.$id.'/'.$relationship);
+        // get collection
+        if( !$items = $this->getAllItems($url) ){
+            return [];
+        }
+        // return related items
+        return $items;
     }
 
 }

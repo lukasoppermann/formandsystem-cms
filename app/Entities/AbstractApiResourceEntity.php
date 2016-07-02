@@ -10,12 +10,12 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
 {
 
     protected $resourceService;
-    protected $relationships = [];
+    protected $relationships = NULL;
 
     public function __call($method, $args)
     {
         // automatically include relationships
-        if(array_key_exists($method, $this->relationships) ){
+        if($this->relationships !== NULL && $this->relationships->has($method)){
             return $this->relatedEntities($method);
         }
     }
@@ -110,13 +110,13 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
      */
     public function relatedEntities($relatedType)
     {
-        $data = (new LaravelCollection($this->source['relationships'][$relatedType]['data']))->map(function($item){
+        $data = (new LaravelCollection($this->relationships[$relatedType]))->map(function($id) use ($relatedType){
             // get entity class
-            $entity = '\App\Entities\\'.ucfirst(substr($item['type'],0 ,-1));
+            $entity = '\App\Entities\\'.ucfirst(substr($relatedType,0 ,-1));
             // return entity if valid
             try{
                 if(class_exists($entity)){
-                    return new $entity($item['id']);
+                    return new $entity($id);
                 }
             }catch(\App\Exceptions\EmptyException $e){
                 return NULL;
@@ -124,19 +124,18 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         })->reject(function($item){
             return empty($item);
         });
-        $relationships = $this->source['relationships'];
-        $relationships[$relatedType]['data'] = $data->pluck('id')->map(function($item) use ($relatedType){
+        $newRelationships = $data->pluck('id')->map(function($item) use ($relatedType){
             return [
                 'type' => $relatedType,
                 'id'   => $item,
             ];
         });
 
-        $this->source->put('relationships', $relationships);
+        $this->relationships->put($relatedType, $newRelationships);
         // cache included
-        $this->cacheRawItems($data['included']);
+        // $this->cacheRawItems($data['included']);
         // return data
-        return $data['data'];
+        return $data;
     }
     /**
      * get data for this entity

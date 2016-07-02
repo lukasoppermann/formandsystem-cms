@@ -175,10 +175,13 @@ class Account extends AbstractModelEntity
             'only' => 'pages'
         ]);
         // return data & included
-        return [
-            'data'      => new LaravelCollection($items['data']),
-            'included'  => new LaravelCollection($items['included']),
-        ];
+        // return [
+        //     'data'      => new LaravelCollection($items['data']),
+        //     'included'  => new LaravelCollection($items['included']),
+        // ];
+        return (new LaravelCollection($items['data']))->map(function($item){
+            return new LaravelCollection($item);
+        });
     }
     /**
      * prepare attributes

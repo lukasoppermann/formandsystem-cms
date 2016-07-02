@@ -21,9 +21,6 @@ class Metadetail extends AbstractApiResourceEntity
      */
     protected function attributes($attributes)
     {
-        if(!isset($attributes['attributes'])){
-            dd($attributes);
-        }
         return [
             'id'                => $attributes['id'],
             'resource_type'     => $attributes['type'],

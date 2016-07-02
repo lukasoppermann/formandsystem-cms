@@ -14,17 +14,17 @@
         <form class="o-form" action="/pages" method="POST" autocomplete="off">
             {{ csrf_field() }}
             {{ method_field('PATCH') }}
-            @include('forms.hidden',['name' => 'id', 'value' => $item->id])
+            @include('forms.hidden',['name' => 'id', 'value' => $item->get('id')])
             @include('forms.hidden',['name' => 'collection', 'value' => $collection->get('id')])
 
             <div class="o-grid">
                 <div class="o-grid__column o-grid__column--md-6of12">
-                    @include('forms.input',['name' =>'menu_label', 'label' => 'Navigation Title', 'value' => $item->label])
-                    @include('forms.input',['name' =>'slug', 'label' => 'Path/Slug', 'value' => $item->slug])
+                    @include('forms.input',['name' =>'menu_label', 'label' => 'Navigation Title', 'value' => $item->get('label')])
+                    @include('forms.input',['name' =>'slug', 'label' => 'Path/Slug', 'value' => $item->get('slug')])
                 </div>
                 <div class="o-grid__column o-grid__column--md-6of12">
-                    @include('forms.input',['name' =>'title', 'label' => 'Meta Title', 'value' => $item->title, 'attr' => 'required'])
-                    @include('forms.textarea',['name' =>'description', 'label' => 'Meta Description', 'value' => $item->description, 'attr' => 'required'])
+                    @include('forms.input',['name' =>'title', 'label' => 'Meta Title', 'value' => $item->get('title'), 'attr' => 'required'])
+                    @include('forms.textarea',['name' =>'description', 'label' => 'Meta Description', 'value' => $item->get('description'), 'attr' => 'required'])
                 </div>
             </div>
 

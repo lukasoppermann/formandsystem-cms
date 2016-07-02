@@ -28,7 +28,6 @@ class Controller extends BaseController
     protected $client;
 
     public function __construct(Request $request){
-        // \Cache::flush();
         \Debugbar::stopMeasure('routes');
         \Debugbar::startMeasure('user','Get Current User');
         // get current user

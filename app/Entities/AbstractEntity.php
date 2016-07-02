@@ -36,6 +36,10 @@ abstract class AbstractEntity extends LaravelCollection
      */
     public function refreshSelf($data)
     {
+        //TODO: Remove, just for making sure no entity is passed
+        if(is_subclass_of($data, '\App\Entities\AbstractEntity')){
+            $this->items = $data->items;
+        }
         // TODO: deal with errors e.g. when no model exists, etc.
         // create source if array given
         if(is_array($data)){
@@ -55,11 +59,15 @@ abstract class AbstractEntity extends LaravelCollection
                 $this->model = $data;
                 $this->items = $this->attributes($data);
             }
-            elseif(is_subclass_of($data, '\App\Entities\AbstractEntity')){
-                dd($data);
-                $this->items = $data->items;
-            }elseif(is_a($data, 'Illuminate\Support\Collection')){
+            elseif(is_a($data, 'Illuminate\Support\Collection')){
                 $this->items = $this->attributes($data);
+                // get relationships
+                $this->relationships = (new LaravelCollection($data['relationships']))->map(function($related){
+                    if(isset($related['data'])){
+                        return (new LaravelCollection($related['data']))->pluck('id');
+                    }
+                    return NULL;
+                });
             }
             // cache itself
             $this->cacheSelf();
@@ -101,9 +109,10 @@ abstract class AbstractEntity extends LaravelCollection
             Cache::put($cache_name, $ids, 1440);
         }
         // get entities
-        $ids = Cache::get($cache_name)->toArray();
-        // return items
-        return $this->getEntities($ids, $entity_name);
+        if( $ids = Cache::get($cache_name) ){
+            // return items
+            return $this->getEntities($ids->toArray(), $entity_name);
+        }
     }
     /**
      * retrieve item ids
@@ -120,16 +129,15 @@ abstract class AbstractEntity extends LaravelCollection
     {
         // get items from db or api
         $items = $this->{'retrieve'.$cache_suffix}();
-        // get entities
-        $entities = new LaravelCollection([]);
-        foreach($items as $item){
-            if($entity_name == '\App\Entities\Metadetail'){
-                new $entity_name($item);
+        if($items !== NULL){
+            // get entities
+            $entities = new LaravelCollection([]);
+            foreach($items as $item){
+                $entities->push(new $entity_name($item));
             }
-            $entities->push(new $entity_name($item));
+            // return ids
+            return $entities->pluck('id');
         }
-        // return ids
-        return $entities->pluck('id');
     }
     /**
      * get classname for current class without namespace
@@ -174,9 +182,9 @@ abstract class AbstractEntity extends LaravelCollection
     public function getEntities(Array $ids = NULL, $entity = NULL)
     {
         return (new LaravelCollection($ids))
-            ->map(function($item) use ($entity) {
+            ->map(function($id) use ($entity) {
                 try{
-                    return new $entity($item);
+                    return new $entity($id);
                 }catch(\EmptyException $e){
                     return NULL;
                 }catch(\Exception $e){
@@ -287,7 +295,7 @@ abstract class AbstractEntity extends LaravelCollection
      *
      * @return Illuminate\Support\Collection
      */
-    protected function collectionData(LaravelCollection $collection, $field = NULL, $key = NULL, $first = false)
+    protected function collectionData(LaravelCollection $collection = NULL, $field = NULL, $key = NULL, $first = false)
     {
         // check if specific items should be selected
         if($field !== NULL && $key !== NULL){

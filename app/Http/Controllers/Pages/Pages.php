@@ -20,22 +20,6 @@ class Pages extends Controller
      */
     protected $collections;
     /**
-     * construct
-     *
-     * @method __construct
-     *
-     * @param  Request     $request
-     */
-    public function __construct(Request $request)
-    {
-        //at beginning
-        // config(['app.milliseconds' => round(microtime(true) * 1000)]);
-        parent::__construct($request);
-        // echo round(microtime(true) * 1000) - config('app.milliseconds').'s<br />';
-        // config(['app.milliseconds' => round(microtime(true) * 1000)]);
-        // get the main pages collection
-    }
-    /**
      * get main pages collection or create
      *
      * @method getPagesCollection
@@ -58,7 +42,6 @@ class Pages extends Controller
     }
 
     public function index(){
-
         // $page = new Page([
         //     'menu_label'    => 'Tester '.rand(),
         //     'slug'          => 'slug',
@@ -82,29 +65,35 @@ class Pages extends Controller
         return view('pages.dashboard');
     }
 
-    public function show($slug){
-
-        $collections = (new CollectionService)->all([
-            'includes' => false
-        ]);
-
-        $page = (new PageService)->first('slug',$slug,['includes' => [
-            'ownedByCollections',
-            'metadetails',
-            'fragments',
-            'fragments.images',
-            'fragments.metadetails',
-            'fragments.fragments',
-        ]]);
-
-        if($page === NULL){
-            return redirect('/pages');
+    public function show($slug)
+    {
+        $page = NULL;
+        foreach(config('app.user')->account()->navigation() as $collection){
+            if( $new_page = $collection->pages()->where('slug', $slug)){
+                $page = $new_page->first();
+            }
         }
 
+        // $collections = (new CollectionService)->all([
+        //     'includes' => false
+        // ]);
+        //
+        // $page = (new PageService)->first('slug',$slug,['includes' => [
+        //     'ownedByCollections',
+        //     'metadetails',
+        //     'fragments',
+        //     'fragments.images',
+        //     'fragments.metadetails',
+        //     'fragments.fragments',
+        // ]]);
+
+        // if($page === NULL){
+        //     return redirect('/pages');
+        // }
         return view('pages.page', [
             'item'          => $page,
-            'collection'    => $page->ownedByCollections->first(),
-            'collections'   => $collections,
+            'collection'    => $page->parentCollection(),
+            'collections'   => $page->collections('type','posts'),
         ]);
     }
     /**
