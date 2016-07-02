@@ -30,7 +30,7 @@ class Fragments extends Controller
 
         if($item = $request->get('page')){
             $response =
-                $this->api($this->client)->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByPages', [
+                $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByPages', [
                     'type' => 'pages',
                     'id'   => $item,
             ]);
@@ -39,7 +39,7 @@ class Fragments extends Controller
 
         if($item = $request->get('fragment')){
             $response =
-                $this->api($this->client)->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByFragments', [
+                $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByFragments', [
                     'type' => 'fragments',
                     'id'   => $item,
             ]);
@@ -49,7 +49,7 @@ class Fragments extends Controller
 
         if($item = $request->get('collection')){
             $response =
-                $this->api($this->client)->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByCollections', [
+                $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByCollections', [
                     'type' => 'collections',
                     'id'   => $item,
             ]);
@@ -67,8 +67,8 @@ class Fragments extends Controller
         // TODO: deal with errors
         if($id !== NULL){
             // get & delete connected images
-            foreach((new FragmentService)->get($id)->images as $image){
-                $this->api($this->client)->delete('/images/'.$image->id);
+            foreach((new FragmentService)->find('id',$id)->images as $image){
+                $this->api(config('app.user_client'))->delete('/images/'.$image->id);
             }
 
             $response = (new FragmentService)->delete($id);
@@ -86,39 +86,8 @@ class Fragments extends Controller
      */
     public function update(Request $request, $id)
     {
-        // // transform input
-        // $request->replace(
-        //     array_merge(
-        //         $request->only([
-        //             'columns_medium',
-        //             'columns_small',
-        //             'columns_large',
-        //             'classes',
-        //             'data',
-        //
-        //             'collection',
-        //         ]),
-        //         [
-        //             'columns_medium' => $request->get('columns_medium') === NULL ? config('user.grid-md') : $request->get('columns_medium'),
-        //             'columns_small' => $request->get('columns_small') === NULL ? config('user.grid-sm') : $request->get('columns_small'),
-        //             'columns_large' => $request->get('columns_large') === NULL ? config('user.grid-lg') : $request->get('columns_large'),
-        //         ]
-        //     )
-        // );
-        // validate input
-        //  $validator = Validator::make($request->all(), [
-        //     'data'              => 'string',
-        //     'collection'        => 'string',
-        // ]);
-        // if validation fails
-        // if($validator->fails()){
-        //     return back()
-        //         ->with(['status' => 'Updating the fragment failed.', 'type' => 'error'])
-        //         ->withErrors($validator, $id)
-        //         ->withInput();
-        // }
         // get current fragment
-        $fragment = (new FragmentService)->get($id, [
+        $fragment = (new FragmentService)->find('id',$id, [
             'includes' => [
                 'ownedByPages',
                 'ownedByCollections',
@@ -146,11 +115,6 @@ class Fragments extends Controller
             'status' => 'This fragment has been updated successfully.',
             'type' => 'success'
         ]);
-        // }catch(Exception $e){
-        //     \Log::error($e);
-        //
-            // return back()->with(['status' => 'Saving this fragment failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
-        // }
     }
     /**
      * update the details of a given fragment
@@ -204,7 +168,7 @@ class Fragments extends Controller
                             'data' => (string)$value,
                         ]
                     );
-                    $response = $this->api($this->client)->post('/fragments/'.$fragment->id.'/relationships/metadetails', [
+                    $response = $this->api(config('app.user_client'))->post('/fragments/'.$fragment->id.'/relationships/metadetails', [
                         'type' => 'metadetails',
                         'id'   => $detail['data']['id'],
                     ]);
@@ -246,7 +210,7 @@ class Fragments extends Controller
         }
         // update collection
         if( $data->get('collection') !== NULL ){
-            $response = $this->api($this->client)->patch('/fragments/'.$fragment->id.'/relationships/collections', [
+            $response = $this->api(config('app.user_client'))->patch('/fragments/'.$fragment->id.'/relationships/collections', [
                 'type' => 'collections',
                 'id'   => $data->get('collection'),
             ]);
@@ -281,7 +245,7 @@ class Fragments extends Controller
             ]);
             // connect to main fragment
             $response =
-                $this->api($this->client)->post('/fragments/'.$fragment['data']['id'].'/relationships/fragments', [
+                $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/fragments', [
                     'type' => 'fragments',
                     'id'   => $subfragment['data']['id'],
             ]);

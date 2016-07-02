@@ -8,31 +8,6 @@ use Illuminate\Support\Collection as LaravelCollection;
 abstract class AbstractApiService extends AbstractService
 {
     /**
-     * get all items on all pages
-     *
-     * @method all
-     *
-     * @param  Array $param
-     *
-     * @return Illuminate\Support\Collection
-     */
-    public function all(Array $param = NULL){
-        // prepare request url
-        $url = trim('/'.$this->endpoint.'?'.trim($this->parameters($param),'&'),'?');
-        // get collection
-        if( !$items = $this->getAllItems($url) ){
-            // return empty collection on error
-            return new LaravelCollection();
-        }
-        // success
-        $entities = new LaravelCollection();
-        foreach($items['data'] as $item){
-            $entities->push(new $this->entity($item, $items['included']));
-        }
-        // return
-        return $entities;
-    }
-    /**
      * get items by id
      *
      * @method get
@@ -43,32 +18,8 @@ abstract class AbstractApiService extends AbstractService
      * @return Illuminate\Support\Collection
      */
     public function get($ids = NULL, Array $param = []){
-        // no ids provided
-        if($ids === NULL){
-            return NULL;
-        }
-        // turn $ids into array if not
-        $many = false;
-        is_array($ids) ? $many = true : $ids = [$ids];
-        // build url
-        $url = '/'.$this->endpoint.'?filter[id]='.trim(trim(implode(',',$ids),',').'&'.$this->parameters($param),'&');
-        // get items
-        if( !$items = $this->getAllItems($url) ){
-            // return empty collection on error
-            return NULL;
-        }
-        return $items['data'];
-        // success
-        $entities = new LaravelCollection();
-
-        foreach($items['data'] as $item){
-            $entities->push(new $this->entity($item, $items['included']));
-        }
-        if( $many !== true){
-            $entities = $entities->first();
-        }
-        // return
-        return $entities;
+        // TODO: remove get entirely
+        return $this->find('id',$ids,$param);
     }
     /**
      * find items by filter
@@ -82,10 +33,9 @@ abstract class AbstractApiService extends AbstractService
      * @return Illuminate\Support\Collection
      */
     public function find($filter = NULL, $values = NULL, Array $param = []){
-
-        // no ids provided
+        // missing parameters
         if($filter === NULL || $values === NULL){
-            return new LaravelCollection();
+            return NULL;
         }
         // turn $values into array if not
         if(!is_array($values)){
@@ -108,12 +58,6 @@ abstract class AbstractApiService extends AbstractService
             // return empty collection on error
             return [];
         }
-        // success
-        // $entities = new LaravelCollection();
-        // foreach($items['data'] as $item){
-        //     $entities->push(new $this->entity(new LaravelCollection($item), $items['included']));
-        // }
-        // return
         return $items;
     }
     /**
@@ -129,8 +73,11 @@ abstract class AbstractApiService extends AbstractService
      */
     public function first($filter = NULL, $values = NULL, Array $param = [])
     {
+        // TODO: use limit in api
+        // get result
         $results = $this->find($filter, $values, $param)['data'];
-        return count($results) === 0 ? [] : array_values($results)[0];
+        // return first item or NULL
+        return count($results) === 0 ? NULL : array_values($results)[0];
     }
     /**
      * create
@@ -146,7 +93,7 @@ abstract class AbstractApiService extends AbstractService
             'type'       => $this->endpoint,
             'attributes' => $data,
         ]);
-
+        // return response
         return $response;
     }
     /**
@@ -164,12 +111,8 @@ abstract class AbstractApiService extends AbstractService
             'id'   => $id,
             'attributes' => $data,
         ]);
-        // error
-        if(!isset($response['data'])){
-            return $response;
-        }
+        // return response
         return $response;
-        // return new $this->entity($response['data'], $response['data']['included']);
     }
     /**
      * delete an item by id
@@ -303,28 +246,6 @@ abstract class AbstractApiService extends AbstractService
         }
     }
     /**
-     * add all related items of type $type to page
-     *
-     * @method addIncluded
-     * @param  string        $type
-     * @param  array         $page
-     * @param  array         $included
-     */
-    public function addIncluded($type, $page, $included = NULL)
-    {
-        // empty array if not related data
-        if(count($included) === 0 || count($page['relationships'][$type]['data']) === 0){
-            return [];
-        }
-        // return all related item
-        $ids = array_column($page['relationships'][$type]['data'], 'id');
-        foreach($ids as $id){
-            // TODO: add resource items so that relatinships are included
-            $items[] = $included[array_search($id, array_column($included, 'id'))];
-        }
-        return $items;
-    }
-    /**
      * attach a relationship to an item
      *
      * @method attach
@@ -352,7 +273,7 @@ abstract class AbstractApiService extends AbstractService
      *
      * @param  string       $value [description]
      *
-     * @return [type]
+     * @return array
      */
     public function relationship($id, $relationship)
     {

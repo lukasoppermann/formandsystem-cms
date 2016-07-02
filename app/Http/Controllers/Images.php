@@ -36,12 +36,12 @@ class Images extends Controller
 
         // upload file
         $upload =
-            $this->api($this->client)->put($image['data']['links']['upload'], fopen($file->getRealPath(), 'r'), [
+            $this->api(config('app.user_client'))->put($image['data']['links']['upload'], fopen($file->getRealPath(), 'r'), [
                 'Content-Type' => $mime,
             ]);
 
         $response =
-            $this->api($this->client)->post('/fragments/'.$request->get('fragment').'/relationships/images', [
+            $this->api(config('app.user_client'))->post('/fragments/'.$request->get('fragment').'/relationships/images', [
                 'type' => 'images',
                 'id'   => $image['data']['id'],
         ]);

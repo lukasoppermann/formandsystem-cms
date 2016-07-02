@@ -30,7 +30,6 @@ abstract class AbstractService
 
     public function __construct()
     {
-        $this->client = config('app.user_client');
         // set cms api settings
         $this->config['cms'] = [
             'client_id' => env('FS_API_CLIENT_ID'),
@@ -50,8 +49,6 @@ abstract class AbstractService
         // prepare config
         $config = array_merge([
             'url'           => 'http://formandsystem-api.dev',
-            'client_id'     => NULL,
-            'client_secret' => NULL,
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
         ], $config->toArray() );
         // return new API instance

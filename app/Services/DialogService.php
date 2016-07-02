@@ -19,7 +19,7 @@ class DialogService extends AbstractService
 
     protected function dialogEditCollection(Request $request)
     {
-        $collection = (new CollectionService)->get($request->get('id'));
+        $collection = (new CollectionService)->find('id', $request->get('id'));
         if($collection !== NULL){
             return view('notice.dialog.edit-collection', $collection->toArray())->render();
         }
@@ -33,7 +33,7 @@ class DialogService extends AbstractService
 
     protected function dialogFragmentSettings(Request $request)
     {
-        $item = (new FragmentService)->get($request->get('id'));
+        $item = (new FragmentService)->find('id',$request->get('id'));
         return view('notice.dialog.fragment-settings', [
             'item' => $item
         ])->render();

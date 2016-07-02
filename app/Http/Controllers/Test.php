@@ -26,7 +26,6 @@ extends BaseController
         new User($request->user()->id);
         // dd(new Metadetail('9d215353-8752-4b9e-812d-c8c2dcbd5e26'));
         // // TODO: replace everywhere
-        $this->client = config('app.user_client');
 
         // parent::__construct($request);
     }

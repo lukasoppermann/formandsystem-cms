@@ -56,17 +56,13 @@ class Pages extends Controller
         //     'type' => 'Test-'.rand(),
         //     'data' => 'yo'
         // ]));
-
-
-        // dd($page);
-        // $this->collections = $items = (new CollectionService)->all([
-        //     'includes' => false
-        // ]);
         return view('pages.dashboard');
     }
 
     public function show($slug)
     {
+
+
         $page = NULL;
         foreach(config('app.user')->account()->navigation() as $collection){
             if( $new_page = $collection->pages()->where('slug', $slug)){
@@ -74,9 +70,6 @@ class Pages extends Controller
             }
         }
 
-        // $collections = (new CollectionService)->all([
-        //     'includes' => false
-        // ]);
         //
         // $page = (new PageService)->first('slug',$slug,['includes' => [
         //     'ownedByCollections',
@@ -131,7 +124,7 @@ class Pages extends Controller
         }
         $newPage = (new PageService)->create($page->toArray());
 
-        $response = $this->api($this->client)->post('/collections/'.$collection_id.'/relationships/pages', [
+        $response = $this->api(config('app.user_client'))->post('/collections/'.$collection_id.'/relationships/pages', [
             'type' => 'pages',
             'id'   => $newPage['data']['id'],
         ]);
@@ -142,7 +135,7 @@ class Pages extends Controller
             return redirect('pages/'.$newPage['data']['attributes']['slug']);
         }
 
-        return redirect('collections/'.(new CollectionService)->get($collection_id)->slug.'/'.$newPage['data']['attributes']['slug']);
+        return redirect('collections/'.(new CollectionService)->find('id',$collection_id)->slug.'/'.$newPage['data']['attributes']['slug']);
     }
     /**
      * delete a page
@@ -213,7 +206,7 @@ class Pages extends Controller
             (new CollectionService)->clearCache();
             // redirect on success
             if($slug = $request->get('slug')){
-                $collection = (new CollectionService)->get($request->get('collection'))->slug;
+                $collection = (new CollectionService)->find('id',$request->get('collection'))->slug;
 
                 if($collection !== 'pages'){
                     $collection = 'collections/'.$collection;

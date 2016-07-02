@@ -47,16 +47,9 @@ class Controller extends BaseController
             config(['app.user_client' => $client->get('data')]);
         }
         // TODO: replace everywhere
-        $this->client = config('app.user_client');
         \Debugbar::stopMeasure('get-api-client');
         // set user config
         $this->setUserConfig();
-        // set cms api settings
-        $this->config['cms'] = [
-            'client_id' => env('FS_API_CLIENT_ID'),
-            'client_secret' => env('FS_API_CLIENT_SECRET'),
-            'scopes' => ['client.post','client.delete','client.get'],
-        ];
         \Debugbar::addMeasure('Controller Setup done', LARAVEL_START, microtime(true));
     }
     /**
@@ -72,8 +65,6 @@ class Controller extends BaseController
         // prepare api config
         $config = array_merge([
             'url'           => 'http://formandsystem-api.dev',
-            'client_id'     => env('USER_API_CLIENT_ID'),
-            'client_secret' => env('USER_API_CLIENT_SECRET'),
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
         ], $config->toArray());
         // return new API instance

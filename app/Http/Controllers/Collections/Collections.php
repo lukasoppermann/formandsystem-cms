@@ -90,7 +90,7 @@ class Collections extends Controller
                 return view('collections.fragments', [
                     'items'         => $collection->fragments,
                     'collection'    => $collection,
-                    'collections'   => (new CollectionService)->all(),
+                    'collections'   => (new CollectionService)->find('type','posts'),
                     'fragment'      => config('app.account')->details->where('type', 'fragment')->where('name',$collection->fragments->first()->type)->first()->data,
                     'elements'      => [
                         view('fragments.add-custom-fragment', [
@@ -115,7 +115,7 @@ class Collections extends Controller
      */
     public function store(Request $request)
     {
-        $slugs = (new CollectionService)->all([
+        $slugs = (new CollectionService)->find('type','posts',[
             'only' => false
         ])->pluck('slug')->toArray();
         // get page data
@@ -155,7 +155,7 @@ class Collections extends Controller
                 'published'     => true,
             ]);
 
-            $rel = $this->api($this->client)->post('/collections/'.$response['data']['id'].'/relationships/pages', [
+            $rel = $this->api(config('app.user_client'))->post('/collections/'.$response['data']['id'].'/relationships/pages', [
                 'type' => 'pages',
                 'id'   => $newPage['data']['id'],
             ]);
@@ -166,7 +166,7 @@ class Collections extends Controller
                 'type'    => 'news',
             ]);
 
-            $rel = $this->api($this->client)->post('/collections/'.$response['data']['id'].'/relationships/fragments', [
+            $rel = $this->api(config('app.user_client'))->post('/collections/'.$response['data']['id'].'/relationships/fragments', [
                 'type' => 'fragments',
                 'id'   => $new['data']['id'],
             ]);
@@ -181,7 +181,7 @@ class Collections extends Controller
      */
     public function delete(Request $request, $id)
     {
-        $collection = (new CollectionService)->get($request->id);
+        $collection = (new CollectionService)->find('id',$request->id);
         // TODO: deal with errors
         if($collection->pages->isEmpty() && $collection->fragments->isEmpty()){
             $response = (new CollectionService)->delete($request->id);
