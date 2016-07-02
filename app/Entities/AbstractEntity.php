@@ -38,17 +38,18 @@ abstract class AbstractEntity extends LaravelCollection
     {
         //TODO: Remove, just for making sure no entity is passed
         if(is_subclass_of($data, '\App\Entities\AbstractEntity')){
-            $this->items = $data->items;
+            dd($data);
         }
+
         // TODO: deal with errors e.g. when no model exists, etc.
         // create source if array given
         if(is_array($data)){
             // = model or collection
             $data = $this->entityCreate($data);
         }
+
         // if is string = id given
         if(is_string($data)){
-            // $this->refreshSelf($this->getEntityFromId($data));
             $this->setEntityToId($data);
         }
         // if model or collection is given
@@ -129,14 +130,14 @@ abstract class AbstractEntity extends LaravelCollection
     {
         // get items from db or api
         $items = $this->{'retrieve'.$cache_suffix}();
+        // if anything is returned
         if($items !== NULL){
-            // get entities
-            $entities = new LaravelCollection([]);
             foreach($items as $item){
-                $entities->push(new $entity_name($item));
+                // create new entity so it is cached
+                $entities[] = new $entity_name($item);
             }
             // return ids
-            return $entities->pluck('id');
+            return (new LaravelCollection($entities))->pluck('id');
         }
     }
     /**
@@ -168,6 +169,9 @@ abstract class AbstractEntity extends LaravelCollection
         if($this->getId() !== FALSE){
             return trim($this->getClassName().'.'.$this->getId().'.'.$suffix,'.');
         }
+        else {
+            throw \Exception('Cannot get ID via getId() from entity '.get_class($this));
+        }
     }
     /**
      * get entities with array of entity ids & entity name
@@ -181,36 +185,22 @@ abstract class AbstractEntity extends LaravelCollection
      */
     public function getEntities(Array $ids = NULL, $entity = NULL)
     {
-        return (new LaravelCollection($ids))
-            ->map(function($id) use ($entity) {
-                try{
-                    return new $entity($id);
-                }catch(\EmptyException $e){
-                    return NULL;
-                }catch(\Exception $e){
-                    \Log::error($e);
-                    return NULL;
-                }
-            })->reject(function($item){
-                return empty($item);
-            });
-    }
-    /**
-     * cache original item by its ID
-     *
-     * @method cacheRawItems
-     *
-     * @param  Collection|Model        $items [description]
-     *
-     * @return void
-     */
-    protected function cacheRawItems($items)
-    {
-        // loop through
-        foreach($items as $item){
-            // cache item by it
-            Cache::put((new LaravelCollection($item))->get('id'), $item, 1440);
-        }
+        $entities = (new LaravelCollection($ids))->map(function($id) use ($entity) {
+            // try to create new entity
+            try{
+                return new $entity($id);
+            // empty exception means the entity was deleted
+            }catch(\EmptyException $e){
+                return NULL;
+            }catch(\Exception $e){
+                \Log::error($e);
+                return NULL;
+            }
+        });
+        // return entities that are not empty
+        return $entities->reject(function($item){
+            return empty($item);
+        });
     }
     /**
      * update entity & entities cache
@@ -222,9 +212,10 @@ abstract class AbstractEntity extends LaravelCollection
      * @return [type]
      */
     public function update(Array $data){
-        // make update and new entity
-        // to force-refresh cache
-        return $this->refreshSelf($this->entityUpdate($data));
+        // make update
+        $updated = $this->entityUpdate($data);
+        // refresh entity
+        return $this->refreshSelf($updated);
     }
     /**
      * delete entity and remove entities cache
@@ -238,8 +229,6 @@ abstract class AbstractEntity extends LaravelCollection
         $this->entityDelete();
         // remove entity from cache
         Cache::forget($this->getId());
-        // return
-        return true;
     }
     /**
      * attach an entity to current entity
@@ -252,7 +241,7 @@ abstract class AbstractEntity extends LaravelCollection
      */
     public function attach(AbstractEntity $entity)
     {
-        // add relationship to model
+        // add relationship to model or api
         $this->addRelationship($entity);
         // get cache name
         $cache_name = $this->getCacheName($this->getClassName($entity));
@@ -276,7 +265,7 @@ abstract class AbstractEntity extends LaravelCollection
         $this->removeRelationship($entity);
         // get cache name
         $cache_name = $this->getCacheName($this->getClassName($entity));
-        // add entity to attached array
+        // remove entity to attached array
         $attached = Cache::get($cache_name)->reject(function ($value) {
             return $value === $attached->$entity->get('id');
         });
@@ -301,25 +290,13 @@ abstract class AbstractEntity extends LaravelCollection
         if($field !== NULL && $key !== NULL){
             $collection = $collection->where($field, $key);
         }
-        // if only first item is supposed to be returned
-        if($first === true){
-            return $collection->first();
-        }
-        // return
-        return $collection;
+        // return first item or all
+        return ($first === true) ? $collection->first() : $collection;
     }
     /**
      * get ID of current entity
      */
     abstract protected function getId();
-    /**
-     * get an array from the source of current entity
-     */
-    // abstract protected function getSourceArray($source);
-    /**
-     * get the source of current entity
-     */
-    // abstract protected function getSource($source);
     /**
      * method to update the entities real data via api or model
      */

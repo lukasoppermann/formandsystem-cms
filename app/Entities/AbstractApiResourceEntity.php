@@ -132,8 +132,6 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         });
 
         $this->relationships->put($relatedType, $newRelationships);
-        // cache included
-        // $this->cacheRawItems($data['included']);
         // return data
         return $data;
     }
@@ -241,11 +239,13 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         }
     }
     /**
-     * return thje service to get api data
+     * return the service to get api data
      *
      * @method resourceService
      *
-     * @return App\Services\Api\AbsrtactApiService
+     * @return App\Services\Api\AbstractApiService
      */
-    abstract protected function resourceService();
+    protected function resourceService(){
+        return new $this->resourceService;
+    }
 }

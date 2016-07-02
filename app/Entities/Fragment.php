@@ -3,12 +3,13 @@
 namespace App\Entities;
 
 use App\Entities\AbstractApiResourceEntity;
-use Illuminate\Support\Collection as LaravelCollection;
-use Cache;
-use App\Services\Api\FragmentService;
 
 class Fragment extends AbstractApiResourceEntity
 {
+    /**
+     * the service class for this entity
+     */
+    protected $resourceService = '\App\Services\Api\FragmentService';
     /**
      * transform attributes
      *
@@ -30,15 +31,5 @@ class Fragment extends AbstractApiResourceEntity
             'created_at'   => $attributes['attributes']['created_at'],
             'is_trashed'   => $attributes['attributes']['is_trashed'],
         ];
-    }
-    /**
-     * return the service to get api data
-     *
-     * @method resourceService
-     *
-     * @return App\Services\Api\AbsrtactApiService
-     */
-    protected function resourceService(){
-        return new FragmentService();
     }
 }

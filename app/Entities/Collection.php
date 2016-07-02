@@ -3,34 +3,13 @@
 namespace App\Entities;
 
 use App\Entities\AbstractApiResourceEntity;
-use App\Services\Api\CollectionService as ResourceService;
-use Illuminate\Support\Collection as LaravelCollection;
-use Cache;
 
 class Collection extends AbstractApiResourceEntity
 {
-    
     /**
-     * get model for this entity
-     *
-     * @method getData
-     *
-     * @param  string   $id
-     *
-     * @return Illuminate\Support\Collection
+     * the service class for this entity
      */
-    // protected function getData($id){
-    //     if(!Cache::has($id)){
-    //         // throw expection if account is not found
-    //         if( !$items = (new CollectionService)->get($id) ){
-    //             throw new \EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
-    //         }
-    //         // store account in cache
-    //         Cache::put($id,$items,1440);
-    //     }
-    //     // return model from cache
-    //     return new LaravelCollection(Cache::get($id));
-    // }
+    protected $resourceService = '\App\Services\Api\CollectionService';
     /**
      * transform attributes
      *
@@ -50,8 +29,5 @@ class Collection extends AbstractApiResourceEntity
             'slug'              => $attributes['attributes']['slug'],
             'is_trashed'        => $attributes['attributes']['is_trashed'],
         ];
-    }
-    protected function resourceService(){
-        return new ResourceService();
     }
 }

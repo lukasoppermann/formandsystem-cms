@@ -3,13 +3,15 @@
 namespace App\Entities;
 
 use App\Entities\AbstractApiResourceEntity;
-use App\Services\Api\PageService;
 use Illuminate\Support\Collection as LaravelCollection;
 use Cache;
 
 class Page extends AbstractApiResourceEntity
 {
-
+    /**
+     * the service class for this entity
+     */
+    protected $resourceService = '\App\Services\Api\PageService';
     /**
      * transform attributes
      *
@@ -50,16 +52,6 @@ class Page extends AbstractApiResourceEntity
         }
     }
     /**
-     * return the service to get api data
-     *
-     * @method resourceService
-     *
-     * @return App\Services\Api\AbsrtactApiService
-     */
-    protected function resourceService(){
-        return new PageService();
-    }
-    /**
      * get the collection the current page is in
      *
      * @method parentCollection
@@ -86,7 +78,7 @@ class Page extends AbstractApiResourceEntity
             return $this->relationships->get('ownedByCollections');
         }
 
-        $related = (new PageService)->relationship($this->get('id'), 'ownedByCollections');
+        $related = $this->resourceService()->relationship($this->get('id'), 'ownedByCollections');
 
         if(!isset($related['data'])){
             return NULL;

@@ -3,34 +3,13 @@
 namespace App\Entities;
 
 use App\Entities\AbstractApiResourceEntity;
-use Illuminate\Support\Collection as LaravelCollection;
-use Cache;
-use App\Services\Api\ImageService;
 
 class Image extends AbstractApiResourceEntity
 {
-    
     /**
-     * get data for this entity
-     *
-     * @method getData
-     *
-     * @param  string   $id
-     *
-     * @return Illuminate\Support\Collection
+     * the service class for this entity
      */
-    protected function getData($id){
-        if(!Cache::has($id)){
-            // throw expection if account is not found
-            if( !$item = (new ImageService)->first('id', $id) ){
-                throw new \EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
-            }
-            // store item in cache
-            Cache::put($id,$item,1440);
-        }
-        // return from cache
-        return new LaravelCollection(Cache::get($id));
-    }
+    protected $resourceService = '\App\Services\Api\ImageService';
     /**
      * transform attributes
      *

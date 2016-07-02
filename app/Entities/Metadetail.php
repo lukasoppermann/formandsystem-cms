@@ -3,13 +3,13 @@
 namespace App\Entities;
 
 use App\Entities\AbstractApiResourceEntity;
-use App\Services\Api\MetadetailService as ResourceService;
-use Illuminate\Support\Collection as LaravelCollection;
-use Cache;
 
 class Metadetail extends AbstractApiResourceEntity
 {
-
+    /**
+     * the service class for this entity
+     */
+    protected $resourceService = '\App\Services\Api\MetadetailService';
     /**
      * transform attributes
      *
@@ -28,15 +28,5 @@ class Metadetail extends AbstractApiResourceEntity
             'data'              => $this->jsonDecode($attributes['attributes']['data']),
             'is_trashed'        => $attributes['attributes']['is_trashed'],
         ];
-    }
-    /**
-     * return thje service to get api data
-     *
-     * @method resourceService
-     *
-     * @return App\Services\Api\AbsrtactApiService
-     */
-    protected function resourceService(){
-        return new ResourceService();
     }
 }
