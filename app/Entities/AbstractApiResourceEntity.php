@@ -12,13 +12,21 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
     protected $resourceService;
     protected $relationships = NULL;
 
-    public function __call($method, $args)
+    public function __call($method, $args = [])
     {
         // automatically include relationships
         if($this->relationships !== NULL && $this->relationships->has($method)){
-            return $this->relatedEntities($method);
+            // return call_user_func_array(array($this,'relatedEntities'), $args);
+            return $this->relatedEntities($method, $args);
         }
     }
+    /**
+     * set an entity to new values from within
+     *
+     * @method setEntityToId
+     *
+     * @param  string        $id [description]
+     */
     public function setEntityToId(string $id)
     {
         // try to get from cache
@@ -76,8 +84,13 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
      *
      * @return Illuminate\Support\Collection
      */
-    public function relatedEntities($relatedType)
+    public function relatedEntities($relatedType, $field = NULL, $key = NULL, $first = false)
     {
+        if(is_array($field)){
+            $key = isset($field[1]) ? $field[1] : NULL;
+            $first = isset($field[2]) ? $field[2] : NULL;
+            $field = isset($field[0]) ? $field[0] : NULL;
+        }
         // build entities
         $data = (new LaravelCollection($this->relationships[$relatedType]))->map(function($id) use ($relatedType){
             // get entity class
@@ -104,7 +117,7 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         // update cache
         $this->cacheSelf();
         // return data
-        return $data;
+        return $this->collectionData($data, $field, $key, $first);
     }
     /**
      * get data for this entity

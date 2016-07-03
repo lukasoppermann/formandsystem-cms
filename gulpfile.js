@@ -218,3 +218,17 @@ gulp.task('accessibility', function(){
         }))
         .on('error', console.log);
 });
+
+gulp.task('cm', function(){
+    var files = [];
+    // push files
+    files.push(
+        'resources/bower_components/codemirror/lib/codemirror.js'
+    );
+
+    return gulp.src(files)
+    .pipe(sourcemaps.init())
+    .pipe(jsmin())
+    .pipe(sourcemaps.write('/'))
+    .pipe(gulp.dest('public/'));
+});

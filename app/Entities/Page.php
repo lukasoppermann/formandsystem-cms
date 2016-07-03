@@ -59,10 +59,6 @@ class Page extends AbstractApiResourceEntity
     protected function retrieveParentCollection()
     {
         $related = $this->resourceService()->relationship($this->get('id'), 'ownedByCollections');
-
-        if(!isset($related['data'])){
-            return NULL;
-        }
         // cache included
         $this->cacheAsEntities($related['included']);
         // return as collection

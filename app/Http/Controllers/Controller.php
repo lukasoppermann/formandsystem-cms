@@ -79,8 +79,8 @@ class Controller extends BaseController
     {
         \Debugbar::startMeasure('get-account-metadetails','Get Account Site_url & IMG Dir');
         // URLS & DIRECTORIES
-        \Config::set('site_url', config('app.user')->account()->metadetails('type','site_url', true));
-        \Config::set('img_dir', config('app.user')->account()->metadetails('type','img_dir', true));
+        \Config::set('site_url', config('app.user')->account()->metadetails('type','site_url', true)->get('data'));
+        \Config::set('img_dir', config('app.user')->account()->metadetails('type','dir_images', true)->get('data'));
         \Debugbar::stopMeasure('get-account-metadetails');
         // GRID
         \Debugbar::startMeasure('custom-fragments','Get Custom Fragment Blueprints');

@@ -311,8 +311,9 @@ abstract class AbstractEntity extends LaravelCollection
         if($field !== NULL && $key !== NULL){
             $collection = $collection->where($field, $key);
         }
+        $first !== true ?: $collection = $collection->first();
         // return first item or all
-        return ($first === true) ? $collection->first() : $collection;
+        return $collection !== NULL ? $collection : New LaravelCollection([]);
     }
     /**
      * get ID of current entity
