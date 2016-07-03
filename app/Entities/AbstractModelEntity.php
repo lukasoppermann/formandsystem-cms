@@ -9,13 +9,13 @@ use Cache;
 abstract class AbstractModelEntity extends AbstractEntity
 {
     /**
-     * source of data for entity
+     * $model of data for entity
      *
      * @var mixed
      */
     protected $model = NULL;
     /**
-     * get an entity form cache or source by its id
+     * get an entity form cache or $model by its id
      *
      * @method getEntityFromId
      *
@@ -46,11 +46,11 @@ abstract class AbstractModelEntity extends AbstractEntity
                 throw new \App\Exceptions\EmptyException();
             }
         }
-        $this->model = $entity->model;
+        $this->model = $entity->getModel();
         $this->items = $entity->items;
     }
     /**
-     * get id for current entity from source
+     * get id for current entity from $model
      *
      * @method getId
      *
@@ -96,9 +96,9 @@ abstract class AbstractModelEntity extends AbstractEntity
      */
     protected function entityCreate(Array $data){
        // create model
-       $this->model = $this->getModel()->create($data);
+       $model = $this->getModel()->create($data);
        // return collection
-       return $this->model;
+       return $model;
     }
     /**
      * update current entity in db
@@ -111,9 +111,9 @@ abstract class AbstractModelEntity extends AbstractEntity
      */
     protected function entityUpdate(Array $data){
         // update model
-        $this->source->update($validatedData);
+        $model = $this->getModel()->update($validatedData);
         // return updated model
-        return $this->source;
+        return $model;
     }
     /**
      * delete item from database
@@ -124,7 +124,7 @@ abstract class AbstractModelEntity extends AbstractEntity
      */
     protected function entityDelete(){
         // update model
-        $this->source->delete();
+        $this->getModel()->delete();
     }
     /**
      * add a relationship to the entities model
@@ -138,8 +138,8 @@ abstract class AbstractModelEntity extends AbstractEntity
         // create the models name
         $related_name = $this->getModelName($entity);
         // attach if model exists
-        if(method_exists($this->model, $related_name) && is_a($this->model->{$related_name}(), 'Illuminate\Database\Eloquent\Model')){
-            $this->model->{$related_name}()->save($entity->model);
+        if(method_exists($this->getModel(), $related_name) && is_a($this->getModel()->{$related_name}(), 'Illuminate\Database\Eloquent\Model')){
+            $this->getModel()->{$related_name}()->save($entity->getModel());
         }
     }
     /**
@@ -170,8 +170,8 @@ abstract class AbstractModelEntity extends AbstractEntity
     protected function getModelName($entity)
     {
         // if modelname is set in entity
-        if(isset($entity->source()->model)){
-            return $entity->source()->model;
+        if($entity->getModel() !== NULL){
+            return $entity->getModel();
         }
         // else try to make name
         return strtolower($this->getClassName($entity)).'s';

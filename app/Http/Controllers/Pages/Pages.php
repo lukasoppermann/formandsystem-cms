@@ -54,23 +54,9 @@ class Pages extends Controller
             }
         }
 
-        //
-        // $page = (new PageService)->first('slug',$slug,['includes' => [
-        //     'ownedByCollections',
-        //     'metadetails',
-        //     'fragments',
-        //     'fragments.images',
-        //     'fragments.metadetails',
-        //     'fragments.fragments',
-        // ]]);
-
         if($page === NULL){
             return redirect('/pages');
         }
-        $page->parentCollection();
-        $page->parentCollection();
-        // dd();
-
 
         return view('pages.page', [
             'item'          => $page,

@@ -19,6 +19,7 @@ class Ftp extends Settings
     public function store(Request $request){
         // validate input
         $type = $request->get('ftp_account_type') === 'ftp_backup' ? 'ftp_backup' : 'ftp_image';
+
          $validator = Validator::make($request->all(), [
             $type.'_type'           => 'required|in:sftp,ftp',
             $type.'_host'           => 'required|regex:/^([a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+.*)$/',
@@ -30,6 +31,7 @@ class Ftp extends Settings
             $type.'_host.regex' => 'Please provide a valid domain to access your ftp accont, without http(s)://',
             $type.'_path.regex' => 'A valid path may only contain the following characters: A-Z, a-z, 0-9, /, - and _',
         ]);
+
         // if validation fails
         if($validator->fails()){
             return redirect('settings/developers')
@@ -51,7 +53,7 @@ class Ftp extends Settings
         ];
         // store detail
         try{
-            $detail = (new ApiClientDetailService)->create($this->account, $data, [
+            $detail = (new ApiClientDetailService)->create(config('app.user')->account()->getModel(), $data, [
                 'type' => $type,
                 'data' => $type,
             ]);
@@ -77,7 +79,7 @@ class Ftp extends Settings
      */
     public function delete(Request $request){
         try{
-            (new ApiClientDetailService)->delete($this->account, $request->get('ftp_image_account_type'));
+            (new ApiClientDetailService)->delete(config('app.user')->account()->getModel(), $request->get('ftp_image_account_type'));
             // redirect on success
             return redirect('settings/developers')->with([
                 'status' => 'Your FTP connection ('.str_replace('_',' ',$request->get('ftp_image_account_type')).') client has been deleted.',

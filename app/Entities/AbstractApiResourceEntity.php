@@ -82,6 +82,16 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
             $first = isset($field[2]) ? $field[2] : NULL;
             $field = isset($field[0]) ? $field[0] : NULL;
         }
+        // if collection has not been retrieved
+        if($this->relationships[$relatedType] === NULL){
+            $service = '\App\Services\Api\\'.$this->getClassName().'Service';
+            $related = (new $service)->relationship($this->getId(), $relatedType);
+            if(isset($related['data'])){
+                $this->relationships[$relatedType] = (new LaravelCollection($related['data']))->pluck('id');
+                $this->cacheAsEntities($related['data']);
+                $this->cacheAsEntities($related['included']);
+            }
+        }
         // build entities
         $data = (new LaravelCollection($this->relationships[$relatedType]))->map(function($id) use ($relatedType){
             // get entity class

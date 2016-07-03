@@ -39,8 +39,8 @@ return [
             [
                 'items' => [
                     [
-                        'label' => 'Pages',
-                        'link'  => '/pages',
+                        'label'     => 'Pages',
+                        'link'      => '/pages',
                     ],
                 ]
             ],

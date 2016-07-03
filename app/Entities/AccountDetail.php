@@ -28,7 +28,7 @@ class AccountDetail extends AbstractModelEntity
         return [
             'id'            => $attributes['id'],
             'type'          => $attributes['type'],
-            'name'          => $attributes['name'],
+            'name'          => isset($attributes['name']) ? $attributes['name'] : NULL,
             'data'          => $attributes['data'],
         ];
      }
