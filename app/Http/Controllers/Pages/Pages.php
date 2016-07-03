@@ -97,14 +97,13 @@ class Pages extends Controller
         }else{
             $collection_id = $collection->get('collection');
         }
+
         $newPage = (new PageService)->create($page->toArray());
 
         $response = $this->api(config('app.user_client'))->post('/collections/'.$collection_id.'/relationships/pages', [
             'type' => 'pages',
             'id'   => $newPage['data']['id'],
         ]);
-
-        (new CollectionService)->clearCache();
 
         if($collection->get('isInvalid')){
             return redirect('pages/'.$newPage['data']['attributes']['slug']);
@@ -135,70 +134,94 @@ class Pages extends Controller
      */
     public function update(Request $request)
     {
-        // transform input
-        $request->replace(
-            array_merge(
-                $request->only([
-                    'id',
-                    'menu_label',
-                    'slug',
-                    'title',
-                    'description',
-                    'collection',
-                ]),
-                [
-                    'slug' => $request->get('slug') !== NULL ? strtolower($request->get('slug')) : NULL,
-                ]
-            )
-        );
-        // validate input
-         $validator = Validator::make($request->all(), [
+        // get validated data
+        $data = $this->getValidated($request, [
             'id'                => 'required|string',
             'menu_label'        => 'required|string',
             'slug'              => 'required|alpha_dash',
             'title'             => 'required|string',
             'description'       => 'required|string',
+            'collection'        => 'required|string',
         ]);
         // if validation fails
-        if($validator->fails()){
+        if($data->get('isInvalid')){
             return back()
                 ->with(['status' => 'Updating the page failed. Please check the settings section.', 'type' => 'error'])
-                ->withErrors($validator)
+                ->withErrors($data->get('validator'))
                 ->withInput();
         }
+        // transform input
+        // $request->replace(
+        //     array_merge(
+        //         $request->only([
+        //             'id',
+        //             'menu_label',
+        //             'slug',
+        //             'title',
+        //             'description',
+        //             'collection',
+        //         ]),
+        //         [
+        //             'slug' => $request->get('slug') !== NULL ? strtolower($request->get('slug')) : NULL,
+        //         ]
+        //     )
+        // );
+        // validate input
+        //  $validator = Validator::make($request->all(), [
+        //     'id'                => 'required|string',
+        //     'menu_label'        => 'required|string',
+        //     'slug'              => 'required|alpha_dash',
+        //     'title'             => 'required|string',
+        //     'description'       => 'required|string',
+        // ]);
+        // // if validation fails
+        // if($validator->fails()){
+        //     return back()
+        //         ->with(['status' => 'Updating the page failed. Please check the settings section.', 'type' => 'error'])
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         // store detail
         try{
-            $item = (new PageService)->update(
-                $request->input('id'),
-                $request->only([
-                    'menu_label',
-                    'slug',
-                    'title',
-                    'description',
-                ])
-            );
-            // clear collection cache
-            (new CollectionService)->clearCache();
+            $page = config('app.user')->account()->navigation('id',$data['collection'],true)->pages('id',$data['id'],true);
+            $page->update((new LaravelCollection($data))->except(['collection','id'])->toArray());
+
+            // new \App\Entities\Page([
+            //     (new LaravelCollection($data))->except('collection')->toArray()
+            // ]);
+            // $item = (new PageService)->update(
+            //     $request->input('id'),
+            //     $request->only([
+            //         'menu_label',
+            //         'slug',
+            //         'title',
+            //         'description',
+            //     ])
+            // );
             // redirect on success
-            if($slug = $request->get('slug')){
-                $collection = (new CollectionService)->find('id',$request->get('collection'))->slug;
-
-                if($collection !== 'pages'){
-                    $collection = 'collections/'.$collection;
-                }
-
-                return redirect('/'.$collection.'/'.$slug)->with([
-                    'status' => 'This page has been updated successfully.',
-                    'type' => 'success'
-                ]);
-            }
-            return back()->with([
+            return redirect('/'.$page->parentCollection()->get('slug').'/'.$page->get('slug'))->with([
                 'status' => 'This page has been updated successfully.',
                 'type' => 'success'
             ]);
+            // if($slug = $request->get('slug')){
+            //     $collection = (new CollectionService)->find('id',$request->get('collection'))->slug;
+            //
+            //     if($collection !== 'pages'){
+            //         $collection = 'collections/'.$collection;
+            //     }
+            //
+            //     return redirect('/'.$collection.'/'.$slug)->with([
+            //         'status' => 'This page has been updated successfully.',
+            //         'type' => 'success'
+            //     ]);
+            // }
+            // return back()->with([
+            //     'status' => 'This page has been updated successfully.',
+            //     'type' => 'success'
+            // ]);
+        // ERROR
         }catch(Exception $e){
             \Log::error($e);
-
             return back()->with(['status' => 'Saving this page failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
         }
     }

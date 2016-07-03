@@ -30,7 +30,7 @@ class Site extends Settings
      * @param  Request $request
      */
     public function update(Request $request){
-
+        // get validated data
         $data = $this->getValidated($request, [
             'site_name' => 'string',
             'site_url' => 'required|url',
