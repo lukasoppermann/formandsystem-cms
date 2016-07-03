@@ -16,7 +16,7 @@ class Site extends Settings
         $data['form'] = [];
 
         foreach ($settings as $item) {
-            $data['form'][$item->type] = $item;
+            $data['form'][$item->get('type')] = $item;
         }
 
         return view('settings.site', $data);

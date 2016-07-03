@@ -57,25 +57,6 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         }
     }
     /**
-     * return json as array or string, if not valid json
-     *
-     * @method jsonDecode
-     *
-     * @param  [type]    $source [description]
-     *
-     * @return Illuminate\Database\Eloquent\Model
-     */
-    protected function jsonDecode($str)
-    {
-        // try to convert json
-        $json = json_decode($str,true);
-        if(is_array($json)){
-            return $json;
-        }
-        // if not return string
-        return $str;
-    }
-    /**
      * return realted entities
      *
      * @method relatedEntities
@@ -119,27 +100,6 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         // return data
         return $this->collectionData($data, $field, $key, $first);
     }
-    /**
-     * get data for this entity
-     *
-     * @method getData
-     *
-     * @param  string   $id
-     *
-     * @return Illuminate\Support\Collection
-     */
-    // protected function getData($id){
-    //     if(!Cache::has($id)){
-    //         // throw expection if account is not found
-    //         if( !$item = $this->resourceService()->first('id', $id) ){
-    //             throw new \App\Exceptions\EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
-    //         }
-    //         // store item in cache
-    //         Cache::put($id,$item,1440);
-    //     }
-    //     // return from cache
-    //     return new LaravelCollection(Cache::get($id));
-    // }
     /**
      * delete item from database
      *

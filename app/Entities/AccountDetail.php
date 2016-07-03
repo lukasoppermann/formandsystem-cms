@@ -24,6 +24,12 @@ class AccountDetail extends AbstractModelEntity
      */
      protected function attributes($model)
      {
-         return $model->toArray();
+        $attributes = $model->toArray();
+        return [
+            'id'            => $attributes['id'],
+            'type'          => $attributes['type'],
+            'name'          => $attributes['name'],
+            'data'          => $attributes['data'],
+        ];
      }
 }

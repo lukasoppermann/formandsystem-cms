@@ -38,7 +38,9 @@ class Collections extends Controller
     public function show($collection, $page = NULL)
     {
         // get collection
-        if(($collection = (new CollectionService)->first('slug',$collection)) === NULL){
+        $collection = config('app.user')->account()->collections('slug',$collection,true);
+        // get collection
+        if($collection->isEmpty()){
             return redirect('/')->with([
                 'status' => 'The collection you are trying to edit does not exist',
                 'type' => 'error',
@@ -47,20 +49,20 @@ class Collections extends Controller
         // --------------------------
         // BUILD NAVIGATION
         // get pages
-        if(!$collection->pages->isEmpty()){
+        if(!$collection->pages()->isEmpty()){
             // if no page was set redirect to first page or empty page
             if($page === NULL){
                 return $this->firstItemOrEmpty($collection);
             }
             $content_type = 'pages';
-            $items = $collection->pages->map(function($item) use ($collection){
+            $items = $collection->pages()->map(function($item) use ($collection){
                 return $item->put('link', '/collections/'.$collection->slug.'/'.$item->slug);
             });
         }
         // get fragments
-        if(!$collection->fragments->isEmpty()){
+        if(!$collection->fragments()->isEmpty()){
             $content_type = 'fragments';
-            $items = $collection->fragments->map(function($item) use ($collection){
+            $items = $collection->fragments()->map(function($item) use ($collection){
                 return $item->put('link', '/collections/'.$collection->slug.'/'.$item->id);
             });
         }
@@ -249,7 +251,7 @@ class Collections extends Controller
         ];
         // collection with items
         foreach($items_types as $type => $slug){
-            if( !$collection->{$type}->isEmpty() ){
+            if( !$collection->{$type}()->isEmpty() ){
                 return redirect('collections/'.$collection->slug.'/'.$collection->{$type}->first()->{$slug});
             }
         }

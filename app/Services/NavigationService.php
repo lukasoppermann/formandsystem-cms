@@ -199,20 +199,18 @@ class NavigationService
      */
     protected function getListCollections($lists = NULL){
         // get lists
-        $collection = (new \App\Services\Api\CollectionService)->first('slug',$this->active['item'], [
-            'only' => 'pages'
-        ]);
+        $collection = config('app.user')->account()->collections('slug',$this->active['item'],true);
         // return false if no pages exists
-        if($collection->pages->isEmpty()){
+        if($collection->pages()->isEmpty()){
             return NULL;
         }
-        $collection->pages->map(function($item) use($collection){
+        $collection->pages()->map(function($item) use($collection){
             return $item->put('collection', 'collections/'.$collection->slug);
         });
         // return
         return [
             [
-                'items'     => $collection->pages,
+                'items'     => $collection->pages(),
                 'template'  => 'navigation.item-page',
                 'elements' => [
                     view('navigation.add', [
@@ -220,7 +218,7 @@ class NavigationService
                         'method'    => 'post',
                         'label'     => 'New Page',
                         'fields'    => [
-                            'collection' => $collection->id
+                            'collection' => $collection->get('id')
                         ]
                     ])->render()
                 ]
@@ -236,11 +234,9 @@ class NavigationService
      */
     public function getHeaderCollections()
     {
-        $item = (new \App\Services\Api\CollectionService)->first('slug',$this->active['item'], [
-            'only' => 'pages'
-        ]);
+        $item = config('app.user')->account()->collections('slug',$this->active['item'],true);
         // return false if no pages exists
-        if($item->pages->isEmpty()){
+        if($item->pages()->isEmpty()){
             return false;
         }
         // if pages are set

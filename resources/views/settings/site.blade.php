@@ -9,25 +9,25 @@
                 @include('forms.input',[
                     'name' => 'site_name',
                     'label' => 'Name of your site',
-                    'value' => (isset($form['site_name']) ? $form['site_name']->data : NULL),
+                    'value' => (isset($form['site_name']) ? $form['site_name']->get('data') : NULL),
                     'additional_values' => [
-                        'id' => (isset($form['site_name']) ? $form['site_name']->id : NULL)
-                        ]
+                        'id' => (isset($form['site_name']) ? $form['site_name']->get('id') : NULL)
+                    ]
                 ])
                 @include('forms.input',[
                     'name' => 'site_url',
                     'label' => 'URL of your site',
-                    'value' => (isset($form['site_url']) ? $form['site_url']->data : NULL),
+                    'value' => (isset($form['site_url']) ? $form['site_url']->get('data') : NULL),
                     'additional_values' => [
-                        'id' => (isset($form['site_url']) ? $form['site_url']->id : NULL)
+                        'id' => (isset($form['site_url']) ? $form['site_url']->get('id') : NULL)
                     ]
                 ])
                 @include('forms.input',[
                     'name' => 'dir_images',
                     'label' => 'Public directory where your images are stored',
-                    'value' => (isset($form['dir_images']) ? $form['dir_images']->data : NULL),
+                    'value' => (isset($form['dir_images']) ? $form['dir_images']->get('data') : NULL),
                     'additional_values' => [
-                        'id' => (isset($form['dir_images']) ? $form['dir_images']->id : NULL)
+                        'id' => (isset($form['dir_images']) ? $form['dir_images']->get('id') : NULL)
                     ]
                 ])
             </section>
@@ -36,17 +36,17 @@
                 @include('forms.input',[
                     'name' => 'analytics_code',
                     'label' => 'Your Google analytics code UA-XXXXXXX-XX',
-                    'value' => (isset($form['analytics_code']) ? $form['analytics_code']->data : NULL),
+                    'value' => (isset($form['analytics_code']) ? $form['analytics_code']->get('data') : NULL),
                     'additional_values' => [
-                        'id' => (isset($form['analytics_code']) ? $form['analytics_code']->id : NULL)
+                        'id' => (isset($form['analytics_code']) ? $form['analytics_code']->get('id') : NULL)
                     ]
                 ])
                 @include('forms.toggle',[
                     'name' => 'analytics_anonymize_ip',
                     'label' => 'Anonymize IP',
-                    'value' => (isset($form['analytics_anonymize_ip']) ? $form['analytics_anonymize_ip']->data : NULL),
+                    'value' => (isset($form['analytics_anonymize_ip']) ? $form['analytics_anonymize_ip']->get('data') : NULL),
                     'additional_values' => [
-                        'id' => (isset($form['analytics_anonymize_ip']) ? $form['analytics_anonymize_ip']->id : NULL)
+                        'id' => (isset($form['analytics_anonymize_ip']) ? $form['analytics_anonymize_ip']->get('id') : NULL)
                     ]
                 ])
 

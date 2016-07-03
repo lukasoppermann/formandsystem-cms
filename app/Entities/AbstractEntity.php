@@ -132,6 +132,7 @@ abstract class AbstractEntity extends LaravelCollection
         $items = $this->{'retrieve'.$cache_suffix}();
         // if anything is returned
         if($items !== NULL){
+            $entities = [];
             foreach($items as $item){
                 // create new entity so it is cached
                 $entities[] = new $entity_name($item);
@@ -314,6 +315,25 @@ abstract class AbstractEntity extends LaravelCollection
         $first !== true ?: $collection = $collection->first();
         // return first item or all
         return $collection !== NULL ? $collection : New LaravelCollection([]);
+    }
+    /**
+     * return json as array or string, if not valid json
+     *
+     * @method jsonDecode
+     *
+     * @param  [type]    $source [description]
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    protected function jsonDecode($str)
+    {
+        // try to convert json
+        $json = json_decode($str,true);
+        if(is_array($json)){
+            return $json;
+        }
+        // if not return string
+        return $str;
     }
     /**
      * get ID of current entity
