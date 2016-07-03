@@ -33,12 +33,22 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         if(\Cache::has($id)){
             $entity = \Cache::get($id);
         }else {
-            $entity = new $this(new LaravelCollection($this->resourceService()->first('id',$id)));
+            $collection = new LaravelCollection($this->resourceService()->first('id',$id));
+
+            if( !$collection->isEmpty() ){
+                \Log::debug($collection);
+                $entity = new $this($collection);
+            }else{
+                throw new \App\Exceptions\EmptyException();
+            }
         }
-        //
-        $this->items = $entity->items;
-        //#
-        $this->relationships = $entity->relationships;
+
+        if(isset($entity)){
+            //
+            $this->items = $entity->items;
+            //#
+            $this->relationships = $entity->relationships;
+        }
     }
     /**
      * get id for current entity from source
@@ -47,7 +57,7 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
      *
      * @return string
      */
-    protected function getId($source = NULL)
+    protected function getId()
     {
         try{
             return $this->get('id');

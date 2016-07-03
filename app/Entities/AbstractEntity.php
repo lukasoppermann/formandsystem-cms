@@ -108,7 +108,11 @@ abstract class AbstractEntity extends LaravelCollection
         // get entities
         if( $ids = Cache::get($cache_name) ){
             // return items
-            return $this->getEntities($ids->toArray(), $entity_name);
+            $entities = $this->getEntities($ids->toArray(), $entity_name);
+            if(count($ids) !== count($entities)){
+                Cache::put($cache_name, $entities->pluck('id'), 1440);
+            }
+            return $entities;
         }
     }
     /**
@@ -131,7 +135,11 @@ abstract class AbstractEntity extends LaravelCollection
             $entities = [];
             foreach($items as $item){
                 // create new entity so it is cached
-                $entities[] = new $entity_name($item);
+                try{
+                    $entities[] = new $entity_name($item);
+                }catch(\App\Exceptions\EmptyException $e){
+
+                }
             }
             // return ids
             return (new LaravelCollection($entities))->pluck('id');
@@ -208,7 +216,7 @@ abstract class AbstractEntity extends LaravelCollection
             try{
                 return new $entity($id);
             // empty exception means the entity was deleted
-            }catch(\EmptyException $e){
+            }catch(\App\Exceptions\EmptyException $e){
                 return NULL;
             }catch(\Exception $e){
                 \Log::error($e);
@@ -230,10 +238,14 @@ abstract class AbstractEntity extends LaravelCollection
      * @return [type]
      */
     public function update(Array $data){
-        // make update
-        $updated = $this->entityUpdate($data);
-        // refresh entity
-        return $this->refreshSelf($updated);
+        if(count(array_diff($data, $this->items)) > 0){
+            // make update
+            $updated = $this->entityUpdate($data);
+            // refresh entity
+            $this->refreshSelf($updated);
+        }
+        // return updated entity
+        return $this;
     }
     /**
      * delete entity and remove entities cache
@@ -257,12 +269,13 @@ abstract class AbstractEntity extends LaravelCollection
      *
      * @return void
      */
-    public function attach(AbstractEntity $entity)
+    public function attach(AbstractEntity $entity, $cache_suffix = NULL)
     {
+        $cache_suffix !== NULL ?: $cache_suffix = $this->getClassName($entity);
         // add relationship to model or api
         $this->addRelationship($entity);
         // get cache name
-        $cache_name = $this->getCacheName($this->getClassName($entity));
+        $cache_name = $this->getCacheName($this->getClassName().$cache_suffix);
         // add entity to attached array
         $attached = Cache::get($cache_name, new LaravelCollection())->push($entity->get('id'));
         // cache array
@@ -317,7 +330,7 @@ abstract class AbstractEntity extends LaravelCollection
      *
      * @method jsonDecode
      *
-     * @param  [type]    $source [description]
+     * @param  string    $str [description]
      *
      * @return Illuminate\Database\Eloquent\Model
      */

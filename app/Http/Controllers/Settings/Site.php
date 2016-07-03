@@ -32,19 +32,12 @@ class Site extends Settings
     public function update(Request $request){
 
         $data = $this->getValidated($request, [
-            'site_name_id' => '',
             'site_name' => 'string',
             'site_url' => 'required|url',
-            'site_url_id' => '',
             'dir_images' => 'required',
-            'dir_images_id' => '',
-            'analytics_code_id' => '',
             'analytics_code' => 'regex:/^UA-\d{7}-\d{2}$/',
-            'analytics_anonymize_ip_id' => '',
             'analytics_anonymize_ip' => '',
         ]);
-
-
         // if validation fails
         if($data->get('isInvalid')){
             return redirect('settings/site')
@@ -54,19 +47,22 @@ class Site extends Settings
         // TODO: deal with errors
         // if validation succeeds
         try{
-            $metadetails = ['site_name','analytics_code','analytics_anonymize_ip','site_url','dir_images'];
-            foreach($metadetails as $meta){
-                if(isset($data[$meta])){
-                    if (isset($data[$meta.'_id'])){
-                        (new MetadetailService)->update($data[$meta.'_id'], [
-                            'data' => $data[$meta],
-                        ]);
+            // update meta items
+            $metadetails = ['site_name','site_url','dir_images','analytics_code','analytics_anonymize_ip'];
+            foreach($metadetails as $type){
+                $item = config('app.user')->account()->metadetails('type',$type,true);
+                if( !isset($data[$type]) ){
+                    if( !$item->isEmpty() ){
+                        $item->delete();
                     }
-                    else {
-                        (new MetadetailService)->create([
-                            'type' => $meta,
-                            'data' => $data[$meta],
-                        ]);
+                }else {
+                    if( !$item->isEmpty() ){
+                        $updated[] = $item->update(['data' => $data[$type]]);
+                    }else{
+                        $updated[] = config('app.user')->account()->attach(new \App\Entities\Metadetail([
+                            'type' => $type,
+                            'data' => $data[$type],
+                        ]));
                     }
                 }
             }

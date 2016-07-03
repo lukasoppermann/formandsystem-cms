@@ -49,7 +49,7 @@ class Account extends AbstractModelEntity
     public function metadetails($field = NULL, $key = NULL, $first = false)
     {
         // get data
-        $data = $this->getCacheOrRetrieve('AccountMetadetail', 'Metadetail');
+        $data = $this->getCacheOrRetrieve('Metadetail', 'Metadetail');
         // return collection
         return $this->collectionData($data, $field, $key, $first);
     }
@@ -115,7 +115,7 @@ class Account extends AbstractModelEntity
      *
      * @return Illuminate\Support\Collection
      */
-    public function retrieveAccountMetadetail()
+    public function retrieveMetadetail()
     {
         $metadetails = (new MetadetailService)->find('type',['site_url','dir_images','analytics_code','analytics_anonymize_ip','site_name']);
         // cache included
@@ -161,7 +161,7 @@ class Account extends AbstractModelEntity
      *
      * @method attributes
      *
-     * @param  mixed     $source [description]
+     * @param  mixed     $model [description]
      *
      * @return array
      */

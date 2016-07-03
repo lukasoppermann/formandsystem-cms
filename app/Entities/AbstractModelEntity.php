@@ -38,7 +38,13 @@ abstract class AbstractModelEntity extends AbstractEntity
         if(\Cache::has($id)){
             $entity = \Cache::get($id);
         }else {
-            $entity = new $this($this->getModel()->find($id));
+            $model = $this->getModel()->find($id);
+
+            if($model !== NULL){
+                $entity = new $this($model);
+            }else {
+                throw new \App\Exceptions\EmptyException();
+            }
         }
         $this->model = $entity->model;
         $this->items = $entity->items;
@@ -50,7 +56,7 @@ abstract class AbstractModelEntity extends AbstractEntity
      *
      * @return string
      */
-     protected function getId($source = NULL)
+     protected function getId()
      {
          try{
              return $this->get('id');
@@ -79,37 +85,6 @@ abstract class AbstractModelEntity extends AbstractEntity
         }
         return (new $this->model);
      }
-    /**
-     * return current entities source as array
-     *
-     * @method getSourceArray
-     *
-     * @param  Illuminate\Database\Eloquent\Model $source [description]
-     *
-     * @return Array
-     */
-    protected function getSourceArray($source)
-    {
-        return $source->toArray();
-    }
-    /**
-     * return current entities source from cache, db or api, etc.
-     *
-     * @method getSource
-     *
-     * @param  [type]    $source [description]
-     *
-     * @return Illuminate\Database\Eloquent\Model
-     */
-    // protected function getSource($source)
-    // {
-    //     // if source is not a model
-    //     if(!is_a($source, 'Illuminate\Database\Eloquent\Model')){
-    //         return $this->getModel($source);
-    //     }
-    //     // return source
-    //     return $source;
-    // }
     /**
      * create a new entity in DB
      *
@@ -163,8 +138,8 @@ abstract class AbstractModelEntity extends AbstractEntity
         // create the models name
         $related_name = $this->getModelName($entity);
         // attach if model exists
-        if(method_exists($this->source, $related_name)){
-            $this->source->{$related_name}()->save($entity->source);
+        if(method_exists($this->model, $related_name) && is_a($this->model->{$related_name}(), 'Illuminate\Database\Eloquent\Model')){
+            $this->model->{$related_name}()->save($entity->model);
         }
     }
     /**
@@ -183,27 +158,6 @@ abstract class AbstractModelEntity extends AbstractEntity
             $this->getModel()->{$related_name}()->detach($entity->get('id'));
         }
     }
-    // /**
-    //  * get model for this entity
-    //  *
-    //  * @method getModel
-    //  *
-    //  * @param  string   $id
-    //  *
-    //  * @return Illuminate\Database\Eloquent\Model
-    //  */
-    // protected function getModel($id){
-    //     if(!Cache::has($id)){
-    //         // throw expection if model is not found
-    //         if( !$model = (new $this->getModelName($this))->find($id) ){
-    //             throw new \App\Exceptions\EmptyException('No '.get_class($this).' with ID: '.$id.' found.');
-    //         }
-    //         // store account in cache
-    //         Cache::put($model->id,$model,1440);
-    //     }
-    //     // return model from cache
-    //     return Cache::get($id);
-    // }
     /**
      * get model name for given entity
      *
