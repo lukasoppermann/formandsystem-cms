@@ -23,6 +23,11 @@ abstract class AbstractEntity extends LaravelCollection
     public function __construct($data)
     {
         // TODO: deal with errors e.g. when no model exists, etc.
+        // create & return model or collection if array given
+        if(is_array($data)){
+            $data = $this->entityCreate($data);
+        }
+        // TODO: deal with errors e.g. when no model exists, etc.
         $this->refreshSelf($data);
     }
     /**
@@ -36,40 +41,31 @@ abstract class AbstractEntity extends LaravelCollection
      */
     public function refreshSelf($data)
     {
-        //TODO: Remove, just for making sure no entity is passed
-        if(is_subclass_of($data, '\App\Entities\AbstractEntity')){
-            dd($data);
-        }
-
         // TODO: deal with errors e.g. when no model exists, etc.
-        // create source if array given
-        if(is_array($data)){
-            // = model or collection
-            $data = $this->entityCreate($data);
-        }
-
         // if is string = id given
         if(is_string($data)){
             $this->setEntityToId($data);
         }
-        // if model or collection is given
-        else {
-            // check if is model
-            if(is_a($data, 'Illuminate\Database\Eloquent\Model')){
-                // set entities model
-                $this->model = $data;
-                $this->items = $this->attributes($data);
-            }
-            elseif(is_a($data, 'Illuminate\Support\Collection')){
-                $this->items = $this->attributes($data);
-                // get relationships
-                $this->relationships = (new LaravelCollection($data['relationships']))->map(function($related){
-                    if(isset($related['data'])){
-                        return (new LaravelCollection($related['data']))->pluck('id');
-                    }
-                    return NULL;
-                });
-            }
+        // if model is given
+        elseif(is_a($data, 'Illuminate\Database\Eloquent\Model')){
+            // set entities items
+            $this->items = $this->attributes($data);
+            // set entities model
+            $this->model = $data;
+            // cache itself
+            $this->cacheSelf();
+        }
+        // if collection is given
+        elseif(is_a($data, 'Illuminate\Support\Collection')){
+            // set entities items
+            $this->items = $this->attributes($data);
+            // get relationships
+            $this->relationships = (new LaravelCollection($data['relationships']))->map(function($related){
+                if(isset($related['data'])){
+                    return (new LaravelCollection($related['data']))->pluck('id');
+                }
+                return NULL;
+            });
             // cache itself
             $this->cacheSelf();
         }
@@ -85,7 +81,7 @@ abstract class AbstractEntity extends LaravelCollection
      */
     protected function cacheSelf(){
         // cache entity by id
-        if(!isset($this->cacheSelf) || (isset($this->cacheSelf) && $this->cacheSelf === true) ){
+        if( !(isset($this->cacheSelf) && $this->cacheSelf === false) ){
             Cache::put($this->get('id'),$this,1440);
         }
     }

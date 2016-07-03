@@ -50,8 +50,8 @@
                     ]
                 ])
 
-                <div class="o-flex">
-                    @include('forms.submit',['label' => 'Save', 'classes' => 'o-button o-button--blue  o-flex__item--align-right'])
+                <div class="o-flex-bar">
+                    @include('forms.submit',['label' => 'Save', 'classes' => 'o-button o-button--blue o-flex-bar__item o-flex-bar__item--right'])
                 </div>
             </section>
         </form>
