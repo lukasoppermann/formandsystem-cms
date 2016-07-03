@@ -178,13 +178,10 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
             'type' => $entity->get('resource_type'),
             'id' => $entity->get('id')
         ]);
-
-        $relationships = $this->source['relationships'];
-        $relationships[$entity->get('resource_type')]['data'] = array_merge($relationships[$entity->get('resource_type')]['data'],[[
-            'type' => $entity->get('resource_type'),
-            'id' => $entity->get('id')
-        ]]);
-        $this->source->put('relationships', $relationships);
+        // add to relationships
+        $this->relationships->get($entity->get('resource_type'))->push($entity->get('id'));
+        // update cache
+        $this->cacheSelf();
     }
     /**
      * remove a relationship from the entities source

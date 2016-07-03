@@ -259,6 +259,10 @@ abstract class AbstractEntity extends LaravelCollection
         $this->entityDelete();
         // remove entity from cache
         Cache::forget($this->getId());
+        // set delete
+        $this->items['deleted'] = true;
+        // return self
+        return $this;
     }
     /**
      * attach an entity to current entity

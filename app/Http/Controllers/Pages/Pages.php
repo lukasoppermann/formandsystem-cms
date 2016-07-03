@@ -93,23 +93,21 @@ class Pages extends Controller
         ]);
         // if validation fails
         if($collection->get('isInvalid')){
-            $collection_id = (new CollectionService)->first('slug','pages')->id;
+            $collection = config('app.user')->account()->navigation()->first();
         }else{
-            $collection_id = $collection->get('collection');
+            $collection = $collection->get('collection');
+            $collection = new \App\Entities\Collection($collection);
+        }
+        // create new page
+        $newPage = (new \App\Entities\Page($page->toArray()));
+        // attach to collection
+        $collection->attach($newPage);
+
+        if($collection->get('type') === 'navigation'){
+            return redirect('pages/'.$newPage->get('slug'));
         }
 
-        $newPage = (new PageService)->create($page->toArray());
-
-        $response = $this->api(config('app.user_client'))->post('/collections/'.$collection_id.'/relationships/pages', [
-            'type' => 'pages',
-            'id'   => $newPage['data']['id'],
-        ]);
-
-        if($collection->get('isInvalid')){
-            return redirect('pages/'.$newPage['data']['attributes']['slug']);
-        }
-
-        return redirect('collections/'.(new CollectionService)->find('id',$collection_id)->slug.'/'.$newPage['data']['attributes']['slug']);
+        return redirect('collections/'.$collection->get('slug').'/'.$newPage->get('slug'));
     }
     /**
      * delete a page
@@ -120,10 +118,8 @@ class Pages extends Controller
     {
         // TODO: deal with errors
         if($id !== NULL){
-            $response = (new PageService)->delete($id);
+            $deleted = (new \App\Entities\Page($id))->delete();
         }
-        // clear cache
-        (new CollectionService)->clearCache();
         // return to pages
         return back();
     }
@@ -150,75 +146,16 @@ class Pages extends Controller
                 ->withErrors($data->get('validator'))
                 ->withInput();
         }
-        // transform input
-        // $request->replace(
-        //     array_merge(
-        //         $request->only([
-        //             'id',
-        //             'menu_label',
-        //             'slug',
-        //             'title',
-        //             'description',
-        //             'collection',
-        //         ]),
-        //         [
-        //             'slug' => $request->get('slug') !== NULL ? strtolower($request->get('slug')) : NULL,
-        //         ]
-        //     )
-        // );
-        // validate input
-        //  $validator = Validator::make($request->all(), [
-        //     'id'                => 'required|string',
-        //     'menu_label'        => 'required|string',
-        //     'slug'              => 'required|alpha_dash',
-        //     'title'             => 'required|string',
-        //     'description'       => 'required|string',
-        // ]);
-        // // if validation fails
-        // if($validator->fails()){
-        //     return back()
-        //         ->with(['status' => 'Updating the page failed. Please check the settings section.', 'type' => 'error'])
-        //         ->withErrors($validator)
-        //         ->withInput();
-        // }
         // store detail
         try{
             $page = config('app.user')->account()->navigation('id',$data['collection'],true)->pages('id',$data['id'],true);
             $page->update((new LaravelCollection($data))->except(['collection','id'])->toArray());
 
-            // new \App\Entities\Page([
-            //     (new LaravelCollection($data))->except('collection')->toArray()
-            // ]);
-            // $item = (new PageService)->update(
-            //     $request->input('id'),
-            //     $request->only([
-            //         'menu_label',
-            //         'slug',
-            //         'title',
-            //         'description',
-            //     ])
-            // );
             // redirect on success
             return redirect('/'.$page->parentCollection()->get('slug').'/'.$page->get('slug'))->with([
                 'status' => 'This page has been updated successfully.',
                 'type' => 'success'
             ]);
-            // if($slug = $request->get('slug')){
-            //     $collection = (new CollectionService)->find('id',$request->get('collection'))->slug;
-            //
-            //     if($collection !== 'pages'){
-            //         $collection = 'collections/'.$collection;
-            //     }
-            //
-            //     return redirect('/'.$collection.'/'.$slug)->with([
-            //         'status' => 'This page has been updated successfully.',
-            //         'type' => 'success'
-            //     ]);
-            // }
-            // return back()->with([
-            //     'status' => 'This page has been updated successfully.',
-            //     'type' => 'success'
-            // ]);
         // ERROR
         }catch(Exception $e){
             \Log::error($e);
