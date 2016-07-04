@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers\Fragments;
 
-use App\Services\Api\PageService;
-use App\Services\Api\CollectionService;
-use App\Services\Api\MetadetailService;
-use App\Services\Api\FragmentService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -28,50 +24,28 @@ class Fragments extends Controller
 
     public function store(Request $request)
     {
-        // create new element
-        $fragment = new \App\Entities\Fragment([
-            'type' => $request->get('type')
-        ]);
-        // create subelements if element is Custom element
+        // CUSTOM ELEMENT
         if( !in_array($request->get('type'), $this->default_fragments) ){
+            if( !isset(config('custom.fragments')[$request->get('type')]) ){
+                return back();
+            }
+            // create new element
+            $fragment = new \App\Entities\Fragment([
+                'type' => $request->get('type'),
+                'data' => json_encode(config('custom.fragments')[$request->get('type')]->get('data')),
+            ]);
+            // create subelements
             $this->newCustomFragment($fragment, $request->get('type'));
+        // NORMAL ELEMENR
+        }else {
+            $fragment = new \App\Entities\Fragment([
+                'type' => $request->get('type')
+            ]);
         }
         // attach fragment
         $parentEntity = '\App\Entities\\'.ucfirst($request->get('parentType'));
         (new $parentEntity($request->get('parentId')))->attach($fragment);
-        // // requested type
-        // $type = $request->get('type');
-        // // check if custom fragment
-        // if( in_array($type, $default_fragments) ){
-        //     $fragment = (new FragmentService)->create(['type' => $type]);
-        // } else {
-        //     $fragment = $this->newCustomFragment($type);
-        // }
-        // TODO: deal with errors
-
-        // if($item = $request->get('page')){
-        //     $response =
-        //         $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByPages', [
-        //             'type' => 'pages',
-        //             'id'   => $item,
-        //     ]);
-        // }
-        //
-        // if($item = $request->get('fragment')){
-        //     $response =
-        //         $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByFragments', [
-        //             'type' => 'fragments',
-        //             'id'   => $item,
-        //     ]);
-        // }
-        //
-        // if($item = $request->get('collection')){
-        //     $response =
-        //         $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByCollections', [
-        //             'type' => 'collections',
-        //             'id'   => $item,
-        //     ]);
-        // }
+        // redirect back
         return back();
     }
     /**
@@ -103,30 +77,18 @@ class Fragments extends Controller
     public function update(Request $request, $id)
     {
         $fragment = new \App\Entities\Fragment($id);
-        // get current fragment
-        // $fragment = (new FragmentService)->find('id',$id, [
-        //     'includes' => [
-        //         'ownedByPages',
-        //         'ownedByCollections',
-        //         'ownedByFragments',
-        //     ]
-        // ]);
         // update the details for the current fragment
         $this->updateFragmentDetails($request, $fragment);
         // update the fragment data
-        $this->updateFragment($request, $id, $fragment);
-        // clear cache
-        // if(!$fragment->ownedByPages->isEmpty()){
-        //     (new PageService)->clearCache();
-        // }
-        // if(!$fragment->ownedByCollections->isEmpty()){
-        //     (new CollectionService)->clearCache();
-        // }
-        // if(!$fragment->ownedByFragments->isEmpty()){
-        //     (new PageService)->clearCache();
-        //     (new CollectionService)->clearCache();
-        //     (new FragmentService)->clearCache();
-        // }
+        $data = $this->getValidated($request, [
+            'data'       => 'string',
+        ]);
+        // update data
+        if( $data->get('data') !== NULL ){
+            $fragment->update([
+                'data' => $data->get('data'),
+            ]);
+        }
         // redirect on success
         return back()->with([
             'status' => 'The fragment has been updated successfully.',
@@ -179,10 +141,10 @@ class Fragments extends Controller
                     $detail->delete();
                 }
                 // create
-                else {
+                elseif( isset($details[$type]) ){
                     $fragment->attach(new \App\Entities\Metadetail([
                         'type' => $type,
-                        'data' => $details[$type],
+                        'data' => (string) $details[$type],
                     ]));
                 }
             }
@@ -191,41 +153,6 @@ class Fragments extends Controller
             \Log::error($e);
 
             return back()->with(['status' => 'Saving this fragment failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
-        }
-    }
-    /**
-     * update the given fragment
-     *
-     * @method updateFragment
-     *
-     * @param  Request               $request  [description]
-     * @param  Entity                $fragment [description]
-     *
-     * @return [type]
-     */
-    protected function updateFragment(Request $request, $id, $fragment)
-    {
-        // get collection data
-        $data = $this->getValidated($request, [
-            'collection' => 'string',
-            'data'       => 'string',
-        ]);
-        // update data
-        if( $data->get('data') !== NULL ){
-            $fragment = (new FragmentService)->update($id,
-                [
-                    'type' => $fragment->type,
-                    'name' => $fragment->name,
-                    'data' => $data->get('data'),
-                ]
-            );
-        }
-        // update collection
-        if( $data->get('collection') !== NULL ){
-            $response = $this->api(config('app.user_client'))->patch('/fragments/'.$fragment->id.'/relationships/collections', [
-                'type' => 'collections',
-                'id'   => $data->get('collection'),
-            ]);
         }
     }
     /**
@@ -249,10 +176,10 @@ class Fragments extends Controller
             // create fragment
             $subfragment = new \App\Entities\Fragment([
                 'type' => $element['type'],
-                'name' => $name,
+                'name' => $element['name'],
             ]);
             // attach to parent
-            $parent->attach($fragment);
+            $parent->attach($subfragment);
         }
     }
 }

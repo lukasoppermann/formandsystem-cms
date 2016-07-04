@@ -1,19 +1,20 @@
 <div class="">
     @if(!$fragment->fragments()->isEmpty())
-        @foreach ($fragment->fragments() as $subfragment)
-            <?php
-                try{
-                    $blueprint = config('custom.fragments')[$fragment->get('name')]->get('data')->get('elements')[$subfragment->get('name')];
-                }catch(\Exception $e){
-                    \Log::error($e);
-                }
-            ?>
-            @if(isset($blueprint))
+        {{-- @foreach ($fragment->fragments() as $subfragment)
+            @if(is_array($fragment->get('data')))
                 @includeIf('fragments.'.$subfragment->get('type'), [
                 'fragment'  => $subfragment,
-                'label'     => isset($blueprint['label']) ? $blueprint['label'] : ''
+                    'label'     => isset($blueprint['label']) ? $blueprint['label'] : ''
                 ])
             @endif
-        @endforeach
+        @endforeach --}}
+        @if(is_array($fragment->get('data')) && isset($fragment->get('data')['elements']))
+            @foreach ($fragment->get('data')['elements'] as $element)
+                @includeIf('fragments.'.$element['type'], [
+                    'fragment'  => $fragment->fragments('name',$element['name'],true),
+                    'label'     => isset($element['label']) ? $element['label'] : ''
+                ])
+            @endforeach
+        @endif
     @endif
 </div>
