@@ -20,12 +20,12 @@
         {
             "name": "headline",
             "label": "Headline",
-            "type": "text"
+            "type": "input"
         },
         {
             "name": "text",
             "label": "Text",
-            "type": "markdown"
+            "type": "text"
         }
     ]
 }
