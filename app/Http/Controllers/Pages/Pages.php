@@ -19,27 +19,6 @@ class Pages extends Controller
      * collections
      */
     protected $collections;
-    /**
-     * get main pages collection or create
-     *
-     * @method getPagesCollection
-     *
-     * @return App\Entities\Collection
-     */
-    public function getPagesCollections()
-    {
-        if( ($collections = (new CollectionService)->find('type','navigation',[
-                'includes' => ['pages','fragments']
-            ]))->isEmpty() ){
-            $collections = new LaravelCollection((new CollectionService)->create([
-                'name' => 'Main Navigation',
-                'slug' => 'main-navigation',
-                'type' => 'navigation'
-            ]));
-        }
-        // return main pages collection
-        return $collections;
-    }
 
     public function index(){
         return view('pages.dashboard');
@@ -47,6 +26,7 @@ class Pages extends Controller
 
     public function show($slug)
     {
+
         $page = NULL;
         foreach(config('app.user')->account()->navigation() as $collection){
             if( $new_page = $collection->pages()->where('slug', $slug)){
@@ -102,7 +82,7 @@ class Pages extends Controller
         $newPage = (new \App\Entities\Page($page->toArray()));
         // attach to collection
         $collection->attach($newPage);
-
+        
         if($collection->get('type') === 'navigation'){
             return redirect('pages/'.$newPage->get('slug'));
         }

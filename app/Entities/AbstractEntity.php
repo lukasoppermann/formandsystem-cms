@@ -109,9 +109,11 @@ abstract class AbstractEntity extends LaravelCollection
         if( $ids = Cache::get($cache_name) ){
             // return items
             $entities = $this->getEntities($ids->toArray(), $entity_name);
+            // update cache if needed
             if(count($ids) !== count($entities)){
                 Cache::put($cache_name, $entities->pluck('id'), 1440);
             }
+            // return entities
             return $entities;
         }
     }

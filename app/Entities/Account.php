@@ -66,10 +66,32 @@ class Account extends AbstractModelEntity
      */
     public function navigation($field = NULL, $key = NULL, $first = false)
     {
-        // get data
-        $data = $this->getCacheOrRetrieve('Navigation','Collection');
+        $cache_name = 'Account'.config('app.user')->account()->get('id').'Navigation';
+        // retrieve if not cached
+        if(!Cache::has($cache_name)){
+            // get collection with only pages
+            $items = (new CollectionService)->find('type','navigation', [
+                'only' => 'pages'
+            ]);
+            // cache data
+            $this->cacheAsEntities($items['data']);
+            // cache included items
+            $this->cacheAsEntities($items['included']);
+            // return as collections
+            $ids = (new LaravelCollection($items['data']))->pluck('id');
+            // cache ids
+            Cache::put($cache_name, $ids, 1440);
+        }
+        // get entities
+        if( $ids = Cache::get($cache_name) ){
+            $entities = $this->getEntities($ids->toArray(), 'App\Entities\Collection');
+            // update cache if needed
+            if(count($ids) !== count($entities)){
+                Cache::put($cache_name, $entities->pluck('id'), 1440);
+            }
+        }
         // return collection
-        return $this->collectionData($data, $field, $key, $first);
+        return $this->collectionData($entities, $field, $key, $first);
     }
     /**
      * return collections for account
@@ -135,26 +157,6 @@ class Account extends AbstractModelEntity
     public function retrieveAccountDetail()
     {
         return $this->getModel()->accountdetails;
-    }
-    /**
-     * get navigation collection for account from API
-     *
-     * @method retrieveNavigation
-     *
-     * @return Illuminate\Support\Collection
-     */
-    public function retrieveNavigation()
-    {
-        // get collection with only pages
-        $items = (new CollectionService)->find('type','navigation', [
-            'only' => 'pages'
-        ]);
-        // cache included items
-        $this->cacheAsEntities($items['included']);
-        // return as collections
-        return (new LaravelCollection($items['data']))->map(function($item){
-            return new LaravelCollection($item);
-        });
     }
     /**
      * prepare attributes

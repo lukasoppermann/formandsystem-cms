@@ -170,6 +170,7 @@ class NavigationService
         // prepare lists
         $lists = [];
         foreach($items as $key => $list){
+            
             $lists[$key] = [
                 'title'       => $list->get('name'),
                 'items'       => $list->pages()->map(function($item){

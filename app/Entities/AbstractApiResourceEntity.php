@@ -43,11 +43,13 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
             }
         }
 
-        if(isset($entity)){
+        if(isset($entity) && $entity->items !== NULL){
             //
             $this->items = $entity->items;
             //#
             $this->relationships = $entity->relationships;
+        }else{
+            throw new \App\Exceptions\EmptyException();
         }
     }
     /**
@@ -106,8 +108,8 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
             }
         });
         // remove deleted items
-        $data->reject(function($item){
-            return empty($item);
+        $data = $data->reject(function($item){
+            return $item === NULL;
         });
         // get ids
         $newRelationships = $data->pluck('id')->map(function($item) use ($relatedType){

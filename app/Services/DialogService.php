@@ -33,9 +33,8 @@ class DialogService extends AbstractService
 
     protected function dialogFragmentSettings(Request $request)
     {
-        $item = (new FragmentService)->find('id',$request->get('id'));
         return view('notice.dialog.fragment-settings', [
-            'item' => $item
+            'item' => new \App\Entities\Fragment($request->get('id'))
         ])->render();
     }
 }

@@ -14,47 +14,64 @@ use Validator;
 
 class Fragments extends Controller
 {
+    /**
+     * define which fragment types are defaults
+     */
+    protected $default_fragments = [
+        'section',
+        'image',
+        'text',
+        'dropdown',
+        'input',
+        'button'
+    ];
+
     public function store(Request $request)
     {
-        $default_fragments = ['section','image','text','dropdown','input','button'];
-        // requested type
-        $type = $request->get('type');
-        // check if custom fragment
-        if( in_array($type, $default_fragments) ){
-            $fragment = (new FragmentService)->create(['type' => $type]);
-        } else {
-            $fragment = $this->newCustomFragment($type);
+        // create new element
+        $fragment = new \App\Entities\Fragment([
+            'type' => $request->get('type')
+        ]);
+        // create subelements if element is Custom element
+        if( !in_array($request->get('type'), $this->default_fragments) ){
+            $this->newCustomFragment($fragment, $request->get('type'));
         }
+        // attach fragment
+        $parentEntity = '\App\Entities\\'.ucfirst($request->get('parentType'));
+        (new $parentEntity($request->get('parentId')))->attach($fragment);
+        // // requested type
+        // $type = $request->get('type');
+        // // check if custom fragment
+        // if( in_array($type, $default_fragments) ){
+        //     $fragment = (new FragmentService)->create(['type' => $type]);
+        // } else {
+        //     $fragment = $this->newCustomFragment($type);
+        // }
         // TODO: deal with errors
 
-
-        if($item = $request->get('page')){
-            $response =
-                $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByPages', [
-                    'type' => 'pages',
-                    'id'   => $item,
-            ]);
-            (new PageService)->clearCache();
-        }
-
-        if($item = $request->get('fragment')){
-            $response =
-                $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByFragments', [
-                    'type' => 'fragments',
-                    'id'   => $item,
-            ]);
-            (new FragmentService)->clearCache();
-            (new PageService)->clearCache();
-        }
-
-        if($item = $request->get('collection')){
-            $response =
-                $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByCollections', [
-                    'type' => 'collections',
-                    'id'   => $item,
-            ]);
-            (new CollectionService)->clearCache();
-        }
+        // if($item = $request->get('page')){
+        //     $response =
+        //         $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByPages', [
+        //             'type' => 'pages',
+        //             'id'   => $item,
+        //     ]);
+        // }
+        //
+        // if($item = $request->get('fragment')){
+        //     $response =
+        //         $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByFragments', [
+        //             'type' => 'fragments',
+        //             'id'   => $item,
+        //     ]);
+        // }
+        //
+        // if($item = $request->get('collection')){
+        //     $response =
+        //         $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/ownedByCollections', [
+        //             'type' => 'collections',
+        //             'id'   => $item,
+        //     ]);
+        // }
         return back();
     }
     /**
@@ -66,15 +83,14 @@ class Fragments extends Controller
     {
         // TODO: deal with errors
         if($id !== NULL){
-            // get & delete connected images
-            foreach((new FragmentService)->find('id',$id)->images as $image){
-                $this->api(config('app.user_client'))->delete('/images/'.$image->id);
+            // get fragment
+            $fragment = new \App\Entities\Fragment($id);
+            // delete image connections
+            foreach($fragment->images() as $image){
+                $image->delete();
             }
-
-            $response = (new FragmentService)->delete($id);
-            // clear cache
-            (new CollectionService)->clearCache();
-            (new PageService)->clearCache();
+            // delete element
+            $deleted = $fragment->delete();
         }
 
         return back();
@@ -86,33 +102,34 @@ class Fragments extends Controller
      */
     public function update(Request $request, $id)
     {
+        $fragment = new \App\Entities\Fragment($id);
         // get current fragment
-        $fragment = (new FragmentService)->find('id',$id, [
-            'includes' => [
-                'ownedByPages',
-                'ownedByCollections',
-                'ownedByFragments',
-            ]
-        ]);
+        // $fragment = (new FragmentService)->find('id',$id, [
+        //     'includes' => [
+        //         'ownedByPages',
+        //         'ownedByCollections',
+        //         'ownedByFragments',
+        //     ]
+        // ]);
         // update the details for the current fragment
         $this->updateFragmentDetails($request, $fragment);
         // update the fragment data
         $this->updateFragment($request, $id, $fragment);
         // clear cache
-        if(!$fragment->ownedByPages->isEmpty()){
-            (new PageService)->clearCache();
-        }
-        if(!$fragment->ownedByCollections->isEmpty()){
-            (new CollectionService)->clearCache();
-        }
-        if(!$fragment->ownedByFragments->isEmpty()){
-            (new PageService)->clearCache();
-            (new CollectionService)->clearCache();
-            (new FragmentService)->clearCache();
-        }
+        // if(!$fragment->ownedByPages->isEmpty()){
+        //     (new PageService)->clearCache();
+        // }
+        // if(!$fragment->ownedByCollections->isEmpty()){
+        //     (new CollectionService)->clearCache();
+        // }
+        // if(!$fragment->ownedByFragments->isEmpty()){
+        //     (new PageService)->clearCache();
+        //     (new CollectionService)->clearCache();
+        //     (new FragmentService)->clearCache();
+        // }
         // redirect on success
         return back()->with([
-            'status' => 'This fragment has been updated successfully.',
+            'status' => 'The fragment has been updated successfully.',
             'type' => 'success'
         ]);
     }
@@ -135,43 +152,38 @@ class Fragments extends Controller
             'columns_large'     => 'in:'.implode(',',range(0, config('user.grid-lg'))),
             'classes'           => 'string',
         ], [
-            'columns_medium' => $request->get('columns_medium') === NULL ? config('user.grid-md') : $request->get('columns_medium'),
-            'columns_small' => $request->get('columns_small') === NULL ? config('user.grid-sm') : $request->get('columns_small'),
-            'columns_large' => $request->get('columns_large') === NULL ? config('user.grid-lg') : $request->get('columns_large'),
+            'columns_medium' => config('user.grid-md'),
+            'columns_small' => config('user.grid-sm'),
+            'columns_large' => config('user.grid-lg'),
         ]);
         // if validation fails
         if($details->get('isInvalid')){
             return back()
                 ->with(['status' => 'Updating the fragment failed.', 'type' => 'error'])
-                ->withErrors($details->get('validator'), $id)
+                ->withErrors($details->get('validator'), $fragment->get('id'))
                 ->withInput();
         }
         // store detail
         try{
-            foreach($details as $key => $value){
-                // update or add details
-                $detail = $fragment->metadetails->filter(function($item) use($key){
-                    return $item->type === $key;
-                })->first();
-                if($detail !== NULL && $detail->data !== $value){
-                    (new MetadetailService)->update(
-                        $detail->id,
-                        [
-                            'type' => $key,
-                            'data' => (string)$value,
-                        ]
-                    );
-                } elseif($detail === NULL) {
-                    $detail = (new MetadetailService)->create(
-                        [
-                            'type' => $key,
-                            'data' => (string)$value,
-                        ]
-                    );
-                    $response = $this->api(config('app.user_client'))->post('/fragments/'.$fragment->id.'/relationships/metadetails', [
-                        'type' => 'metadetails',
-                        'id'   => $detail['data']['id'],
+            foreach(['columns_small','columns_medium','columns_large','classes'] as $type){
+                // get detail
+                $detail = $fragment->metadetails('type',$type,true);
+                // update
+                if( !$detail->isEmpty() && isset($details[$type])){
+                    $detail->update([
+                        'data' => $details[$type]
                     ]);
+                }
+                // delete
+                elseif(!$detail->isEmpty() && !isset($details[$type])){
+                    $detail->delete();
+                }
+                // create
+                else {
+                    $fragment->attach(new \App\Entities\Metadetail([
+                        'type' => $type,
+                        'data' => $details[$type],
+                    ]));
                 }
             }
         }
@@ -221,36 +233,26 @@ class Fragments extends Controller
      *
      * @method newCustomFragment
      *
-     * @param  string            $type [description]
+     * @param  App\Entities\AbstractEntity      $parent [description]
+     * @param  string                           $type [description]
      *
      * @return model
      */
-    protected function newCustomFragment($type = NULL)
+    protected function newCustomFragment(\App\Entities\AbstractEntity $parent, $type = NULL)
     {
-        // create section as main container
-        $fragment = (new FragmentService)->create([
-            'type' => $type,
-            'name' => $type
-        ]);
         // get custom fragment blueprint
-        $blueprint = config('app.account')->details->where('type','fragment')->where('name', $type)->first()->data;
+        $blueprint = config('app.account')->details('type','fragment')->where('name', $type)->first()->get('data');
         // add hidden css
-
+        // somehow the classes for the element defined by the developer must be added
         // add subfragments
         foreach($blueprint['elements'] as $name => $element){
             // create fragment
-            $subfragment = (new FragmentService)->create([
+            $subfragment = new \App\Entities\Fragment([
                 'type' => $element['type'],
                 'name' => $name,
             ]);
-            // connect to main fragment
-            $response =
-                $this->api(config('app.user_client'))->post('/fragments/'.$fragment['data']['id'].'/relationships/fragments', [
-                    'type' => 'fragments',
-                    'id'   => $subfragment['data']['id'],
-            ]);
+            // attach to parent
+            $parent->attach($fragment);
         }
-        // return fragment
-        return $fragment;
     }
 }

@@ -66,7 +66,7 @@ class Controller extends BaseController
         $config = array_merge([
             'url'           => 'http://formandsystem-api.dev',
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
-        ], $config->toArray());
+        ], $config);
         // return new API instance
         return new Api($config, new CacheService, debugbar());
     }
