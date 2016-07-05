@@ -5,9 +5,10 @@
 }
 .o-radio-button {
 	cursor: pointer;
+	box-sizing: border-box;
+	height: 4rem;
 }
 .o-radio-button input[type="radio"]:checked + span {
-
 
 }
 .o-radio-button input[type="radio"]:focus + span {

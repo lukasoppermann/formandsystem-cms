@@ -1,4 +1,4 @@
-<li class="c-navigation__item{{ '/'.$item['collection'].'/'.$item['slug'] === $active_item ? ' is-active' : '' }}">
+<li class="c-navigation__item{{ ($item->parentCollection()->get('type') === 'navigation' ? '/' : '/collections/').$item->parentCollection()->get('slug').'/'.$item['slug'] === $active_item ? ' is-active' : '' }}">
     <!-- Delete button -->
     @if(isset($item['id']))
         <form class="" action="/pages/{{$item['id']}}" method="post">
@@ -12,7 +12,7 @@
         </form>
     @endif
     <!-- END Delete button -->
-    <a class="c-navigation__link{{ isset($item['icon']) ? ' c-navigation__link--with-icon' : '' }}" href="{{url($item['collection'].'/'.$item['slug'])}}">
+    <a class="c-navigation__link{{ isset($item['icon']) ? ' c-navigation__link--with-icon' : '' }}" href="{{url(($item->parentCollection()->get('type') === 'navigation' ? '/' : '/collections/').$item->parentCollection()->get('slug').'/'.$item['slug'])}}">
         @if(isset($item['icon']))
             <svg viewBox="0 0 512 512" class="o-icon o-icon--white">
               <use xlink:href="#svg-icon--{{$item['icon']}}"></use>

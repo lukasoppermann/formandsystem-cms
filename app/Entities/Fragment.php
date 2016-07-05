@@ -32,4 +32,19 @@ class Fragment extends AbstractApiResourceEntity
             'is_trashed'        => $attributes['attributes']['is_trashed'],
         ];
     }
+    /**
+     * delete item from database
+     *
+     * @method entityDelete
+     *
+     * @return void
+     */
+    protected function entityDelete(){
+        // TODO: deal with errors
+        $this->fragments()->each(function($item){
+            $item->delete();
+        });
+        // delete from api
+        $deleted = $this->resourceService()->delete($this->getId());
+    }
 }

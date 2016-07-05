@@ -19,7 +19,7 @@ class DialogService extends AbstractService
 
     protected function dialogEditCollection(Request $request)
     {
-        $collection = (new CollectionService)->find('id', $request->get('id'));
+        $collection = new \App\Entities\Collection($request->get('id'));
         if($collection !== NULL){
             return view('notice.dialog.edit-collection', $collection->toArray())->render();
         }

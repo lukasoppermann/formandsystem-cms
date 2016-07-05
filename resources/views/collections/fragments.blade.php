@@ -8,8 +8,10 @@
                 'collection' => $collection
             ])
         @endforeach
-        @foreach ($elements as $element)
-            {!!$element!!}
-        @endforeach
+        @if(is_array($elements))
+            @foreach ($elements as $element)
+                {!!$element!!}
+            @endforeach
+        @endif
     </div>
 @endsection

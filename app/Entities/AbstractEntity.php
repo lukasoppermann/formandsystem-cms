@@ -99,12 +99,14 @@ abstract class AbstractEntity extends LaravelCollection
         // set real entity name
         $entity_name = '\App\Entities\\'.$entity_name;
         // build cache name
+        // TODO: Change the entire way of how cache names are constructed, so they can easily be constructed form outside the class
         $cache_name = $this->getCacheName($this->getClassName().$cache_suffix);
         // check cache
         if(!Cache::has($cache_name)){
             $ids = $this->retrieveIds($entity_name, $cache_name, $cache_suffix);
             Cache::put($cache_name, $ids, 1440);
         }
+
         // get entities
         if( $ids = Cache::get($cache_name) ){
             // return items
@@ -277,11 +279,17 @@ abstract class AbstractEntity extends LaravelCollection
      */
     public function attach(AbstractEntity $entity, $cache_suffix = NULL)
     {
-        $cache_suffix !== NULL ?: $cache_suffix = $this->getClassName($entity);
         // add relationship to model or api
         $this->addRelationship($entity);
-        // get cache name
-        $cache_name = $this->getCacheName($this->getClassName().$cache_suffix);
+        // cache suffix
+        $cache_suffix !== NULL ?: $cache_suffix = $this->getClassName($entity);
+        // attach to cache
+        $this->attachCache($entity, $this->getClassName().$cache_suffix);
+    }
+
+    public function attachCache(AbstractEntity $entity, $cache_suffix = NULL)
+    {
+        $cache_name = $this->getCacheName($cache_suffix);
         // add entity to attached array
         $attached = Cache::get($cache_name, new LaravelCollection())->push($entity->get('id'));
         // cache array

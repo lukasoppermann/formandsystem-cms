@@ -107,7 +107,7 @@ class Account extends AbstractModelEntity
     public function collections($field = NULL, $key = NULL, $first = false)
     {
         // get data
-        $data = $this->getCacheOrRetrieve('Collections','Collection');
+        $data = $this->getCacheOrRetrieve('Collection','Collection');
         // return collection
         return $this->collectionData($data, $field, $key, $first);
     }
@@ -118,7 +118,7 @@ class Account extends AbstractModelEntity
      *
      * @return Illuminate\Support\Collection
      */
-    public function retrieveCollections()
+    public function retrieveCollection()
     {
         $collections = (new \App\Services\Api\CollectionService)->find('type','posts', [
             'only' => false

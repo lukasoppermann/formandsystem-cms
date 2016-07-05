@@ -4,14 +4,9 @@ namespace App\Http\Controllers\Collections;
 
 
 use App\Http\Requests;
-use Cache;
-use App\Services\Api\PageService;
-use App\Services\Api\FragmentService;
-use App\Services\Api\MetadetailService;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Api\CollectionService;
+
 
 class Collections extends Controller
 {
@@ -56,29 +51,26 @@ class Collections extends Controller
             }
             $content_type = 'pages';
             $items = $collection->pages()->map(function($item) use ($collection){
-                return $item->put('link', '/collections/'.$collection->slug.'/'.$item->slug);
+                return $item->put('link', '/collections/'.$collection->get('slug').'/'.$item->get('slug'));
             });
         }
         // get fragments
         if(!$collection->fragments()->isEmpty()){
             $content_type = 'fragments';
             $items = $collection->fragments()->map(function($item) use ($collection){
-                return $item->put('link', '/collections/'.$collection->slug.'/'.$item->id);
+                return $item->put('link', '/collections/'.$collection->get('slug').'/'.$item->get('id'));
             });
         }
         // -------------------------
         // if pages collection
         if(isset($content_type) && $content_type === 'pages'){
             // get item
-            $item = $collection->pages->filter(function($item) use ($page){
-                return $item->slug === $page;
+            $item = $collection->pages()->filter(function($item) use ($page){
+                return $item->get('slug') === $page;
             })->first();
             // show item if exists
             if($item !== NULL){
                 return view('pages.page', [
-                    // 'dialog' => view('collections.settings', [
-                    //         'collection' => $collection,
-                    //     ])->render(),
                     'item' => $item,
                     'collection' => $collection,
                 ]);
@@ -88,27 +80,31 @@ class Collections extends Controller
         // if fragments collection
         if(isset($content_type) && $content_type === 'fragments'){
             // show item if exists
-            if(!$collection->fragments->isEmpty()){
+            if(!$collection->fragments()->isEmpty()){
+
+                $fragment_blueprint = config('app.account')->details()->where('type', 'fragment')->where('name',$collection->fragments()->first()->get('type'))->first();
+
+                if(!$fragment_blueprint->isEmpty()){
+                    $elements[] = view('fragments.add-custom-fragment', [
+                        'collection' => $collection,
+                        'type'       => $fragment_blueprint->get('name'),
+                    ])->render();
+                }
+
                 return view('collections.fragments', [
-                    'items'         => $collection->fragments,
+                    'items'         => $collection->fragments(),
                     'collection'    => $collection,
-                    'collections'   => (new CollectionService)->find('type','posts'),
-                    'fragment'      => config('app.account')->details->where('type', 'fragment')->where('name',$collection->fragments->first()->type)->first()->data,
-                    'elements'      => [
-                        view('fragments.add-custom-fragment', [
-                            'collection' => $collection,
-                            'type'       => $collection->fragments->first()->type,
-                        ])->render()
-                    ]
+                    'collections'   => config('app.user')->account()->collections('type','posts'),
+                    'elements'      => isset($elements) ? $elements : NULL,
                 ]);
             }
         }
+
         if($page === NULL){
             return $this->firstItemOrEmpty($collection);
         }
 
-        return redirect('/collections/'.$collection->slug);
-        // return redirect('/');
+        return redirect('/collections/'.$collection->get('slug'));
     }
     /**
      * create a collection
@@ -117,9 +113,7 @@ class Collections extends Controller
      */
     public function store(Request $request)
     {
-        $slugs = (new CollectionService)->find('type','posts',[
-            'only' => false
-        ])->pluck('slug')->toArray();
+        $slugs = config('app.user')->account()->collections('type','posts')->pluck('slug')->toArray();
         // get page data
         $item = $this->getValidated($request, [
             'name'      => 'required|string',
@@ -135,46 +129,32 @@ class Collections extends Controller
             ])->withErrors($item->get('validator'))
             ->withInput();
         }
-        $response = (new CollectionService)->create([
+
+        // if validation succeeds
+        $collection = new \App\Entities\Collection([
             'name' => $item->get('name'),
             'slug' => strtolower($item->get('slug')),
             'type' => 'posts',
         ]);
-        // if invalid response
-        if(isset($response['errors'])){
-            $errors = "";
-            foreach($response['errors'] as $msg){
-                $errors .= implode(' ',$msg);
-            }
-            return back()->with(['status' => 'Update failed: '.$errors,'type' => 'error']);
-        }
-
+        // attach to account
+        config('app.user')->account()->attachCache($collection,'AccountCollection');
+        // if page collection, create new page
         if($item->get('type') === 'pages'){
-            $newPage = (new PageService)->create([
+            $collection->attach(new \App\Entities\Page([
                 'menu_label'    => 'New Page',
                 'slug'          => $item->get('slug').'-new-page',
                 'language'      => 'de',
                 'published'     => true,
-            ]);
-
-            $rel = $this->api(config('app.user_client'))->post('/collections/'.$response['data']['id'].'/relationships/pages', [
-                'type' => 'pages',
-                'id'   => $newPage['data']['id'],
-            ]);
+            ]));
         }
-
+        // if news collection, create new news
         if($item->get('type') === 'news'){
-            $new = (new FragmentService)->create([
-                'type'    => 'news',
-            ]);
-
-            $rel = $this->api(config('app.user_client'))->post('/collections/'.$response['data']['id'].'/relationships/fragments', [
-                'type' => 'fragments',
-                'id'   => $new['data']['id'],
-            ]);
+            // $collection->attach(new \App\Entities\Fragment([
+            //     'type'    => 'news',
+            // ]));
         }
-
-        return redirect('collections/'.$item->get('slug'));
+        // redirect to collection
+        return redirect('collections/'.$collection->get('slug'));
     }
     /**
      * delete a collection
@@ -183,10 +163,10 @@ class Collections extends Controller
      */
     public function delete(Request $request, $id)
     {
-        $collection = (new CollectionService)->find('id',$request->id);
+        $collection = new \App\Entities\Collection($id);
         // TODO: deal with errors
-        if($collection->pages->isEmpty() && $collection->fragments->isEmpty()){
-            $response = (new CollectionService)->delete($request->id);
+        if($collection->pages()->isEmpty() && $collection->fragments()->isEmpty()){
+            $response = $collection->delete();
             return redirect('/');
         }
         return back()->with(['status' => 'You must delete all items in a collection, before deleting the collection.','type' => 'error']);
@@ -252,7 +232,7 @@ class Collections extends Controller
         // collection with items
         foreach($items_types as $type => $slug){
             if( !$collection->{$type}()->isEmpty() ){
-                return redirect('collections/'.$collection->slug.'/'.$collection->{$type}->first()->{$slug});
+                return redirect('collections/'.$collection->get('slug').'/'.$collection->{$type}()->first()->get($slug));
             }
         }
         // if collection is empty

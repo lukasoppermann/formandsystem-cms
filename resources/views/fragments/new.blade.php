@@ -43,7 +43,9 @@
                 <?php
                     $custom = json_decode($custom, true)['data'];
                 ?>
-                @if(isset($custom['meta']) && isset($custom['meta']['available_in']) && $custom['meta']['available_in']['pages'] == 'true')
+                @if(isset($custom['meta']) && isset($custom['meta']['available_in'])
+                    && isset($custom['meta']['available_in']['pages'])
+                    && $custom['meta']['available_in']['pages'] == 'true')
                     @include('fragments.new-fragment', [
                         'classes' => 'o-grid__column o-grid__column--md-4of12',
                         'label' => $custom['meta']['label'],

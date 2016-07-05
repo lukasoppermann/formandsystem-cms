@@ -26,7 +26,6 @@ class Pages extends Controller
 
     public function show($slug)
     {
-
         $page = NULL;
         foreach(config('app.user')->account()->navigation() as $collection){
             if( $new_page = $collection->pages()->where('slug', $slug)){
@@ -82,7 +81,7 @@ class Pages extends Controller
         $newPage = (new \App\Entities\Page($page->toArray()));
         // attach to collection
         $collection->attach($newPage);
-        
+
         if($collection->get('type') === 'navigation'){
             return redirect('pages/'.$newPage->get('slug'));
         }

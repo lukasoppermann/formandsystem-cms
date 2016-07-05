@@ -12,6 +12,7 @@
         @include('forms.radio-group', [
             'name' => 'type',
             'classes' => 'o-button o-button--squared o-grid__column o-grid__column--md-6of12',
+            'selected' => 'pages',
             'values' =>
             [
                 'pages' => 'Pages',

@@ -170,7 +170,7 @@ class NavigationService
         // prepare lists
         $lists = [];
         foreach($items as $key => $list){
-            
+
             $lists[$key] = [
                 'title'       => $list->get('name'),
                 'items'       => $list->pages()->map(function($item){
@@ -205,9 +205,6 @@ class NavigationService
         if($collection->pages()->isEmpty()){
             return NULL;
         }
-        $collection->pages()->map(function($item) use($collection){
-            return $item->put('collection', 'collections/'.$collection->slug);
-        });
         // return
         return [
             [
@@ -215,7 +212,7 @@ class NavigationService
                 'template'  => 'navigation.item-page',
                 'elements' => [
                     view('navigation.add', [
-                        'action'    => '/pages/',
+                        'action'    => '/pages',
                         'method'    => 'post',
                         'label'     => 'New Page',
                         'fields'    => [

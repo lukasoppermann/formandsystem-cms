@@ -14,5 +14,5 @@
         </svg>
     </div>
 
-    <h1 class="c-navigation__title">{{$item->name}}</h1>
+    <h1 class="c-navigation__title">{{$item->get('name')}}</h1>
 </header>
