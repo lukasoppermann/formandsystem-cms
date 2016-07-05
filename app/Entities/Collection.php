@@ -38,30 +38,15 @@ class Collection extends AbstractApiResourceEntity
      *
      * @return App\Entities\Collection
      */
-    // public function pages($field = NULL, $key = NULL, $first = false)
-    // {
-    //     if(($data = $this->relatedEntities('pages')) === NULL){
-    //         $data = $this->retrievePages();
-    //     }
-    //     // return collection
-    //     return $this->collectionData($data, $field, $key, $first);
-    // }
-    // /**
-    //  * get pages for collection from API
-    //  *
-    //  * @method retrievePages
-    //  *
-    //  * @return Illuminate\Support\Collection
-    //  */
-    // public function retrievePages()
-    // {
-    //     $pages = $this->resourceService()->relationship($this->get('id'), 'pages');
-    //     // cache included
-    //     $this->cacheAsEntities($pages['included']);
-    //     // return as collection
-    //     return (new LaravelCollection($pages['data']))->map(function($item){
-    //         return new LaravelCollection($item);
-    //     });
-    // }
+    public function pages($field = NULL, $key = NULL, $first = false)
+    {
+        $entities = $this->relatedEntities('pages', $field, $key, $first);
+        // sort by position
+        if($first === false){
+            $entities = $entities->sortBy('position');
+        }
+        // return collection
+        return $entities;
+    }
 
 }

@@ -26,6 +26,7 @@ class Page extends AbstractApiResourceEntity
         return [
             'id'            => $attributes['id'],
             'resource_type' => $attributes['type'],
+            'position'      => $attributes['attributes']['position'],
             'label'         => $attributes['attributes']['menu_label'],
             'slug'          => $attributes['attributes']['slug'],
             'published'     => (bool)$attributes['attributes']['published'],

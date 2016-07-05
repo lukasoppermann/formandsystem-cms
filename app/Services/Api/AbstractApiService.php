@@ -257,6 +257,7 @@ abstract class AbstractApiService extends AbstractService
      */
     public function attach($id, Array $related)
     {
+        // dd('Attach in API fails due to now not working with Many to Many!!!!!!!!!');
         $attach = $this->api(config('app.user_client'))->post('/'.$this->endpoint.'/'.$id.'/relationships/'.$related['type'], [
             [
                 'type'  => $related['type'],
