@@ -1,7 +1,8 @@
-HTML5 Sortable library
+Sortable Elements
 ============================
 
-[![Build Status](https://img.shields.io/travis/voidberg/html5sortable/master.svg?style=flat-square)](https://travis-ci.org/voidberg/html5sortable) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md) [![Coverage Status](https://img.shields.io/coveralls/voidberg/html5sortable/master.svg?style=flat-square)](https://coveralls.io/github/voidberg/html5sortable) [![Git Release](https://img.shields.io/github/release/voidberg/html5sortable.svg?style=flat-square)](https://github.com/voidberg/html5sortable/releases) ![Bower](https://img.shields.io/bower/v/html.sortable.svg?style=flat-square) [![NPM](https://img.shields.io/npm/v/html5sortable.svg?style=flat-square)](https://www.npmjs.com/package/html5sortable)
+Based on [html5sortable](https://github.com/voidberg/html5sortable) this repo is supposed to become a web component for sortable elements.
+Still a long way to go though.
 
 > **Lightweight standalone library for creating sortable lists and grids using native HTML5 drag and drop API.**
 
@@ -11,7 +12,6 @@ HTML5 Sortable library
 * Supports both list and grid style layouts.
 * Supported Browsers: Current versions of all major browsers (Chrome, Firefox, Safari, Opera), IE10+
 * Supports exports as AMD, CommonJS or global
-* Comes with an AngularJS directive [help wanted](#angularjs-usage)
 
 **Demo:** Check out the **[examples](http://lukasoppermann.github.io/html5sortable/examples/index.html)**
 
@@ -250,7 +250,7 @@ See the [examples](#examples) for more information.
 
 ## Authors & Contributors
 
-This version is mantained by [Alexandru Badiu](https://github.com/voidberg) & [Lukas Oppermann](https://github.com/lukasoppermann).
+This version is maintained by [Lukas Oppermann](https://github.com/lukasoppermann).
 
 Thanks to [all contributors](../../contributors) who contributed fixes and improvements.
 
@@ -363,19 +363,3 @@ Never use more than 3 parameters, this will keep you from falling into bad habit
 ### Reduce nesting depth (max. 3)
 Do not nest to deeply. This will make the code confusing, hard to read and again, make merging hard.
 If your code gets to complex, try to refactor parts out into individual functions.
-
-# Roadmap
-If you want to help us by working on any of the points below, please let me know and I add you and your branch to the list.
-
-- [ ] clean up & add comments (wip)
-- [ ] mocha tests (wip)
-- [ ] Refactor & break code into functions (wip)
-- [ ] Nesting via drag & drop
-- [ ] refactor to have gulp create
-  - [ ] jQuery version
-  - [ ] plain js version
-- [x] ~~use css framework for examples~~
-- [x] ~~make this compatible with~~
-  - [x] ~~plain js~~
-  - [x] ~~amd~~
-  - [x] ~~commonjs~~

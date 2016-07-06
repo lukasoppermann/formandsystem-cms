@@ -1,4 +1,4 @@
-<ul class="c-navigation__list {{$list['classes'] or ''}}">
+<ul class="js-sortable c-navigation__list {{$list['classes'] or ''}}">
     @foreach($list as $type => $items)
         @if($type === 'title')
             @include('navigation.navigation-title', ['title' => $items])

@@ -58,3 +58,15 @@ var formsubmit = function(){
         });
     });
 }
+
+var sortables = sortable('.js-sortable', {
+    items: '.js-sortable-item',
+    forcePlaceholderSize: true,
+    placeholder: '<li class="c-navigation__item-placeholder"></li>'
+});
+Array.prototype.forEach.call(sortables, function(el){
+    el.addEventListener('sortupdate', function(e) {
+        console.log('updated');
+        console.log(e);
+    });
+});

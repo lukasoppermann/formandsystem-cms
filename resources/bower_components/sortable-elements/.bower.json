@@ -1,19 +1,17 @@
 {
-  "name": "html.sortable",
-  "version": "0.3.1",
+  "name": "sortable-elements",
   "repository": {
     "type": "git",
-    "url": "https://github.com/voidberg/html5sortable.git"
+    "url": "https://github.com/lukasoppermann/sortable-elements.git"
   },
-  "homepage": "https://github.com/voidberg/html5sortable",
+  "homepage": "https://github.com/lukasoppermann/sortable-elements",
   "authors": [
-    "Alexandru Badiu <andu@ctrlz.ro>",
     "Lukas Oppermann <lukas@vea.re>"
   ],
   "moduleType": [
     "globals"
   ],
-  "description": "Lightweight jQuery plugin to create sortable lists and grids using native HTML5 drag and drop API.",
+  "description": "Sortable in dev",
   "main": "dist/html.sortable.js",
   "keywords": [
     "sortable",
@@ -23,7 +21,6 @@
   "license": "MIT",
   "ignore": [
     "/.*",
-    "AUTHORS",
     "src/",
     "package.json",
     "gulpfile.js",
@@ -37,5 +34,15 @@
     "basscss": "~6.0.2",
     "jquery": "~2.1.3",
     "requirejs": "~2.1.17"
-  }
+  },
+  "_release": "024cc70841",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "024cc70841c20c1c85bf09b150104a6925348e64"
+  },
+  "_source": "https://github.com/lukasoppermann/sortable-elements.git",
+  "_target": "*",
+  "_originalSource": "sortable-elements",
+  "_direct": true
 }

@@ -1,4 +1,4 @@
-<li class="c-navigation__item{{ ($item->parentCollection()->get('type') === 'navigation' ? '/' : '/collections/').$item->parentCollection()->get('slug').'/'.$item['slug'] === $active_item ? ' is-active' : '' }}">
+<li class="js-sortable-item c-navigation__item{{ ($item->parentCollection()->get('type') === 'navigation' ? '/' : '/collections/').$item->parentCollection()->get('slug').'/'.$item['slug'] === $active_item ? ' is-active' : '' }}">
     <!-- Delete button -->
     @if(isset($item['id']))
         <form class="" action="/pages/{{$item['id']}}" method="post">

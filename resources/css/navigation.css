@@ -126,7 +126,6 @@
     font-size: var(--type-size-default);
     height: var(--item-height);
     cursor: pointer;
-    /*background-color: var(--dark-gray);*/
     transition: background-color .3s ease;
 }
 .c-navigation__item:hover{
@@ -150,6 +149,9 @@
 .c-navigation__item.is-active::after{
     transition: width .3s ease;
     width: 100%;
+}
+.c-navigation__item-placeholder{
+    background-color: color(var(--black) alpha(25%));
 }
 
 
