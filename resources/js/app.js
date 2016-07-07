@@ -74,7 +74,8 @@ navSortables.forEach(function(el){
                 fetch(url, {
                     credentials: 'same-origin',
                     headers: {
-                       'Content-Type': 'application/x-www-form-urlencoded'
+                       'Content-Type': 'application/x-www-form-urlencoded',
+                       'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
                     },
                     method: "PATCH",
                     body: JSON.stringify({
