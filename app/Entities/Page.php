@@ -27,7 +27,7 @@ class Page extends AbstractApiResourceEntity
             'id'            => $attributes['id'],
             'resource_type' => $attributes['type'],
             'position'      => $attributes['attributes']['position'],
-            'label'         => $attributes['attributes']['menu_label'],
+            'menu_label'    => $attributes['attributes']['menu_label'],
             'slug'          => $attributes['attributes']['slug'],
             'published'     => (bool)$attributes['attributes']['published'],
             'language'      => $attributes['attributes']['language'],

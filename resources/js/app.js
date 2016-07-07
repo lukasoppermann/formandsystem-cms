@@ -59,14 +59,31 @@ var formsubmit = function(){
     });
 }
 
-var sortables = sortable('.js-sortable', {
+var navSortables = sortable('.js-sortable', {
     items: '.js-sortable-item',
     forcePlaceholderSize: true,
     placeholder: '<li class="c-navigation__item-placeholder"></li>'
 });
-Array.prototype.forEach.call(sortables, function(el){
+
+navSortables.forEach(function(el){
     el.addEventListener('sortupdate', function(e) {
-        console.log('updated');
-        console.log(e);
+        e.detail.startParent.items.forEach(function(draggedItem){
+            if(draggedItem.hasChanged === true){
+                var url = "http://formandsystem-cms.dev/pages/"+draggedItem.item.getAttribute('data-id');
+
+                fetch(url, {
+                    credentials: 'same-origin',
+                    headers: {
+                       'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        'collection': e.detail.startParent.item.getAttribute('data-collection-id'),
+                        'position':draggedItem.position
+                    })
+                }).then(function(response) {
+                });
+            }
+        });
     });
 });

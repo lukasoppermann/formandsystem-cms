@@ -1,6 +1,7 @@
 {
   "css/app.css": "css/app-8e9b00afe2.css",
-  "js/app.js": "js/app-4979271b74.js",
+  "js/app.js": "js/app-3de672da5b.js",
   "js/external.js": "js/external-46d187ddcc.js",
-  "svgs/svg-sprite.svg": "svgs/svg-sprite-a60d7b1e17.svg"
+  "svgs/svg-sprite.svg": "svgs/svg-sprite-a60d7b1e17.svg",
+  "webcomponents/webcomponents.html": "webcomponents/webcomponents-28490006b8.html"
 }

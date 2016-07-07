@@ -172,8 +172,9 @@ class NavigationService
         foreach($items as $key => $list){
 
             $lists[$key] = [
-                'title'       => $list->get('name'),
-                'items'       => $list->pages()->map(function($item){
+                'title'             => $list->get('name'),
+                'collection_id'     => $list->get('id'),
+                'items'             => $list->pages()->map(function($item){
                     return $item->put('collection', 'pages');
                 }),
                 'template'    => 'navigation.item-page',

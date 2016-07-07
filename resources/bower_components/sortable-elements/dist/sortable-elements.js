@@ -6,14 +6,12 @@
   } else {
     root.sortable = factory();
   }
-}(this, function() {
+}(this, function() { // jshint ignore:line
 /*
- * HTML5 Sortable library
- * https://github.com/voidberg/html5sortable
+ * Sortable Elements
+ * https://github.com/lukasoppermann/sortable-elements
  *
- * Original code copyright 2012 Ali Farhadi.
- * This version is mantained by Alexandru Badiu <andu@ctrlz.ro> & Lukas Oppermann <lukas@vea.re>
- * jQuery-independent implementation by Nazar Mokrynskyi <nazar@mokrynskyi.com>
+ * This version is mantained by Lukas Oppermann <lukas@vea.re>
  *
  * Released under the MIT license.
  */
@@ -209,15 +207,6 @@ var _addGhostPos = function(event, ghost) {
   return ghost;
 };
 /**
- * _makeGhost decides which way to make a ghost and passes it to attachGhost
- * @param {Element} draggedItem - the item that the user drags
- */
-var _makeGhost = function(draggedItem) {
-  return {
-    draggedItem: draggedItem
-  };
-};
-/**
  * _getGhost constructs ghost and attaches it to dataTransfer
  * @param {Event} event - the original drag event object
  * @param {Element} draggedItem - the item that the user drags
@@ -225,7 +214,9 @@ var _makeGhost = function(draggedItem) {
 // TODO: could draggedItem be replaced by event.target in all instances
 var _getGhost = function(event, draggedItem) {
   // add ghost item & draggedItem to ghost object
-  var ghost = _makeGhost(draggedItem);
+  var ghost = {
+    draggedItem: draggedItem
+  };
   // attach ghost position
   ghost = _addGhostPos(event, ghost);
   // attach ghost to dataTransfer
@@ -527,6 +518,7 @@ var sortable = function(sortableElements, options) {
       _on(items, 'mouseenter', function() {
         this.classList.add(hoverClass);
       });
+
       _on(items, 'mouseleave', function() {
         this.classList.remove(hoverClass);
       });
@@ -582,20 +574,53 @@ var sortable = function(sortableElements, options) {
         startparent: startParent
       }));
       if (index !== _index(dragging) || startParent !== newParent) {
+        var startParentItems = _filter(startParent.children, _data(startParent, 'items'));
         _dispatchEventOnConnected(sortableElement, _makeEvent('sortupdate', {
-          item: dragging,
-          index: _filter(newParent.children, _data(newParent, 'items'))
-            .indexOf(dragging),
-          oldindex: items.indexOf(dragging),
-          elementIndex: _index(dragging),
-          oldElementIndex: index,
-          startparent: startParent,
-          endparent: newParent
+          draggedItem: {
+              item: dragging,
+              index: _filter(newParent.children, _data(newParent, 'items'))
+                .indexOf(dragging),
+              oldIndex: items.indexOf(dragging),
+              get position(){
+                  return this.index + 1;
+              },
+              get oldPosition(){
+                  return this.oldIndex + 1;
+              },
+          },
+          startParent: {
+              item: startParent,
+              items: Array.prototype.map.call(startParentItems, function(item){
+                  return {
+                      item: item,
+                      oldIndex: items.indexOf(item),
+                      index: Array.prototype.indexOf.call(startParentItems,item),
+                      get hasChanged(){
+                          return this.oldIndex !== this.index;
+                      },
+                      get position(){
+                          return this.index + 1;
+                      },
+                  };
+              })
+          },
+          endParent: {
+              item: newParent,
+              items: Array.prototype.map.call(newParent.children, function(item){
+                  return {
+                      item: item,
+                      index: Array.prototype.indexOf.call(newParent.children,item),
+                      get position(){
+                          return this.index + 1;
+                      },
+                  };
+              })
+          }
         }));
       }
       dragging = null;
       draggingHeight = null;
-    });
+      });
     // Handle drop event on sortable & placeholder
     // TODO: REMOVE placeholder?????
     _on([sortableElement, placeholder], 'drop', function(e) {
@@ -682,7 +707,6 @@ sortable.enable = function(sortableElement) {
 sortable.disable = function(sortableElement) {
   _disableSortable(sortableElement);
 };
-
 
 return sortable;
 }));

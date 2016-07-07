@@ -1,16 +1,13 @@
 <!doctype html>
 <head>
 	<meta charset="utf-8">
-	<title>HTML5 Sortable library</title>
+	<title>Sortable Elements</title>
   <link rel="stylesheet" href="../bower_components/basscss/css/basscss.css">
 </head>
 <body>
 	<div class="clearfix mb2 white bg-navy">
 		<div class="left">
-		  <a href="index.html" class="button py2 m0 button-transparent">HTML5 Sortable</a>
-		  <a href="angular-single.html" class="button button-narrow py2 m0 button-transparent">Angular single</a>
-			<a href="angular-connected.html" class="button button-narrow py2 m0 button-transparent">Angular connected</a>
-			<a href="angular-ngRepeat-connected.html" class="button button-narrow py2 m0 button-transparent">Angular ngRepeat</a>
+		  <a href="index.html" class="button py2 m0 button-transparent">Sortable Elements</a>
 		</div>
 		<div class="right">
 			<a href="#!" class="button py2 m0 button-transparent">Fork on GitHub</a>
@@ -21,10 +18,10 @@
 		  <div class="p3 navy bg-yellow">
 		    <div class="flex flex-column">
 		      <h1 class="h1 m0 flex-auto">
-		        HTML5 Sortable
+		        Sortable Elements
 		      </h1>
 			    <h2 class="h3 m0">
-					Lightweight standalone library for creating sortable lists and grids using native HTML5 drag and drop API.
+					Lightweight standalone library for sorting/rearranging elements in lists and grids using native HTML5 drag and drop API.
 			    </h2>
 		    </div>
 		    <div class="sm-flex flex-center mxn2">
@@ -33,8 +30,8 @@
 							<li>Less than 1KB (minified and gzipped).</li>
 							<li>Built using native HTML5 drag and drop API.</li>
 							<li>Supports both list and grid style layouts.</li>
-							<li>Works in IE 5.5+, Firefox 3.5+, Chrome 3+, Safari 3+ and, Opera 12+.</li>
-							<li>Comes with an AngularJS directive.</li>
+							<li>Supports current versions of all major browsers: Chrome, Firefox, Safari, Opera, IE11+.</li>
+							<li>Supports exports as AMD, CommonJS or global.</li>
 						</ul>
 		      </div>
 		    </div>
@@ -227,7 +224,7 @@
 		</section>
 	</div>
   <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="../dist/html.sortable.js"></script>
+	<script src="../dist/sortable-elements.js"></script>
 	<script>
 		$(function() {
 			sortable('.js-sortable', {
@@ -265,6 +262,7 @@
 				placeholderClass: 'border border-white bg-orange mb1'
 			});
 			$('.js-sortable-connected').on('sortupdate', function(e){
+				console.log(e.originalEvent.detail);
 				console.log('Parent old: ');
 				console.log(e.originalEvent.detail.startparent);
 				console.log('Parent new: ');

@@ -36,7 +36,6 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
             $collection = new LaravelCollection($this->resourceService()->first('id',$id));
 
             if( !$collection->isEmpty() ){
-                \Log::debug($collection);
                 $entity = new $this($collection);
             }else{
                 throw new \App\Exceptions\EmptyException();
@@ -147,8 +146,11 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         // TODO: deal with errors
         // update model
         $updated = $this->resourceService()->update($this->getId(), $data);
-        // return updated model
-        return new LaravelCollection($updated['data']);
+        if(isset($updated['data'])){
+            // return updated model
+            return new LaravelCollection($updated['data']);
+        }
+        \Log::error($updated);
     }
     /**
      * create a new entity in DB

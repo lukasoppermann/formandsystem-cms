@@ -12,8 +12,6 @@
 */
 Debugbar::startMeasure('routes','Routing');
 
-\Log::debug('Make routes cachable');
-
 Route::get('/test', 'Test@index');
 // login
 Route::get('/login','Auth\AuthController@showLoginForm');
@@ -50,7 +48,7 @@ Route::group(['middleware' => ['auth']], function(){
 
         Route::post('/pages', 'Pages@store');
 
-        Route::patch('/pages', 'Pages@update');
+        Route::patch('/pages/{id}', 'Pages@update');
     });
     // Fragments
     Route::group(['namespace' => 'Fragments'], function() {

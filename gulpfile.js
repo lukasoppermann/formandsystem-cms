@@ -13,6 +13,7 @@ var svgstore = require('gulp-svgstore');
 var cheerio = require('gulp-cheerio');
 var notify = require('gulp-notify');
 var sourcemaps = require('gulp-sourcemaps');
+var vulcanize = require('gulp-vulcanize');
 // actions
 gulp.task('clean-build', function(done){
     del(['public/build']).then(function(){
@@ -24,7 +25,8 @@ gulp.task('delete-build-files', ['rev'], function(done){
         'public/build/css/app.css',
         'public/build/js/app.js',
         'public/build/js/external.js',
-        'public/build/svgs/svg-sprite.svg'
+        'public/build/svgs/svg-sprite.svg',
+        'public/build/webcomponents/webcomponents.html'
     ]).then(function(){
         done();
     });
@@ -48,7 +50,7 @@ gulp.task('build-js', ['clean-build'], function(){
         'resources/bower_components/codemirror/mode/markdown/markdown.js',
         'resources/bower_components/codemirror/mode/gfm/gfm.js',
         // 'resources/bower_components/mark/mark.js'
-        'resources/bower_components/sortable-elements/dist/html.sortable.js',
+        'resources/bower_components/sortable-elements/dist/sortable-elements.js',
         'resources/bower_components/es6-promise/es6-promise.js',
         'resources/bower_components/fetch/fetch.js',
         'resources/js/input.js',
@@ -85,12 +87,13 @@ gulp.task('build-external-js', ['clean-build'], function(){
     .pipe(gulp.dest('public/build/js'));
 });
 
-gulp.task('rev', ['build-external-js','build-js', 'css','svgsprite'], function(){
+gulp.task('rev', ['build-external-js','build-js', 'css','svgsprite','vulc'], function(){
     return gulp.src([
         'public/build/css/app.css',
         'public/build/js/app.js',
         'public/build/js/external.js',
-        'public/build/svgs/svg-sprite.svg'
+        'public/build/svgs/svg-sprite.svg',
+        'public/build/webcomponents/webcomponents.html'
     ], {base: 'public/build'})
         .pipe(rev())
         .pipe(gulp.dest('public/build'))
@@ -204,6 +207,20 @@ require('gulp').task("checkDev", function(callback) {
     }
     console.log("Error count: " + count);
   });
+});
+//----------------------------------------------
+//
+// Gulp vulcanize
+//
+gulp.task('vulc', function () {
+	return gulp.src('resources/webcomponents/webcomponents.html')
+		.pipe(vulcanize({
+			abspath: '',
+			excludes: [],
+            inlineScripts: true,
+			stripExcludes: false
+		}))
+		.pipe(gulp.dest('public/build/webcomponents'));
 });
 //----------------------------------------------
 //

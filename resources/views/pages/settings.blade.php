@@ -11,7 +11,7 @@
     <div class="o-content">
 
         <h4 class="o-headline o-headline--second">Page Settings</h4>
-        <form class="o-form" action="/pages" method="POST" autocomplete="off">
+        <form class="o-form" action="/pages/{{$item->get('id')}}" method="POST" autocomplete="off">
             {{ csrf_field() }}
             {{ method_field('PATCH') }}
             @include('forms.hidden',['name' => 'id', 'value' => $item->get('id')])
@@ -19,7 +19,7 @@
 
             <div class="o-grid">
                 <div class="o-grid__column o-grid__column--md-6of12">
-                    @include('forms.input',['name' =>'menu_label', 'label' => 'Navigation Title', 'value' => $item->get('label')])
+                    @include('forms.input',['name' =>'menu_label', 'label' => 'Navigation Title', 'value' => $item->get('menu_label')])
                     @include('forms.input',['name' =>'slug', 'label' => 'Path/Slug', 'value' => $item->get('slug')])
                 </div>
                 <div class="o-grid__column o-grid__column--md-6of12">

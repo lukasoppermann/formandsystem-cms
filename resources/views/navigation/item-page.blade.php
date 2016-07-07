@@ -1,4 +1,4 @@
-<li class="js-sortable-item c-navigation__item{{ ($item->parentCollection()->get('type') === 'navigation' ? '/' : '/collections/').$item->parentCollection()->get('slug').'/'.$item['slug'] === $active_item ? ' is-active' : '' }}">
+<li class="js-sortable-item c-navigation__item{{ ($item->parentCollection()->get('type') === 'navigation' ? '/' : '/collections/').$item->parentCollection()->get('slug').'/'.$item['slug'] === $active_item ? ' is-active' : '' }}" data-id="{{$item['id']}}">
     <!-- Delete button -->
     @if(isset($item['id']))
         <form class="" action="/pages/{{$item['id']}}" method="post">
@@ -18,6 +18,6 @@
               <use xlink:href="#svg-icon--{{$item['icon']}}"></use>
             </svg>
         @endif
-        {{$item['label']}}
+        {{$item['menu_label']}}
     </a>
 </li>

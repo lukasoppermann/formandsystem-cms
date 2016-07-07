@@ -13,7 +13,7 @@
     "globals"
   ],
   "description": "Sortable in dev",
-  "main": "dist/html.sortable.js",
+  "main": "dist/sortable-elements.js",
   "keywords": [
     "sortable",
     "html5",

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Carbon\Carbon;
 use Validator;
+use Input;
 use App\Http\Controllers\Controller;
 use App\Services\Api\CollectionService;
 use App\Services\Api\PageService;
@@ -107,16 +108,25 @@ class Pages extends Controller
      *
      * @method update
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        if($request->json('position') !== NULL){
+            // get page
+            $page = config('app.user')->account()->navigation('id',$request->json('collection'),true)->pages('id',$id,true);
+            // // update position
+            $page->update([
+                'position' => $request->json('position')
+            ]);
+            return;
+        }
         // get validated data
         $data = $this->getValidated($request, [
-            'id'                => 'required|string',
             'menu_label'        => 'required|string',
             'slug'              => 'required|alpha_dash',
             'title'             => 'required|string',
             'description'       => 'required|string',
             'collection'        => 'required|string',
+            'position'          => 'integer',
         ]);
         // if validation fails
         if($data->get('isInvalid')){
@@ -127,7 +137,7 @@ class Pages extends Controller
         }
         // store detail
         try{
-            $page = config('app.user')->account()->navigation('id',$data['collection'],true)->pages('id',$data['id'],true);
+            $page = config('app.user')->account()->navigation('id',$data['collection'],true)->pages('id',$id,true);
             $page->update((new LaravelCollection($data))->except(['collection','id'])->toArray());
 
             // redirect on success
