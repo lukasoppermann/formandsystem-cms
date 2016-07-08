@@ -5,7 +5,7 @@
     <div class="o-content o-content--wide o-user-grid js-main-section-sortable" data-patch-url="{{url('/fragments').'/'}}" data-page-id="{{$item->get('id')}}" data-parent-type="pages">
         @if( $item->fragments() !== null)
 
-            @foreach($item->fragments() as $fragment)
+            @foreach($item->fragments()->sortBy('position') as $fragment)
                 @include('fragments.fragment', [
                     'item' => $fragment,
                     'page' => $item,
