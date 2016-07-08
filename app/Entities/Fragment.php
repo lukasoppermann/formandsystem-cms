@@ -25,6 +25,7 @@ class Fragment extends AbstractApiResourceEntity
         return [
             'id'                => $attributes['id'],
             'resource_type'     => $attributes['type'],
+            'position'          => $attributes['attributes']['position'],
             'type'              => $attributes['attributes']['type'],
             'name'              => $attributes['attributes']['name'],
             'data'              => $this->jsonDecode($attributes['attributes']['data']),

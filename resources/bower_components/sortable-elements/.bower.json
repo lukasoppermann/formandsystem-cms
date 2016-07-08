@@ -22,6 +22,7 @@
   "ignore": [
     "/.*",
     "src/",
+    "demo/index.src.html",
     "package.json",
     "gulpfile.js",
     "node_modules",
@@ -35,11 +36,11 @@
     "jquery": "~2.1.3",
     "requirejs": "~2.1.17"
   },
-  "_release": "3874477ac3",
+  "_release": "40b464e76a",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "3874477ac3ed67e15c9178788648d54ceea739a4"
+    "commit": "40b464e76a6c2631b4027c47add0703c2fdba439"
   },
   "_source": "https://github.com/lukasoppermann/sortable-elements.git",
   "_target": "*",

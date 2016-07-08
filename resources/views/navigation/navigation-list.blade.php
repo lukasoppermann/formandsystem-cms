@@ -1,4 +1,4 @@
-<ul class="js-sortable c-navigation__list {{$list['classes'] or ''}}" data-collection-id="{{$list['collection_id'] or ''}}">
+<ul class="{!! isset($list['patch_url']) ? 'js-sortable' : '' !!} c-navigation__list {{$list['classes'] or ''}}" data-collection-id="{{$list['collection_id'] or ''}}" {!! isset($list['patch_url']) ? 'data-patch-url="'.trim(url($list['patch_url']),'/').'/'.'"' : ''!!}>
     @foreach($list as $type => $items)
         @if($type === 'title')
             @include('navigation.navigation-title', ['title' => $items])

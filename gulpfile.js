@@ -55,6 +55,8 @@ gulp.task('build-js', ['clean-build'], function(){
         'resources/bower_components/fetch/fetch.js',
         'resources/js/input.js',
         'resources/js/dialog-colllection.js',
+        'resources/js/sortable-fragments.js',
+        'resources/js/sortable-navigation.js',
         'resources/js/app.js'
     );
     // push rest of js files

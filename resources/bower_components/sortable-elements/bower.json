@@ -23,6 +23,7 @@
   "ignore": [
     "/.*",
     "src/",
+    "demo/index.src.html",
     "package.json",
     "gulpfile.js",
     "node_modules",

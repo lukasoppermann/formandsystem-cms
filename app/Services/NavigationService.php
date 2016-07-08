@@ -174,6 +174,7 @@ class NavigationService
             $lists[$key] = [
                 'title'             => $list->get('name'),
                 'collection_id'     => $list->get('id'),
+                'patch_url'         => '/pages',
                 'items'             => $list->pages()->map(function($item){
                     return $item->put('collection', 'pages');
                 }),

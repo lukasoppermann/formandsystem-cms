@@ -21,6 +21,7 @@
  */
 var dragging;
 var draggingHeight;
+var draggingWidth;
 var placeholders = [];
 var sortables = [];
 /**
@@ -50,7 +51,7 @@ var _removeData = function(element) {
 };
 /**
  * Cross-browser shortcut for actual `Element.matches` method,
- * which has vendor prefix in older browsers
+ * which has vendor prefix in IE & Edge
  */
 var matches;
 switch (true) {
@@ -60,6 +61,7 @@ switch (true) {
   case 'msMatchesSelector' in window.Element.prototype:
     matches = 'msMatchesSelector';
     break;
+  // TODO: remove webkit if ever ms can be removed
   case 'webkitMatchesSelector' in window.Element.prototype:
     matches = 'webkitMatchesSelector';
     break;
@@ -547,6 +549,7 @@ var sortable = function(sortableElements, options) {
       // grab values
       index = _index(dragging);
       draggingHeight = parseInt(window.getComputedStyle(dragging).height);
+      draggingWidth = parseInt(window.getComputedStyle(dragging).width);
       startParent = this.parentElement;
       // dispatch sortstart event on each element in group
       _dispatchEventOnConnected(sortableElement, _makeEvent('sortstart', {
@@ -569,10 +572,12 @@ var sortable = function(sortableElements, options) {
 
       placeholders.forEach(_detach);
       newParent = this.parentElement;
+
       _dispatchEventOnConnected(sortableElement, _makeEvent('sortstop', {
         item: dragging,
         startparent: startParent
       }));
+
       if (index !== _index(dragging) || startParent !== newParent) {
         var startParentItems = _filter(startParent.children, _data(startParent, 'items'));
         _dispatchEventOnConnected(sortableElement, _makeEvent('sortupdate', {
@@ -617,9 +622,13 @@ var sortable = function(sortableElements, options) {
               })
           }
         }));
+        // update items check after the primary check for hasChanged are correct
+        // TODO: this needs to be changed to something better, e.g. items tracking their own old and new indicies
+        items = _filter(sortableElement.children, _data(sortableElement, 'items'));
       }
       dragging = null;
       draggingHeight = null;
+      draggingWidth = null;
       });
     // Handle drop event on sortable & placeholder
     // TODO: REMOVE placeholder?????
@@ -650,7 +659,8 @@ var sortable = function(sortableElements, options) {
         var placeholderIndex = _index(placeholder);
         var thisIndex = _index(this);
         if (options.forcePlaceholderSize) {
-          placeholder.style.height = draggingHeight + 'px';
+            placeholder.style.height = draggingHeight + 'px';
+            placeholder.style.width = draggingWidth + 'px';
         }
 
         // Check if `this` is bigger than the draggable. If it is, we have to define a dead zone to prevent flickering

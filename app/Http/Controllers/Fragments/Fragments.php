@@ -76,17 +76,24 @@ class Fragments extends Controller
      */
     public function update(Request $request, $id)
     {
+        // get fragment
         $fragment = new \App\Entities\Fragment($id);
+        // update position ?
+        if($request->json('position') !== NULL){
+            return $fragment->update([
+                'position'  => $request->json('position'),
+            ]);
+        }
         // update the details for the current fragment
         $this->updateFragmentDetails($request, $fragment);
         // update the fragment data
         $data = $this->getValidated($request, [
-            'data'       => 'string',
+            'data'       => 'string'
         ]);
         // update data
         if( $data->get('data') !== NULL ){
             $fragment->update([
-                'data' => $data->get('data'),
+                'data'      => $data->get('data'),
             ]);
         }
         // redirect on success

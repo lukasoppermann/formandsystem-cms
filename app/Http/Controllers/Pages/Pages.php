@@ -78,6 +78,8 @@ class Pages extends Controller
             $collection = $collection->get('collection');
             $collection = new \App\Entities\Collection($collection);
         }
+        // add position to page
+        $page['position'] = $collection->pages()->count()+1;
         // create new page
         $newPage = (new \App\Entities\Page($page->toArray()));
         // attach to collection
