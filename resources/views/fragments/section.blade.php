@@ -1,14 +1,14 @@
 <!-- include sub-fragments -->
-<div class="o-user-grid">
+<div class="o-user-grid js-sortable-fragments" data-patch-url="{{url('/fragments').'/'}}">
     @if($sortable_class !== NULL)
-        <div class="js-sortable-handle c-sortable-fragment__handle"></div>
+        <div class="{{$sortable_class}}-handle c-sortable-fragment__handle"></div>
     @endif
 
     @if($item->fragments() !== NULL)
-        @foreach($item->fragments() as $subfragment)
+        @foreach($item->fragments()->sortBy('position') as $subfragment)
             @include('fragments.fragment', [
                 'item' => $subfragment,
-                'sortable_class' => NULL
+                'sortable_class' => 'js-sortable-fragment-item',
             ])
         @endforeach
     @endif

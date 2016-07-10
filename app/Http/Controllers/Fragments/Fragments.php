@@ -24,6 +24,11 @@ class Fragments extends Controller
 
     public function store(Request $request)
     {
+        // get parent entity
+        $parentEntity = '\App\Entities\\'.ucfirst($request->get('parentType'));
+        $parentEntity = new $parentEntity($request->get('parentId'));
+        // get position
+        $position = $parentEntity->fragments()->count() + 1;
         // CUSTOM ELEMENT
         if( !in_array($request->get('type'), $this->default_fragments) ){
             if( !isset(config('custom.fragments')[$request->get('type')]) ){
@@ -31,20 +36,21 @@ class Fragments extends Controller
             }
             // create new element
             $fragment = new \App\Entities\Fragment([
-                'type' => $request->get('type'),
-                'data' => json_encode(config('custom.fragments')[$request->get('type')]->get('data')),
+                'type'      => $request->get('type'),
+                'data'      => json_encode(config('custom.fragments')[$request->get('type')]->get('data')),
+                'position'  => $position,
             ]);
             // create subelements
             $this->newCustomFragment($fragment, $request->get('type'));
-        // NORMAL ELEMENR
+        // NORMAL ELEMENT
         }else {
             $fragment = new \App\Entities\Fragment([
-                'type' => $request->get('type')
+                'type' => $request->get('type'),
+                'position'  => $position,
             ]);
         }
-        // attach fragment
-        $parentEntity = '\App\Entities\\'.ucfirst($request->get('parentType'));
-        (new $parentEntity($request->get('parentId')))->attach($fragment);
+        // attach fragment to parent
+        $parentEntity->attach($fragment);
         // redirect back
         return back();
     }

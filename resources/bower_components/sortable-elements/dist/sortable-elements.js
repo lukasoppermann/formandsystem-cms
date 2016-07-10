@@ -324,6 +324,16 @@ var _disableSortable = function(sortableElement) {
   _off(handles, 'mousedown');
 };
 /*
+ * Add the index of each item in the array to it as a data-property
+ * @param {Array} items
+ * @description items need to be index for reporting on update
+ */
+var _setIndex = function(items){
+    items.forEach(function(item, index){
+        _data(item, 'sortable-index', index);
+    });
+};
+/*
  * Reload the sortable
  * @param {Element} sortableElement a single sortable
  * @description events need to be removed to not be double bound
@@ -332,6 +342,8 @@ var _reloadSortable = function(sortableElement) {
   var opts = _data(sortableElement, 'opts');
   var items = _filter(sortableElement.children, opts.items);
   var handles = _getHandles(items, opts.handle);
+  // add index to items
+  _setIndex(items);
   // remove event handlers from items
   _removeItemEvents(items);
   _off(handles, 'mousedown');
@@ -580,12 +592,14 @@ var sortable = function(sortableElements, options) {
 
       if (index !== _index(dragging) || startParent !== newParent) {
         var startParentItems = _filter(startParent.children, _data(startParent, 'items'));
+        var endParentItems = _filter(newParent.children, _data(newParent, 'items'));
+
         _dispatchEventOnConnected(sortableElement, _makeEvent('sortupdate', {
           draggedItem: {
               item: dragging,
               index: _filter(newParent.children, _data(newParent, 'items'))
                 .indexOf(dragging),
-              oldIndex: items.indexOf(dragging),
+              oldIndex: _data(dragging, 'sortable-index'),
               get position(){
                   return this.index + 1;
               },
@@ -595,11 +609,11 @@ var sortable = function(sortableElements, options) {
           },
           startParent: {
               item: startParent,
-              items: Array.prototype.map.call(startParentItems, function(item){
+              items: startParentItems.map(function(item, currentIndex){
                   return {
                       item: item,
-                      oldIndex: items.indexOf(item),
-                      index: Array.prototype.indexOf.call(startParentItems,item),
+                      index: currentIndex,
+                      oldIndex: _data(item, 'sortable-index'),
                       get hasChanged(){
                           return this.oldIndex !== this.index;
                       },
@@ -611,10 +625,14 @@ var sortable = function(sortableElements, options) {
           },
           endParent: {
               item: newParent,
-              items: Array.prototype.map.call(newParent.children, function(item){
+              items: endParentItems.map(function(item, currentIndex){
                   return {
                       item: item,
-                      index: Array.prototype.indexOf.call(newParent.children,item),
+                      index: currentIndex,
+                      oldIndex: _data(item, 'sortable-index'),
+                      get hasChanged(){
+                          return this.oldIndex !== this.index;
+                      },
                       get position(){
                           return this.index + 1;
                       },
@@ -623,8 +641,8 @@ var sortable = function(sortableElements, options) {
           }
         }));
         // update items check after the primary check for hasChanged are correct
-        // TODO: this needs to be changed to something better, e.g. items tracking their own old and new indicies
-        items = _filter(sortableElement.children, _data(sortableElement, 'items'));
+        _setIndex(endParentItems);
+        _setIndex(startParentItems);
       }
       dragging = null;
       draggingHeight = null;

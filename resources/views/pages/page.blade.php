@@ -2,14 +2,14 @@
 
 @section('content')
     @include('pages.settings')
-    <div class="o-content o-content--wide o-user-grid js-main-section-sortable" data-patch-url="{{url('/fragments').'/'}}" data-page-id="{{$item->get('id')}}" data-parent-type="pages">
+    <div class="o-content o-content--wide o-user-grid js-sortable-fragments" data-patch-url="{{url('/fragments').'/'}}">
         @if( $item->fragments() !== null)
 
             @foreach($item->fragments()->sortBy('position') as $fragment)
                 @include('fragments.fragment', [
                     'item' => $fragment,
                     'page' => $item,
-                    'sortable_class' => 'js-sortable-section-fragments'
+                    'sortable_class' => 'js-sortable-fragment-item'
                 ])
             @endforeach
         @endif

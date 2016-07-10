@@ -121,7 +121,7 @@
     cursor: move;
     transition: background .5s ease;
 }
-.o-fragment:hover .c-sortable-fragment__handle{
+.o-fragment:hover > .c-sortable-fragment__handle{
     opacity: 1;
 }
 .c-sortable-fragment__handle::after{

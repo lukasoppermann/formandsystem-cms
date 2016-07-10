@@ -215,14 +215,14 @@ require('gulp').task("checkDev", function(callback) {
 // Gulp vulcanize
 //
 gulp.task('vulc', function () {
-	return gulp.src('resources/webcomponents/webcomponents.html')
-		.pipe(vulcanize({
-			abspath: '',
-			excludes: [],
-            inlineScripts: true,
-			stripExcludes: false
-		}))
-		.pipe(gulp.dest('public/build/webcomponents'));
+	// return gulp.src('resources/webcomponents/webcomponents.html')
+	// 	.pipe(vulcanize({
+	// 		abspath: '',
+	// 		excludes: [],
+    //         inlineScripts: true,
+	// 		stripExcludes: false
+	// 	}))
+	// 	.pipe(gulp.dest('public/build/webcomponents'));
 });
 //----------------------------------------------
 //

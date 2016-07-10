@@ -36,11 +36,11 @@
     "jquery": "~2.1.3",
     "requirejs": "~2.1.17"
   },
-  "_release": "40b464e76a",
+  "_release": "0dcaecceec",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "40b464e76a6c2631b4027c47add0703c2fdba439"
+    "commit": "0dcaecceec78a2ed86328c25a083c4457155b4a5"
   },
   "_source": "https://github.com/lukasoppermann/sortable-elements.git",
   "_target": "*",
