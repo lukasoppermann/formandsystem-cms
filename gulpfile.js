@@ -14,25 +14,21 @@ var cheerio = require('gulp-cheerio');
 var notify = require('gulp-notify');
 var sourcemaps = require('gulp-sourcemaps');
 var vulcanize = require('gulp-vulcanize');
-// actions
-gulp.task('clean-build', function(done){
-    del(['public/build']).then(function(){
-        done();
-    });
-});
-gulp.task('delete-build-files', ['rev'], function(done){
-    del([
-        'public/build/css/app.css',
+var runSequence = require('run-sequence');
+/* ------------------------------
+ *
+ * JS
+ *
+ */
+gulp.task('clean-js', function(){
+    return del([
         'public/build/js/app.js',
-        'public/build/js/external.js',
-        'public/build/svgs/svg-sprite.svg',
-        'public/build/webcomponents/webcomponents.html'
-    ]).then(function(){
-        done();
-    });
+        'public/build/js/app.js.map',
+        'public/build/js/app-*.js'
+    ]);
 });
 
-gulp.task('build-js', ['clean-build'], function(){
+gulp.task('build-js', function(){
     var files = [];
     // var files = mainBowerFiles(['**/*.js'],{
     //     paths: {
@@ -42,11 +38,10 @@ gulp.task('build-js', ['clean-build'], function(){
     // });
     // push prism stuff
     files.push(
-        // 'resources/bower_components/engine/engine.js',
-        // 'resources/bower_components/engine/functions/on.js',
         'resources/bower_components/html.sortable/dist/html.sortable.js',
         'resources/bower_components/codemirror/lib/codemirror.js',
         'resources/bower_components/codemirror/addon/mode/overlay.js',
+        'resources/bower_components/codemirror/addon/display/placeholder.js',
         'resources/bower_components/codemirror/mode/markdown/markdown.js',
         'resources/bower_components/codemirror/mode/gfm/gfm.js',
         // 'resources/bower_components/mark/mark.js'
@@ -54,26 +49,49 @@ gulp.task('build-js', ['clean-build'], function(){
         'resources/bower_components/es6-promise/es6-promise.js',
         'resources/bower_components/fetch/fetch.js',
         'resources/js/input.js',
+        'resources/js/autosubmit-form.js',
         'resources/js/dialog-colllection.js',
         'resources/js/sortable-fragments.js',
         'resources/js/sortable-navigation.js',
         'resources/js/app.js'
     );
-    // push rest of js files
-    // files.push('resources/js/*.js');
-
+    // BUILD JS
     return gulp.src(files)
-    .pipe(sourcemaps.init())
-    .pipe(concat('app.js'))
-    .pipe(jsmin())
-    .pipe(sourcemaps.write('/'))
-    .pipe(gulp.dest('public/build/js'));
+        .pipe(sourcemaps.init())
+        .pipe(concat('app.js'))
+        .pipe(jsmin())
+        .pipe(sourcemaps.write('/'))
+        .pipe(gulp.dest('public/build/js'));
 });
-// ----------------------------------------
-//
-// build external js
-//
-gulp.task('build-external-js', ['clean-build'], function(){
+// js
+gulp.task('js', function(done){
+    runSequence(
+        'clean-js',
+        'build-js',
+        'rev',
+        done
+    );
+});
+// watch js
+gulp.task('watch-js', function(){
+    gulp.watch([
+        'resources/js/*'
+    ], ['js']);
+});
+/* ------------------------------
+ *
+ * EXTERNAL JS
+ *
+ */
+gulp.task('clean-external-js', function(){
+    return del([
+        'public/build/js/external.js',
+        'public/build/js/external.js.map',
+        'public/build/js/external-*.js'
+    ]);
+});
+// BUILD
+gulp.task('build-external-js', function(){
     var files = [];
     // push files
     files.push(
@@ -88,59 +106,35 @@ gulp.task('build-external-js', ['clean-build'], function(){
     .pipe(sourcemaps.write('/'))
     .pipe(gulp.dest('public/build/js'));
 });
-
-gulp.task('rev', ['build-external-js','build-js', 'css','svgsprite','vulc'], function(){
-    return gulp.src([
-        'public/build/css/app.css',
-        'public/build/js/app.js',
-        'public/build/js/external.js',
-        'public/build/svgs/svg-sprite.svg',
-        'public/build/webcomponents/webcomponents.html'
-    ], {base: 'public/build'})
-        .pipe(rev())
-        .pipe(gulp.dest('public/build'))
-        .pipe(rev.manifest())
-        .pipe(gulp.dest('public/build'));
+// css
+gulp.task('external-js', function(done){
+    runSequence(
+        'clean-external-js',
+        'build-external-js',
+        'rev',
+        done
+    );
 });
-/* ---------- */
-/* svg */
-gulp.task('svgsprite', ['clean-build'], function() {
-  gulp.src('resources/svgs/*.svg')
-  .pipe(svgmin({
-      plugins: [{
-          removeAttrs: {
-              attrs: 'fill=[^url]*'
-          }
-      }]
-  }))
-  .pipe(rename({prefix: 'svg-icon--'}))
-  .pipe(svgstore({inlineSvg: true }))
-  .pipe(rename('svg-sprite.svg'))
-  .pipe(cheerio({
-    run: function ($) {
-      $('svg').attr({ style: 'display:none' });
-    }
-  }))
-  .pipe(gulp.dest('public/build/svgs'));
-});
-
-// gulp watch
-gulp.task('asset-watch', function(){
+// watch css
+gulp.task('watch-external-js', function(){
     gulp.watch([
-        'resources/css/*',
-        'resources/css/**/*',
-        'resources/js/*',
         'resources/js/external/*',
-        'resources/svg/*'
-    ], ['delete-build-files']);
+    ], ['css']);
 });
+/* ------------------------------
+ *
+ * POST CSS
+ *
+ */
+ gulp.task('clean-css', function(done){
+     return del([
+         'public/build/css/app.css',
+         'public/build/css/app.css.map',
+         'public/build/css/app-*.css'
+     ]);
+ });
 
-// gulp tasks
-gulp.task('default', ['delete-build-files','asset-watch']);
-
-//-----------------------
-// POST CSS
-gulp.task('css', ['clean-build'], function(){
+gulp.task('build-css', function(){
     return gulp.src([
             'resources/css/includes/*.css',
             'resources/css/*.css',
@@ -171,9 +165,105 @@ gulp.task('css', ['clean-build'], function(){
             }),
         ]))
         .pipe(sourcemaps.write('/'))
-        // .pipe(rev())
         .pipe(gulp.dest('public/build/css'));
 });
+// css
+gulp.task('css', function(done){
+    runSequence(
+        'clean-css',
+        'build-css',
+        'rev',
+        done
+    );
+});
+// watch css
+gulp.task('watch-css', function(){
+    gulp.watch([
+        'resources/css/*',
+        'resources/css/**/*'
+    ], ['css']);
+});
+/* ------------------------------
+ *
+ * SVG
+ *
+ */
+
+gulp.task('clean-svg', function(done){
+    return del([
+        'public/build/svgs/svg-sprite.svg',
+        'public/build/svgs/svg-sprite-*.svg'
+    ]);
+});
+
+gulp.task('svgsprite', function() {
+    return gulp.src('resources/svgs/*.svg')
+    .pipe(svgmin({
+        plugins: [{
+            removeAttrs: {
+                attrs: 'fill=[^url]*'
+            }
+        }]
+    }))
+    .pipe(rename({prefix: 'svg-icon--'}))
+    .pipe(svgstore({inlineSvg: true }))
+    .pipe(rename('svg-sprite.svg'))
+    .pipe(cheerio({
+        run: function ($) {
+            $('svg').attr({ style: 'display:none' });
+        }
+    }))
+    .pipe(gulp.dest('public/build/svgs'));
+});
+// svg
+gulp.task('svg', function(done){
+    runSequence(
+        'clean-svg',
+        'svgsprite',
+        'rev',
+        done
+    );
+});
+// watch svgs
+gulp.task('watch-svg', function(){
+    gulp.watch([
+        'resources/svg/*'
+    ], ['svg']);
+});
+/* ------------------------------
+ *
+ * Revision
+ *
+ */
+gulp.task('rev', function(done){
+    return gulp.src([
+        'public/build/css/app.css',
+        'public/build/js/app.js',
+        'public/build/js/external.js',
+        'public/build/svgs/svg-sprite.svg'
+    ], {base: 'public/build'})
+        .pipe(rev())
+        .pipe(gulp.dest('public/build'))
+        .pipe(rev.manifest({
+			merge: true // merge with the existing manifest (if one exists)
+		}))
+        .pipe(gulp.dest('public/build'));
+});
+/* ------------------------------
+ *
+ * default task
+ *
+ */
+gulp.task('default', [
+    'js',
+    'watch-js',
+    'css',
+    'watch-css',
+    'svg',
+    'watch-svg',
+    'external-js',
+    'watch-external-js',
+]);
 //----------------------------------------------
 //
 // Gulp check tasks
@@ -215,14 +305,14 @@ require('gulp').task("checkDev", function(callback) {
 // Gulp vulcanize
 //
 gulp.task('vulc', function () {
-	// return gulp.src('resources/webcomponents/webcomponents.html')
-	// 	.pipe(vulcanize({
-	// 		abspath: '',
-	// 		excludes: [],
-    //         inlineScripts: true,
-	// 		stripExcludes: false
-	// 	}))
-	// 	.pipe(gulp.dest('public/build/webcomponents'));
+	return gulp.src('resources/webcomponents/webcomponents.html')
+		.pipe(vulcanize({
+			abspath: '',
+			excludes: [],
+            inlineScripts: true,
+			stripExcludes: false
+		}))
+		.pipe(gulp.dest('public/build/webcomponents'));
 });
 //----------------------------------------------
 //
@@ -237,18 +327,4 @@ gulp.task('accessibility', function(){
             domElement: true,
         }))
         .on('error', console.log);
-});
-
-gulp.task('cm', function(){
-    var files = [];
-    // push files
-    files.push(
-        'resources/bower_components/codemirror/lib/codemirror.js'
-    );
-
-    return gulp.src(files)
-    .pipe(sourcemaps.init())
-    .pipe(jsmin())
-    .pipe(sourcemaps.write('/'))
-    .pipe(gulp.dest('public/'));
 });

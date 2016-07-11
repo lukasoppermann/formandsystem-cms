@@ -33,6 +33,7 @@
     "postcss-url": "^5.1.2",
     "postcss-will-change": "^1.1.0",
     "require-dir": "^0.3.0",
+    "run-sequence": "^1.2.2",
     "svgmin": "^0.1.0"
   }
 }
