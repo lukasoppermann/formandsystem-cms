@@ -6,7 +6,7 @@
 	background: transparent;
 	color: rgb(60,60,60);
 	font-family: inherit;
-	box-shadow: 0 0 0 1px rgb(225, 230, 235);
+	border-bottom: 1px solid rgb(225, 230, 235);
 	margin-bottom: 1rem;
 }
 .cm-s-mark.CodeMirror:focus{
@@ -57,8 +57,12 @@
 	color: inherit;
 }
 .cm-s-mark span.cm-variable {color: rgb(55,115,215);}
-.cm-s-mark span.cm-variable-2 { color: inherit; }
-.cm-s-mark span.cm-def {color: #fd971f;}
+.cm-s-mark span.cm-variable-2 {
+	color: inherit;
+}
+.cm-s-mark span.cm-def {
+	color: #fd971f;
+}
 .cm-s-mark span.cm-bracket {
 	color: inherit;
 	opacity: 0.5;
@@ -248,4 +252,7 @@
 .cm-s-mark .CodeMirror-cursor {
 	/* cursor color */
 	background-color: rgb(65,125,225);
+}
+.cm-s-mark .CodeMirror-placeholder{
+    color: color(var(--text-black) alpha(25%));
 }
