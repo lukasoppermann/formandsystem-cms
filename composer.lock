@@ -221,12 +221,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/formandsystem/api.git",
-                "reference": "e0c5e8f4395e5a44fffb5919e97aa92e99704715"
+                "reference": "866ce2aa1980e554e98e0c4295b459474777aded"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/formandsystem/api/zipball/e0c5e8f4395e5a44fffb5919e97aa92e99704715",
-                "reference": "e0c5e8f4395e5a44fffb5919e97aa92e99704715",
+                "url": "https://api.github.com/repos/formandsystem/api/zipball/866ce2aa1980e554e98e0c4295b459474777aded",
+                "reference": "866ce2aa1980e554e98e0c4295b459474777aded",
                 "shasum": ""
             },
             "require": {
@@ -265,7 +265,7 @@
                 "source": "https://github.com/formandsystem/api/tree/master",
                 "issues": "https://github.com/formandsystem/api/issues"
             },
-            "time": "2016-06-27 06:02:46"
+            "time": "2016-07-11 08:45:01"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1473,23 +1473,23 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.2",
+            "version": "v5.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8"
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
-                "reference": "d8db871a54619458a805229a057ea2af33c753e8",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
+                "reference": "4cc92842069c2bbc1f28daaaf1d2576ec4dfe153",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1,<0.9.4"
+                "mockery/mockery": "~0.9.1"
             },
             "type": "library",
             "extra": {
@@ -1522,7 +1522,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-05-01 08:45:47"
+            "time": "2016-07-08 11:51:25"
         },
         {
             "name": "symfony/console",

@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1 Tiny//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-tiny.dtd">
-<svg version="1.1" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-	 x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" xml:space="preserve">
-<g>
-	<path d="M253.255,97.425C94.591,97.425,0,245.644,0,245.644s96.71,158.231,255.375,158.231S510.75,244.266,510.75,244.266
-		S411.92,97.425,253.255,97.425z M254.226,340.031c-49.364,0-89.382-40.018-89.382-89.381c0-49.364,40.018-89.382,89.382-89.382
-		s89.381,40.017,89.381,89.382S303.59,340.031,254.226,340.031z M255.375,199.728c28.123,0,50.922,22.799,50.922,50.922
-		s-22.799,50.922-50.922,50.922s-50.922-22.799-50.922-50.922S227.252,199.728,255.375,199.728z"/>
-</g>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="eye" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+<path class="outer" id="outer" d="M253.255,97.425C94.591,97.425,0,245.644,0,245.644s96.71,158.231,255.375,158.231
+	S510.75,244.266,510.75,244.266S411.92,97.425,253.255,97.425z M254.226,340.031c-49.364,0-89.382-40.018-89.382-89.381
+	c0-49.364,40.018-89.382,89.382-89.382s89.381,40.017,89.381,89.382S303.59,340.031,254.226,340.031z"/>
+<circle class="inner" id="inner" cx="255.375" cy="250.65" r="50.922"/>
 </svg>

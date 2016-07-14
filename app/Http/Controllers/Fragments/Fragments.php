@@ -40,6 +40,16 @@ class Fragments extends Controller
                 'data'      => json_encode(config('custom.fragments')[$request->get('type')]->get('data')),
                 'position'  => $position,
             ]);
+            // add metadetails
+            $data = config('custom.fragments')[$request->get('type')]->get('data');
+            if($data['meta'] && $data['meta']['metadetails']){
+                foreach($data['meta']['metadetails'] as $type => $detail){
+                    $fragment->attach(new \App\Entities\Metadetail([
+                        'type' => $type,
+                        'data' => $detail,
+                    ]));
+                }
+            }
             // create subelements
             $this->newCustomFragment($fragment, $request->get('type'));
         // NORMAL ELEMENT
@@ -69,6 +79,10 @@ class Fragments extends Controller
             foreach($fragment->images() as $image){
                 $image->delete();
             }
+            // delete metadetails connections
+            foreach($fragment->metadetails() as $detail){
+                $detail->delete();
+            }
             // delete element
             $deleted = $fragment->delete();
         }
@@ -88,6 +102,12 @@ class Fragments extends Controller
         if($request->json('position') !== NULL){
             return $fragment->update([
                 'position'  => $request->json('position'),
+            ]);
+        }
+        elseif($request->json('data')){
+            $data = $request->json('data') !== '$undefined' ? $request->json('data') : NULL;
+            return $fragment->update([
+                'data'  => $data,
             ]);
         }
         // update the details for the current fragment

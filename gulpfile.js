@@ -44,10 +44,10 @@ gulp.task('build-js', function(){
         'resources/bower_components/codemirror/addon/display/placeholder.js',
         'resources/bower_components/codemirror/mode/markdown/markdown.js',
         'resources/bower_components/codemirror/mode/gfm/gfm.js',
-        // 'resources/bower_components/mark/mark.js'
         'resources/bower_components/sortable-elements/dist/sortable-elements.js',
         'resources/bower_components/es6-promise/es6-promise.js',
         'resources/bower_components/fetch/fetch.js',
+        'resources/bower_components/mark/src/mark.src.js',
         'resources/js/input.js',
         'resources/js/autosubmit-form.js',
         'resources/js/dialog-colllection.js',
@@ -138,7 +138,8 @@ gulp.task('build-css', function(){
     return gulp.src([
             'resources/css/includes/*.css',
             'resources/css/*.css',
-            'resources/css/pages/*.css'
+            'resources/css/pages/*.css',
+            'resources/bower_components/mark/src/mark.css'
         ])
         .pipe(sourcemaps.init())
         .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
@@ -227,7 +228,7 @@ gulp.task('svg', function(done){
 // watch svgs
 gulp.task('watch-svg', function(){
     gulp.watch([
-        'resources/svg/*'
+        'resources/svgs/*'
     ], ['svg']);
 });
 /* ------------------------------
@@ -254,16 +255,24 @@ gulp.task('rev', function(done){
  * default task
  *
  */
-gulp.task('default', [
-    'js',
-    'watch-js',
-    'css',
+gulp.task('default', function(done){
+    runSequence(
+[    'clean-js',
+    'clean-css',
+    'clean-external-js',
+    'clean-svg'],
+[    'build-js',
+    'build-css',
+    'build-external-js',
+    'svgsprite'],
+    'rev',
+[    'watch-svg',
     'watch-css',
-    'svg',
-    'watch-svg',
-    'external-js',
-    'watch-external-js',
-]);
+    'watch-js',
+    'watch-external-js'],
+    done
+    );
+});
 //----------------------------------------------
 //
 // Gulp check tasks

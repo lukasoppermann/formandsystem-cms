@@ -160,3 +160,14 @@
     bottom: 0rem;
     right: .2rem;
 }
+
+.u-show-on-fragment-hover-item{
+    display: none;
+}
+.u-show-on-fragment-hover-parent:hover > .u-show-on-fragment-hover-item,
+.CodeMirror-focused ~ .u-show-on-fragment-hover-item{
+    display: block;
+}
+.o-fragment .CodeMirror.cm-s-mark{
+    font-size: 1.6rem; /* now 1rem = 10px*/
+}

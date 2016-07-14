@@ -26,6 +26,5 @@
   },
   "_source": "https://github.com/components/es6-promise.git",
   "_target": "^3.2.2",
-  "_originalSource": "es6-promise",
-  "_direct": true
+  "_originalSource": "es6-promise"
 }

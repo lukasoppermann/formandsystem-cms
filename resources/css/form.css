@@ -29,6 +29,35 @@
     outline:none;
     color: var(--text-black);
 }
+.o-input__loading, .o-input__success, .o-input__failed{
+    width: 3rem;
+    height: 2rem;
+    position: absolute;
+    bottom: 1rem;
+    right: 0;
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 5%, rgba(255, 255, 255, .75) 20%, rgba(255, 255, 255, 1) 80%);
+}
+.o-input:not(.is-saving) .o-input__loading{
+    display: none;
+}
+.o-input:not(.has-succeeded)  .o-input__success{
+    display: none;
+}
+.o-input:not(.has-failed)  .o-input__failed{
+    display: none;
+}
+.o-input__loading .o-icon, .o-input__success .o-icon, .o-input__failed .o-icon{
+    position: absolute;
+    right: 0;
+    width: 2rem;
+    height: 2rem;
+}
+.o-input__success .o-icon, .o-input__failed .o-icon{
+    top: .3rem;
+}
+.o-input:not(.is-saving) .o-input__loading .o-icon{
+    animation: none;
+}
 /*Textarea specials*/
 .o-input__textarea{
     margin-top: 1rem;

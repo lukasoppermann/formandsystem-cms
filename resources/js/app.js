@@ -1,3 +1,11 @@
+function ready(fn) {
+  if (document.readyState != 'loading'){
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+}
+ready(function(){
 // Toggle js
 var elements = document.querySelectorAll('[data-toggle]');
 Array.prototype.forEach.call(elements, function(el, i){
@@ -40,13 +48,30 @@ Array.prototype.forEach.call(elements, function(el, i){
 var elements = document.querySelectorAll('.mark');
 Array.prototype.forEach.call(elements, function(el, i){
     var myCodeMirror = CodeMirror.fromTextArea(el,{
-        theme: "mark",
-        mode: {
-            name: "gfm",
-            highlightFormatting: true
-        },
-        lineWrapping: true,
+        theme: 'mark',
+		mode: {
+			name: 'gfm',
+			highlightFormatting: true
+		},
+		lineNumbers: false,
+		addModeClass: false,
+		lineWrapping: true,
+		flattenSpans: true,
+		cursorHeight: 1,
+		matchBrackets: true,
+		autoCloseBrackets: { pairs: '()[]{}\'\'""', explode: '{}' },
+		matchTags: true,
+		showTrailingSpace: true,
+		autoCloseTags: true,
+		styleSelectedText: false,
+		styleActiveLine: true,
+		placeholder: '',
+		excludePanel: ['code'],
+		tabMode: 'indent',
+		tabindex: '2',
+		dragDrop: false,
     });
+    mark(myCodeMirror);
 });
 
 var formsubmit = function(){
@@ -58,3 +83,4 @@ var formsubmit = function(){
         });
     });
 }
+});

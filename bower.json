@@ -20,7 +20,9 @@
     "codemirror": "~5.16.*",
     "fetch": "^1.0.0",
     "es6-promise": "^3.2.2",
-    "webcomponentsjs": "^0.7.22"
+    "webcomponentsjs": "^0.7.22",
+    "sortable-elements": "*",
+    "mark": "master"
   },
   "devDependencies": {}
 }

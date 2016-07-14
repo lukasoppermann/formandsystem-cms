@@ -1,8 +1,17 @@
 .o-icon{
-    fill: var(--black);
+    fill: inherit;
 }
 .o-icon--white{
     fill: var(--white);
+}
+.o-icon--blue{
+    fill: var(--blue);
+}
+.o-icon--green{
+    fill: var(--green);
+}
+.o-icon--red{
+    fill: var(--red);
 }
 .o-icon--sm{
    height: 2rem;
@@ -12,3 +21,17 @@
     height: 3rem;
     width: auto;
  }
+ /*
+  * Specific icons
+  */
+.o-icon--loading-circle{
+    animation: loading-circle-animation .5s infinite linear;
+}
+@keyframes loading-circle-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
