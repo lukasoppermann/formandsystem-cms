@@ -11,6 +11,7 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
 
     protected $resourceService;
     protected $relationships = NULL;
+    protected $links = NULL;
 
     public function __call($method, $args = [])
     {
@@ -45,6 +46,7 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         if(isset($entity) && $entity->items !== NULL){
             //
             $this->items = $entity->items;
+            $this->links = $entity->links;
             //#
             $this->relationships = $entity->relationships;
         }else{
@@ -196,12 +198,13 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
      */
     protected function removeRelationship(AbstractEntity $entity)
     {
-        // create the models name
-        $related_name = $this->getModelName($entity);
-        // attach if model exists
-        if(method_exists($this->source, $related_name)){
-            $this->source->{$related_name}()->detach($entity->get('id'));
-        }
+        // attach item
+        // $attach = $this->resourceService()->attach($this->getId(), [
+        //     'type' => $entity->get('resource_type'),
+        //     'id' => $entity->get('id')
+        // ]);
+        // // update cache
+        // $this->cacheSelf();
     }
     /**
      * return the service to get api data
@@ -212,5 +215,19 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
      */
     protected function resourceService(){
         return new $this->resourceService;
+    }
+    /**
+     * return a link from the entity
+     *
+     * @method link
+     *
+     * @return string NULL
+     */
+    public function link($name)
+    {
+        if(isset($this->links[$name])){
+            return $this->links[$name];
+        }
+        return NULL;
     }
 }

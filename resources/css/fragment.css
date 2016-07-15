@@ -37,10 +37,43 @@
 .o-fragment__image-upload{
     height: 100%;
 }
-.o-fragment--image .o-fragment__image{
-    display: inline-block;
+.o-fragment__image-delete{
+    position: relative;
     width: 100%;
-    height: auto;
+    min-height: 10rem;
+    border-radius: 3px;
+    text-align: center;
+    background: var(--white-tint);
+}
+.o-fragment__image-delete .o-fragment__image{
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: bottom;
+}
+.c-fragment__image-delete-button{
+    display: none;
+    overflow: visible;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+.o-fragment__image-delete::after{
+    display: none;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: color(var(--black) alpha(75%));
+    border-radius: 3px;
+    z-index: 1;
+}
+.o-fragment__image-delete:hover::after,
+.o-fragment__image-delete:hover .c-fragment__image-delete-button{
+    display: block;
 }
 .o-fragment .o-file{
     height: 100%;

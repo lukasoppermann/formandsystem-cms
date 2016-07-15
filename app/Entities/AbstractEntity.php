@@ -59,6 +59,8 @@ abstract class AbstractEntity extends LaravelCollection
         elseif(is_a($data, 'Illuminate\Support\Collection')){
             // set entities items
             $this->items = $this->attributes($data);
+            // get links
+            $this->links = $data['links'];
             // get relationships
             $this->relationships = (new LaravelCollection($data['relationships']))->map(function($related){
                 if(isset($related['data'])){
@@ -246,7 +248,7 @@ abstract class AbstractEntity extends LaravelCollection
         if(count(array_diff_assoc(collect($data)->flatten()->toArray(), collect($this->items)->flatten()->toArray())) > 0){
             // make update
             $updated = $this->entityUpdate($data);
-            
+
             // refresh entity
             $this->refreshSelf($updated);
         }

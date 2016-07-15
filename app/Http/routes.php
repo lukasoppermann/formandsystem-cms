@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function(){
     // Images
     Route::put('/images', 'Images@upload');
     Route::post('/images', 'Images@upload');
+    Route::delete('/images/{id}', 'Images@delete');
     // Pages
     Route::group(['namespace' => 'Pages'], function() {
         Route::get('/pages', 'Pages@index');
