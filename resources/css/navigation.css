@@ -99,6 +99,21 @@
     overflow: hidden;
 }
 /* ------------
+ * Navigation Footer
+ */
+:root{
+    --footer-height: 5rem;
+}
+.c-navigation__footer{
+    height: var(--footer-height);
+    background-color: color(var(--dark-gray) shade(10%));
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: 90;
+    box-shadow: 0 0 2px color(var(--black) alpha(25%));
+}
+/* ------------
  * Navigation List
  */
 :root{
@@ -106,7 +121,7 @@
 }
 .c-navigation__list{
     list-style: none;
-    max-height: calc(100vh - var(--header-height));
+    max-height: calc(100vh - var(--header-height) - var(--footer-height));
     overflow-y: scroll;
 }
 .c-navigation__list--dark{

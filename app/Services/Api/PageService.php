@@ -13,7 +13,6 @@ class PageService extends AbstractApiService
         'fragments',
         'pages',
         'collections',
-        'metadetails',
         'ownedByPages',
         'ownedByCollections',
     ];

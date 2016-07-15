@@ -17,19 +17,30 @@
 <form class="o-form" action="/fragments/{{$item->get('id')}}" method="POST" autocomplete="off">
     {{ csrf_field() }}
     {{ method_field('PATCH') }}
-    @include('forms.select',['name' => 'columns_medium', 'label' => 'Columns', 'values' => $grid_md_columns, 'selected' => $item->metadetails('type','columns_medium',true)->get('data'), 'error_bag' => $item->get('id')])
+    @include('forms.select',[
+        'name' => 'columns[md]',
+        'label' => 'Columns',
+        'values' => $grid_md_columns,
+        'selected' => collect($item->get('meta')['columns'])->get('md',1),
+        'error_bag' => $item->get('id')
+    ])
 
     @include('forms.select',[
-        'name' => 'columns_small',
+        'name' => 'columns[sm]',
         'label' => 'Columns for small screens',
         'values' => $grid_sm_columns,
-        'selected' => $item->metadetails('type','columns_small',true)->get('data'),
+        'selected' => collect($item->get('meta')['columns'])->get('sm',1),
         'error_bag' => $item->get('id'),
     ])
 
-    @include('forms.select',['name' => 'columns_large', 'label' => 'Columns for large screens', 'values' => $grid_lg_columns, 'selected' => $item->metadetails('type','columns_large',true)->get('data'), 'error_bag' => $item->get('id')])
+    @include('forms.select',['name' => 'columns[lg]', 'label' => 'Columns for large screens', 'values' => $grid_lg_columns, 'selected' => collect($item->get('meta')['columns'])->get('lg',1), 'error_bag' => $item->get('id')])
 
-    @include('forms.textarea',['name' =>'classes', 'label' => 'Classes', 'value' => $item->metadetails('type','classes',true)->get('data'), 'error_bag' => $item->get('id')])
+    @include('forms.textarea',[
+        'name' =>'classes',
+        'label' => 'Classes',
+        'value' => collect($item->get('meta'))->get('classes',''), 
+        'error_bag' => $item->get('id')
+    ])
 
     <div class="o-grid">
         @include('forms.submit',['label' => 'Save', 'classes' => 'o-button o-button--blue  o-grid__column o-flex__item--align-right o-flex__item--none'])

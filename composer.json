@@ -16,7 +16,8 @@
         "ramsey/uuid": "^3.4",
         "formandsystem/api": "dev-master",
         "barryvdh/laravel-debugbar": "^2.2",
-        "hannesvdvreken/guzzle-debugbar": "^2.0"
+        "hannesvdvreken/guzzle-debugbar": "^2.0",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

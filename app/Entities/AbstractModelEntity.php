@@ -111,9 +111,9 @@ abstract class AbstractModelEntity extends AbstractEntity
      */
     protected function entityUpdate(Array $data){
         // update model
-        $model = $this->getModel()->update($validatedData);
+        $model = $this->getModel()->update($data);
         // return updated model
-        return $model;
+        return $this->getModel();
     }
     /**
      * delete item from database
@@ -136,9 +136,9 @@ abstract class AbstractModelEntity extends AbstractEntity
     protected function addRelationship(AbstractEntity $entity)
     {
         // create the models name
-        $related_name = $this->getModelName($entity);
+        $related_name = strtolower($this->getModelName($entity));
         // attach if model exists
-        if(method_exists($this->getModel(), $related_name) && is_a($this->getModel()->{$related_name}(), 'Illuminate\Database\Eloquent\Model')){
+        if( method_exists($this->getModel(), $related_name) ){
             $this->getModel()->{$related_name}()->save($entity->getModel());
         }
     }
@@ -169,10 +169,6 @@ abstract class AbstractModelEntity extends AbstractEntity
      */
     protected function getModelName($entity)
     {
-        // if modelname is set in entity
-        if($entity->getModel() !== NULL){
-            return $entity->getModel();
-        }
         // else try to make name
         return strtolower($this->getClassName($entity)).'s';
     }

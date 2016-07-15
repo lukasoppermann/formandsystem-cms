@@ -34,11 +34,8 @@ extends BaseController
     {
 
         config(['app.active_account' => config('app.user')->accounts()->first()->get('id')]);
-        config('app.user')->account()->metadetails();
         \Log::debug(config('app.user')->account()->details());
         // echo config('app.user')->account()->get('name');
         echo "yo";
-        // dd();
-        // dd(config('app.user')->account()->metadetails());
     }
 }

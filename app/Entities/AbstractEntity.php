@@ -242,9 +242,11 @@ abstract class AbstractEntity extends LaravelCollection
      * @return [type]
      */
     public function update(Array $data){
-        if(count(array_diff_assoc($data, $this->items)) > 0){
+
+        if(count(array_diff_assoc(collect($data)->flatten()->toArray(), collect($this->items)->flatten()->toArray())) > 0){
             // make update
             $updated = $this->entityUpdate($data);
+            
             // refresh entity
             $this->refreshSelf($updated);
         }

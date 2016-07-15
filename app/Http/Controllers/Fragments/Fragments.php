@@ -34,22 +34,19 @@ class Fragments extends Controller
             if( !isset(config('custom.fragments')[$request->get('type')]) ){
                 return back();
             }
+            // get add meta
+            $data = config('custom.fragments')[$request->get('type')]->get('data');
+            $meta = NULL;
+            if(isset($data['meta']) && isset($data['meta']['meta'])){
+                $meta = $data['meta']['meta'];
+            }
             // create new element
             $fragment = new \App\Entities\Fragment([
                 'type'      => $request->get('type'),
                 'data'      => json_encode(config('custom.fragments')[$request->get('type')]->get('data')),
                 'position'  => $position,
+                'meta'      => $meta
             ]);
-            // add metadetails
-            $data = config('custom.fragments')[$request->get('type')]->get('data');
-            if($data['meta'] && $data['meta']['metadetails']){
-                foreach($data['meta']['metadetails'] as $type => $detail){
-                    $fragment->attach(new \App\Entities\Metadetail([
-                        'type' => $type,
-                        'data' => $detail,
-                    ]));
-                }
-            }
             // create subelements
             $this->newCustomFragment($fragment, $request->get('type'));
         // NORMAL ELEMENT
@@ -78,10 +75,6 @@ class Fragments extends Controller
             // delete image connections
             foreach($fragment->images() as $image){
                 $image->delete();
-            }
-            // delete metadetails connections
-            foreach($fragment->metadetails() as $detail){
-                $detail->delete();
             }
             // delete element
             $deleted = $fragment->delete();
@@ -142,14 +135,16 @@ class Fragments extends Controller
     {
         // get details data
         $details = $this->getValidated($request, [
-            'columns_small'     => 'in:'.implode(',',range(0, config('user.grid-sm'))),
-            'columns_medium'    => 'in:'.implode(',',range(0, config('user.grid-md'))),
-            'columns_large'     => 'in:'.implode(',',range(0, config('user.grid-lg'))),
+            'columns.sm'     => 'in:'.implode(',',range(0, config('user.grid-sm'))),
+            'columns.md'    => 'in:'.implode(',',range(0, config('user.grid-md'))),
+            'columns.lg'     => 'in:'.implode(',',range(0, config('user.grid-lg'))),
             'classes'           => 'string',
         ], [
-            'columns_medium' => config('user.grid-md'),
-            'columns_small' => config('user.grid-sm'),
-            'columns_large' => config('user.grid-lg'),
+            'columns' => [
+                'md' => config('user.grid-md'),
+                'sm' => config('user.grid-sm'),
+                'lg' => config('user.grid-lg'),
+            ]
         ]);
         // if validation fails
         if($details->get('isInvalid')){
@@ -160,27 +155,9 @@ class Fragments extends Controller
         }
         // store detail
         try{
-            foreach(['columns_small','columns_medium','columns_large','classes'] as $type){
-                // get detail
-                $detail = $fragment->metadetails('type',$type,true);
-                // update
-                if( !$detail->isEmpty() && isset($details[$type])){
-                    $detail->update([
-                        'data' => $details[$type]
-                    ]);
-                }
-                // delete
-                elseif(!$detail->isEmpty() && !isset($details[$type])){
-                    $detail->delete();
-                }
-                // create
-                elseif( isset($details[$type]) ){
-                    $fragment->attach(new \App\Entities\Metadetail([
-                        'type' => $type,
-                        'data' => (string) $details[$type],
-                    ]));
-                }
-            }
+            $fragment->update([
+                'meta' => array_merge((array)$fragment->get('meta'), $details->toArray())
+            ]);
         }
         catch(Exception $e){
             \Log::error($e);

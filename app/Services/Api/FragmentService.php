@@ -16,7 +16,6 @@ class FragmentService extends AbstractApiService
         'ownedByCollections',
         'ownedByPages',
         'images',
-        'metadetails',
     ];
     /**
      * the name of the entity

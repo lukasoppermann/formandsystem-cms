@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Entities\AbstractApiResourceEntity;
+use Illuminate\Support\Collection as LaravelCollection;
 
 class Fragment extends AbstractApiResourceEntity
 {
@@ -29,6 +30,7 @@ class Fragment extends AbstractApiResourceEntity
             'type'              => $attributes['attributes']['type'],
             'name'              => $attributes['attributes']['name'],
             'data'              => $this->jsonDecode($attributes['attributes']['data']),
+            'meta'              => $attributes['attributes']['meta'],
             'created_at'        => $attributes['attributes']['created_at'],
             'is_trashed'        => $attributes['attributes']['is_trashed'],
         ];
@@ -47,5 +49,24 @@ class Fragment extends AbstractApiResourceEntity
         });
         // delete from api
         $deleted = $this->resourceService()->delete($this->getId());
+    }
+    /**
+     * update current entity in db
+     *
+     * @method entityUpdate
+     *
+     * @param  array       $data [description]
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    protected function entityUpdate(Array $data){
+        // TODO: deal with errors
+        // update model
+        $updated = $this->resourceService()->update($this->getId(), $data);
+        if(isset($updated['data'])){
+            // return updated model
+            return new LaravelCollection($updated['data']);
+        }
+        \Log::error($updated);
     }
 }

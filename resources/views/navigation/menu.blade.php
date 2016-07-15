@@ -8,4 +8,6 @@
     @if(is_array($navigation['lists']))
         @each('navigation.navigation-list', $navigation['lists'], 'list')
     @endif
+
+    @include('navigation.navigation-footer')
 </nav>

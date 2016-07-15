@@ -2,8 +2,13 @@
 if(!in_array($item->get('type'), ['image','section','text','collection','input'])){
     $custom_class = 'c-fragment--custom';
 }
+// get columns
+$meta = $item->get('meta');
+if(isset($meta['columns']) && isset($meta['columns']['md'])){
+    $md = $meta['columns']['md'];
+}
 ?>
-<div class="{{$sortable_class or ''}} o-fragment o-fragment--{{$item->get('type')}} o-grid__column o-grid__user-column--md-{{$item->metadetails('type','columns_medium',true)->get('data', 12)}}of{{config('user.grid-md')}} {{$custom_class or ''}}" data-id="{{$item->get('id')}}">
+<div class="{{$sortable_class or ''}} o-fragment o-fragment--{{$item->get('type')}} o-grid__column o-grid__user-column--md-{{$md or '12'}}of{{config('user.grid-md')}} {{$custom_class or ''}}" data-id="{{$item->get('id')}}">
 
     {{-- Handle for sortable --}}
     @if($sortable_class !== NULL)

@@ -77,6 +77,9 @@ Route::group(['middleware' => ['auth']], function(){
             // Developers / Database
             Route::post('/settings/developers/ftp', 'Ftp@store');
             Route::delete('/settings/developers/ftp', 'Ftp@delete');
+            // Developers / Cache
+            Route::post('/settings/developers/cache-code', 'Cache@store');
+            Route::post('/settings/developers/bust-cache', 'Cache@bust');
     });
 
 
