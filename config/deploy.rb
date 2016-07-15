@@ -7,7 +7,7 @@ set :default_stage, "production"
 set :ssh_options, {:forward_agent => true}
 
 set :application, 'formandsystem_cms'
-set :repo_url, 'git@github.com:lukasoppermann/formandsystem-cms.git'
+set :repo_url, 'https://github.com/lukasoppermann/formandsystem-cms.git'
 set :user, "lukasoppermann"
 
 set :linked_dirs, %w(storage vendor)
