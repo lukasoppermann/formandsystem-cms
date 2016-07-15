@@ -39,20 +39,17 @@
                 'button_classes' => 'c-fragment-new__selection',
             ])
 
-            @foreach (config('custom.fragments') as $type => $custom)
-                <?php
-                    $custom = json_decode($custom, true)['data'];
-                ?>
-                @if(isset($custom['meta']) && isset($custom['meta']['available_in'])
-                    && isset($custom['meta']['available_in']['pages'])
-                    && $custom['meta']['available_in']['pages'] == 'true')
+            @foreach (config('app.account')->details('type','fragment') as $custom)
+                @if(isset($custom['data']['meta']) && isset($custom['data']['meta']['available_in'])
+                    && isset($custom['data']['meta']['available_in']['pages'])
+                    && $custom['data']['meta']['available_in']['pages'] == 'true')
                     @include('fragments.new-fragment', [
-                        'classes' => 'o-grid__column o-grid__column--md-4of12',
-                        'label' => $custom['meta']['label'],
-                        'type' => $type,
-                        'related' => 'fragment',
-                        'related_id' => $fragment_id,
-                        'button_classes' => 'c-fragment-new__selection',
+                        'classes'           => 'o-grid__column o-grid__column--md-4of12',
+                        'label'             => $custom['data']['meta']['label'],
+                        'type'              => $custom['name'],
+                        'related'           => 'fragment',
+                        'related_id'        => $fragment_id,
+                        'button_classes'    => 'c-fragment-new__selection',
                     ])
                 @endif
             @endforeach

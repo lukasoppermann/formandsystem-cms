@@ -31,24 +31,27 @@ class Fragments extends Controller
         $position = $parentEntity->fragments()->count() + 1;
         // CUSTOM ELEMENT
         if( !in_array($request->get('type'), $this->default_fragments) ){
-            if( !isset(config('custom.fragments')[$request->get('type')]) ){
+
+            $blueprint = config('app.user')->account()->details('type','fragment')->where('name',$request->get('type'))->first();
+
+            if( $blueprint === null ){
                 return back();
             }
             // get add meta
-            $data = config('custom.fragments')[$request->get('type')]->get('data');
+
             $meta = NULL;
-            if(isset($data['meta']) && isset($data['meta']['meta'])){
-                $meta = $data['meta']['meta'];
+            if(isset($blueprint['data']['meta']) && isset($blueprint['data']['meta']['meta'])){
+                $meta = $blueprint['data']['meta']['meta'];
             }
             // create new element
             $fragment = new \App\Entities\Fragment([
                 'type'      => $request->get('type'),
-                'data'      => json_encode(config('custom.fragments')[$request->get('type')]->get('data')),
+                'data'      => json_encode($blueprint['data']),
                 'position'  => $position,
                 'meta'      => $meta
             ]);
             // create subelements
-            $this->newCustomFragment($fragment, $request->get('type'));
+            $this->newCustomFragment($fragment, $blueprint);
         // NORMAL ELEMENT
         }else {
             $fragment = new \App\Entities\Fragment([
@@ -135,10 +138,10 @@ class Fragments extends Controller
     {
         // get details data
         $details = $this->getValidated($request, [
-            'columns.sm'     => 'in:'.implode(',',range(0, config('user.grid-sm'))),
-            'columns.md'    => 'in:'.implode(',',range(0, config('user.grid-md'))),
-            'columns.lg'     => 'in:'.implode(',',range(0, config('user.grid-lg'))),
-            'classes'           => 'string',
+            'columns.sm'        => 'in:'.implode(',',range(0, config('user.grid-sm'))),
+            'columns.md'        => 'in:'.implode(',',range(0, config('user.grid-md'))),
+            'columns.lg'        => 'in:'.implode(',',range(0, config('user.grid-lg'))),
+            'custom_classes'    => 'string',
         ], [
             'columns' => [
                 'md' => config('user.grid-md'),
@@ -175,18 +178,16 @@ class Fragments extends Controller
      *
      * @return model
      */
-    protected function newCustomFragment(\App\Entities\AbstractEntity $parent, $type = NULL)
+    protected function newCustomFragment(\App\Entities\AbstractEntity $parent, $blueprint)
     {
-        // get custom fragment blueprint
-        $blueprint = config('app.account')->details('type','fragment')->where('name', $type)->first()->get('data');
-        // add hidden css
-        // somehow the classes for the element defined by the developer must be added
         // add subfragments
-        foreach($blueprint['elements'] as $name => $element){
+        foreach($blueprint['data']['elements'] as $position => $element){
             // create fragment
             $subfragment = new \App\Entities\Fragment([
-                'type' => $element['type'],
-                'name' => $element['name'],
+                'type'      => $element['type'],
+                'name'      => $element['name'],
+                'position'  => $position,
+                'meta'      => isset($element['meta']) ? $element['meta'] : NULL,
             ]);
             // attach to parent
             $parent->attach($subfragment);

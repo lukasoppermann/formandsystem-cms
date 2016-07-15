@@ -36,9 +36,9 @@
     @include('forms.select',['name' => 'columns[lg]', 'label' => 'Columns for large screens', 'values' => $grid_lg_columns, 'selected' => collect($item->get('meta')['columns'])->get('lg',1), 'error_bag' => $item->get('id')])
 
     @include('forms.textarea',[
-        'name' =>'classes',
+        'name' =>'custom_classes',
         'label' => 'Classes',
-        'value' => collect($item->get('meta'))->get('classes',''), 
+        'value' => collect($item->get('meta'))->get('custom_classes',''),
         'error_bag' => $item->get('id')
     ])
 
