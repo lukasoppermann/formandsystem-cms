@@ -25,10 +25,7 @@ namespace :deploy do
     desc 'Composer install'
     task :composer_install do
       on roles(:app), in: :groups, limit:1 do
-        #within release_path do
-            # execute :composer, "install" # install dependencies
-            run "php composer.phar install --working-dir #{fetch(:latest_release_directory)}"
-        #end
+        run "php composer.phar install --working-dir #{fetch(:latest_release_directory)}"
       end
     end
 
