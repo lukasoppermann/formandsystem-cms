@@ -7,10 +7,10 @@ set :default_stage, "production"
 set :ssh_options, {:forward_agent => true}
 
 set :application, 'formandsystem_cms'
-set :repo_url, 'https://github.com/lukasoppermann/formandsystem-cms.git'
+set :repo_url, 'git@github.com:lukasoppermann/formandsystem-cms.git'
 set :user, "lukasoppermann"
 
-set :linked_dirs, %w(storage vendor)
+# set :linked_dirs, %w()
 
 namespace :deploy do
 
@@ -22,6 +22,15 @@ namespace :deploy do
       end
     end
 
+    desc 'Composer install'
+    task :composer_install do
+      on roles(:app), in: :groups, limit:1 do
+        within release_path do
+            execute :composer, "install" # install dependencies
+        end
+      end
+    end
+
 end
 
-after "deploy:updated", "deploy:print_server_name"
+after "deploy:updated", "deploy:composer_install"
