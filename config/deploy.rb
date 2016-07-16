@@ -10,7 +10,7 @@ set :application, 'formandsystem_cms'
 set :repo_url, 'git@github.com:lukasoppermann/formandsystem-cms.git'
 set :user, "lukasoppermann"
 
-# set :linked_dirs, %w()
+# set :linked_dirs, %w(.env)
 
 namespace :deploy do
 
