@@ -10,7 +10,7 @@ set :application, 'formandsystem_cms'
 set :repo_url, 'git@github.com:lukasoppermann/formandsystem-cms.git'
 set :user, "lukasoppermann"
 
-# set :linked_dirs, %w(.env)
+#set :linked_dirs, %w()
 
 namespace :deploy do
 
@@ -26,6 +26,7 @@ namespace :deploy do
     task :composer_install do
         on roles(:app), in: :groups, limit:1 do
             execute "/usr/local/bin/php5-56STABLE-CLI /kunden/373917_13187/composer.phar install --working-dir #{fetch(:release_path)}"
+            execute "cp #{fetch(:deploy_to)}/shared/.env #{fetch(:release_path)}/.env"
         end
     end
 

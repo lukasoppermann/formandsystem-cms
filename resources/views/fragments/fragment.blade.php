@@ -11,7 +11,7 @@ if(isset($meta['columns']) && isset($meta['columns']['md'])){
 <div class="{{$sortable_class or ''}} o-fragment o-fragment--{{$item->get('type')}} o-grid__column o-grid__user-column--md-{{$md or '12'}}of{{config('user.grid-md')}} {{$custom_class or ''}}" data-id="{{$item->get('id')}}">
 
     {{-- Handle for sortable --}}
-    @if($sortable_class !== NULL)
+    @if(isset($sortable_class) && $sortable_class !== NULL)
         <div class="{{$sortable_class}}-handle c-sortable-fragment__handle"></div>
     @endif
 

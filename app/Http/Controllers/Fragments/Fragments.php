@@ -19,7 +19,8 @@ class Fragments extends Controller
         'text',
         'dropdown',
         'input',
-        'button'
+        'button',
+        'collection',
     ];
 
     public function store(Request $request)
@@ -142,13 +143,8 @@ class Fragments extends Controller
             'columns.md'        => 'in:'.implode(',',range(0, config('user.grid-md'))),
             'columns.lg'        => 'in:'.implode(',',range(0, config('user.grid-lg'))),
             'custom_classes'    => 'string',
-        ], [
-            'columns' => [
-                'md' => config('user.grid-md'),
-                'sm' => config('user.grid-sm'),
-                'lg' => config('user.grid-lg'),
-            ]
         ]);
+
         // if validation fails
         if($details->get('isInvalid')){
             return back()

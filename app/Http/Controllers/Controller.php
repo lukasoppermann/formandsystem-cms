@@ -105,7 +105,15 @@ class Controller extends BaseController
     public function getValidated(Request $request, Array $rules, Array $presets = [])
     {
         // get data from request
-        $data = array_merge( $presets, array_filter($request->only(array_keys($rules))) );
+        $allowed = collect(array_keys($rules))->map(function($item){
+            if( $pos = strpos($item,'.')){
+                return substr($item,0,$pos);
+            }
+            return $item;
+        });
+        $request_data = collect($request->all())->only($allowed->toArray());
+
+        $data = array_merge( $presets, $request_data->toArray() );
         // validate data
         $validator = Validator::make($data, $rules);
         // validation fails
