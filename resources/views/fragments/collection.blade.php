@@ -7,7 +7,7 @@
         return $item['name'];
     });
     if(!$item->collections()->isEmpty()){
-        $collection_id = $item->collections()->first()->id;
+        $collection_id = $item->collections()->first()->get('id');
     }
 
 
@@ -19,7 +19,7 @@ SELECTS are not updating fragments correctly
     @include('forms.select', [
         'name' => 'collection',
         'label' => 'Select a collection',
-        'values' => array_merge([null => 'select'],$cols->toArray()),
+        'values' => array_merge([false => 'select'],$cols->toArray()),
         'attr' => "onchange=form.submit();",
         'selected' => isset($collection_id) ? $collection_id : NULL,
     ])

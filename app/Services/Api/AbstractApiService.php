@@ -255,16 +255,30 @@ abstract class AbstractApiService extends AbstractService
      *
      * @return [type]
      */
-    public function attach($id, Array $related)
+    public function attach($id, $type, Array $related)
     {
-        // dd('Attach in API fails due to now not working with Many to Many!!!!!!!!!');
-        $attach = $this->api(config('app.user_client'))->post('/'.$this->endpoint.'/'.$id.'/relationships/'.$related['type'], [
+        $attach = $this->api(config('app.user_client'))->post('/'.$this->endpoint.'/'.$id.'/relationships/'.$type, [
             [
                 'type'  => $related['type'],
                 'id'    => $related['id'],
             ]
         ]);
 
+        return $attach;
+    }
+    /**
+     * reattach a relationship to an item
+     *
+     * @method reattach
+     *
+     * @param  string $id      resource id
+     * @param  Array  $related [description]
+     *
+     * @return [type]
+     */
+    public function reattach($id, $type, Array $update)
+    {
+        $attach = $this->api(config('app.user_client'))->patch('/'.$this->endpoint.'/'.$id.'/relationships/'.$type, $update);
         return $attach;
     }
     /**

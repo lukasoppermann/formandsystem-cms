@@ -48,7 +48,8 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
-            "php artisan optimize"
+            "php artisan optimize 2>/dev/null",
+            "/usr/local/bin/php5-56STABLE-CLI artisan optimize 2>/dev/null",
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",

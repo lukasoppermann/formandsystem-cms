@@ -11,7 +11,7 @@
 |
 */
 Debugbar::startMeasure('routes','Routing');
-// Route::group(['prefix' => 'cms'], function () {
+Route::group(['prefix' => env('APP_PREFIX')], function () {
     Route::get('/test', 'Test@index');
     // login
     Route::get('/login','Auth\AuthController@showLoginForm');
@@ -91,4 +91,4 @@ Debugbar::startMeasure('routes','Routing');
             return (new \App\Services\DialogService)->show($request, $type);
         });
     });
-// });
+});

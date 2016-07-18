@@ -180,7 +180,7 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
     protected function addRelationship(AbstractEntity $entity)
     {
         // attach item
-        $attach = $this->resourceService()->attach($this->getId(), [
+        $attach = $this->resourceService()->attach($this->getId(), $entity->get('resource_type'), [
             'type' => $entity->get('resource_type'),
             'id' => $entity->get('id')
         ]);
@@ -198,13 +198,28 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
      */
     protected function removeRelationship(AbstractEntity $entity)
     {
-        // attach item
-        // $attach = $this->resourceService()->attach($this->getId(), [
-        //     'type' => $entity->get('resource_type'),
-        //     'id' => $entity->get('id')
-        // ]);
-        // // update cache
-        // $this->cacheSelf();
+        // dettach item
+        $this->resourceService()->attach($this->getId(), $entity->get('resource_type'), [
+            'type' => $entity->get('resource_type'),
+            'id' => $entity->get('id')
+        ]);
+    }
+    /**
+     * remove a relationship from the entities source
+     *
+     * @method removeRelationship
+     *
+     * @param  App\Entities\AbstractEntity  $entity [description]
+     */
+    protected function removeAllRelationships($type){
+        // dettach all
+        $response = $this->resourceService()->reattach($this->getId(), $type, [
+            []
+        ]);
+        // add to relationships
+        $this->relationships[$type] = new LaravelCollection([]);
+        // update cache
+        $this->cacheSelf();
     }
     /**
      * return the service to get api data

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Entities\Fragment;
+use App\Entities\Collection;
 use Validator;
 
 class Fragments extends Controller
@@ -101,7 +102,16 @@ class Fragments extends Controller
                 'position'  => $request->json('position'),
             ]);
         }
-        elseif($request->json('data')){
+        // add collection
+        if($request->has('collection')){
+            $fragment->detachAll('collections');
+            // attach new collection
+            if($request->get('collection') !== NULL){
+                $fragment->attach(new Collection($request->get('collection')));
+            }
+        }
+        // update other data
+        if($request->json('data')){
             $data = $request->json('data') !== '$undefined' ? $request->json('data') : NULL;
             return $fragment->update([
                 'data'  => $data,

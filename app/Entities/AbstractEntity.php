@@ -322,6 +322,20 @@ abstract class AbstractEntity extends LaravelCollection
         Cache::put($cache_name,$attached,1440);
     }
     /**
+     * detach all entity of a certain type from current entity
+     *
+     * @method detach
+     *
+     * @param App\Entities\{Entity} $entity [description]
+     *
+     * @return void
+     */
+    public function detachAll($type)
+    {
+        // add relationship to model
+        $this->removeAllRelationships($type);
+    }
+    /**
      * return data as a collection
      *
      * @method collectionData
