@@ -9,7 +9,7 @@ set :ssh_options, {:forward_agent => true}
 set :application, 'formandsystem_cms'
 set :repo_url, 'git@github.com:lukasoppermann/formandsystem-cms.git'
 set :user, "lukasoppermann"
-set :default_environment, {
+set :default_env, {
   'PATH' => "$PATH:/usr/local/bin/"
 }
 
@@ -30,7 +30,7 @@ namespace :deploy do
         on roles(:app), in: :groups, limit:1 do
             #execute "PATH=$PATH:/usr/local/bin/"
             #execute "echo $PATH"
-            execute "/usr/local/bin/php5-56STABLE-CLI /kunden/373917_13187/composer.phar install --working-dir #{fetch(:release_path)}"
+            #execute "/usr/local/bin/php5-56STABLE-CLI /kunden/373917_13187/composer.phar install --working-dir #{fetch(:release_path)}"
             execute "cp #{fetch(:deploy_to)}/shared/.env #{fetch(:release_path)}/.env"
         end
     end
