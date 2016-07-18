@@ -9,9 +9,7 @@ set :ssh_options, {:forward_agent => true}
 set :application, 'formandsystem_cms'
 set :repo_url, 'git@github.com:lukasoppermann/formandsystem-cms.git'
 set :user, "lukasoppermann"
-set :default_env, {
-  'PATH' => "$PATH:/usr/local/bin/"
-}
+set :default_env, { path: "/usr/local/bin:$PATH" }
 
 #set :linked_dirs, %w()
 
