@@ -107,7 +107,11 @@ class Fragments extends Controller
             $fragment->detachAll('collections');
             // attach new collection
             if($request->get('collection') !== NULL){
-                $fragment->attach(new Collection($request->get('collection')));
+                try{
+                    $fragment->attach(new Collection($request->get('collection')));
+                }catch(\App\Exceptions\EmptyException $e){
+
+                }
             }
         }
         // update other data
