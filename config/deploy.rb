@@ -2,8 +2,8 @@
 # require 'capistrano/ext/multistage'
 lock '3.5.0'
 
-set :stages, ["production"]
-set :default_stage, "production"
+set :stages, ["production","staging"]
+set :default_stage, "staging"
 set :ssh_options, {:forward_agent => true}
 
 set :application, 'formandsystem_cms'
