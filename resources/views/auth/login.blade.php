@@ -22,7 +22,7 @@
             </form>
         </div>
         <div class="o-dialog__footer">
-            <a class="o-link o-link--quiet" href="{{ url(env('APP_PREFIX').'/password/reset') }}">Forgot Your Password?</a>
+            <a class="o-link o-link--quiet" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
         </div>
 
     </div>
