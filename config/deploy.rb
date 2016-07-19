@@ -2,8 +2,8 @@
 # require 'capistrano/ext/multistage'
 lock '3.5.0'
 
-set :stages, ["production","staging"]
-set :default_stage, "staging"
+set :stages, ["cms-production","cms-staging"]
+set :default_stage, "cms-staging"
 set :ssh_options, {:forward_agent => true}
 
 set :application, 'formandsystem_cms'
@@ -26,11 +26,11 @@ namespace :deploy do
     desc 'Composer install'
     task :composer_install do
         on roles(:app), in: :groups, limit:1 do
+            execute "cp #{fetch(:deploy_to)}/shared/.env #{fetch(:release_path)}/.env"
             execute "/usr/local/bin/php5-56STABLE-CLI /kunden/373917_13187/composer.phar install --working-dir #{fetch(:release_path)} --no-scripts --no-dev"
             # execute "cd #{fetch(:release_path)} && \Illuminate\\Foundation\\ComposerScripts::postInstall"
             execute "cd #{fetch(:release_path)} && /usr/local/bin/php5-56STABLE-CLI artisan clear-compiled"
             execute "cd #{fetch(:release_path)} && /usr/local/bin/php5-56STABLE-CLI artisan optimize"
-            execute "cp #{fetch(:deploy_to)}/shared/.env #{fetch(:release_path)}/.env"
         end
     end
 
