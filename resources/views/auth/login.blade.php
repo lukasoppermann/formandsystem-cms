@@ -10,7 +10,7 @@
                 </svg>
             </div>
 
-            <form role="form" method="POST" action="{{ url('/login') }}">
+            <form role="form" method="POST" action="{{ url(env('APP_PREFIX').'/login') }}">
                 {{ csrf_field() }}
                 @include('forms.input',['name' => 'email', 'label' => 'E-Mail Address'])
                 @include('forms.input',['type' => 'password','name' => 'password', 'label' => 'Password'])
@@ -22,7 +22,7 @@
             </form>
         </div>
         <div class="o-dialog__footer">
-            <a class="o-link o-link--quiet" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+            <a class="o-link o-link--quiet" href="{{ url(env('APP_PREFIX').'/password/reset') }}">Forgot Your Password?</a>
         </div>
 
     </div>

@@ -14,7 +14,7 @@
                 </div>
             @endif
 
-            <form role="form" method="POST" action="{{ url('/password/email') }}">
+            <form role="form" method="POST" action="{{ url(env('APP_PREFIX').'/password/email') }}">
                 {{ csrf_field() }}
 
                 @include('forms.input',['name' => 'email', 'label' => 'E-Mail Address'])
@@ -26,7 +26,7 @@
 
         </div>
         <div class="o-dialog__footer">
-            <a class="o-link o-link--quiet" href="{{ url('/login') }}">Back to the login screen</a>
+            <a class="o-link o-link--quiet" href="{{ url(env('APP_PREFIX').'/login') }}">Back to the login screen</a>
         </div>
     </div>
 </div>

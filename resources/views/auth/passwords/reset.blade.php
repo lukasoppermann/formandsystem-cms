@@ -7,7 +7,7 @@
 
             <div class="o-dialog__headline">Reset Password</div>
 
-            <form role="form" method="POST" action="{{ url('/password/reset') }}">
+            <form role="form" method="POST" action="{{ url(env('APP_PREFIX').'/password/reset') }}">
                 {{ csrf_field() }}
                 @include('forms.hidden',['name' => 'token', 'value' => $token])
                 @include('forms.input',['name' => 'email', 'label' => 'E-Mail Address', 'value' => $email])
