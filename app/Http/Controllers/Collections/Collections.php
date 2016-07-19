@@ -92,7 +92,7 @@ class Collections extends Controller
                 }
 
                 return view('collections.fragments', [
-                    'items'         => $collection->fragments(),
+                    'items'         => $collection->fragments()->sortBy('position'),
                     'collection'    => $collection,
                     'collections'   => config('app.user')->account()->collections('type','posts'),
                     'elements'      => isset($elements) ? $elements : NULL,
@@ -197,21 +197,12 @@ class Collections extends Controller
             ->withInput();
         }
         // if validation succeeds
-        $response = (new CollectionService)->update($id, [
-            'type' => 'posts',
+        $collection = (new \App\Entities\Collection($id))->update([
             'name' => $item->get('name'),
             'slug' => $item->get('slug'),
         ]);
-        // if invalid response
-        if(isset($response['errors'])){
-            $errors = "";
-            foreach($response['errors'] as $msg){
-                $errors .= implode(' ',$msg);
-            }
-            return back()->with(['status' => 'Update failed: '.$errors,'type' => 'error']);
-        }
 
-        return redirect('collections/'.$response['data']['attributes']['slug'])->with([
+        return redirect('collections/'.$collection->get('slug'))->with([
             'status' => 'Collection updated successfully.',
             'type' => 'success'
         ]);

@@ -12,7 +12,6 @@
 
 
 ?>
-SELECTS are not updating fragments correctly
 <form action="/fragments/{{$item->get('id')}}" method="POST">
     {{ csrf_field() }}
     {{ method_field('PATCH') }}

@@ -147,7 +147,7 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
     protected function entityUpdate(Array $data){
         // TODO: deal with errors
         // update model
-        $updated = $this->resourceService()->update($this->getId(), $data);
+        $updated = $this->resourceService()->update($this->getId(), array_merge(['type' => $this->items['resource_type']], $data));
         if(isset($updated['data'])){
             // return updated model
             return new LaravelCollection($updated['data']);
