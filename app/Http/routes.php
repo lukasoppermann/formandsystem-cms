@@ -11,7 +11,7 @@
 |
 */
 Debugbar::startMeasure('routes','Routing');
-Route::group(['prefix' => env('APP_PREFIX')], function () {
+Route::group(['prefix' => env('APP_PATH')], function () {
     Route::get('/test', 'Test@index');
     // login
     Route::get('/login','Auth\AuthController@showLoginForm');

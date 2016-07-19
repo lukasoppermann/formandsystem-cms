@@ -26,7 +26,10 @@ namespace :deploy do
     desc 'Composer install'
     task :composer_install do
         on roles(:app), in: :groups, limit:1 do
-            execute "/usr/local/bin/php5-56STABLE-CLI /kunden/373917_13187/composer.phar install --working-dir #{fetch(:release_path)}"
+            execute "/usr/local/bin/php5-56STABLE-CLI /kunden/373917_13187/composer.phar install --working-dir #{fetch(:release_path)} --no-scripts"
+            # execute "cd #{fetch(:release_path)} && \Illuminate\\Foundation\\ComposerScripts::postInstall"
+            execute "cd #{fetch(:release_path)} && /usr/local/bin/php5-56STABLE-CLI artisan clear-compiled"
+            execute "cd #{fetch(:release_path)} && /usr/local/bin/php5-56STABLE-CLI artisan optimize"
             execute "cp #{fetch(:deploy_to)}/shared/.env #{fetch(:release_path)}/.env"
         end
     end
