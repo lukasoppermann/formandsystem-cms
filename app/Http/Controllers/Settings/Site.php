@@ -51,7 +51,8 @@ class Site extends Settings
             $metadetails = ['site_name','site_url','dir_images','analytics_code','analytics_anonymize_ip'];
             foreach($metadetails as $type){
                 $item = config('app.user')->account()->metadetails('type',$type,true);
-                if( !isset($data[$type]) ){
+                
+                if( !isset($data[$type]) || $data[$type] === "" ){
                     if( !$item->isEmpty() ){
                         $item->delete();
                     }

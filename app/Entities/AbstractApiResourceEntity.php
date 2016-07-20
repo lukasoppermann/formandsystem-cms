@@ -167,6 +167,9 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
         // TODO: deal with errors
         // insert new items
         $inserted = $this->resourceService()->create($data);
+        if(isset($inserted['message'])){
+            \Log::error("Error ".$inserted['status_code'].": ".$inserted['message']);
+        }
         // return item
         return new LaravelCollection($inserted['data']);
     }
