@@ -120,13 +120,14 @@ class Account extends AbstractModelEntity
      */
     public function retrieveCollection()
     {
-        $collections = (new \App\Services\Api\CollectionService)->find('type','posts', [
+        $collections = collect((new \App\Services\Api\CollectionService)->find('type',['posts','collections'], [
             'only' => false
-        ]);
+        ]));
+
         // cache included
-        $this->cacheAsEntities($collections['included']);
+        $this->cacheAsEntities($collections->get('included',[]));
         // return as collection
-        return (new LaravelCollection($collections['data']))->map(function($item){
+        return (new LaravelCollection($collections->get('data', [])))->map(function($item){
             return new LaravelCollection($item);
         });
     }
@@ -139,11 +140,11 @@ class Account extends AbstractModelEntity
      */
     public function retrieveMetadetail()
     {
-        $metadetails = (new MetadetailService)->find('type',['site_url','dir_images','analytics_code','analytics_anonymize_ip','site_name']);
+        $metadetails = collect((new MetadetailService)->find('type',['site_url','dir_images','analytics_code','analytics_anonymize_ip','site_name']));
         // cache included
-        $this->cacheAsEntities($metadetails['included']);
+        $this->cacheAsEntities($metadetails->get('included',[]));
         // return as collections
-        return (new LaravelCollection($metadetails['data']))->map(function($item){
+        return (new LaravelCollection($metadetails->get('data', [])))->map(function($item){
             return new LaravelCollection($item);
         });
     }

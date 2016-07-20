@@ -32,9 +32,6 @@
 
         <main class="c-main-content">
             @include('notice.dialog')
-
-
-
             @include('notice.status')
             @yield('content')
         </main>
