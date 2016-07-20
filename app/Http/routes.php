@@ -21,7 +21,7 @@ Route::group(['prefix' => env('APP_PREFIX')], function () {
     Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
     Route::post('password/reset', 'Auth\PasswordController@reset');
     // CMS
-    Route::group(['middleware' => ['auth']], function(){
+    Route::group(['middleware' => ['auth','isSetup']], function(){
 
         Route::get('/','Dashboard@index');
 

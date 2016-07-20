@@ -32,6 +32,7 @@ class Controller extends BaseController
         \Debugbar::startMeasure('user','Get Current User');
         // get current user
         config(['app.user' => new User($request->user())]);
+        // redirect if account not set up
         \Debugbar::stopMeasure('user');
         \Debugbar::startMeasure('active-account-id','Get Active Account ID');
         // get account
@@ -64,7 +65,7 @@ class Controller extends BaseController
     protected function api($config = []){
         // prepare api config
         $config = array_merge([
-            'url'           => 'http://formandsystem-api.dev',
+            'url'           => env('FS_API_URL'),
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
         ], $config);
         // return new API instance
