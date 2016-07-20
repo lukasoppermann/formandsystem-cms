@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Settings;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Validator;
 use App\Services\ApiClientDetailService;
 
@@ -53,7 +52,7 @@ class Ftp extends Settings
         ];
         // store detail
         try{
-            $detail = (new ApiClientDetailService)->create(config('app.user')->account()->getModel(), $data, [
+            $detail = (new ApiClientDetailService)->create(config('app.user')->account(), $data, [
                 'type' => $type,
                 'data' => $type,
             ]);
@@ -79,7 +78,7 @@ class Ftp extends Settings
      */
     public function delete(Request $request){
         try{
-            (new ApiClientDetailService)->delete(config('app.user')->account()->getModel(), $request->get('ftp_image_account_type'));
+            (new ApiClientDetailService)->delete(config('app.user')->account(), $request->get('ftp_image_account_type'));
             // redirect on success
             return redirect('settings/developers')->with([
                 'status' => 'Your FTP connection ('.str_replace('_',' ',$request->get('ftp_image_account_type')).') client has been deleted.',

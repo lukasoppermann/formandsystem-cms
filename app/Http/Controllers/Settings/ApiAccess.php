@@ -18,7 +18,7 @@ class ApiAccess extends Settings
     public function store(Request $request){
         // generate api access
         try{
-            $client = (new ApiClientService)->create($this->account);
+            $client = (new ApiClientService)->create(config('app.user')->account());
             // redirect on success
             return redirect('settings/developers')->with(['notice' => [
                 'data' => $client,
@@ -43,7 +43,7 @@ class ApiAccess extends Settings
      */
     public function delete(Request $request){
         try{
-            (new ApiClientService)->delete($this->account);
+            (new ApiClientService)->delete(config('app.user')->account());
             // redirect on success
             return redirect('settings/developers')->with([
                 'status' => 'Your API client has been deleted.',

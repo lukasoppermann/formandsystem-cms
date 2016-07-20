@@ -6,8 +6,8 @@ use Event;
 use App\Events\ClientWasDeleted;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Models\Account;
-use App\Models\AccountDetail;
+use App\Entities\Account;
+use App\Entities\AccountDetail;
 
 class ApiClientService extends AbstractService
 {
@@ -20,11 +20,11 @@ class ApiClientService extends AbstractService
      */
     public function create(Account $account){
         // generate clients
-        if( ! $clients = $this->generateApiAccess($account->name) ){
-            throw new \Exception("Creating API token failes");
+        if( ! $clients = $this->generateApiAccess($account->get('name')) ){
+            throw new \Exception("Creating API token failed");
         }
         // store client to account
-        $account->details()->save((new AccountDetail)->create([
+        $account->attach(new AccountDetail([
             'type'  => 'client',
             'data' => json_encode([
                 'client_id'     => $clients['client']['client_id'],
@@ -32,7 +32,7 @@ class ApiClientService extends AbstractService
             ])
         ]));
         // store cms client to account
-        $account->details()->save((new AccountDetail)->create([
+        $account->attach(new AccountDetail([
             'type'  => 'cms_client',
             'data' => json_encode([
                 'client_id'     => $clients['cms']['client_id'],
@@ -56,26 +56,14 @@ class ApiClientService extends AbstractService
         // delete client
         // TODO: deal with error when no data
         // get client & client id
-        $detail = $account->details->where('type','client')->first();
-        $client_id = json_decode($detail->data, true)['client_id'];
-        // delete client connection to account
-        $detail->delete();
-        $account->details()->detach($detail->id);
-        // delete client from api
-        $client = $this->api($this->config['cms'])->delete('/clients/'.$client_id);
-
-        // delete cms client
-        // TODO: deal with error when no data
-        // get client & client id
-        $detail = $account->details->where('type','cms_client')->first();
-        $cms_client_id = json_decode($detail->data, true)['client_id'];
-        // delete client connection to account
-        $detail->delete();
-        $account->details()->detach($detail->id);
-        // delete client from api
-        $cms_client = $this->api($this->config['cms'])->delete('/clients/'.$cms_client_id);
+        $account->details()->whereIn('type',['client','cms_client'])->each(function($item) use (&$response){
+            // delete from api
+            $response[] = $this->api($this->config['cms'])->delete('/clients/'.$item->get('data')['client_id']);
+            // delete client connection to account
+            $item->delete();
+        });
         // on success
-        if(!isset($cms_client['message']) && !isset($client['message'])){
+        if( count(array_filter($response)) === 0 ){
             // fire event
             Event::fire(new ClientWasDeleted($account));
             // redirect to show

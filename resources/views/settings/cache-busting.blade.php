@@ -5,10 +5,6 @@
     <h3 class="o-headline o-headline--second">Cache Busting Code</h3>
     <p class="o-copy o-content__paragraph">This code is used to verify that a request to delete your cache is valid and comes from Form&System. Please copy it into your API package config or use it to verify the request when writing your own implementation.</p>
 
-    @if(isset($notice))
-        @include('notice.notice', $notice)
-    @endif
-
     <form class="o-form" action="/settings/developers/cache-code" method="POST">
         {{ csrf_field() }}
         <div class="o-flex-bar">

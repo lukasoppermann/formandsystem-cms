@@ -47,7 +47,7 @@ class Database extends Settings
         ];
         // generate api access
         try{
-            $detail = (new ApiClientDetailService)->create($this->account, $data, [
+            $detail = (new ApiClientDetailService)->create(config('app.user')->account(), $data, [
                 'type' => 'database',
                 'data' => $request->get('connection_name'),
             ]);
@@ -72,7 +72,7 @@ class Database extends Settings
      */
     public function delete(Request $request){
         try{
-            (new ApiClientDetailService)->delete($this->account, 'database');
+            (new ApiClientDetailService)->delete(config('app.user')->account(), 'database');
             // redirect on success
             return redirect('settings/developers')->with([
                 'status' => 'Your database connection has been deleted.',

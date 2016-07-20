@@ -172,4 +172,22 @@ class Account extends AbstractModelEntity
     {
         return $model->toArray();
     }
+    /**
+     * validate that account is setup correctly
+     *
+     * @method isSetup
+     *
+     * @return bool
+     */
+    public function isSetup()
+    {
+        $keys = [
+            'client',
+            'database',
+            'ftp_image'
+        ];
+        return $this->details()->filter(function($item) use ($keys){
+            return in_array($item['type'], $keys);
+        })->count() === count($keys);
+    }
 }
