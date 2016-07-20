@@ -23,7 +23,7 @@ class User extends AbstractModelEntity
      */
     protected $model = '\App\Models\User';
     // TODO: add caching for User Listing view
-    public function setEntityToId(string $id)
+    public function setEntityToId($id)
     {
        // try to get from cache
        if(\Auth::user()->id === $id){

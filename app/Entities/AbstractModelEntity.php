@@ -23,7 +23,7 @@ abstract class AbstractModelEntity extends AbstractEntity
      *
      * @return App\Entities\AbstractEntity
      */
-    public function getEntityFromId(string $id)
+    public function getEntityFromId($id)
     {
         // try to get from cache
         if(\Cache::has($id)){
@@ -32,7 +32,7 @@ abstract class AbstractModelEntity extends AbstractEntity
         // get from model
         return new $this($this->getModel()->find($id));
     }
-    public function setEntityToId(string $id)
+    public function setEntityToId($id)
     {
         // try to get from cache
         if(\Cache::has($id)){

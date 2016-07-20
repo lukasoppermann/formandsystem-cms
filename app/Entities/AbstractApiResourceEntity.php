@@ -28,7 +28,7 @@ abstract class AbstractApiResourceEntity extends AbstractEntity
      *
      * @param  string        $id [description]
      */
-    public function setEntityToId(string $id)
+    public function setEntityToId($id)
     {
         // try to get from cache
         if(\Cache::has($id)){

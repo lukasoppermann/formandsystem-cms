@@ -14,7 +14,7 @@
                 </div>
             @endif
 
-            <form role="form" method="POST" action="{{ url(env('APP_PREFIX').'/password/email') }}">
+            <form role="form" method="POST" action="{{ url('/password/email') }}">
                 {{ csrf_field() }}
 
                 @include('forms.input',['name' => 'email', 'label' => 'E-Mail Address'])

@@ -108,7 +108,6 @@ abstract class AbstractEntity extends LaravelCollection
             $ids = $this->retrieveIds($entity_name, $cache_name, $cache_suffix);
             Cache::put($cache_name, $ids, 1440);
         }
-
         // get entities
         if( $ids = Cache::get($cache_name) ){
             // return items
@@ -431,5 +430,5 @@ abstract class AbstractEntity extends LaravelCollection
      *
      * @return App\Entities\AbstractEntity
      */
-    abstract protected function setEntityToId(string $id);
+    abstract protected function setEntityToId($id);
 }

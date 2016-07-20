@@ -1,5 +1,4 @@
 @extends('layouts.external')
-
 @section('content')
 <div class="o-dialog o-dialog--transparent">
     <div class="o-dialog__box c-login-dialog">
@@ -10,7 +9,7 @@
                 </svg>
             </div>
 
-            <form role="form" method="POST" action="{{ url(env('APP_PREFIX').'/login') }}">
+            <form role="form" method="POST" action="{{ url('/login') }}">
                 {{ csrf_field() }}
                 @include('forms.input',['name' => 'email', 'label' => 'E-Mail Address'])
                 @include('forms.input',['type' => 'password','name' => 'password', 'label' => 'Password'])
