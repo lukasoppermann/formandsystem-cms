@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use App\Entities\User;
 
-class Setup
+class IsSetup
 {
     /**
      * Handle an incoming request.
@@ -18,8 +18,7 @@ class Setup
      */
     public function handle($request, Closure $next, $guard = null)
     {
-
-        if(!(new User($request->user()))->account()->isSetup() && !$request->is('settings/developers')){
+        if(!(new User($request->user()))->account()->isSetup() && !$request->is('settings/developers') && $request->method('get')){
             return redirect('/settings/developers');
         }
 

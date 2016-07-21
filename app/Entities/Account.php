@@ -184,7 +184,7 @@ class Account extends AbstractModelEntity
         $keys = [
             'client',
             'database',
-            'ftp_image'
+            'ftp_image',
         ];
         return $this->details()->filter(function($item) use ($keys){
             return in_array($item['type'], $keys);
