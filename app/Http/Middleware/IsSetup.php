@@ -18,7 +18,7 @@ class IsSetup
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if(!(new User($request->user()))->account()->isSetup() && !$request->is('settings/developers') && $request->method('get')){
+        if(!(new User($request->user()))->account()->isSetup() && !$request->is('settings/developers') && $request->isMethod('get')){
             return redirect('/settings/developers');
         }
 
