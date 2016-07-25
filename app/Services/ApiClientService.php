@@ -90,7 +90,7 @@ class ApiClientService extends AbstractService
             ]
         ]);
         // get new cms client
-        $cms = $this->api($this->config['cms'])->post('/clients', [
+        $cms = $this->api($this->config['cms'])->post('/clients/', [
             'type' => 'clients',
             'attributes' => [
                 'name' => '[cms] '.$name,
