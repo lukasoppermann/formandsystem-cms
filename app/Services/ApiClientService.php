@@ -82,7 +82,7 @@ class ApiClientService extends AbstractService
     public function generateApiAccess($name){
         // get new client
         // TODO: deal with errors
-        $client = $this->api($this->config['cms'])->post('/clients', [
+        $client = $this->api($this->config['cms'])->post('/clients/', [
             'type' => 'clients',
             'attributes' => [
                 'name' => $name,
