@@ -7,7 +7,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      *
      * @var string
      */
-    protected $baseUrl = 'http://cms.formandsystem.app';
+    protected $baseUrl = 'http://formandsystem-cms.dev';
 
     /**
      * Creates the application.

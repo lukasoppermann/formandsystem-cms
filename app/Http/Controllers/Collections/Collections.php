@@ -147,11 +147,10 @@ class Collections extends Controller
                 'published'     => true,
             ]));
         }
-        // if news collection, create new news
-        if($item->get('type') === 'news'){
-            // $collection->attach(new \App\Entities\Fragment([
-            //     'type'    => 'news',
-            // ]));
+        else{
+            $collection->attach(new \App\Entities\Fragment([
+                'type'    => $item->get('type'),
+            ]));
         }
         // redirect to collection
         return redirect('collections/'.$collection->get('slug'));

@@ -316,3 +316,7 @@ div.CodeMirror-cursors {
 
 /* Help users use markselection to safely style text background */
 span.CodeMirror-selectedtext { background: none; }
+
+.CodeMirror .CodeMirror-placeholder{
+    color: var(--text-light-gray);
+}

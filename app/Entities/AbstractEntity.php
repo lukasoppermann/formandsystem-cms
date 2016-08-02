@@ -26,9 +26,14 @@ abstract class AbstractEntity extends LaravelCollection
         // create & return model or collection if array given
         if(is_array($data)){
             $data = $this->entityCreate($data);
+            // needs to be run before wasCreated
+            $this->refreshSelf($data);
+            $this->wasCreated();
         }
-        // TODO: deal with errors e.g. when no model exists, etc.
-        $this->refreshSelf($data);
+        else{
+            // TODO: deal with errors e.g. when no model exists, etc.
+            $this->refreshSelf($data);
+        }
     }
     /**
      * set the current entity to new values
@@ -137,6 +142,7 @@ abstract class AbstractEntity extends LaravelCollection
         $items = $this->{'retrieve'.$cache_suffix}();
         // if anything is returned
         if($items !== NULL){
+
             $entities = [];
             foreach($items as $item){
                 // create new entity so it is cached
@@ -431,4 +437,12 @@ abstract class AbstractEntity extends LaravelCollection
      * @return App\Entities\AbstractEntity
      */
     abstract protected function setEntityToId($id);
+    /**
+     * called after cration of fragment
+     *
+     * @method wasCreated
+     */
+    protected function wasCreated()
+    {
+    }
 }

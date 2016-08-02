@@ -11,18 +11,6 @@ use Validator;
 
 class Fragments extends Controller
 {
-    /**
-     * define which fragment types are defaults
-     */
-    protected $default_fragments = [
-        'section',
-        'image',
-        'text',
-        'dropdown',
-        'input',
-        'button',
-        'collection',
-    ];
 
     public function store(Request $request)
     {
@@ -31,36 +19,11 @@ class Fragments extends Controller
         $parentEntity = new $parentEntity($request->get('parentId'));
         // get position
         $position = $parentEntity->fragments()->count() + 1;
-        // CUSTOM ELEMENT
-        if( !in_array($request->get('type'), $this->default_fragments) ){
-
-            $blueprint = config('app.user')->account()->details('type','fragment')->where('name',$request->get('type'))->first();
-
-            if( $blueprint === null ){
-                return back();
-            }
-            // get add meta
-
-            $meta = NULL;
-            if(isset($blueprint['data']['meta']) && isset($blueprint['data']['meta']['meta'])){
-                $meta = $blueprint['data']['meta']['meta'];
-            }
-            // create new element
-            $fragment = new \App\Entities\Fragment([
-                'type'      => $request->get('type'),
-                'data'      => json_encode($blueprint['data']),
-                'position'  => $position,
-                'meta'      => $meta
-            ]);
-            // create subelements
-            $this->newCustomFragment($fragment, $blueprint);
-        // NORMAL ELEMENT
-        }else {
-            $fragment = new \App\Entities\Fragment([
-                'type' => $request->get('type'),
-                'position'  => $position,
-            ]);
-        }
+        // create new entity
+        $fragment = new \App\Entities\Fragment([
+            'type' => $request->get('type'),
+            'position'  => $position,
+        ]);
         // attach fragment to parent
         $parentEntity->attach($fragment);
         // redirect back
@@ -176,31 +139,6 @@ class Fragments extends Controller
             \Log::error($e);
 
             return back()->with(['status' => 'Saving this fragment failed. Please contact us at support@formandsystem.com', 'type' => 'error']);
-        }
-    }
-    /**
-     * create a custom fragment and all subfragments
-     *
-     * @method newCustomFragment
-     *
-     * @param  App\Entities\AbstractEntity      $parent [description]
-     * @param  string                           $type [description]
-     *
-     * @return model
-     */
-    protected function newCustomFragment(\App\Entities\AbstractEntity $parent, $blueprint)
-    {
-        // add subfragments
-        foreach($blueprint['data']['elements'] as $position => $element){
-            // create fragment
-            $subfragment = new \App\Entities\Fragment([
-                'type'      => $element['type'],
-                'name'      => $element['name'],
-                'position'  => $position,
-                'meta'      => isset($element['meta']) ? $element['meta'] : NULL,
-            ]);
-            // attach to parent
-            $parent->attach($subfragment);
         }
     }
 }

@@ -37,11 +37,11 @@ class Database extends Settings
         $data = [
             'type' => 'database',
             'data' => json_encode([
-                'connection_name'   => $request->get('connection_name'),
-                'driver'            => $request->get('db_type'),
-                'host'              => $request->get('host'),
-                'database'          => $request->get('database'),
-                'username'          => $request->get('db_user'),
+                'connection_name'   => trim($request->get('connection_name')),
+                'driver'            => trim($request->get('db_type')),
+                'host'              => trim($request->get('host')),
+                'database'          => trim($request->get('database')),
+                'username'          => trim($request->get('db_user')),
                 'password'          => $request->get('db_password'),
             ]),
         ];

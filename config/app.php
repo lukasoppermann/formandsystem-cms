@@ -205,7 +205,5 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         // DEBUG
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
-
     ],
-
 ];
