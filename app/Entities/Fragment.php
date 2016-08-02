@@ -24,6 +24,17 @@ class Fragment extends AbstractApiResourceEntity
      */
     protected $resourceService = '\App\Services\Api\FragmentService';
     /**
+     * retrieve data and build collection
+     *
+     * @method __construct
+     *
+     * @param  mixed     $data [description]
+     */
+    public function __construct($data)
+    {
+        parent::__construct($data);
+    }
+    /**
      * transform attributes
      *
      * @method attributes

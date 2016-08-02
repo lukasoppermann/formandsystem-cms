@@ -29,4 +29,11 @@
         <env name="DB_CONNECTION" value="sqlite"/>
         <env name="DB_DATABASE" value=":memory:"/>
     </php>
+    <listeners>
+       <listener class="PHPUnit\Runner\CleverAndSmart\TestListener">
+           <arguments>
+               <object class="PHPUnit\Runner\CleverAndSmart\Storage\Sqlite3Storage"/>
+           </arguments>
+       </listener>
+   </listeners>
 </phpunit>
