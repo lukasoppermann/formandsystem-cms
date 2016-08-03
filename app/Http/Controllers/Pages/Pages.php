@@ -139,14 +139,28 @@ class Pages extends Controller
         }
         // store detail
         try{
-            $page = config('app.user')->account()->navigation('id',$data['collection'],true)->pages('id',$id,true);
-            $page->update((new LaravelCollection($data))->except(['collection','id'])->toArray());
+            $collection = config('app.user')->account()->navigation('id',$data['collection'],true);
+            if( $collection->isEmpty() ){
+                $collection = config('app.user')->account()->collections('id',$data['collection'],true);
+            }
+            //
+            if( !$collection->isEmpty() ){
+                $page = $collection->pages('id',$id,true);
+                $page->update((new LaravelCollection($data))->except(['collection','id'])->toArray());
 
-            // redirect on success
-            return redirect('/'.$page->parentCollection()->get('slug').'/'.$page->get('slug'))->with([
-                'status' => 'This page has been updated successfully.',
-                'type' => 'success'
-            ]);
+                if($page->parentCollection()->get('type') === 'posts'){
+                    $slug = '/collections/'.$page->parentCollection()->get('slug');
+                }
+                if($page->parentCollection()->get('type') === 'navigation'){
+                    $slug = '/pages/';
+                }
+
+                // redirect on success
+                return redirect($slug.'/'.$page->get('slug'))->with([
+                    'status' => 'This page has been updated successfully.',
+                    'type' => 'success'
+                ]);
+            }
         // ERROR
         }catch(Exception $e){
             \Log::error($e);
