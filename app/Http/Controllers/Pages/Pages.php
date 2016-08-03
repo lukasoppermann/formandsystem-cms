@@ -152,7 +152,7 @@ class Pages extends Controller
                     $slug = '/collections/'.$page->parentCollection()->get('slug');
                 }
                 if($page->parentCollection()->get('type') === 'navigation'){
-                    $slug = '/pages/';
+                    $slug = '/pages';
                 }
 
                 // redirect on success

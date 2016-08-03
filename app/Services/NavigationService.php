@@ -188,6 +188,15 @@ class NavigationService
                 ]
             ];
         }
+        // add navigation collection
+        // $lists[] = ['elements' => [
+        //     view('navigation.add', [
+        //         'action'    => '/pages',
+        //         'method'    => 'post',
+        //         'label'     => 'New Navigation'
+        //     ])->render()
+        // ]];
+
         // return
         return $lists;
     }
