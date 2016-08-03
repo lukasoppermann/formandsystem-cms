@@ -115,16 +115,25 @@ class Pages extends Controller
         if($request->json('position') !== NULL){
             // get page
             $page = config('app.user')->account()->navigation('id',$request->json('collection'),true)->pages('id',$id,true);
-            // // update position
+            // update position
             $page->update([
                 'position' => $request->json('position')
             ]);
             return;
         }
+        // get collection
+        $collection = config('app.user')->account()->navigation('id',$request->get('collection'),true);
+        if( $collection->isEmpty() ){
+            $collection = config('app.user')->account()->collections('id',$request->get('collection'),true);
+        }
+        // get page slugs
+        $page_slugs = $collection->pages()->reject(function($item) use ($id){
+            return $item['id'] === $id;
+        })->implode('slug', ',');
         // get validated data
         $data = $this->getValidated($request, [
             'menu_label'        => 'required|string',
-            'slug'              => 'required|alpha_dash',
+            'slug'              => 'required|alpha_dash|not_in:'.$page_slugs,
             'title'             => 'required|string',
             'description'       => 'required|string',
             'collection'        => 'required|string',
@@ -139,10 +148,6 @@ class Pages extends Controller
         }
         // store detail
         try{
-            $collection = config('app.user')->account()->navigation('id',$data['collection'],true);
-            if( $collection->isEmpty() ){
-                $collection = config('app.user')->account()->collections('id',$data['collection'],true);
-            }
             //
             if( !$collection->isEmpty() ){
                 $page = $collection->pages('id',$id,true);
