@@ -14,10 +14,13 @@
             'classes' => 'o-button o-button--squared o-grid__column o-grid__column--md-6of12',
             'selected' => 'pages',
             'values' =>
-            [
+            array_merge([
                 'pages' => 'Pages',
-                'news'  => 'News',
-            ],
+            ], config('app.user')->account()->details('type','fragment')->reject(function($item){
+                return $item['data']['meta']['available_in']['collections'] !== true;
+            })->keyBy('name')->map(function($item){
+                return $item['data']['meta']['label'];
+            })->toArray()),
         ])
         @include('forms.submit', ['label' => 'submit', 'classes' => 'is-hidden'])
     </div>

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Services\Api\FragmentService;
 use App\Services\Api\CollectionService;
+use App\Entities\User;
 use Illuminate\Http\Request;
 
 class DialogService extends AbstractService
@@ -13,6 +14,7 @@ class DialogService extends AbstractService
         \Config::set('user.grid-sm',2);
         \Config::set('user.grid-md',12);
         \Config::set('user.grid-lg',16);
+        config(['app.user' => new User($request->user())]);
 
         return $this->{'dialog'.ucfirst($type)}($request);
     }
