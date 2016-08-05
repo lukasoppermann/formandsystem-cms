@@ -20,7 +20,7 @@ abstract class AbstractEntity extends LaravelCollection
      *
      * @param  mixed     $data [description]
      */
-    public function __construct($data)
+    public function __construct($data = NULL)
     {
         // TODO: deal with errors e.g. when no model exists, etc.
         // create & return model or collection if array given

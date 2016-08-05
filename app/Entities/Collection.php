@@ -25,6 +25,7 @@ class Collection extends AbstractApiResourceEntity
         return [
             'id'                => $attributes['id'],
             'resource_type'     => $attributes['type'],
+            'position'          => $attributes['attributes']['position'],
             'type'              => $attributes['attributes']['type'],
             'name'              => $attributes['attributes']['name'],
             'slug'              => $attributes['attributes']['slug'],

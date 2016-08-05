@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Entities\AbstractApiResourceEntity;
+// use  \App\Services\Api\MetadetailService as ResourceService;
 
 class Metadetail extends AbstractApiResourceEntity
 {

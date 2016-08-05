@@ -166,7 +166,7 @@ class NavigationService
      */
     protected function getListPages($lists = NULL){
         // get lists
-        $items = config('app.user')->account()->navigation();
+        $items = config('app.user')->account()->navigation()->sortBy('position');
         // prepare lists
         $lists = [];
         foreach($items as $key => $list){

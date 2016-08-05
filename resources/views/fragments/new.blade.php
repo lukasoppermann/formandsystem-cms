@@ -14,6 +14,15 @@
 
             @include('fragments.new-fragment', [
                 'classes' => 'o-grid__column o-grid__column--md-4of12',
+                'label' => 'Input',
+                'related' => 'fragment',
+                'related_id' => $fragment_id,
+                'type' => 'input',
+                'button_classes' => 'c-fragment-new__selection',
+            ])
+
+            @include('fragments.new-fragment', [
+                'classes' => 'o-grid__column o-grid__column--md-4of12',
                 'label' => 'Image',
                 'related' => 'fragment',
                 'related_id' => $fragment_id,

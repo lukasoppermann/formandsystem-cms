@@ -7,7 +7,6 @@ use App\Services\CacheService;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Entities\User;
-use App\Entities\Metadetail;
 
 use App\Services\Api\CollectionService;
 use App\Services\Api\FragmentService;

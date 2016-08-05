@@ -49,7 +49,7 @@ class Site extends Settings
         try{
             // update meta items
             $metadetails = ['site_name','site_url','dir_images','analytics_code','analytics_anonymize_ip'];
-            
+
             foreach($metadetails as $type){
 
                 $item = config('app.user')->account()->metadetails('type',$type,true);
