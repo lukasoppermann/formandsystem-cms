@@ -28,12 +28,11 @@ class Images extends Controller
             'width'     => isset($width) ? $width : 0,
             'height'    => isset($height) ? $height : 0,
         ]);
-
         // upload file
         $upload =
             $this->api(config('app.user_client'))->put($image->link('upload'), fopen($file->getRealPath(), 'r'), [
                 'Content-Type' => $mime,
-            ]);
+            ], false);
 
         (new Fragment($request->get('fragment')))->attach($image);
 
