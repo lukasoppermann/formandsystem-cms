@@ -4,7 +4,7 @@
         {{ method_field('DELETE') }}
         @include('forms.hidden',['name' => 'fragment', 'value' => $fragment->get('id')])
         @include('forms.submit',['label' => 'Delete', 'classes' => 'c-fragment__image-delete-button o-button o-button--red o-flex__item--align-center'])
-        <img class="o-fragment__image" src="{{$fragment->images()->first()->get('link')}}" alt="{{$fragment->images()->first()->get('title')}}" />
+        <img class="o-fragment__image" src="{{trim(config('site_url'),'/').'/'.trim(config('img_dir'),'/').'/'.$fragment->images()->first()->get('link')}}" alt="{{$fragment->images()->first()->get('title')}}" />
     </form>
 @else
     <form action="/images" method="POST" enctype="multipart/form-data" class="o-fragment__image-upload">

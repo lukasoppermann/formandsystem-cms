@@ -26,7 +26,7 @@ class Image extends AbstractApiResourceEntity
             'resource_type' => $attributes['type'],
             'filename'      => $attributes['attributes']['filename'],
             'slug'          => $attributes['attributes']['slug'],
-            'link'          => trim(config('site_url'),'/').'/'.trim(config('img_dir'),'/').'/'.$attributes['attributes']['filename'],
+            'link'          => $attributes['attributes']['filename'],
         ];
     }
 }
