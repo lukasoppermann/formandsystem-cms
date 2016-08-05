@@ -113,7 +113,6 @@ class Collections extends Controller
      */
     public function store(Request $request)
     {
-
         $slugs = config('app.user')->account()->collections('type','posts')->implode('slug',',');
         $types = config('app.user')->account()->details('type','fragment')->reject(function($item){
            return $item['data']['meta']['available_in']['collections'] !== true;
@@ -122,7 +121,7 @@ class Collections extends Controller
         $item = $this->getValidated($request, [
             'name'      => 'required|string',
             'slug'      => 'required|alpha_dash|not_in:'.$slugs,
-            'type'      => 'required|in:'.$types,
+            'type'      => 'required|in:pages,'.$types,
         ]);
 
         // if validation fails
