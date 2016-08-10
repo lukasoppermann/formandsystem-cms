@@ -28,7 +28,7 @@ class Images extends Controller
             'width'     => isset($width) ? $width : 0,
             'height'    => isset($height) ? $height : 0,
         ]);
-
+        dd($request->all());
         // upload file
         $upload =
             $this->api(config('app.user_client'))->put($image->link('upload'), fopen($file->getRealPath(), 'r'), [
