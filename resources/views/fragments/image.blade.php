@@ -11,6 +11,6 @@
         {{ csrf_field() }}
         {{ method_field('POST') }}
         @include('forms.hidden',['name' => 'fragment', 'value' => $fragment->get('id')])
-        @include('forms.file', ['name' => 'file', 'label' => 'Upload image', 'classes' => 'c-fragment-new__selection c-fragment-new__image', 'attr' => 'data-image-onchange='.$fragment->get("id")])
+        @include('forms.file', ['name' => 'file', 'label' => 'Upload image', 'classes' => 'c-fragment-new__selection c-fragment-new__image', 'attr' => 'data-image-onchange="'.$fragment->get("id").'"'])
     </form>
 @endif
