@@ -77,10 +77,7 @@ Array.prototype.forEach.call(elements, function(el, i){
     var elements = document.querySelectorAll('[data-image-onchange]');
     Array.prototype.forEach.call(elements, function(el, i){
         el.addEventListener('change', function(triggered){
-            console.log(triggered);
-            var form = document.querySelector('[data-fragment-form="'+this.getAttribute('data-image-onchange')+'"]');
-            console.log(this);
-            //.submit();
+            document.querySelector('[data-fragment-form="'+this.getAttribute('data-image-onchange')+'"]').submit();
         });
     });
 });
