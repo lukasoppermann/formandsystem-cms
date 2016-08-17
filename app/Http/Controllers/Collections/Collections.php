@@ -117,6 +117,7 @@ class Collections extends Controller
         $types = config('app.user')->account()->details('type','fragment')->reject(function($item){
            return $item['data']['meta']['available_in']['collections'] !== true;
        })->implode('name',',');
+
         // get page data
         $item = $this->getValidated($request, [
             'name'      => 'required|string',

@@ -72,7 +72,6 @@ class Fragment extends AbstractApiResourceEntity
         if( !in_array($data['type'], $this->default_fragments) ){
 
             $blueprint = config('app.user')->account()->details('type','fragment')->where('name',$data['type'])->first();
-
             if( $blueprint === null ){
                 return back();
             }
@@ -115,15 +114,17 @@ class Fragment extends AbstractApiResourceEntity
         if(isset($this->items['data']['elements'])){
             // add subfragments
             foreach($this->items['data']['elements'] as $position => $element){
-                // create fragment
-                $subfragment = new \App\Entities\Fragment([
-                    'type'      => $element['type'],
-                    'name'      => $element['name'],
-                    'position'  => $position,
-                    'meta'      => isset($element['meta']) ? $element['meta'] : NULL,
-                ]);
-                // attach to parent
-                $this->attach($subfragment);
+                if(isset($element['name'])){
+                    // create fragment
+                    $subfragment = new \App\Entities\Fragment([
+                        'type'      => $element['type'],
+                        'name'      => $element['name'],
+                        'position'  => $position,
+                        'meta'      => isset($element['meta']) ? $element['meta'] : NULL,
+                    ]);
+                    // attach to parent
+                    $this->attach($subfragment);
+                }
             }
         }
     }
@@ -155,6 +156,7 @@ class Fragment extends AbstractApiResourceEntity
         // TODO: deal with errors
         // update model
         $updated = $this->resourceService()->update($this->getId(), $data);
+
         if(isset($updated['data'])){
             // return updated model
             return new LaravelCollection($updated['data']);

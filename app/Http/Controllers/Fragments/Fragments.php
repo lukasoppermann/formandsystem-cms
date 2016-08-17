@@ -120,8 +120,8 @@ class Fragments extends Controller
             'columns.md'        => 'in:'.implode(',',range(0, config('user.grid-md'))),
             'columns.lg'        => 'in:'.implode(',',range(0, config('user.grid-lg'))),
             'custom_classes'    => 'string',
+            'anchor'            => 'string',
         ]);
-
         // if validation fails
         if($details->get('isInvalid')){
             return back()
@@ -131,7 +131,7 @@ class Fragments extends Controller
         }
         // store detail
         try{
-            $fragment->update([
+            $updated = $fragment->update([
                 'meta' => array_merge((array)$fragment->get('meta'), $details->toArray())
             ]);
         }

@@ -72,3 +72,10 @@
 .c-settings-panel__toggle--right.c-settings-panel__toggle--small .o-icon{
     right: .25rem;
 }
+.c-settings-grid-dropdown-box{
+    min-width: 200px;
+    margin-right: 2rem;
+}
+.c-settings-grid-dropdown-box:nth-child(3){
+    margin-right: 0;
+}

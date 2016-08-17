@@ -28,7 +28,7 @@ class DeleteSettingsOnClientDelete
     public function handle(ClientWasDeleted $event)
     {
         foreach(['database','ftp_image','ftp_backup'] as $detail){
-            (new ApiClientDetailService)->delete($event->account()->getModel(), $detail);
+            (new ApiClientDetailService)->delete($event->account(), $detail);
         }
     }
 }

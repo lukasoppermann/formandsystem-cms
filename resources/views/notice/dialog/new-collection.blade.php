@@ -8,7 +8,6 @@
         @include('forms.input',['name' =>'slug', 'label' => 'Path/Slug', 'attr' => 'required', 'classes' => 'o-grid__column o-grid__column--md-6of12'])
     </div>
     <h4 class="o-headline o-headline--third">Select the content type for your collection</h4>
-
         @include('forms.radio-group', [
             'name' => 'type',
             'classes' => 'o-button o-button--squared o-grid__column o-grid__column--md-6of12',

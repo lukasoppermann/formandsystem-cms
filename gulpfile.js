@@ -50,6 +50,7 @@ gulp.task('build-js', function(){
         'resources/bower_components/mark/src/mark.src.js',
         'resources/js/input.js',
         'resources/js/autosubmit-form.js',
+        'resources/js/ajax-spawn-form.js',
         'resources/js/dialog-colllection.js',
         'resources/js/sortable-fragments.js',
         'resources/js/sortable-navigation.js',

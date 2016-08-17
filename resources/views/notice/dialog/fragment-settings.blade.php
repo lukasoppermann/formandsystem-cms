@@ -17,37 +17,64 @@
 <form class="o-form" action="/fragments/{{$item->get('id')}}" method="POST" autocomplete="off">
     {{ csrf_field() }}
     {{ method_field('PATCH') }}
-    @include('forms.select',[
-        'name' => 'columns[md]',
-        'label' => 'Columns',
-        'values' => $grid_md_columns,
-        'selected' => collect($item->get('meta')['columns'])->get('md',1),
-        'error_bag' => $item->get('id')
-    ])
-
-    @include('forms.select',[
-        'name' => 'columns[sm]',
-        'label' => 'Columns for small screens',
-        'values' => $grid_sm_columns,
-        'selected' => collect($item->get('meta')['columns'])->get('sm',1),
-        'error_bag' => $item->get('id'),
-    ])
-
-    @include('forms.select',['name' => 'columns[lg]', 'label' => 'Columns for large screens', 'values' => $grid_lg_columns, 'selected' => collect($item->get('meta')['columns'])->get('lg',1), 'error_bag' => $item->get('id')])
+    <div class="o-flex-bar">
+        <div class="o-flex-bar__item c-settings-grid-dropdown-box">
+            @include('forms.select',[
+                'name' => 'columns[md]',
+                'label' => 'Columns',
+                'values' => $grid_md_columns,
+                'selected' => collect($item->get('meta')['columns'])->get('md',1),
+                'error_bag' => $item->get('id')
+            ])
+        </div>
+        <div class="o-flex-bar__item c-settings-grid-dropdown-box">
+            @include('forms.select',[
+                'name' => 'columns[sm]',
+                'label' => 'Columns for small screens',
+                'values' => $grid_sm_columns,
+                'selected' => collect($item->get('meta')['columns'])->get('sm',1),
+                'error_bag' => $item->get('id'),
+            ])
+        </div>
+        <div class="o-flex-bar__item c-settings-grid-dropdown-box">
+            @include('forms.select',[
+                'name' => 'columns[lg]',
+                'label' => 'Columns for large screens',
+                'values' => $grid_lg_columns,
+                'selected' => collect($item->get('meta')['columns'])->get('lg',1),
+                'error_bag' => $item->get('id')
+            ])
+        </div>
+    </div>
 
     @include('forms.textarea',[
         'name' =>'custom_classes',
-        'label' => 'Classes',
+        'label' => 'Classes separated by whitespace (e.g. class second-class)',
         'value' => collect($item->get('meta'))->get('custom_classes',''),
         'error_bag' => $item->get('id')
     ])
 
-    <div class="o-grid">
-        @include('forms.submit',['label' => 'Save', 'classes' => 'o-button o-button--blue  o-grid__column o-flex__item--align-right o-flex__item--none'])
+    @if($item->get('type') === 'section')
+        @include('forms.input',[
+            'name' =>'anchor',
+            'label' => 'Achnor label',
+            'value' => collect($item->get('meta'))->get('anchor',''),
+            'error_bag' => $item->get('id')
+        ])
+    @endif
+
+    <div class="o-flex-bar o-flex-bar--right">
+        @include('forms.submit',[
+            'label' => 'Save',
+            'classes' => 'o-button o-button--blue o-flex-bar__item'
+        ])
     </div>
 </form>
-<form class="o-form o-grid" action="/fragments/{{$item->get('id')}}" method="POST" autocomplete="off">
+<form class="o-flex-bar o-flex-bar--left" action="/fragments/{{$item->get('id')}}" method="POST" autocomplete="off">
     {{ csrf_field() }}
     {{ method_field('DELETE') }}
-    @include('forms.submit',['label' => 'Delete', 'classes' => 'o-grid__column o-button o-button--link o-button--link--red o-flex__item--none o-flex__item--align-right'])
+    @include('forms.submit',[
+        'label' => 'Delete',
+        'classes' => 'o-button o-button--link o-button--link--red o-flex-bar__item'
+    ])
 </form>
