@@ -7,7 +7,9 @@
         @endif
 
         @if(is_array($navigation['lists']))
-            @each('navigation.navigation-list', $navigation['lists'], 'list')
+            <div class="c-navigation__body">
+                @each('navigation.navigation-list', $navigation['lists'], 'list')
+            </div>
         @endif
 
         @include('navigation.navigation-footer')

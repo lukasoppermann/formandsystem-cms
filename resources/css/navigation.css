@@ -119,10 +119,12 @@
 :root{
     --item-height: 5rem;
 }
-.c-navigation__list{
-    list-style: none;
+.c-navigation__body{
     max-height: calc(100vh - var(--header-height) - var(--footer-height));
     overflow-y: scroll;
+}
+.c-navigation__list{
+    list-style: none;
 }
 .c-navigation__list--dark{
     background: rgba(0, 0, 0, 0.1);
