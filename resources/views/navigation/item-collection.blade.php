@@ -1,4 +1,4 @@
-<li class="c-navigation__item{{ '/collections/'.$item['slug'] === $active_item ? ' is-active' : '' }}">
+<li class="js-sortable-item c-navigation__item{{ '/collections/'.$item['slug'] === $active_item ? ' is-active' : '' }}"  data-id="{{$item['id'] or ''}}">
 
     {{-- Edit button --}}
     @if(isset($item['id']))

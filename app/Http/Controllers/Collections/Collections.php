@@ -139,6 +139,7 @@ class Collections extends Controller
             'name' => $item->get('name'),
             'slug' => strtolower($item->get('slug')),
             'type' => 'posts',
+            'position' => config('app.user')->account()->collections('type','posts')->count()+1,
         ]);
         // attach to account
         config('app.user')->account()->attachCache($collection,'AccountCollection');
@@ -186,6 +187,15 @@ class Collections extends Controller
      */
     public function update(Request $request, $id)
     {
+        if($request->json('position') !== NULL){
+            // get page
+            $collection = config('app.user')->account()->collections('id',$id,true);
+            // update position
+            $collection->update([
+                'position' => $request->json('position')
+            ]);
+            return;
+        }
         // get page data
         $item = $this->getValidated($request, [
             'name'      => 'required|string',

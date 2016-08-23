@@ -72,6 +72,7 @@ Route::group(['prefix' => env('APP_PREFIX')], function () {
                 Route::post('/settings/developers/bust-cache', 'Cache@bust');
         });
 
+        Route::get('/help', 'Help@index');
 
         Route::get('/users', 'Users@index');
         Route::get('/users/{user}', 'Users@show');

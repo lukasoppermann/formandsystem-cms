@@ -141,8 +141,9 @@ class NavigationService
         foreach($lists as $key => $list){
             if($list['items'] === '$collections'){
                 $lists[$key] = array_merge($lists[$key], [
-                    'items' => config('app.user')->account()->collections(),
-                    'elements' => [
+                    'patch_url'         => '/collections',
+                    'items'             => config('app.user')->account()->collections()->sortBy('position'),
+                    'elements'          => [
                         view('navigation.item', [
                             'label'     => 'New Collection',
                             'icon'      => 'plus',
@@ -219,6 +220,9 @@ class NavigationService
         // return
         return [
             [
+                'title'             => $collection->get('name'),
+                'collection_id'     => $collection->get('id'),
+                'patch_url'         => '/pages',
                 'items'     => $collection->pages(),
                 'template'  => 'navigation.item-page',
                 'elements' => [

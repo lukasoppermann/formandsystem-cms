@@ -13,6 +13,7 @@ navSortables.forEach(function(el){
         e.detail.startParent.items.forEach(function(draggedItem){
             if(draggedItem.hasChanged === true){
                 var url = e.detail.startParent.item.getAttribute('data-patch-url')+draggedItem.item.getAttribute('data-id');
+                var parentID = e.detail.startParent.item.getAttribute('data-collection-id');
                 fetch(url, {
                     credentials: 'same-origin',
                     headers: {
@@ -21,7 +22,7 @@ navSortables.forEach(function(el){
                     },
                     method: "PATCH",
                     body: JSON.stringify({
-                        'collection': e.detail.startParent.item.getAttribute('data-collection-id'),
+                        'collection': parentID,
                         'position':draggedItem.position
                     })
                 }).then(function(response) {

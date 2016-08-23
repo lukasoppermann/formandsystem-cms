@@ -61,10 +61,14 @@ class Page extends AbstractApiResourceEntity
     {
         $related = $this->resourceService()->relationship($this->get('id'), 'ownedByCollections');
         // cache included
-        $this->cacheAsEntities($related['included']);
+        if(isset($related['included'])){
+            $this->cacheAsEntities($related['included']);
+        }
         // return as collection
-        return (new LaravelCollection($related['data']))->map(function($item){
-            return new LaravelCollection($item);
-        });
+        if(isset($related['data'])){
+            return (new LaravelCollection($related['data']))->map(function($item){
+                return new LaravelCollection($item);
+            });
+        }
     }
 }

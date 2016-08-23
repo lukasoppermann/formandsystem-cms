@@ -25,6 +25,10 @@ return [
             'title' => 'Users',
             'link'  => '/',
         ],
+        'Help' => [
+            'title' => 'Help',
+            'link'  => '/',
+        ],
     ],
     /*
     |
@@ -36,14 +40,14 @@ return [
         | Dashboard
          */
         'dashboard' => [
-            [
-                'items' => [
-                    [
-                        'label'     => 'Pages',
-                        'link'      => '/pages',
-                    ],
-                ]
-            ],
+            // [
+            //     'items' => [
+            //         [
+            //             'label'     => 'Pages',
+            //             'link'      => '/pages',
+            //         ],
+            //     ]
+            // ],
             [
                 'title'     => 'Collections',
                 'items'     => '$collections',
@@ -72,6 +76,10 @@ return [
                     //     'label' => 'Profile',
                     //     'link'  => '/users/me',
                     // ],
+                    [
+                        'label' => 'Help',
+                        'link'  => '/help',
+                    ],
                 ]
             ]
         ],

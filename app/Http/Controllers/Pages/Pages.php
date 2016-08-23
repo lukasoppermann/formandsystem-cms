@@ -114,7 +114,7 @@ class Pages extends Controller
     {
         if($request->json('position') !== NULL){
             // get page
-            $page = config('app.user')->account()->navigation('id',$request->json('collection'),true)->pages('id',$id,true);
+            $page = config('app.user')->account()->collections('id',$request->json('collection'),true)->pages('id',$id,true);
             // update position
             $page->update([
                 'position' => $request->json('position')
