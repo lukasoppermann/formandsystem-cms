@@ -24,8 +24,15 @@ class Fragments extends Controller
             'type' => $request->get('type'),
             'position'  => $position,
         ]);
+        
+        if($parentEntity->fragments()->count() === 0 && $request->get('parentType') === 'collection'){
+            $parentEntity->update([
+                'type' => 'posts'
+            ]);
+        }
         // attach fragment to parent
         $parentEntity->attach($fragment);
+
         // redirect back
         return back();
     }

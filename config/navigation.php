@@ -96,6 +96,7 @@ return [
                     [
                         'label' => 'Developers',
                         'link'  => '/settings/developers',
+                        'permissions' => 'settings.developer',
                     ],
                     [
                         'label' => 'Logout',

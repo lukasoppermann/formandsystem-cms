@@ -152,6 +152,13 @@ class NavigationService
                     ]
                 ]);
             }
+            else {
+                $lists[$key]['items'] = collect($lists[$key]['items'])->reject(function($item){
+
+                    // TODO: replace with real permissions
+                    return isset($item['permissions']) && $item['permissions'] === 'settings.developer' && config('app.user')->get('email') !== 'oppermann.lukas@gmail.com';
+                })->toArray();
+            }
         }
         // return
         return $lists;

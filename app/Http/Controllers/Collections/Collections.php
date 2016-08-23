@@ -113,7 +113,7 @@ class Collections extends Controller
      */
     public function store(Request $request)
     {
-        $slugs = config('app.user')->account()->collections('type','posts')->implode('slug',',');
+        $slugs = config('app.user')->account()->collections('type',['posts', 'pages', 'collections'])->implode('slug',',');
         $types = config('app.user')->account()->details('type','fragment')->reject(function($item){
            return $item['data']['meta']['available_in']['collections'] !== true;
        })->implode('name',',');
@@ -138,7 +138,7 @@ class Collections extends Controller
         $collection = new \App\Entities\Collection([
             'name' => $item->get('name'),
             'slug' => strtolower($item->get('slug')),
-            'type' => 'posts',
+            'type' => ($item->get('type') === 'pages' ? 'pages' : 'posts'), // TODO: needs to be refactored to acced input from form
             'position' => config('app.user')->account()->collections('type','posts')->count()+1,
         ]);
         // attach to account

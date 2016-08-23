@@ -120,7 +120,7 @@ class Account extends AbstractModelEntity
      */
     public function retrieveCollection()
     {
-        $collections = collect((new \App\Services\Api\CollectionService)->find('type',['posts','collections'], [
+        $collections = collect((new \App\Services\Api\CollectionService)->find('type',['posts','collections','pages'], [
             'only' => false
         ]));
 
