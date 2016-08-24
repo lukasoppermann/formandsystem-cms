@@ -98,7 +98,7 @@ Array.prototype.forEach.call(elements, function(el, i){
                 body: formData
             }).then(function(response) {
                 if(response.status < 300 ){
-                    console.log(response);
+                    console.log(response.json());
                     // successFn(element);
                 }
                 else {
