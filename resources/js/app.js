@@ -1,4 +1,4 @@
-var yo;
+
 function ready(fn) {
   if (document.readyState != 'loading'){
     fn();
@@ -99,7 +99,10 @@ Array.prototype.forEach.call(elements, function(el, i){
                 body: formData
             }).then(function(response) {
                 if(response.status < 300 ){
-                    yo = response;
+                    response.json().then(function(result){
+                        var result = result.data;
+                        console.log(result);
+                    });
                     // successFn(element);
                 }
                 else {
