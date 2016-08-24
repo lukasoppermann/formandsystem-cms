@@ -5,6 +5,7 @@ use App\Entities\Image;
 use App\Entities\Fragment;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Config;
 
 class Images extends Controller
 {
@@ -36,7 +37,8 @@ class Images extends Controller
 
         (new Fragment($request->get('fragment')))->attach($image);
 
-        return json_encode($upload);
+        Config::set('laravel-debugbar::config.enabled', false);
+        return response()->json($upload);
     }
 
     public function delete(Request $request, $id)

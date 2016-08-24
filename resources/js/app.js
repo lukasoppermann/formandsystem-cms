@@ -100,7 +100,6 @@ Array.prototype.forEach.call(elements, function(el, i){
             }).then(function(response) {
                 if(response.status < 300 ){
                     yo = response;
-                    console.log(response.json());
                     // successFn(element);
                 }
                 else {
