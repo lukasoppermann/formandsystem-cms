@@ -77,7 +77,36 @@ Array.prototype.forEach.call(elements, function(el, i){
     var elements = document.querySelectorAll('[data-image-onchange]');
     Array.prototype.forEach.call(elements, function(el, i){
         el.addEventListener('change', function(triggered){
-            document.querySelector('[data-fragment-form="'+this.getAttribute('data-image-onchange')+'"]').submit();
+
+            // document.querySelector('[data-fragment-form="'+this.getAttribute('data-image-onchange')+'"]').submit();
+            var parent = document.querySelector('[data-fragment-form="'+this.getAttribute('data-image-onchange')+'"]');
+            var reader  = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+
+            var formData  = new FormData(parent);
+            formData.append('fragment', parent.querySelector('[name=fragment]').value);
+            formData.append('file', reader.result);
+
+            fetch(parent.getAttribute('action'), {
+                credentials: 'same-origin',
+                headers: {
+                //    'Content-Type': 'multipart/form-data',
+                   'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+                },
+                method: "POST",
+                body: formData
+            }).then(function(response) {
+                if(response.status < 300 ){
+                    console.log('success');
+                    // successFn(element);
+                }
+                else {
+                    console.log('error');
+                    // errorFn(element);
+                }
+            }).catch(function(response) {
+                console.log('error');
+            });
         });
     });
 });
