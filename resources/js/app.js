@@ -101,7 +101,7 @@ Array.prototype.forEach.call(elements, function(el, i){
                 if(response.status < 300 ){
                     response.json().then(function(result){
                         var result = result.data;
-                        console.log(result);
+                        parent.innerHTML = '<img class="o-fragment__image" src="'+parent.getAttribute('data-image-url')+result.attributes.link+'" />';
                     });
                     // successFn(element);
                 }

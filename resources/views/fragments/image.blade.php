@@ -7,7 +7,7 @@
         <img class="o-fragment__image" src="{{trim(config('site_url'),'/').'/'.trim(config('img_dir'),'/').'/'.$fragment->images()->first()->get('link')}}" alt="{{$fragment->images()->first()->get('title')}}" />
     </form>
 @else
-    <form action="{{url('/images')}}" method="POST" enctype="multipart/form-data" class="o-fragment__image-upload" data-fragment-form={{$fragment->get("id")}}>
+    <form action="{{url('/images')}}" method="POST" enctype="multipart/form-data" class="o-fragment__image-upload" data-fragment-form={{$fragment->get("id")}} data-image-url={{trim(config('site_url'),'/').'/'.trim(config('img_dir'),'/').'/'}}>
         {{ csrf_field() }}
         {{ method_field('POST') }}
         @include('forms.hidden',['name' => 'fragment', 'value' => $fragment->get('id')])
