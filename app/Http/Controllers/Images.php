@@ -36,7 +36,7 @@ class Images extends Controller
 
         (new Fragment($request->get('fragment')))->attach($image);
 
-        return back();
+        return json_encode($upload);
     }
 
     public function delete(Request $request, $id)

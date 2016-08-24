@@ -80,6 +80,7 @@ Array.prototype.forEach.call(elements, function(el, i){
 
             // document.querySelector('[data-fragment-form="'+this.getAttribute('data-image-onchange')+'"]').submit();
             var parent = document.querySelector('[data-fragment-form="'+this.getAttribute('data-image-onchange')+'"]');
+            parent.querySelector('.o-file__label').innerHTML = 'Uploading ...';
             var reader  = new FileReader();
             reader.readAsDataURL(this.files[0]);
 
@@ -97,7 +98,7 @@ Array.prototype.forEach.call(elements, function(el, i){
                 body: formData
             }).then(function(response) {
                 if(response.status < 300 ){
-                    console.log('success');
+                    console.log(response.body);
                     // successFn(element);
                 }
                 else {
