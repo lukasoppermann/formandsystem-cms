@@ -43,8 +43,8 @@ class Images extends Controller
 
     public function delete(Request $request, $id)
     {
+        \Debugbar::disable();
         $image = (new Image($id))->delete();
-        Config::set('laravel-debugbar::config.enabled', false);
         return response('success');
     }
 }

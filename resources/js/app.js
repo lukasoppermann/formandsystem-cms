@@ -124,7 +124,6 @@ Array.prototype.forEach.call(elements, function(el, i){
         el.addEventListener('click', function(e){
             e.preventDefault();
             var parent = document.querySelector('[data-fragment-form="'+this.getAttribute('data-parent-form')+'"]');
-
             fetch(parent.getAttribute('action')+'/'+parent.querySelector('.o-fragment__image').getAttribute('data-image-id'), {
                 credentials: 'same-origin',
                 headers: {
@@ -133,12 +132,10 @@ Array.prototype.forEach.call(elements, function(el, i){
                 },
                 method: "DELETE"
             }).then(function(response) {
-                if(response.status < 100 ){
-                    response.json().then(function(result){
-                        parent.classList.add('is-empty');
-                        parent.querySelector('.o-fragment__image').setAttribute('src', '');
-                        parent.querySelector('.o-file__label').innerHTML = 'Upload image';
-                    });
+                if(response.status < 300 ){
+                    parent.classList.add('is-empty');
+                    parent.querySelector('.o-fragment__image').setAttribute('src', '');
+                    parent.querySelector('.o-file__label').innerHTML = 'Upload image';
                 }
             }).catch(function(response) {
             });
