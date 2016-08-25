@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'My Application',
+    'name' => 'Form&System',
 
     /*
     |--------------------------------------------------------------------------
@@ -166,7 +166,10 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Spatie\Permission\PermissionServiceProvider::class,
+        Mpociot\Teamwork\TeamworkServiceProvider::class,
+        Jrean\UserVerification\UserVerificationServiceProvider::class,
+        // Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
         //
 
         /*
@@ -224,6 +227,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
 
     ],
 
