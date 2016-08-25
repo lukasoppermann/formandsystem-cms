@@ -101,16 +101,47 @@ Array.prototype.forEach.call(elements, function(el, i){
                 if(response.status < 300 ){
                     response.json().then(function(result){
                         var result = result.data;
-                        parent.innerHTML = '<img class="o-fragment__image" src="'+parent.getAttribute('data-image-url')+result.attributes.link+'" />';
+                        parent.classList.remove('is-empty');
+                        parent.querySelector('.o-fragment__image').setAttribute('src', parent.querySelector('.o-fragment__image').getAttribute('data-base-url')+result.attributes.filename);
+                        parent.querySelector('o-fragment__image').setAttribute('data-image-id', result.id);
                     });
-                    // successFn(element);
                 }
                 else {
-                    console.log('error');
-                    // errorFn(element);
+                    parent.classList.add('is-empty');
+                    parent.querySelector('.o-file__label').innerHTML = 'Upload image';
                 }
             }).catch(function(response) {
-                console.log('error');
+                parent.classList.add('is-empty');
+                parent.querySelector('.o-file__label').innerHTML = 'Upload image';
+            });
+        });
+    });
+
+
+    // onchange submit image
+    var image_delete = document.querySelectorAll('.c-fragment__image-delete-button');
+    Array.prototype.forEach.call(image_delete, function(el, i){
+        el.addEventListener('click', function(e){
+            e.preventDefault();
+            var parent = document.querySelector('[data-fragment-form="'+this.getAttribute('data-parent-form')+'"]');
+            console.log(parent.getAttribute('action'));
+
+            fetch(parent.getAttribute('action')+'/'+parent.querySelector('.o-fragment__image').getAttribute('data-image-id'), {
+                credentials: 'same-origin',
+                headers: {
+                //    'Content-Type': 'multipart/form-data',
+                   'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+                },
+                method: "DELETE"
+            }).then(function(response) {
+                if(response.status < 100 ){
+                    response.json().then(function(result){
+                        parent.classList.add('is-empty');
+                        parent.querySelector('o-fragment__image').setAttribute('src', '');
+                        parent.querySelector('.o-file__label').innerHTML = 'Upload image';
+                    });
+                }
+            }).catch(function(response) {
             });
         });
     });
