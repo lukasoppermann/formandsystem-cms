@@ -170,6 +170,9 @@ return [
         Mpociot\Teamwork\TeamworkServiceProvider::class,
         Jrean\UserVerification\UserVerificationServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
+        GrahamCampbell\Security\SecurityServiceProvider::class,
+        GrahamCampbell\Binput\BinputServiceProvider::class,
+        Sofa\Eloquence\ServiceProvider::class,
         // Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
         //
 
@@ -229,7 +232,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
-
+        'Binput' => GrahamCampbell\Binput\Facades\Binput::class,
     ],
 
 ];

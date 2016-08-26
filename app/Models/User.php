@@ -6,10 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use Mpociot\Teamwork\Traits\UserHasTeams;
+use Sofa\Eloquence\Eloquence;
+use Sofa\Eloquence\Metable;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, UserHasTeams;
+    use Notifiable, HasRoles, UserHasTeams, Eloquence, Metable;
 
     /**
      * The attributes that are mass assignable.

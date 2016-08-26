@@ -12,7 +12,11 @@
         "mpociot/teamwork": "^4.0",
         "doctrine/dbal": "^2.5",
         "jrean/laravel-user-verification": "^3.0",
-        "spatie/laravel-activitylog": "^1.7"
+        "spatie/laravel-activitylog": "^1.7",
+        "guzzlehttp/guzzle": "~6.0",
+        "graham-campbell/binput": "^3.4",
+        "watson/validating": "^2.2",
+        "sofa/eloquence": "^5.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
