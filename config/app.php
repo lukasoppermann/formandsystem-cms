@@ -169,6 +169,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Mpociot\Teamwork\TeamworkServiceProvider::class,
         Jrean\UserVerification\UserVerificationServiceProvider::class,
+        Spatie\Activitylog\ActivitylogServiceProvider::class,
         // Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
         //
 

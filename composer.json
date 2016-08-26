@@ -10,7 +10,8 @@
         "spatie/laravel-permission": "^1.5",
         "mpociot/teamwork": "^4.0",
         "doctrine/dbal": "^2.5",
-        "jrean/laravel-user-verification": "^3.0"
+        "jrean/laravel-user-verification": "^3.0",
+        "spatie/laravel-activitylog": "^1.7"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
