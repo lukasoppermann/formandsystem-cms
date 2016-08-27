@@ -1,0 +1,33 @@
+:root{
+    --yellow: rgb(255,210,0);
+    --yellow-orange: rgb(255,180,0);
+    --blue: rgb(55,115,215);
+    --light-blue: rgb(55,160,225);
+    --turquoise: rgb(55,225,210);
+    --red: rgb(245,60,30);
+    --green: rgb(30,170,70);
+
+    --black: rgb(0,10,20);
+    --dark-gray: rgb(50,60,70);
+    --gray: rgb(115,125,135);
+    --medium-gray: rgb(145,155,165);
+    --light-gray: rgb(210,220,225);
+    --white-gray: rgb(243,245,247);
+    --white-tint: rgb(248,250,252);
+    --white: rgb(255,255,255);
+
+    /* gradients */
+    --gradient-yellow: linear-gradient(-135deg, var(--yellow), var(--yellow-orange));
+    --gradient-blue: linear-gradient(-135deg, var(--light-blue), var(--blue));
+    --gradient-turquoise: linear-gradient(-135deg, var(--turquoise), var(--blue));
+
+    /* text colors */
+    --text-black: var(--black);
+    --text-dark-gray: var(--dark-gray);
+    --text-gray: var(--gray);
+    --text-light-gray: var(--medium-gray);
+    --text-white: var(--white);
+    --text-blue: var(--blue);
+    --text-red: var(--red);
+    --text-green: var(--green);
+}

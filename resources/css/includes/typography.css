@@ -1,0 +1,19 @@
+:root{
+    --sans-serif: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    --type-size-default: 1.6rem;
+    --type-size-xxl: calc(var(--type-size-default)*2);
+    --type-size-xl: calc(var(--type-size-default)*1.5);
+    --type-size-lg: calc(var(--type-size-default)*1.25);
+    --type-size-md: calc(var(--type-size-default)*1.125);
+    --type-size-sm: calc(var(--type-size-default)*.875);
+
+    --line-height-xxl: var(--type-size-xl);
+    --line-height-xl: var(--type-size-lg);
+    --line-height-default: calc(var(--type-size-default)*1.5);
+
+    --bold: 700;
+    --regular: 400;
+    --light: 300;
+
+}

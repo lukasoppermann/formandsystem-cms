@@ -1,68 +1,39 @@
-@extends('layouts.app')
-
+@extends('layouts.external')
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
+<div class="o-dialog o-dialog--transparent">
+    <div class="c-login-container">
+        <div class="o-dialog__box c-login-dialog">
+            <div class="o-dialog__body">
+                <div class="login-logo">
+                    <svg viewBox="0 0 120 50" class="o-icon login-logo">
+                      <use xlink:href="#svg-icon--formandsystem-font"></use>
+                    </svg>
                 </div>
+
+                <form role="form" method="POST" action="{{ url('/login') }}">
+                    {{ csrf_field() }}
+                    @include('forms.input',['name' => 'email', 'label' => 'E-Mail Address', 'attr' => "autofocus"])
+                    @include('forms.input',['type' => 'password','name' => 'password', 'label' => 'Password'])
+                    @include('forms.toggle',['name' => 'remember', 'label' => 'Remember Me', 'checked' => true])
+
+                    <div class="o-flex-bar">
+                        @include('forms.submit',['label' => 'Login', 'classes' => 'o-button o-button--blue o-button--space-top o-flex-bar__item o-flex-bar__item--fill'])
+                    </div>
+                </form>
+            </div>
+            <div class="o-dialog__footer">
+                <a class="o-link o-link--quiet" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
             </div>
         </div>
+        <aside class="o-dialog__body c-login-side-panel o-flex-bar">
+            <h1 class="shame-login-h1">Sign in</h1>
+            <div class="o-flex-bar o-flex-bar--centered o-flex-bar__item o-flex-bar__item--bottom">
+                <h2 class="o-flex-bar__item shame-login-h2">No account yet?</h2>
+                <a href="{{ url('/register') }}" class="o-button o-button--white o-button--space-top o-button--space-bottom o-flex-bar__item">Sign up</a>
+            </div>
+        </aside>
     </div>
+</div>
+
 </div>
 @endsection

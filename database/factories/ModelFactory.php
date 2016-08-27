@@ -1,13 +1,8 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
 |
-| Here you may define all of your model factories. Model factories give
-| you a convenient way to create models for testing and seeding your
-| database. Just tell the factory how a default model should look.
+| Run php artisan test-factory-helper:generate
 |
 */
 
@@ -19,5 +14,11 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'email' => $faker->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+    ];
+});
+$factory->define(App\Models\Team::class, function (Faker\Generator $faker) {
+    return [
+        'owner_id' =>  $faker->randomNumber() ,
+        'name' =>  $faker->name ,
     ];
 });

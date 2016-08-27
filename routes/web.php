@@ -16,7 +16,7 @@ use Spatie\Permission\Models\Permission;
 Auth::routes();
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Route::get('/roles', function () {

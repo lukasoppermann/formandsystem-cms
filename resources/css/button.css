@@ -1,0 +1,139 @@
+.o-button-none{
+    border: none;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font-size: inherit;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.o-button{
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    box-sizing: content-box;
+    font-size: var(--type-size-default);
+    line-height: var(--line-height-default);
+    padding: .75rem 2rem;
+    height: var(--line-height-default);
+    border-radius: 5rem;
+    border: 2px solid color(var(--black) alpha(15%));
+    color: var(--text-gray);
+    background-color: transparent;
+    transition: color .5s ease, background-color .5s ease;
+}
+.o-button--icon{
+    position: relative;
+    padding-left: 4.5rem;
+}
+.o-button--icon .o-icon{
+    position: absolute;
+    height: 2rem;
+    top: calc(50% - 1rem);
+    left: 1.5rem;
+    fill: currentColor;
+    transition: fill .3s ease;
+}
+.o-button--icon .o-icon--sm{
+    height: 1.5rem;
+    top: calc(50% - .75rem);
+}
+.o-button:disabled{
+    cursor:not-allowed;
+    border: 2px solid color(var(--black) alpha(5%));
+    color: var(--text-light-gray);
+}
+.o-button:hover{
+    background-color: color(var(--black) alpha(5%));
+}
+.o-button:focus{
+    box-shadow: 0 0 5px var(--blue);
+}
+.o-button--link{
+    padding: 1rem 0;
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: none;
+}
+.o-button--link:focus{
+    box-shadow: none;
+}
+.o-button--link:hover{
+    background-color: transparent;
+    border-color: transparent;
+}
+.o-button--link:after{
+    bottom: .8rem;
+    position: absolute;
+    content: "";
+    display: block;
+    width: 100%;
+    height: .2rem;
+    background-color: currentColor;
+}
+.o-button--link:hover:after{
+    background-color: transparent;
+}
+.o-button--link--red{
+    color: var(--red);
+}
+.o-button--blue{
+    border-color: var(--blue);
+    color: var(--blue);
+    transition: color .5s ease, background-color .5s ease;
+}
+.o-button--blue:focus{
+    background-color: color(var(--blue) alpha(15%));
+    box-shadow: 0 0 5px var(--blue);
+}
+.o-button--blue:hover, .o-button--blue:active{
+    background-color: var(--blue);
+    color: var(--white);
+}
+.o-button--white{
+    border-color: var(--white);
+    color: var(--white);
+    transition: color .5s ease, background-color .5s ease;
+}
+.o-button--white:focus{
+    background-color: color(var(--white) alpha(15%));
+    box-shadow: 0 0 5px var(--black);
+}
+.o-button--white:hover, .o-button--white:active{
+    background-color: var(--white);
+    color: var(--blue);
+}
+.o-button--red{
+    border-color: var(--red);
+    color: var(--red);
+    transition: color .5s ease, background-color .5s ease;
+}
+.o-button--red:focus{
+    background-color: color(var(--red) alpha(15%));
+    box-shadow: 0 0 5px var(--red);
+}
+.o-button--red:hover, .o-button--red:active{
+    background-color: var(--red);
+    color: var(--white);
+}
+.o-button--space-top{
+    margin-top: 2rem;
+}
+.o-button--space-bottom{
+    margin-bottom: 2rem;
+}
+.o-button--squared{
+    border-radius: .3rem;
+    border: 1px solid color(var(--black) alpha(15%));
+    background-image: linear-gradient(180deg, var(--white), var(--white-gray));
+    text-align: center;
+    box-shadow: 0 1px 3px color(var(--black) alpha(15%));
+    transition: background-image .3s ease, box-shadow .3s ease;
+}
+.o-button--squared:hover{
+    box-shadow: 0 1px 1px color(var(--black) alpha(10%));
+    background-image: linear-gradient(180deg, color(var(--white) shade(1%)), color(var(--white-gray) shade(2%)));
+}

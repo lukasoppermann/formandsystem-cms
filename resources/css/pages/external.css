@@ -1,0 +1,69 @@
+.c-main-content--yellow{
+    background: var(--gradient-yellow);
+}
+.login-logo{
+    height: 5rem;
+    width: 12rem;
+    margin-bottom: 1rem;
+}
+.c-login-dialog{
+    min-width: 30rem;
+    box-shadow: var(--shadow-above-light);
+}
+.c-login-container, .c-register-container{
+    position: relative;
+    flex: 0 1 auto;
+    transform: translateX(12.5rem);
+}
+.c-register-container{
+    transform: translateX(-12.5rem);
+}
+.c-login-side-panel, .c-register-side-panel{
+    position: absolute;
+    padding: 0;
+    top: 5%;
+    left: -25rem;
+    width: 25rem;
+    height: 90%;
+    background: url('../../media/login-image.png');
+    background-repeat: no-repeat;
+    background-position: bottom left;
+    background-size: cover;
+    box-shadow: var(--shadow-default);
+    z-index: 0;
+    border-radius: .3rem 0 0 .3rem;
+    overflow: hidden;
+}
+.c-register-side-panel{
+    border-radius: 0 .3rem .3rem 0;
+    left: auto;
+    right: -25rem;
+}
+.c-login-side-panel::before, .c-register-side-panel::before{
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    opacity: 0.85;
+    background: var(--gradient-turquoise);
+}
+.shame-login-h2{
+    position: relative;
+    text-align: center;
+    z-index: 1;
+    flex: 0 0 100%;
+    color: var(--white);
+    font-size: var(--type-size-lg);
+    font-weight: var(--light);
+}
+.shame-login-h1{
+    position: relative;
+    z-index: 1;
+    padding: 2rem 0 0 2rem;
+    color: var(--white);
+    font-size: var(--type-size-xxl);
+    font-weight: var(--light);
+}

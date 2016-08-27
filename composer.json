@@ -16,7 +16,8 @@
         "guzzlehttp/guzzle": "~6.0",
         "graham-campbell/binput": "^3.4",
         "watson/validating": "^2.2",
-        "sofa/eloquence": "^5.3"
+        "sofa/eloquence": "^5.3",
+        "mpociot/laravel-test-factory-helper": "^0.3.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

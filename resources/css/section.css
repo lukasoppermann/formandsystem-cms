@@ -1,0 +1,9 @@
+.o-section{
+    padding: 2rem 0 5rem;
+}
+.o-section--no-top-padding{
+    padding-top: 0;
+}
+.o-section--no-bottom-padding{
+    padding-bottom: 0;
+}

@@ -1,82 +1,41 @@
-@extends('layouts.app')
-
+@extends('layouts.external')
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+<div class="o-dialog o-dialog--transparent">
+    <div class="c-register-container">
+        <div class="o-dialog__box c-login-dialog">
+            <div class="o-dialog__body">
+                <div class="login-logo">
+                    <svg viewBox="0 0 120 50" class="o-icon login-logo">
+                      <use xlink:href="#svg-icon--formandsystem-font"></use>
+                    </svg>
                 </div>
+
+                <form role="form" method="POST" action="{{ url('/register') }}">
+                    {{ csrf_field() }}
+
+                    @include('forms.input',['name' => 'name', 'label' => 'Your Name', 'attr' => "autofocus"])
+                    @include('forms.input',['name' => 'email', 'label' => 'E-Mail Address'])
+                    @include('forms.input',['type' => 'password', 'name' => 'password', 'label' => 'Password'])
+                    @include('forms.input',['type' => 'password' ,'name' => 'password_confirmation', 'label' => 'Confirm Password'])
+
+                    <div class="o-flex-bar">
+                        @include('forms.submit',['label' => 'Login', 'classes' => 'o-button o-button--blue o-button--space-top o-flex-bar__item o-flex-bar__item--fill'])
+                    </div>
+                </form>
+            </div>
+            <div class="o-dialog__footer">
+                <a class="o-link o-link--quiet" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
             </div>
         </div>
+        <aside class="o-dialog__body c-register-side-panel o-flex-bar">
+            <h1 class="shame-login-h1">Sign up</h1>
+            <div class="o-flex-bar o-flex-bar--centered o-flex-bar__item o-flex-bar__item--bottom">
+                <h2 class="o-flex-bar__item shame-login-h2">Already got an account?</h2>
+                <a href="{{ url('/login') }}" class="o-button o-button--white o-button--space-top o-button--space-bottom o-flex-bar__item">Sign up</a>
+            </div>
+        </aside>
     </div>
+</div>
+
 </div>
 @endsection

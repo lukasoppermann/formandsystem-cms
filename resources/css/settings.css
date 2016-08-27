@@ -1,0 +1,81 @@
+.c-settings-panel{
+    padding-top: 2rem;
+    width: 100%;
+    background: var(--white-gray);
+    display: none;
+}
+.c-settings-panel.is-active{
+    display: block;
+}
+.c-settings-panel__toggle{
+    width: 5rem;
+    height: 5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 10;
+}
+.c-settings-panel__toggle .o-icon{
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    opacity: .35;
+    z-index: 10;
+}
+.c-settings-panel__toggle:after{
+    z-index: 1;
+    content: "";
+    display: block;
+    width: 7.5rem;
+    height: 7.5rem;
+    transform: rotate(45deg);
+    background: var(--white-gray);
+    position: absolute;
+    top: -4rem;
+    left: -4rem;
+}
+.c-settings-panel__toggle--small{
+    width: 3rem;
+    height: 3rem;
+}
+.c-settings-panel__toggle--small .o-icon{
+    top: .25rem;
+    left: .25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+.c-settings-panel__toggle--small:after{
+    width: 4.5rem;
+    height: 4.5rem;
+    top: -2.35rem;
+    left: -2.35rem;
+}
+.c-settings-panel__toggle--right{
+    left: auto;
+    right: 0;
+}
+.c-settings-panel__toggle--right .o-icon{
+    right: .5rem;
+    left: auto;
+}
+.c-settings-panel__toggle--right:after{
+    left: auto;
+    right: -4rem;
+}
+.c-settings-panel__toggle--right.c-settings-panel__toggle--small:after{
+    right: -2.35rem;
+}
+.c-settings-panel__toggle--right.c-settings-panel__toggle--small .o-icon{
+    right: .25rem;
+}
+.c-settings-grid-dropdown-box{
+    min-width: 200px;
+    margin-right: 2rem;
+}
+.c-settings-grid-dropdown-box:nth-child(3){
+    margin-right: 0;
+}

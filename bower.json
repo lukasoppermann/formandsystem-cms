@@ -1,0 +1,28 @@
+{
+  "name": "formandsystem",
+  "version": "0.0.1",
+  "homepage": "https://github.com/lukasoppermann/formandsystem",
+  "authors": [
+    "Lukas Oppermann <lukas@vea.re>"
+  ],
+  "description": "A new take on a Content Management Solution",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "codemirror": "~5.16.*",
+    "fetch": "^1.0.0",
+    "es6-promise": "^3.2.2",
+    "webcomponentsjs": "^0.7.22",
+    "sortable-elements": "*",
+    "mark": "master"
+  },
+  "devDependencies": {}
+}
