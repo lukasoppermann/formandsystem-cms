@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Spatie\Menu\Laravel\MenuFacade as Menu;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use Spatie\Menu\Html;
 
 class Dashboard extends Controller
 {

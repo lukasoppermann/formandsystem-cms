@@ -28,16 +28,8 @@
     </head>
     <body>
         <?php include('./'.elixir("svgs/svg-sprite.svg")); ?>
-        <a href="{{ url('/logout') }}"
-            onclick="event.preventDefault();
-                     document.getElementById('logout-form').submit();">
-            Logout
-        </a>
 
-        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-            {{ csrf_field() }}
-        </form>
-        {{-- {!!$app['Nav']->render()!!} --}}
+        {!! (new App\Services\NavigationService)->new()->render() !!}
 
         <main class="c-main-content">
             @include('notice.dialog')

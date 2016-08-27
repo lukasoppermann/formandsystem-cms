@@ -174,6 +174,8 @@ return [
         GrahamCampbell\Binput\BinputServiceProvider::class,
         Sofa\Eloquence\ServiceProvider::class,
         Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
+        Spatie\Menu\Laravel\MenuServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         //
 
         /*
@@ -233,6 +235,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
         'Binput' => GrahamCampbell\Binput\Facades\Binput::class,
+        'Menu' => Spatie\Menu\Laravel\MenuFacade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

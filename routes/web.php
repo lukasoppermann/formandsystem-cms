@@ -21,6 +21,23 @@ Route::group(['middleware' => ['guest'/*'role:see'*/]], function () {
     });
 });
 
+Route::group([
+        'prefix'     => 'settings',
+        'namespace'  => 'Settings',
+        'middleware' => ['auth'/*,'role:see'*/],
+    ], function () {
+    Route::get('/', 'Settings@index')->name('settings.index');
+});
+
+Route::group([
+        'prefix'     => 'support',
+        'namespace'  => 'Support',
+        'middleware' => ['auth'/*,'role:see'*/],
+    ], function () {
+    Route::get('/', 'Support@index')->name('support.index');
+});
+
+
 Route::get('/roles', function () {
     // dd(Auth::user());
     // UserVerification::generate(Auth::user());
@@ -34,11 +51,10 @@ Route::get('/roles', function () {
     // Auth::user()->givePermissionTo('see');
     // Auth::user()->assignRole('admin');
     // $team   = new App\Models\Team();
-    // $team->owner_id = App\Models\User::first()->getKey();
-    // $team->name = 'My awesome team';
+    // $team->owner_id = Auth::user()->getKey();
+    // $team->name = 'Copra';
     // $team->save();
-    // App\Models\User::first()->attachTeam(App\Models\Team::first());
-    // dd(App\Models\User::first()->currentTeam);
+    // Auth::user()->attachTeam(App\Models\Team::first());
 });
 
 
@@ -58,7 +74,7 @@ Route::group(['middleware' => ['auth'/*'role:see'*/]], function () {
 /**
  * Teamwork routes
  */
-Route::group(['prefix' => 'teams', 'namespace' => 'Teamwork'], function()
+Route::group(['prefix' => 'teams', 'namespace' => 'Teamwork', 'middleware' => ['auth','role:teams']], function()
 {
     Route::get('/', 'TeamController@index')->name('teams.index');
     Route::get('create', 'TeamController@create')->name('teams.create');

@@ -19,7 +19,7 @@
                     @include('forms.input',['type' => 'password' ,'name' => 'password_confirmation', 'label' => 'Confirm Password'])
 
                     <div class="o-flex-bar">
-                        @include('forms.submit',['label' => 'Login', 'classes' => 'o-button o-button--blue o-button--space-top o-flex-bar__item o-flex-bar__item--fill'])
+                        @include('forms.submit',['label' => 'Sign up', 'classes' => 'o-button o-button--blue o-button--space-top o-flex-bar__item o-flex-bar__item--fill'])
                     </div>
                 </form>
             </div>
