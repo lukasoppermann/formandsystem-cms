@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth'/*'role:see'*/]], function () {
     // UserVerification::generate(Auth::user());
 
 
-    Route::get('/', 'Dashboard@index');
+    Route::get('/', 'Dashboard@index')->name('dashboard.index');
 
 });
 

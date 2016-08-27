@@ -134,6 +134,7 @@
     display: block;
     padding: 1.5rem 1rem 1rem 1.5rem;
     font-size: var(--type-size-sm);
+    font-weight: var(--regular);
     color: var(--text-gray)
 }
 .c-navigation__item{

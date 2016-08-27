@@ -8,8 +8,6 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="site_url" content="{{ url('/') }}">
         <link href="{{ asset(env('FILE_PREFIX').elixir('css/app.css')) }}" rel="stylesheet" type="text/css">
-
-        @include('custom-css')
         <link href='//fonts.googleapis.com/css?family=Lato:300,400,700&subset=latin,latin' rel='stylesheet' type='text/css'>
 
         @if (env('APP_ENV') !== 'local')
@@ -29,11 +27,11 @@
     <body>
         <?php include('./'.elixir("svgs/svg-sprite.svg")); ?>
 
-        {!! (new App\Services\NavigationService)->new()->render() !!}
+        @include('menu.menu')
 
         <main class="c-main-content">
-            @include('notice.dialog')
-            @include('notice.status')
+            {{-- @include('notice.dialog')
+            @include('notice.status') --}}
             @yield('content')
         </main>
     </body>
