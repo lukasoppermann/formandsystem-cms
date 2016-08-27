@@ -227,7 +227,7 @@ class NavigationService
         // return
         return [
             [
-                'title'             => $collection->get('name'),
+                // 'title'             => $collection->get('name'),
                 'collection_id'     => $collection->get('id'),
                 'patch_url'         => '/pages',
                 'items'     => $collection->pages(),
