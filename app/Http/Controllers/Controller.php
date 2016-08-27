@@ -63,13 +63,35 @@ class Controller extends BaseController
      * @return Api
      */
     protected function api($config = []){
-        // prepare api config
+        $config = new LaravelCollection($config);
+        // prepare config
         $config = array_merge([
             'url'           => env('FS_API_URL'),
+            'version'       => 1,
+            'client_id'     => env('FS_API_CLIENT_ID'),
+            'client_secret' => env('FS_API_CLIENT_SECRET'),
+            'cache'         => false,
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
-        ], $config);
+        ], $config->toArray() );
+
+        $handler = [];
+
+        $debugBar = debugbar();
+        // Get data collector.
+        $timeline = $debugBar->getCollector('time');
+        // Wrap the timeline.
+        $profiler = new GuzzleHttp\Profiling\Debugbar\Profiler($timeline);
+        // Add the middleware to the stack
+        $stack = GuzzleHttp\HandlerStack::create();
+        $stack->unshift(new GuzzleHttp\Profiling\Middleware($profiler));
+        $handler = ['handler' => $stack];
+        // New up the client with this handler stack.
+        $guzzle = new GuzzleHttp\Client(array_merge(
+            $handler
+        ));
+
         // return new API instance
-        return new Api($config, new CacheService, debugbar());
+        return new Api($config, new CacheService, $guzzle);
     }
     /**
      * get user & account config from DB & set as config
