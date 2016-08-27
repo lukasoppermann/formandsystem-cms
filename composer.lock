@@ -217,26 +217,29 @@
         },
         {
             "name": "formandsystem/api",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/formandsystem/api.git",
-                "reference": "881213e08422e5d814dc947776492f266dd99335"
+                "reference": "d83601d080e5421c3a713f0799c911f1ea81d893"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/formandsystem/api/zipball/881213e08422e5d814dc947776492f266dd99335",
-                "reference": "881213e08422e5d814dc947776492f266dd99335",
+                "url": "https://api.github.com/repos/formandsystem/api/zipball/d83601d080e5421c3a713f0799c911f1ea81d893",
+                "reference": "d83601d080e5421c3a713f0799c911f1ea81d893",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "~6.0",
-                "php": ">=5.5.9"
+                "php": ">=5.6"
             },
             "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.11",
                 "fzaninotto/faker": "~1.0",
+                "humbug/humbug": "~1.0@dev",
                 "mockery/mockery": "0.9.*@dev",
-                "phpspec/phpspec": "2.0.*@dev"
+                "phpunit/phpunit": "^5.5",
+                "satooshi/php-coveralls": "^1.0"
             },
             "type": "library",
             "autoload": {
@@ -251,7 +254,16 @@
             },
             "scripts": {
                 "test": [
-                    "phpunit"
+                    "phpunit; vendor/bin/php-cs-fixer fix -v --diff --dry-run; composer humbug;"
+                ],
+                "php-fix": [
+                    "vendor/bin/php-cs-fixer fix -v --diff;"
+                ],
+                "travis": [
+                    "phpunit --coverage-clover build/logs/clover.xml"
+                ],
+                "humbug": [
+                    "vendor/bin/humbug -vvv --ansi && vendor/bin/humbug stats --skip-killed=yes -vvv --ansi"
                 ]
             },
             "authors": [
@@ -265,7 +277,7 @@
                 "source": "https://github.com/formandsystem/api/tree/master",
                 "issues": "https://github.com/formandsystem/api/issues"
             },
-            "time": "2016-08-05 14:43:54"
+            "time": "2016-08-27 16:17:49"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -693,16 +705,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.2.44",
+            "version": "v5.2.45",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f24b7acfb494437ef00bdd062bed61eb21535546"
+                "reference": "2a79f920d5584ec6df7cf996d922a742d11095d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f24b7acfb494437ef00bdd062bed61eb21535546",
-                "reference": "f24b7acfb494437ef00bdd062bed61eb21535546",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/2a79f920d5584ec6df7cf996d922a742d11095d1",
+                "reference": "2a79f920d5584ec6df7cf996d922a742d11095d1",
                 "shasum": ""
             },
             "require": {
@@ -819,7 +831,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-08-23 13:03:29"
+            "time": "2016-08-26 11:44:52"
         },
         {
             "name": "league/flysystem",
@@ -3106,16 +3118,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.5.2",
+            "version": "5.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "46ec2d1522ae8c9a12aca6b7650e0be78bbb0502"
+                "reference": "3e6e88e56c912133de6e99b87728cca7ed70c5f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/46ec2d1522ae8c9a12aca6b7650e0be78bbb0502",
-                "reference": "46ec2d1522ae8c9a12aca6b7650e0be78bbb0502",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3e6e88e56c912133de6e99b87728cca7ed70c5f5",
+                "reference": "3e6e88e56c912133de6e99b87728cca7ed70c5f5",
                 "shasum": ""
             },
             "require": {
@@ -3180,20 +3192,20 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-08-18 11:10:44"
+            "time": "2016-08-26 07:11:44"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "3.2.4",
+            "version": "3.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "4e83390f64e7ce04fcaec2ce95cd72823b431d19"
+                "reference": "46b249b43fd2ed8e127aa0fdb3cbcf56e9bc0e49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/4e83390f64e7ce04fcaec2ce95cd72823b431d19",
-                "reference": "4e83390f64e7ce04fcaec2ce95cd72823b431d19",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/46b249b43fd2ed8e127aa0fdb3cbcf56e9bc0e49",
+                "reference": "46b249b43fd2ed8e127aa0fdb3cbcf56e9bc0e49",
                 "shasum": ""
             },
             "require": {
@@ -3239,7 +3251,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2016-08-17 09:33:51"
+            "time": "2016-08-26 05:51:59"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
