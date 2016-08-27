@@ -20,7 +20,7 @@ class Dashboard extends Controller
             return Menu::new()
                 ->submenu(view('menu.title', ['title' => 'Collections'])->render(), Menu::new([
 
-                ])
+                    ])
                 )
                 ->submenu(Menu::new()
                     ->route('dashboard.index', 'Dashboard')
