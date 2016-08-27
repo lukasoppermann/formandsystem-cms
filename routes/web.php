@@ -15,8 +15,10 @@ use Spatie\Permission\Models\Permission;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return redirect('/login');
+Route::group(['middleware' => ['guest'/*'role:see'*/]], function () {
+    Route::get('/', function () {
+        return redirect('/login');
+    });
 });
 
 Route::get('/roles', function () {
@@ -48,7 +50,7 @@ Route::group(['middleware' => ['auth'/*'role:see'*/]], function () {
     // UserVerification::generate(Auth::user());
 
 
-    Route::get('/home', 'HomeController@index');
+    Route::get('/', 'Dashboard@index');
 
 });
 
