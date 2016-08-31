@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0463cb50b8499f4ab4504ddeb186e573",
-    "content-hash": "c4e7842ec4ee083ff7cebd711b9abca9",
+    "hash": "77f2c44ebecaee7f825380303ab9c316",
+    "content-hash": "11c0feb0e37ba4a0872d65bfcccddd73",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1728,6 +1728,49 @@
             "time": "2016-04-19 13:41:41"
         },
         {
+            "name": "nothingworks/blade-svg",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adamwathan/blade-svg.git",
+                "reference": "0f6e03b705681112549196b1f3528b91bc72ccab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/adamwathan/blade-svg/zipball/0f6e03b705681112549196b1f3528b91bc72ccab",
+                "reference": "0f6e03b705681112549196b1f3528b91bc72ccab",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/filesystem": "^5.3",
+                "illuminate/support": "^5.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "^5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BladeSvg\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Wathan",
+                    "email": "adam.wathan@gmail.com"
+                }
+            ],
+            "time": "2016-08-30 17:27:30"
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v2.0.2",
             "source": {
@@ -2393,16 +2436,16 @@
         },
         {
             "name": "spatie/menu",
-            "version": "1.2.1",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/menu.git",
-                "reference": "12ca950f5ab631f2b87e91c4d14c673339836b19"
+                "reference": "776c95c304a8a50994cefca17f1dc3ffacf0d83f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/menu/zipball/12ca950f5ab631f2b87e91c4d14c673339836b19",
-                "reference": "12ca950f5ab631f2b87e91c4d14c673339836b19",
+                "url": "https://api.github.com/repos/spatie/menu/zipball/776c95c304a8a50994cefca17f1dc3ffacf0d83f",
+                "reference": "776c95c304a8a50994cefca17f1dc3ffacf0d83f",
                 "shasum": ""
             },
             "require": {
@@ -2437,7 +2480,7 @@
                 "navigation",
                 "spatie"
             ],
-            "time": "2016-08-01 13:53:02"
+            "time": "2016-08-29 14:00:36"
         },
         {
             "name": "spatie/string",
@@ -5053,9 +5096,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
-    "prefer-stable": false,
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "nothingworks/blade-svg": 20
+    },
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.0.0"

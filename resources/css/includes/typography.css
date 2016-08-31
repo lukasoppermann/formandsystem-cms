@@ -1,5 +1,5 @@
 :root{
-    --sans-serif: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --sans-serif: Lato, -apple-system, "Helvetica Neue", BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
     --type-size-default: 1.6rem;
     --type-size-xxl: calc(var(--type-size-default)*2);

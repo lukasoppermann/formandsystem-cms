@@ -21,6 +21,7 @@ a{
     display: inline-block;
 }
 ul, ol, dl, li{
+    list-style: none;
     margin: 0;
     padding: 0;
 }

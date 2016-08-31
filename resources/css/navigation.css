@@ -172,7 +172,6 @@
     background-color: color(var(--black) alpha(25%));
 }
 
-
 .c-navigation__link{
     height: 100%;
     width: 100%;
@@ -180,6 +179,9 @@
     position: relative;
     z-index: 10;
     color: color(var(--white) alpha(65%));
+}
+.c-navigation__link:focus{
+    color: red !important;
 }
 .c-navigation__link.c-navigation__link--with-icon{
     padding-left: 4.5rem;
@@ -221,4 +223,21 @@
 }
 .c-navigation__item:hover .c-navigation__delete, .c-navigation__item.is-active .c-navigation__delete{
     opacity: 1;
+}
+/* ------------
+ * MAIN Navigation
+ */
+.c-main-navigation{
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    width: calc(100% - 27rem);
+    height: var(--header-height);
+    background-color: var(--white);
+    box-shadow: 0 .1rem .2rem color(var(--black) alpha(10%)),
+        0 .1rem 1rem color(var(--black) alpha(15%));
+}
+.c-main-content--with-main-navigation{
+    padding-top: var(--header-height);
+    background-image: linear-gradient(to bottom, rgb(250,251,252), rgba(250,251,252,0) 15rem);
 }

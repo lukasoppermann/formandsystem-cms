@@ -27,9 +27,10 @@
     <body>
         <?php include('./'.elixir("svgs/svg-sprite.svg")); ?>
 
-        @include('menu.menu')
+        @include('menu.sidebar')
 
-        <main class="c-main-content">
+        <main class="c-main-content c-main-content--with-main-navigation">
+            @include('menu.main')
             {{-- @include('notice.dialog')
             @include('notice.status') --}}
             @yield('content')

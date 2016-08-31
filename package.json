@@ -10,7 +10,6 @@
     "cssnano": "^3.7.0",
     "del": "^2.2.*",
     "gulp": "^3.*.*",
-    "gulp-accessibility": "^2.0.1",
     "gulp-cheerio": "^0.6.2",
     "gulp-concat": "^2.6.0",
     "gulp-jsmin": "^0.1.*",
@@ -22,7 +21,6 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-svgmin": "^1.2.2",
     "gulp-svgstore": "^6.0.0",
-    "gulp-vulcanize": "^6.1.0",
     "main-bower-files": "^2.13.*",
     "postcss": "^5.0.21",
     "postcss-color-function": "^2.0.1",
@@ -35,5 +33,5 @@
     "require-dir": "^0.3.0",
     "run-sequence": "^1.2.2",
     "svgmin": "^0.1.0"
-  }
+    }
 }

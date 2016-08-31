@@ -1,4 +1,4 @@
-.o-flex-bar{
+/*.o-flex-bar{
     display: flex;
     flex-flow: row wrap;
 }
@@ -27,4 +27,4 @@
 }
 .o-flex-bar__item--fill{
     flex: 1;
-}
+}*/

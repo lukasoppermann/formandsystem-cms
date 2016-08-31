@@ -140,7 +140,8 @@ gulp.task('build-css', function(){
             'resources/css/includes/*.css',
             'resources/css/*.css',
             'resources/css/pages/*.css',
-            'resources/bower_components/mark/src/mark.css'
+            'resources/bower_components/codemirror/lib/codemirror.css',
+            'resources/bower_components/flexboxgrid/dist/flexboxgrid.css',
         ])
         .pipe(sourcemaps.init())
         .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))

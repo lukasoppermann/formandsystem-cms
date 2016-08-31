@@ -1,3 +1,4 @@
 :root{
     --speed-default: .3s;
+    --ani-bezir: cubic-bezier(.6,.2,.5,1);
 }

@@ -67,6 +67,8 @@ Route::group(['middleware' => ['auth'/*'role:see'*/]], function () {
 
 
     Route::get('/', 'Dashboard@index')->name('dashboard.index');
+    Route::get('/test', 'Dashboard@index')->name('dashboard.index');
+    Route::get('/news', 'Dashboard@index')->name('dashboard.index');
 
 });
 
