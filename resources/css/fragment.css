@@ -57,6 +57,16 @@
 .o-fragment__image-upload:not(.is-empty) .o-file{
     display: none;
 }
+.o-fragment__image-upload:not(.is-empty){
+    background: var(--white-gray);
+    border-radius: 3px;
+    padding: 5px;
+    text-align: center;
+    position: relative;
+}
+.o-fragment__image{
+    display: inline-block;
+}
 .c-fragment__image-delete-button{
     display: none;
     overflow: visible;
