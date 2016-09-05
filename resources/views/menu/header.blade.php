@@ -1,16 +1,23 @@
-<header class="c-navigation__header">
-    <div class="c-navigation__icon">
+<header class="o-menu__header o-media o-media--center">
+    <div class="o-media__figure o-menu__header-icon">
         @if(!isset($link) || $link === NULL)
-            <svg viewBox="0 0 512 512" class="o-icon">
-              <use xlink:href="#svg-icon--formandsystem"></use>
-            </svg>
+            {{ svg_icon('formandsystem')->viewbox("0 0 512 512") }}
         @else
-            <a href="{{$link}}" class="o-link o-link--full">
-                <svg viewBox="0 0 512 512" class="o-icon">
-                  <use xlink:href="#svg-icon--arrow-back"></use>
-                </svg>
+            <a href="{{$link}}" class="o-link">
+                {{ svg_icon('arrow-back')->viewbox("0 0 512 512") }}
             </a>
         @endif
     </div>
-    <h1 class="c-navigation__title">{{$title}}</h1>
+    <div class="o-media__body">
+        <div class="o-media o-media--reverse o-media--center">
+            <h1 class="o-menu__title o-media__body">{{$title}}</h1>
+            <div class="o-media__figure o-menu__header-icon">
+                @if(isset($link_right))
+                    <a href="{{$link_right}}" class="o-link">
+                        {{ svg_icon($icon_right)->viewbox("0 0 512 512") }}
+                    </a>
+                @endif
+            </div>
+        </div>
+    </div>
 </header>

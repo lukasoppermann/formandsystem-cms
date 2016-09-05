@@ -1,0 +1,11 @@
+.c-user-image{
+    overflow: hidden;
+    border-radius: 100%;
+}
+.c-user-image--small{
+    width: 4rem;
+    height: 4rem;
+}
+.c-user-image--space-left{
+    margin-left: 1.5rem;
+}

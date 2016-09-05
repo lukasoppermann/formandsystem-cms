@@ -1,8 +1,10 @@
-<a class="o-menu__link c-navigation__link{{ $item->get('icon') ? ' c-navigation__link--with-icon' : '' }}" {{$attr or ''}} href="{{$item->get('prefix').$item->get('link')}}">
-    @if(isset($item['icon']))
-        <svg viewBox="0 0 512 512" class="o-icon o-icon--white">
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-icon--{{$item->get('icon')}}"></use>
-        </svg>
+<a class="o-media o-media--center o-menu__link {{$item->get('class')}}" {!!$item->get('attr')!!} href="{{$item->get('prefix').$item->get('link')}}">
+    @if(isset($item['icon']) && $item->get('inline_icon') !== true)
+        {{ svg_icon($item->get('icon'), 'o-icon--'.$item->get('icon').' o-media__figure')->viewbox("0 0 512 512") }}
+    @elseif(isset($item['icon']) && $item->get('inline_icon') === true)
+        {{ svg_icon($item->get('icon'), 'o-icon--'.$item->get('icon').' o-media__figure')->inline() }}
     @endif
-    {{$item->get('label')}}
+    <span class="o-media__body">
+        {{$item->get('label')}}
+    </span>
 </a>

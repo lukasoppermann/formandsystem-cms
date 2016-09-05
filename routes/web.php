@@ -15,6 +15,8 @@ use Spatie\Permission\Models\Permission;
 
 Auth::routes();
 
+Route::get('/users/me', 'Users@index')->name('users.me');
+
 Route::group(['middleware' => ['guest'/*'role:see'*/]], function () {
     Route::get('/', function () {
         return redirect('/login');

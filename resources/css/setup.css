@@ -1,51 +1,10 @@
 html{
     font-size: 62.5%; /* now 1rem = 10px*/
-    box-sizing: border-box;
     background: var(--white);
 }
 body{
-    font-family: var(--sans-serif);
-    font-size: var(--type-size-default);
-    margin: 0;
-    display: flex;
     height: 100%;
     height: 100vh;
+    display: flex;
     flex-direction: row;
-    color: var(--text-black);
-}
-*, *:before, *:after{
-    box-sizing: inherit;
-}
-a{
-    text-decoration: none;
-    display: inline-block;
-}
-ul, ol, dl, li{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-strong{
-    font-weight: 700;
-}
-h1, h2, h3, h4, h5, h6{
-    margin: 0;
-    font-weight: 700;
-    line-height: 135%;
-}
-*:focus{
-    outline: none;
-}
-p{
-    margin: 0;
-}
-button{
-    font: inherit;
-    background: transparent;
-    border: inherit;
-    cursor: pointer;
-    text-align: left;
-}
-.is-hidden{
-    display: none;
 }

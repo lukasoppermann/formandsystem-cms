@@ -1,4 +1,9 @@
+a{
+    text-decoration: none;
+    display: inline-block;
+}
 .o-link{
+    position: relative;
     display: inline-block;
     color: var(--text-blue);
     transition: color .3s ease;

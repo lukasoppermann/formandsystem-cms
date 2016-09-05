@@ -9,7 +9,6 @@
         <meta name="site_url" content="{{ url('/') }}">
         <link href="{{ asset(env('FILE_PREFIX').elixir('css/app.css')) }}" rel="stylesheet" type="text/css">
         <link href='//fonts.googleapis.com/css?family=Lato:300,400,700&subset=latin,latin' rel='stylesheet' type='text/css'>
-
         @if (env('APP_ENV') !== 'local')
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -25,11 +24,12 @@
         @endif
     </head>
     <body>
-        <?php include('./'.elixir("svgs/svg-sprite.svg")); ?>
 
+        {{-- {{ svg_spritesheet() }} --}}
+        <?php include('./'.elixir("svgs/svg-sprite.svg")); ?>
         @include('menu.sidebar')
 
-        <main class="c-main-content c-main-content--with-main-navigation">
+        <main class="c-main-content c-main-content--with-menu">
             @include('menu.main')
             {{-- @include('notice.dialog')
             @include('notice.status') --}}

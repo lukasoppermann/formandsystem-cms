@@ -1,13 +1,16 @@
 .o-headline--first{
+    font-weight: var(--bold);
     font-size: var(--type-size-xxl);
     margin-bottom: var(--type-size-xl);
 }
 .o-headline--second{
+    font-weight: var(--bold);
     font-size: var(--type-size-xl);
     margin-bottom: var(--type-size-md);
     margin-top: var(--type-size-lg);
 }
 .o-headline--third{
+    font-weight: var(--bold);
     font-size: var(--type-size-lg);
     margin-bottom: var(--type-size-sm);
     margin-top: var(--type-size-md);

@@ -1,6 +1,5 @@
 // Imports
 var gulp = require('gulp');
-var mainBowerFiles = require('main-bower-files');
 var rename = require('gulp-rename');
 var rev = require('gulp-rev');
 var del = require('del');
@@ -13,7 +12,6 @@ var svgstore = require('gulp-svgstore');
 var cheerio = require('gulp-cheerio');
 var notify = require('gulp-notify');
 var sourcemaps = require('gulp-sourcemaps');
-var vulcanize = require('gulp-vulcanize');
 var runSequence = require('run-sequence');
 /* ------------------------------
  *
@@ -30,30 +28,32 @@ gulp.task('clean-js', function(){
 
 gulp.task('build-js', function(){
     var files = [];
-    // var files = mainBowerFiles(['**/*.js'],{
-    //     paths: {
-    //         bowerDirectory: 'resources/bower_components',
-    //         bowerJson: 'bower.json'
-    //     }
-    // });
     // push prism stuff
     files.push(
-        'resources/bower_components/html.sortable/dist/html.sortable.js',
-        'resources/bower_components/codemirror/lib/codemirror.js',
-        'resources/bower_components/codemirror/addon/mode/overlay.js',
-        'resources/bower_components/codemirror/addon/display/placeholder.js',
-        'resources/bower_components/codemirror/mode/markdown/markdown.js',
-        'resources/bower_components/codemirror/mode/gfm/gfm.js',
-        'resources/bower_components/sortable-elements/dist/sortable-elements.js',
-        'resources/bower_components/es6-promise/es6-promise.js',
-        'resources/bower_components/fetch/fetch.js',
-        'resources/bower_components/mark/src/mark.src.js',
-        'resources/js/input.js',
-        'resources/js/autosubmit-form.js',
-        'resources/js/ajax-spawn-form.js',
-        'resources/js/dialog-colllection.js',
-        'resources/js/sortable-fragments.js',
-        'resources/js/sortable-navigation.js',
+        // npm stuff
+        'node_modules/readyjs/dist/ready.js',
+        'node_modules/unfocus/dist/unfocus.js',
+        'node_modules/foreach.js/dist/foreach.js',
+        'node_modules/isemptyjs/dist/isempty.js',
+        'node_modules/es6-promise/dist/es6-promise.js',
+        'node_modules/fetch/lib/fetch.js',
+        // kill
+        // 'resources/bower_components/html.sortable/dist/html.sortable.js',
+        // 'resources/bower_components/codemirror/lib/codemirror.js',
+        // 'resources/bower_components/codemirror/addon/mode/overlay.js',
+        // 'resources/bower_components/codemirror/addon/display/placeholder.js',
+        // 'resources/bower_components/codemirror/mode/markdown/markdown.js',
+        // 'resources/bower_components/codemirror/mode/gfm/gfm.js',
+        // 'resources/bower_components/sortable-elements/dist/sortable-elements.js',
+        // 'resources/bower_components/mark/src/mark.src.js',
+        // 'resources/js/input.js',
+        // 'resources/js/autosubmit-form.js',
+        // 'resources/js/ajax-spawn-form.js',
+        // 'resources/js/dialog-colllection.js',
+        // 'resources/js/sortable-fragments.js',
+        // 'resources/js/sortable-navigation.js',
+        'resources/js/toggle-dropdown.js',
+        // Add APP
         'resources/js/app.js'
     );
     // BUILD JS
@@ -140,8 +140,9 @@ gulp.task('build-css', function(){
             'resources/css/includes/*.css',
             'resources/css/*.css',
             'resources/css/pages/*.css',
-            'resources/bower_components/codemirror/lib/codemirror.css',
-            'resources/bower_components/flexboxgrid/dist/flexboxgrid.css',
+            // npm resources
+            'node_modules/minireset.css/minireset.css',
+            'node_modules/flexboxgrid/css/flexboxgrid.css'
         ])
         .pipe(sourcemaps.init())
         .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
@@ -200,12 +201,48 @@ gulp.task('clean-svg', function(done){
 });
 
 gulp.task('svgsprite', function() {
+    // individual icons
+    gulp.src('resources/svgs/*.svg')
+    .pipe(cheerio({
+        run: function ($) {
+            $('path, rect').each(function(){
+                $(this).addClass($(this).attr('id'));
+            });
+        }
+    }))
+    .pipe(svgmin({
+        plugins: [{
+            removeAttrs: {
+                attrs: 'fill=[^url]*'
+            }
+        },
+        {
+             removeTitle: true
+        },
+        {
+             removeDesc: true
+        },
+        {
+            convertShapeToPath: false
+        }]
+    }))
+    .pipe(gulp.dest('public/build/svgs'));
+    // SPRITE
     return gulp.src('resources/svgs/*.svg')
     .pipe(svgmin({
         plugins: [{
             removeAttrs: {
                 attrs: 'fill=[^url]*'
             }
+        },
+        {
+             removeTitle: true
+        },
+        {
+             removeDesc: true
+        },
+        {
+            convertShapeToPath: false
         }]
     }))
     .pipe(rename({prefix: 'svg-icon--'}))
@@ -274,68 +311,4 @@ gulp.task('default', function(done){
     'watch-external-js'],
     done
     );
-});
-//----------------------------------------------
-//
-// Gulp check tasks
-//
-var checkPages = require("check-pages");
-require('gulp').task("checkDev", function(callback) {
-  var options = {
-    pageUrls: [
-      'http://cms.formandsystem.app/',
-      'http://cms.formandsystem.app/pages',
-      'http://cms.formandsystem.app/pages/new-item-509153036'
-    ],
-    checkLinks: true,
-    linksToIgnore: [
-      'http://localhost:8080/broken.html'
-    ],
-    noEmptyFragments: true,
-    noLocalLinks: true,
-    noRedirects: true,
-    onlySameDomain: true,
-    preferSecure: true,
-    queryHashes: true,
-    checkCaching: true,
-    checkCompression: true,
-    summary: true,
-    terse: true,
-    maxResponseTime: 200,
-    userAgent: 'custom-user-agent/1.2.3'
-  };
-  checkPages(console, options, function(err, count) {
-    if (err) {
-      console.log("Error object: " + err);
-    }
-    console.log("Error count: " + count);
-  });
-});
-//----------------------------------------------
-//
-// Gulp vulcanize
-//
-gulp.task('vulc', function () {
-	return gulp.src('resources/webcomponents/webcomponents.html')
-		.pipe(vulcanize({
-			abspath: '',
-			excludes: [],
-            inlineScripts: true,
-			stripExcludes: false
-		}))
-		.pipe(gulp.dest('public/build/webcomponents'));
-});
-//----------------------------------------------
-//
-// Gulp accessibility
-//
-var access = require('gulp-accessibility');
-gulp.task('accessibility', function(){
-    return gulp.src('http://cms.formandsystem.app/')
-        .pipe(access({
-            force: true,
-            verbose: true,
-            domElement: true,
-        }))
-        .on('error', console.log);
 });

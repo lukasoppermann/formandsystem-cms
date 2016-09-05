@@ -29,5 +29,5 @@
             @yield('content')
         </main>
     </body>
-    <script src='{{ asset(env('FILE_PREFIX').elixir("js/external.js")) }}'></script>
+    <script src='{{ asset(env('FILE_PREFIX').elixir("js/app.js")) }}'></script>
 </html>

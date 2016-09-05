@@ -1,0 +1,17 @@
+.o-media {
+    display: flex;
+    align-items: flex-start;
+}
+.o-media__body {
+    flex: 1;
+}
+.o-media--center {
+    align-items: center;
+}
+.o-media--reverse > .o-media__figure {
+    order: 1;
+}
+.o-media__figure > img{
+    max-width: 100%;
+    height: auto;
+}

@@ -1,3 +1,3 @@
-<h6 class="c-navigation__list-title">
+<h6 class="o-menu__title">
     {{$title}}
 </h6>

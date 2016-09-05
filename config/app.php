@@ -176,6 +176,7 @@ return [
         Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
         Spatie\Menu\Laravel\MenuServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        BladeSvg\BladeSvgServiceProvider::class,
         //
 
         /*

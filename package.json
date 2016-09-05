@@ -5,8 +5,6 @@
     "dev": "gulp watch"
   },
   "devDependencies": {
-    "bower": "^1.7.*",
-    "check-pages": "^0.10.0",
     "cssnano": "^3.7.0",
     "del": "^2.2.*",
     "gulp": "^3.*.*",
@@ -21,7 +19,6 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-svgmin": "^1.2.2",
     "gulp-svgstore": "^6.0.0",
-    "main-bower-files": "^2.13.*",
     "postcss": "^5.0.21",
     "postcss-color-function": "^2.0.1",
     "postcss-cssnext": "^2.6.0",
@@ -33,5 +30,17 @@
     "require-dir": "^0.3.0",
     "run-sequence": "^1.2.2",
     "svgmin": "^0.1.0"
-    }
+  },
+  "dependencies": {
+    "es6-promise": "^3.2.1",
+    "fetch": "^1.1.0",
+    "flex-layout-attribute": "^1.0.3",
+    "flexboxgrid": "^6.3.1",
+    "foreach.js": "git+https://github.com/toddmotto/foreach.git",
+    "mark.js": "^0.9.2",
+    "minireset.css": "0.0.2",
+    "readyjs": "^1.0.2",
+    "sortable-elements": "^0.1.0",
+    "unfocus": "^1.0.0"
+  }
 }

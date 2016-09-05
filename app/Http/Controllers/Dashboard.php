@@ -110,23 +110,23 @@ class Dashboard extends Controller
             return $this;
         });
 
-        Menu::macro('menu', function(string $menu_class = '') {
-            return Menu::new()
-                ->setAttribute('role', 'navigation')
-                ->addParentClass($menu_class)
-                ->applyToAll(function (Html $link) {
-                    $link->addParentClass('c-navigation__item o-menu__item');
-                })
-                ->applyToAll(function (Link $link) {
-                    $link->addParentClass('c-navigation__item o-menu__item');
-                    $link->addClass('c-navigation__link o-menu__link');
-                })
-                ->setActiveClass('is-active')
-                ->setActiveFromRequest();
-        });
+        // Menu::macro('menu', function(string $menu_class = '') {
+        //     return Menu::new()
+        //         ->setAttribute('role', 'navigation')
+        //         ->addParentClass($menu_class)
+        //         ->applyToAll(function (Html $link) {
+        //             $link->addParentClass('c-navigation__item o-menu__item');
+        //         })
+        //         ->applyToAll(function (Link $link) {
+        //             $link->addParentClass('c-navigation__item o-menu__item');
+        //             $link->addClass('c-navigation__link o-menu__link');
+        //         })
+        //         ->setActiveClass('is-active')
+        //         ->setActiveFromRequest();
+        // });
 
-        Menu::macro('newMenu', function(string $menu_class = '') {
-            return Menu::new()
+        Menu::macro('menu', function(string $menu_class = '') {
+            return Menu::new()->addClass('o-flexbar')
                 ->setAttribute('role', 'navigation')
                 ->addParentClass($menu_class)
                 ->applyToAll(function (Html $link) {
@@ -141,42 +141,43 @@ class Dashboard extends Controller
         });
 
         Menu::macro('sidebar', function() use ($collections) {
-            return Menu::menu()->addClass('c-navigation__body')
+            return Menu::menu()->addClass('o-flexbar--vertical o-menu--vertical o-menu--full-width o-menu__body')
                 ->prepend(view('menu.header', ['title' => 'Form&System'])->render())
+                ->view('menu.item', ['label' => 'Dashboard', 'link' => route('dashboard.index')])
                 ->submenu(view('menu.title', ['title' => 'Collections'])->render(),
-                    Menu::menu('c-navigation__list c-navigation__list--dark')
-                    // ->prefixItems('/collections')
+                    Menu::menu('c-menu__list--dark')->addClass('o-flexbar--vertical o-menu--vertical o-menu--full-width')
+                    ->prefixUrls('/collections')
                     ->addArray($collections->toArray(), function($item){
+                        $item['icon'] = 'posts';
                         return spatieHTML::make(view('menu.item', [
                             'item'      => collect($item),
                             // ->put('prefix', '/collections'),
                         ])->render(), $item['link']);
                     })
                 )
-                ->route('dashboard.index', 'Dashboard')
-                ->route('settings.index', 'Settings')
-                ->route('support.index', 'Support')
+                ->view('menu.item', ['label' => 'Team', 'link' => route('settings.index')])
+                ->view('menu.item', ['label' => 'Settings', 'link' => route('settings.index')])
                 ->append(view('menu.footer')->render());
         });
 
         Menu::macro('main', function() use ($collections) {
-            return Menu::new()->addClass('o-menu o-menu--horizontal o-flex-bar')
-                // ->html('<input id="flex_bar_toggle" type="checkbox" /><label class="o-flex-bar__hider" for="flex_bar_toggle">Menu</label>
-                //         <div class="o-flex-bar o-flex-bar--hideable">
-                //             <div class="o-flex-bar__item" style="border: 1px solid red;">Block 1</div>
-                //             <div  class="o-flex-bar__item" style="border: 1px solid red;">Block 2</div>
-                //             <div  class="o-flex-bar__item" style="border: 1px solid red;">Block 3</div>
-                //             <div  class="o-flex-bar__item o-flex-bar__item--right" style="border: 1px solid red;">Block 4</div>
-                //             <div  class="o-flex-bar__item" style="border: 1px solid red;">Block 5</div>
-                //         </div>
-                // ')
-            ->submenu(Menu::newMenu('o-menu__list o-flex-bar__item')->addClass('o-flex-bar')
-                ->view('menu.newitem', ['icon' => 'projects', 'label' => 'Projects', 'link' => '/projects'])
-                ->html('<input type="search" class="box" placeholder="search" />')
+            return Menu::menu()
+            ->submenu(Menu::menu('o-menu__list o-flexbar__item')
+                ->view('menu.item', ['icon' => 'projects', 'inline_icon' => true, 'label' => 'Projects', 'link' => '/projects'])
+                // ->html('<input type="search" class="box" placeholder="search" />')
             )
-            ->submenu(Menu::newMenu('o-menu__list o-flex-bar__item o-flex-bar__item--right')->addClass('o-flex-bar')
-                ->html('<input type="search" placeholder="search" />')
-                ->html('<input type="search" placeholder="search" />')
+            ->submenu(Menu::menu('o-menu__list o-flexbar__item o-flexbar__item--right')->addClass('o-flexbar')
+                ->view('menu.item', ['label' => '12', 'link' => '/notifications', 'class' => 'c-menu__link--notifications has-new'])
+                ->submenu(Html::raw(view('menu.profile',
+                    ['item' => collect(
+                        ['icon' => 'projects', 'label' => 'Lukas Oppermann', 'current_path' => app('request')->path(), 'attr' => 'data-js-toggle-dropdown']
+                    )]
+                )->render()), Menu::menu('o-menu__item')->addClass('o-menu o-menu--vertical o-menu--dropdown c-menu--profile-dropdown o-flexbar o-flexbar--vertical')
+                    ->setAttribute('data-js-dropdown')
+                    ->view('menu.item', ['label' => 'Profile', 'link' => route('users.me')])
+                    ->view('menu.item', ['label' => 'Help', 'link' => route('support.index')])
+                    ->view('menu.logout', ['label' => 'Logout', 'link' => '/logout'])
+                )
             )
         ;
         });

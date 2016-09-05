@@ -1,0 +1,68 @@
+.o-flexbar, .flexbar{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    height: 100%;
+    width: 100%;
+}
+.o-flexbar.o-flexbar--vertical, .flexbar.flexbar--vertical{
+    flex-direction: column;
+    display: inline-flex;
+    height: auto;
+    align-items: stretch;
+}
+.o-flexbar--centered{
+    justify-content: center;
+}
+.o-flexbar__item, .flexbar__item{
+    display: block;
+}
+.o-flexbar--vertical > .o-flexbar__item, .flexbar--vertical > .flexbar__item{
+    /*height: auto;
+    width: 100%;*/
+}
+
+.o-flexbar--vertical, .flexbar--vertical{
+
+}
+.o-flexbar--hideable{
+    overflow: visible;
+    transform: translateY(-100%);
+}
+.o-flexbar__hider{
+    z-index: 999;
+    position: absolute;
+}
+#flex_bar_toggle{
+    position: absolute;
+}
+#flex_bar_toggle:focus{
+    outline: 4px solid red;
+}
+#flex_bar_toggle:focus ~ .o-flexbar__hider{
+    color: red;
+}
+#flex_bar_toggle:checked ~ .o-flexbar--hideable{
+    transform: translateY(0%);
+}
+@media (min-width: 600px) {
+    .o-flexbar, .flexbar{
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    .o-flexbar__item, .flexbar__item{
+        display: block;
+    }
+    .o-flexbar--stretch .o-flexbar__item,
+    .flexbar--stretch .flexbar__item{
+        flex: 1;
+    }
+    .o-flexbar__item--right, .flexbar__item--right{
+        margin-left: auto;
+    }
+    .o-flexbar__item--bottom, .flexbar__item--bottom{
+        margin-top: auto;
+    }
+}

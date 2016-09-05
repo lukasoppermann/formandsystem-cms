@@ -1,4 +1,5 @@
 .o-icon{
+    position: relative;
     fill: inherit;
 }
 .o-icon--white{
@@ -34,4 +35,61 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+/* ICON: PROJECTS */
+@keyframes ani-icon-project {
+    0%{
+      fill: rgb(55,115,215);
+    }
+    50%{
+        width: 45%;
+        height: 45%;
+        rx: 0;
+        ry: 0;
+        fill: rgb(248,250,252);
+    }
+    90%{
+        width: 45%;
+        height: 45%;
+        rx: 0;
+        ry: 0;
+        fill: rgb(55,115,215);
+    }
+    100%{
+        width: 45%;
+        height: 45%;
+        rx: 0;
+        ry: 0;
+        fill: rgba(55,115,215,0);
+    }
+}
+.o-icon--projects [class*="fill-"]{
+    width: 0;
+    height: 0;
+    rx: 20;
+    ry: 20;
+    fill: rgba(55,115,215,0);
+}
+*:hover > .o-icon--projects [class*="fill-"]{
+    animation: ani-icon-project .3s linear 1;
+    animation-fill-mode: forwards;
+}
+*:hover > .o-icon--projects .fill-top-right{
+    animation-delay: .25s;
+}
+*:hover > .o-icon--projects .fill-bottom-left{
+    animation-delay: .2s;
+}
+*:hover > .o-icon--projects .fill-bottom-right{
+    animation-delay: .3s;
+}
+.o-icon--projects{
+    position: relative;
+    fill: black;
+    transition: fill 1s ease;
+}
+*:hover > .o-icon--projects{
+    transition: fill .75s ease;
+    fill: rgb(55,115,215);
 }
