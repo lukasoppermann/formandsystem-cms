@@ -9,6 +9,7 @@
             @include('forms.select',['name' => 'db_type', 'label' => 'Database type', 'values' => ['mysql' => 'MySQL'], 'selected' => 'MySQL'])
             @include('forms.input',['name' => 'host', 'label' => 'Database host e.g. 202.54.10.20'])
             @include('forms.input',['name' => 'database', 'label' => 'Database name'])
+            @include('forms.input',['name' => 'port', 'label' => 'Port'])
             @include('forms.input',['name' => 'db_user', 'label' => 'Database user name'])
             @include('forms.input',['name' => 'db_password', 'label' => 'Password for your database', 'type' => 'password'])
             <div class="o-flex">
