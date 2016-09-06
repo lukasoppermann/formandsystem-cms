@@ -32,7 +32,7 @@
                 ])
             </section>
             <section class="o-section">
-                <h3 class="o-headline o-headline--second">Google Analytics</h3>
+                {{-- <h3 class="o-headline o-headline--second">Google Analytics</h3>
                 @include('forms.input',[
                     'name' => 'analytics_code',
                     'label' => 'Your Google analytics code UA-XXXXXXX-XX',
@@ -48,7 +48,7 @@
                     'additional_values' => [
                         'id' => (isset($form['analytics_anonymize_ip']) ? $form['analytics_anonymize_ip']->get('id') : NULL)
                     ]
-                ])
+                ]) --}}
 
                 <div class="o-flex-bar">
                     @include('forms.submit',['label' => 'Save', 'classes' => 'o-button o-button--blue o-flex-bar__item o-flex-bar__item--right'])
