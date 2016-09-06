@@ -49,6 +49,7 @@
 .o-menu__link{
     overflow: hidden;
     position: relative;
+    cursor: pointer;
     height: 100%;
     padding: 0 2rem;
     font-size: 1.6rem;

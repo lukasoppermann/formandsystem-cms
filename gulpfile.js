@@ -35,8 +35,8 @@ gulp.task('build-js', function(){
         'node_modules/unfocus/dist/unfocus.js',
         'node_modules/foreach.js/dist/foreach.js',
         'node_modules/isemptyjs/dist/isempty.js',
-        'node_modules/es6-promise/dist/es6-promise.js',
-        'node_modules/fetch/lib/fetch.js',
+        // 'node_modules/es6-promise/dist/es6-promise.js',
+        // 'node_modules/fetch/lib/fetch.js',
         // kill
         // 'resources/bower_components/html.sortable/dist/html.sortable.js',
         // 'resources/bower_components/codemirror/lib/codemirror.js',
