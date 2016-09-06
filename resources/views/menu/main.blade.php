@@ -1,3 +1,3 @@
 <nav class="c-menu--main c-menu--main-animation">
-    {!! Menu::main() !!}
+    {{ $main_menu }}
 </nav>

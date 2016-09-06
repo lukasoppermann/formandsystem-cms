@@ -1,0 +1,97 @@
+<?php
+
+namespace App\Http\ViewComposers;
+
+use Illuminate\View\View;
+use Spatie\Menu\Html;
+use Spatie\Menu\Laravel\Menu;
+use Spatie\Menu\Laravel\View as ViewItem;
+
+class MenuComposer
+{
+    /**
+     * Create a movie composer.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        // load all menu extensions
+        addMenuMacros();
+    }
+
+    /**
+     * Bind data to the view.
+     *
+     * @param  View  $view
+     * @return void
+     */
+    public function compose(View $view)
+    {
+        $view->with([
+            'sidebar'   => $this->sidebar(),
+            'main_menu' => $this->mainMenu(),
+        ]);
+    }
+    /**
+     * build main sidebar
+     * @method sidebar
+     */
+    protected function sidebar(){
+        $collections = collect([
+            [
+                'link' => '/test',
+                'label' => 'Replace with DB'
+            ],
+            [
+                'link' => '/news',
+                'label' => 'Make icons dynamic'
+            ],
+        ]);
+
+        return Menu::baseMenu()
+            // add menu classes
+            ->addClass('o-flexbar--vertical o-menu--vertical o-menu--full-width o-menu__body')
+            // add header
+            ->prepend(view('menu.header', ['title' => 'Form&System'])->render())
+            // ITEMS
+            ->view('menu.item', ['label' => 'Dashboard', 'link' => route('dashboard.index')])
+            ->submenu(view('menu.title', ['title' => 'Collections'])->render(),
+                Menu::baseMenu('c-menu__list--dark')->addClass('o-flexbar--vertical o-menu--vertical o-menu--full-width')
+                ->prefixUrls('/collections')
+                ->addArray($collections->toArray(), function($item){
+                    $item['icon'] = 'posts';
+                    return ViewItem::create('menu.item', $item)->activateForPath($item['link']);
+                })
+            )
+            ->view('menu.item', ['label' => 'Team', 'link' => route('settings.index')])
+            ->view('menu.item', ['label' => 'Settings', 'link' => route('settings.index')])
+            // add header
+            ->append(view('menu.footer')->render());
+    }
+    /**
+     * build main menu
+     * @method mainMenu
+     */
+    protected function mainMenu(){
+        return Menu::baseMenu()
+        ->submenu(Menu::baseMenu('o-menu__list o-flexbar__item')
+            ->view('menu.item', ['icon' => 'projects', 'inline_icon' => true, 'label' => 'Projects', 'link' => '/projects'])
+        )
+        ->submenu(Menu::baseMenu('o-menu__list o-flexbar__item o-flexbar__item--right')->addClass('o-flexbar')
+            ->view('menu.item', ['label' => '12', 'link' => '/notifications', 'class' => 'c-menu__link--notifications has-new'])
+            ->submenu(ViewItem::create('menu.profile', [
+                    'label'         => 'Lukas Oppermann',
+                    'current_path'  => app('request')->path(),
+                    'attr'          => 'data-js-toggle-dropdown',
+                ]),
+                Menu::baseMenu('o-menu__item')
+                    ->addClass('o-menu o-menu--vertical o-menu--dropdown c-menu--profile-dropdown o-flexbar o-flexbar--vertical')
+                    ->setAttribute('data-js-dropdown')
+                    ->view('menu.item', ['label' => 'Profile', 'link' => route('users.me')], route('users.me'))
+                    ->view('menu.item', ['label' => 'Help', 'link' => route('support.index')], route('support.index'))
+                    ->view('menu.logout', ['label' => 'Logout', 'link' => '/logout'])
+            )
+        );
+    }
+}
