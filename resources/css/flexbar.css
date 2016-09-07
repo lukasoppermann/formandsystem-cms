@@ -19,6 +19,16 @@
 .o-flexbar__item, .flexbar__item{
     display: block;
 }
+.o-flexbar--stretch .o-flexbar__item,
+.flexbar--stretch .flexbar__item{
+    flex: 1;
+}
+.o-flexbar__item--right, .flexbar__item--right{
+    margin-left: auto;
+}
+.o-flexbar__item--bottom, .flexbar__item--bottom{
+    margin-top: auto;
+}
 .o-flexbar--vertical > .o-flexbar__item, .flexbar--vertical > .flexbar__item{
     /*height: auto;
     width: 100%;*/
@@ -46,23 +56,4 @@
 }
 #flex_bar_toggle:checked ~ .o-flexbar--hideable{
     transform: translateY(0%);
-}
-@media (min-width: 600px) {
-    .o-flexbar, .flexbar{
-        flex-direction: row;
-        justify-content: flex-start;
-    }
-    .o-flexbar__item, .flexbar__item{
-        display: block;
-    }
-    .o-flexbar--stretch .o-flexbar__item,
-    .flexbar--stretch .flexbar__item{
-        flex: 1;
-    }
-    .o-flexbar__item--right, .flexbar__item--right{
-        margin-left: auto;
-    }
-    .o-flexbar__item--bottom, .flexbar__item--bottom{
-        margin-top: auto;
-    }
 }

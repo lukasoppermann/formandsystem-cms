@@ -30,4 +30,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    /**
+     * checks if a user verified her email address
+     * @method isVerified
+     * @return bool
+     */
+    public function isVerified() :bool
+    {
+        return $this->verified === 1;
+    }
 }

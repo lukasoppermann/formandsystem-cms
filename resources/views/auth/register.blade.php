@@ -27,11 +27,13 @@
                 <a class="o-link o-link--quiet" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
             </div>
         </div>
-        <aside class="o-dialog__body c-register-side-panel o-flex-bar">
-            <h1 class="shame-login-h1">Sign up</h1>
-            <div class="o-flex-bar o-flex-bar--centered o-flex-bar__item o-flex-bar__item--bottom">
-                <h2 class="o-flex-bar__item shame-login-h2">Already got an account?</h2>
-                <a href="{{ url('/login') }}" class="o-button o-button--white o-button--space-top o-button--space-bottom o-flex-bar__item">Sign up</a>
+        <aside class="c-register-side-panel">
+            <div class="c-side-panel__body" layout="column">
+                <h1 class="shame-login-h1">Sign up</h1>
+                <div layout="column bottom-center" self="bottom">
+                    <h2 class="o-flex-bar__item shame-login-h2">Already got an account?</h2>
+                    <a href="{{ url('/login') }}" class="o-button o-button--white o-button--space-top o-button--space-bottom o-flex-bar__item">Sign up</a>
+                </div>
             </div>
         </aside>
     </div>

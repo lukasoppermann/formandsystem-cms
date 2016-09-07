@@ -34,6 +34,9 @@
     border-radius: .3rem 0 0 .3rem;
     overflow: hidden;
 }
+.c-side-panel__body{
+    height: 100%;
+}
 .c-register-side-panel{
     border-radius: 0 .3rem .3rem 0;
     left: auto;

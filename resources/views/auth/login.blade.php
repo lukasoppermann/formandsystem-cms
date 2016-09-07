@@ -16,8 +16,8 @@
                     @include('forms.input',['type' => 'password','name' => 'password', 'label' => 'Password'])
                     @include('forms.toggle',['name' => 'remember', 'label' => 'Remember Me', 'checked' => true])
 
-                    <div class="o-flex-bar o-flex-bar--centered">
-                        @include('forms.submit',['label' => 'Login', 'classes' => 'o-button o-button--blue o-button--space-top o-flex-bar__item'])
+                    <div class="o-flexbar o-flexbar--centered">
+                        @include('forms.submit',['label' => 'Login', 'classes' => 'o-button o-button--blue o-button--space-top o-flexbar__item'])
                     </div>
                 </form>
             </div>
@@ -25,11 +25,13 @@
                 <a class="o-link o-link--quiet" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
             </div>
         </div>
-        <aside class="o-dialog__body c-login-side-panel o-flex-bar">
-            <h1 class="shame-login-h1">Sign in</h1>
-            <div class="o-flex-bar o-flex-bar--centered o-flex-bar__item o-flex-bar__item--bottom">
-                <h2 class="o-flex-bar__item shame-login-h2">No account yet?</h2>
-                <a href="{{ url('/register') }}" class="o-button o-button--white o-button--space-top o-button--space-bottom o-flex-bar__item">Sign up</a>
+        <aside class="c-login-side-panel">
+            <div class="c-side-panel__body" layout="column top-left">
+                <h1 class="shame-login-h1">Sign in</h1>
+                <div layout="column bottom-center" self="bottom">
+                    <h2 class="shame-login-h2">No account yet?</h2>
+                    <a href="{{ url('/register') }}" class="o-button o-button--white o-button--space-top o-button--space-bottom">Sign up</a>
+                </div>
             </div>
         </aside>
     </div>

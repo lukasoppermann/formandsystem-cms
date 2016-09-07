@@ -13,6 +13,7 @@ var cheerio = require('gulp-cheerio');
 var notify = require('gulp-notify');
 var sourcemaps = require('gulp-sourcemaps');
 var runSequence = require('run-sequence');
+var babel = require('gulp-babel');
 /* ------------------------------
  *
  * JS
@@ -30,6 +31,8 @@ gulp.task('build-js', function(){
     var files = [];
     // push prism stuff
     files.push(
+        // web components
+        'resources/js/status-bar.js',
         // npm stuff
         'node_modules/readyjs/dist/ready.js',
         'node_modules/unfocus/dist/unfocus.js',
@@ -59,6 +62,9 @@ gulp.task('build-js', function(){
     // BUILD JS
     return gulp.src(files)
         .pipe(sourcemaps.init())
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(concat('app.js'))
         .pipe(jsmin())
         .pipe(sourcemaps.write('/'))
@@ -142,7 +148,8 @@ gulp.task('build-css', function(){
             'resources/css/pages/*.css',
             // npm resources
             'node_modules/minireset.css/minireset.css',
-            'node_modules/flexboxgrid/css/flexboxgrid.css'
+            'node_modules/flexboxgrid/css/flexboxgrid.css',
+            'node_modules/flex-layout-attribute/css/flex-layout-attribute.css'
         ])
         .pipe(sourcemaps.init())
         .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))

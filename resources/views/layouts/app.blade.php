@@ -27,10 +27,13 @@
 
         {{-- {{ svg_spritesheet() }} --}}
         <?php include('./'.elixir("svgs/svg-sprite.svg")); ?>
+
         @include('menu.sidebar')
 
         <main class="c-main-content c-main-content--with-menu">
             @include('menu.main')
+            
+            @include('users.unverified')
             {{-- @include('notice.dialog')
             @include('notice.status') --}}
             @yield('content')

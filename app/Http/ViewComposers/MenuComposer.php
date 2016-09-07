@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
+use Auth;
 use Illuminate\View\View;
 use Spatie\Menu\Html;
 use Spatie\Menu\Laravel\Menu;
@@ -81,7 +82,7 @@ class MenuComposer
         ->submenu(Menu::baseMenu('o-menu__list o-flexbar__item o-flexbar__item--right')->addClass('o-flexbar')
             ->view('menu.item', ['label' => '12', 'link' => '/notifications', 'class' => 'c-menu__link--notifications has-new'])
             ->submenu(ViewItem::create('menu.profile', [
-                    'label'         => 'Lukas Oppermann',
+                    'label'         => Auth::user()->name,
                     'current_path'  => app('request')->path(),
                     'attr'          => 'data-js-toggle-dropdown',
                 ]),
