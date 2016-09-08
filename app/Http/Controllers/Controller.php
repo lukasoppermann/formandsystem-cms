@@ -17,6 +17,7 @@ use App\Http\Requests;
 use App\Services\NavigationService;
 use Validator;
 use Illuminate\Support\Collection as LaravelCollection;
+use GuzzleHttp;
 
 class Controller extends BaseController
 {
@@ -69,7 +70,7 @@ class Controller extends BaseController
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
         ], $config);
         // return new API instance
-        return new Api($config, new CacheService, debugbar());
+        return new Api($config, new CacheService, new GuzzleHttp\Client());
     }
     /**
      * get user & account config from DB & set as config
