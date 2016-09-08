@@ -64,11 +64,16 @@ class Controller extends BaseController
      * @return Api
      */
     protected function api($config = []){
-        // prepare api config
+        $config = new LaravelCollection($config);
+        // prepare config
         $config = array_merge([
             'url'           => env('FS_API_URL'),
+            'version'       => 1,
+            'client_id'     => env('FS_API_CLIENT_ID'),
+            'client_secret' => env('FS_API_CLIENT_SECRET'),
+            'cache'         => false,
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
-        ], $config);
+        ], $config->toArray() );
         // return new API instance
         return new Api($config, new CacheService, new GuzzleHttp\Client());
     }
