@@ -1,6 +1,6 @@
 <?php
 
-Debugbar::startMeasure('routes','Routing');
+\Debugbar::startMeasure('routes','Routes');
 Route::group(['prefix' => env('APP_PREFIX')], function () {
     // login
     Route::get('/login','Auth\AuthController@showLoginForm');

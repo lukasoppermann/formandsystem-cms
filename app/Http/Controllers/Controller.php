@@ -63,35 +63,13 @@ class Controller extends BaseController
      * @return Api
      */
     protected function api($config = []){
-        $config = new LaravelCollection($config);
-        // prepare config
+        // prepare api config
         $config = array_merge([
             'url'           => env('FS_API_URL'),
-            'version'       => 1,
-            'client_id'     => env('FS_API_CLIENT_ID'),
-            'client_secret' => env('FS_API_CLIENT_SECRET'),
-            'cache'         => false,
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
-        ], $config->toArray() );
-
-        $handler = [];
-
-        $debugBar = debugbar();
-        // Get data collector.
-        $timeline = $debugBar->getCollector('time');
-        // Wrap the timeline.
-        $profiler = new GuzzleHttp\Profiling\Debugbar\Profiler($timeline);
-        // Add the middleware to the stack
-        $stack = GuzzleHttp\HandlerStack::create();
-        $stack->unshift(new GuzzleHttp\Profiling\Middleware($profiler));
-        $handler = ['handler' => $stack];
-        // New up the client with this handler stack.
-        $guzzle = new GuzzleHttp\Client(array_merge(
-            $handler
-        ));
-
+        ], $config);
         // return new API instance
-        return new Api($config, new CacheService, $guzzle);
+        return new Api($config, new CacheService, debugbar());
     }
     /**
      * get user & account config from DB & set as config
@@ -104,6 +82,7 @@ class Controller extends BaseController
         // URLS & DIRECTORIES
         \Config::set('site_url', config('app.user')->account()->metadetails('type','site_url', true)->get('data'));
         \Config::set('img_dir', config('app.user')->account()->metadetails('type','dir_images', true)->get('data'));
+        dd();
         \Debugbar::stopMeasure('get-account-metadetails');
         // GRID
         \Debugbar::startMeasure('custom-fragments','Get Custom Fragment Blueprints');
