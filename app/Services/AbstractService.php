@@ -69,9 +69,11 @@ abstract class AbstractService
         // $stack->unshift(new GuzzleHttp\Profiling\Middleware($profiler));
         // $handler = ['handler' => $stack];
         // New up the client with this handler stack.
-        $guzzle = new GuzzleHttp\Client(array_merge(
+        $guzzle = new GuzzleHttp\Client(
+        // array_merge(
             // $handler
-        ));
+        // )
+        );
 
         // return new API instance
         return new Api($config, new CacheService, $guzzle);

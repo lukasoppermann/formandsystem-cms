@@ -28,7 +28,7 @@ class Controller extends BaseController
     protected $client;
 
     public function __construct(Request $request){
-        \Debugbar::stopMeasure('routes');
+        // \Debugbar::stopMeasure('routes');
         \Debugbar::startMeasure('user','Get Current User');
         // get current user
         config(['app.user' => new User($request->user())]);
@@ -82,7 +82,6 @@ class Controller extends BaseController
         // URLS & DIRECTORIES
         \Config::set('site_url', config('app.user')->account()->metadetails('type','site_url', true)->get('data'));
         \Config::set('img_dir', config('app.user')->account()->metadetails('type','dir_images', true)->get('data'));
-        dd();
         \Debugbar::stopMeasure('get-account-metadetails');
         // GRID
         \Debugbar::startMeasure('custom-fragments','Get Custom Fragment Blueprints');
