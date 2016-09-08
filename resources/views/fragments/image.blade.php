@@ -15,6 +15,6 @@
             data-base-url="{{trim(config('site_url'),'/').'/'.trim(config('img_dir'),'/').'/'}}"
             src="{{ isset($img_filename) ?
                 trim(config('site_url'),'/').'/'.trim(config('img_dir'),'/').'/'.$img_filename
-                : ''; }}"
+                : '' }}"
             alt="{{$img_title or ''}}" />
 </form>
