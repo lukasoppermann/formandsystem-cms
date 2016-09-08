@@ -8,6 +8,7 @@
         ], 'selected' => 'sftp'])
         @include('forms.input',['name' => $type.'_host', 'label' => 'FTP host e.g. ftp.domain.com'])
         @include('forms.input',['name' => $type.'_path', 'label' => 'Path to the image folder', 'value' => ''])
+        @include('forms.input',['name' => $type.'_port', 'label' => 'Port defaults to 22', 'value' => ''])
         @include('forms.input',['name' => $type.'_username', 'label' => 'Username', 'attr' => 'autocomplete=off'])
         @include('forms.input',['name' => $type.'_password', 'label' => 'Password', 'type' => 'password', 'attr' => 'autocomplete=off'])
         @include('forms.toggle',['name' => $type.'_ssl', 'label' => 'Use SSL', 'selected' => 'true'])
