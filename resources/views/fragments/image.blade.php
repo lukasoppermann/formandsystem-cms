@@ -10,11 +10,11 @@
             $img_title      = $fragment->images()->first()->get('title');
         }
     ?>
-    @if(isset($img_filename))
         <img class="o-fragment__image"
             data-image-id="{{$img_id or ''}}"
             data-base-url="{{trim(config('site_url'),'/').'/'.trim(config('img_dir'),'/').'/'}}"
-            src="{{trim(config('site_url'),'/').'/'.trim(config('img_dir'),'/').'/'}}{{$img_filename or ''}}"
+            src="{{ isset($img_filename) ?
+                trim(config('site_url'),'/').'/'.trim(config('img_dir'),'/').'/'.$img_filename
+                : ''; }}"
             alt="{{$img_title or ''}}" />
-    @endif
 </form>
