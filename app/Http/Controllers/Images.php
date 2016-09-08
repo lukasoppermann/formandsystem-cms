@@ -31,7 +31,7 @@ class Images extends Controller
         ]);
         // upload file
         $upload =
-            $this->api(config('app.user_client'))->put($image->link('upload'), fopen($file->getRealPath(), 'r'), [
+            $this->api(config('app.user_client'))->put(str_replace(env('FS_API_URL'),'',$image->link('upload')), fopen($file->getRealPath(), 'r'), [
                 'Content-Type' => $mime,
             ], false);
 
