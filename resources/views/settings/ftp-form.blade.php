@@ -1,4 +1,4 @@
-r<form class="o-form" action="/settings/developers/ftp" method="POST" autocomplete="off">
+<form class="o-form" action="/settings/developers/ftp" method="POST" autocomplete="off">
     {{ csrf_field() }}
     @if(!isset($ftp_settings))
         @include('forms.hidden',['name' => 'ftp_account_type', 'value' => $type])
