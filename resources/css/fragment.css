@@ -23,6 +23,9 @@
     position: relative;
     border: 1px dashed var(--white-gray);
 }
+.o-fragment--text{
+    box-shadow: 0 0 0 .1rem var(--white-gray)
+}
 .o-fragment--section:hover{
     border: 1px solid var(--white-gray);
     box-shadow: 0 0 0 .1rem var(--white);

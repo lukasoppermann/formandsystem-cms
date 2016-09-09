@@ -23,8 +23,15 @@ class Fragments extends Controller
         $fragment = new \App\Entities\Fragment([
             'type' => $request->get('type'),
             'position'  => $position,
+            'meta' => [
+                'columns' => [
+                    'sm' => config('user.grid-sm'),
+                    'md' => config('user.grid-md'),
+                    'lg' => config('user.grid-lg'),
+                ]
+            ],
         ]);
-        
+
         if($parentEntity->fragments()->count() === 0 && $request->get('parentType') === 'collection'){
             $parentEntity->update([
                 'type' => 'posts'
