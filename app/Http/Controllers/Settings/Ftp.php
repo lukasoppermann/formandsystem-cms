@@ -22,14 +22,14 @@ class Ftp extends Settings
          $validator = Validator::make($request->all(), [
             $type.'_type'           => 'required|in:sftp,ftp',
             $type.'_host'           => 'required|regex:/^([a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+.*)$/',
-            $type.'_path'           => 'required|Regex:/^[A-Za-z0-9\-\_\/]+$/',
+            $type.'_root'           => 'required|Regex:/^[A-Za-z0-9\-\_\/]+$/',
             $type.'_port'           => '',
             $type.'_username'       => 'required',
             $type.'_password'       => 'required',
             $type.'_ssl'            => 'boolean',
         ], [
             $type.'_host.regex' => 'Please provide a valid domain to access your ftp accont, without http(s)://',
-            $type.'_path.regex' => 'A valid path may only contain the following characters: A-Z, a-z, 0-9, /, - and _',
+            $type.'_root.regex' => 'A valid path may only contain the following characters: A-Z, a-z, 0-9, /, - and _',
         ]);
 
         // if validation fails
@@ -45,7 +45,7 @@ class Ftp extends Settings
             'data' => json_encode([
                 'type'      => $request->get($type.'_type'),
                 'host'      => $request->get($type.'_host'),
-                'path'      => $request->get($type.'_path'),
+                'root'      => $request->get($type.'_root'),
                 'port'      => $request->get($type.'_port'),
                 'username'  => $request->get($type.'_username'),
                 'password'  => $request->get($type.'_password'),

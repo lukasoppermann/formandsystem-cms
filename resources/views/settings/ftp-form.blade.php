@@ -1,4 +1,4 @@
-<form class="o-form" action="/settings/developers/ftp" method="POST" autocomplete="off">
+r<form class="o-form" action="/settings/developers/ftp" method="POST" autocomplete="off">
     {{ csrf_field() }}
     @if(!isset($ftp_settings))
         @include('forms.hidden',['name' => 'ftp_account_type', 'value' => $type])
@@ -7,7 +7,7 @@
             'ftp' => 'FTP'
         ], 'selected' => 'sftp'])
         @include('forms.input',['name' => $type.'_host', 'label' => 'FTP host e.g. ftp.domain.com'])
-        @include('forms.input',['name' => $type.'_path', 'label' => 'Path to the image folder', 'value' => ''])
+        @include('forms.input',['name' => $type.'_root', 'label' => 'Path to the image folder', 'value' => ''])
         @include('forms.input',['name' => $type.'_port', 'label' => 'Port defaults to 22', 'value' => ''])
         @include('forms.input',['name' => $type.'_username', 'label' => 'Username', 'attr' => 'autocomplete=off'])
         @include('forms.input',['name' => $type.'_password', 'label' => 'Password', 'type' => 'password', 'attr' => 'autocomplete=off'])
