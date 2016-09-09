@@ -24,7 +24,7 @@
     color: var(--text-blue);
 }
 
-.o-status{
+/*.o-status{
     position: relative;
     z-index: 800;
     margin: 0;
@@ -62,4 +62,4 @@
 }
 .o-status__hide:hover{
     background-color: color(var(--black) alpha(5%));
-}
+}*/

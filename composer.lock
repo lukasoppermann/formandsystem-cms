@@ -1105,16 +1105,16 @@
         },
         {
             "name": "jrean/laravel-user-verification",
-            "version": "v3.0.4",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jrean/laravel-user-verification.git",
-                "reference": "e33146c8a90dcac7fa4fee687c460b5766c7cf5d"
+                "reference": "e6ef6d6d7a1fc80ca818002fe1aad36b02045a1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jrean/laravel-user-verification/zipball/e33146c8a90dcac7fa4fee687c460b5766c7cf5d",
-                "reference": "e33146c8a90dcac7fa4fee687c460b5766c7cf5d",
+                "url": "https://api.github.com/repos/jrean/laravel-user-verification/zipball/e6ef6d6d7a1fc80ca818002fe1aad36b02045a1e",
+                "reference": "e6ef6d6d7a1fc80ca818002fe1aad36b02045a1e",
                 "shasum": ""
             },
             "require": {
@@ -1146,20 +1146,20 @@
                 "user activation",
                 "user verification"
             ],
-            "time": "2016-08-26 09:35:27"
+            "time": "2016-09-07 15:41:49"
         },
         {
             "name": "laravel/framework",
-            "version": "v5.3.6",
+            "version": "v5.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "c63a7fb7066fea2bce91ace5c830c01d503abe6c"
+                "reference": "443764337de22705c115abe169472c24446764bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/c63a7fb7066fea2bce91ace5c830c01d503abe6c",
-                "reference": "c63a7fb7066fea2bce91ace5c830c01d503abe6c",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/443764337de22705c115abe169472c24446764bd",
+                "reference": "443764337de22705c115abe169472c24446764bd",
                 "shasum": ""
             },
             "require": {
@@ -1273,7 +1273,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-09-01 14:06:47"
+            "time": "2016-09-08 17:10:45"
         },
         {
             "name": "league/flysystem",
@@ -2335,12 +2335,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-menu.git",
-                "reference": "41c1d173a68ee1a5d8cb996beab607a324bf7b1e"
+                "reference": "d0a6832e04f92fa94989fd683b8964887c023983"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-menu/zipball/41c1d173a68ee1a5d8cb996beab607a324bf7b1e",
-                "reference": "41c1d173a68ee1a5d8cb996beab607a324bf7b1e",
+                "url": "https://api.github.com/repos/spatie/laravel-menu/zipball/d0a6832e04f92fa94989fd683b8964887c023983",
+                "reference": "d0a6832e04f92fa94989fd683b8964887c023983",
                 "shasum": ""
             },
             "require": {
@@ -2378,7 +2378,7 @@
                 "laravel-menu",
                 "spatie"
             ],
-            "time": "2016-09-05 10:33:55"
+            "time": "2016-09-08 15:38:43"
         },
         {
             "name": "spatie/laravel-permission",
@@ -3743,16 +3743,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "a8773992b362b58498eed24bf85005f363c34771"
+                "reference": "da8529775f14f4fdae33f916eb0cf65f6afbddbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/a8773992b362b58498eed24bf85005f363c34771",
-                "reference": "a8773992b362b58498eed24bf85005f363c34771",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/da8529775f14f4fdae33f916eb0cf65f6afbddbc",
+                "reference": "da8529775f14f4fdae33f916eb0cf65f6afbddbc",
                 "shasum": ""
             },
             "require": {
@@ -3781,7 +3781,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2015-11-20 12:04:31"
+            "time": "2016-09-06 16:07:05"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -4315,16 +4315,16 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "3.2.6",
+            "version": "3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "46b249b43fd2ed8e127aa0fdb3cbcf56e9bc0e49"
+                "reference": "546898a2c0c356ef2891b39dd7d07f5d82c8ed0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/46b249b43fd2ed8e127aa0fdb3cbcf56e9bc0e49",
-                "reference": "46b249b43fd2ed8e127aa0fdb3cbcf56e9bc0e49",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/546898a2c0c356ef2891b39dd7d07f5d82c8ed0a",
+                "reference": "546898a2c0c356ef2891b39dd7d07f5d82c8ed0a",
                 "shasum": ""
             },
             "require": {
@@ -4370,7 +4370,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2016-08-26 05:51:59"
+            "time": "2016-09-06 16:07:45"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

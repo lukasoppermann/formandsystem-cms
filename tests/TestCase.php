@@ -7,7 +7,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      *
      * @var string
      */
-    protected $baseUrl = 'http://localhost';
+    protected $baseUrl = 'http://fs-cms.dev';
 
     /**
      * Creates the application.
@@ -16,10 +16,15 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     public function createApplication()
     {
+        putenv('DB_DEFAULT=sqlite_testing');
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
+        Artisan::call('migrate:reset');
+        Artisan::call('migrate');
+
         return $app;
     }
+
 }

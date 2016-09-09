@@ -1,0 +1,56 @@
+(function(){
+    let template = `
+    <style>
+    .status-bar {
+        background-color: blue;
+        box-shadow: 0 0 5px #dadada;
+        position: relative;
+        min-height: 100px;
+        margin: 10px 0;
+    }
+    .status-bar[data-type=warning]{
+        background-color: red;
+    }
+    .status-icon{
+        width: 20px;
+        height: 20px;
+        fill: rgb(0,0,0);
+    }
+    </style>
+    <div class="status-bar">
+        <div data-hide="status" class="o-status__hide">×</div>
+        <div class="status-icon">
+            <content select="svg"></content>
+            <content select="img"></content>
+        </div>
+        <p class="status-text"><content></content></p>
+    </div>
+    `;
+
+    class StatusBar extends HTMLElement {
+
+        // Fires when an instance of the element is created.
+        createdCallback() {
+            this.createShadowRoot().innerHTML = template;
+            //Grab the elements from the shadow root
+            this.$container = this.shadowRoot.querySelector('.status-bar');
+
+            this._setType(this.getAttribute('type'));
+        };
+        // Fires when an instance was inserted into the document.
+        attachedCallback() {
+
+        };
+        // Fires when an attribute was added, removed, or updated.
+        attributeChangedCallback(attrName, oldVal, newVal) {
+            if(attrName === 'type'){
+                this._setType(newVal);
+            }
+        };
+
+        _setType(type) {
+            this.$container.setAttribute('data-type', type);
+        };
+    }
+    document.registerElement('status-bar', StatusBar);
+}());

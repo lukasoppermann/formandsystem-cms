@@ -23,7 +23,7 @@
         @endif
     </head>
     <body>
-        <?php include('.'.elixir("svgs/svg-sprite.svg")) ?>
+        {{ svg_spritesheet() }}
 
         <main class="c-main-content c-main-content--yellow o-flex">
             @yield('content')

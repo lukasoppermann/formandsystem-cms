@@ -19,7 +19,7 @@
                     @include('forms.input',['type' => 'password' ,'name' => 'password_confirmation', 'label' => 'Confirm Password'])
 
                     <div class="o-flex-bar">
-                        @include('forms.submit',['label' => 'Sign up', 'classes' => 'o-button o-button--blue o-button--space-top o-flex-bar__item o-flex-bar__item--fill'])
+                        @include('forms.submit',['name'=>'signup', 'label' => 'Sign up', 'classes' => 'o-button o-button--blue o-button--space-top o-flex-bar__item o-flex-bar__item--fill'])
                     </div>
                 </form>
             </div>
@@ -32,7 +32,7 @@
                 <h1 class="shame-login-h1">Sign up</h1>
                 <div layout="column bottom-center" self="bottom">
                     <h2 class="o-flex-bar__item shame-login-h2">Already got an account?</h2>
-                    <a href="{{ url('/login') }}" class="o-button o-button--white o-button--space-top o-button--space-bottom o-flex-bar__item">Sign up</a>
+                    <a href="{{ url('/login') }}" class="o-button o-button--white o-button--space-top o-button--space-bottom o-flex-bar__item">Sign in</a>
                 </div>
             </div>
         </aside>

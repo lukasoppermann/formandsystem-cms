@@ -1,6 +1,8 @@
 {
-  "css/app.css": "css/app-564c65ee80.css",
-  "js/app.js": "js/app-aaf38441ff.js",
+  "css/app.css": "css/app-0ea7eb5510.css",
+  "js/app.js": "js/app-62eb2db587.js",
   "js/external.js": "js/external-1626ada009.js",
-  "svgs/svg-sprite.svg": "svgs/svg-sprite-f0b35e4543.svg"
+  "js/webcomponents-lite.min.js": "js/webcomponents-lite-b0f32ad3c7.min.js",
+  "svgs/svg-sprite.svg": "svgs/svg-sprite-f0b35e4543.svg",
+  "webcomponents/webcomponents.html": "webcomponents/webcomponents-273f3bf5cf.html"
 }
