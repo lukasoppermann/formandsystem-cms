@@ -28,17 +28,20 @@
     <body>
 
         {{ svg_spritesheet() }}
-        
 
-        @include('menu.sidebar')
+        @if(Auth::check())
+            @include('menu.sidebar')
+        @endif
 
         <main class="c-main-content c-main-content--with-menu">
-            @include('menu.main')
-            @include('users.unverified')
-            {{-- @include('notice.dialog')
-            @include('notice.status') --}}
+            @if(Auth::check())
+                @include('menu.main')
+                @include('notifications.general')
+            @endif
+
             @yield('content')
         </main>
+
     </body>
     <script src='{{ asset(env('FILE_PREFIX').elixir("js/app.js")) }}'></script>
 </html>

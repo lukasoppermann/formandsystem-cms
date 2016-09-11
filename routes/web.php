@@ -59,10 +59,16 @@ Route::get('/roles', function () {
     // Auth::user()->attachTeam(App\Models\Team::first());
 });
 
-
-
-Route::get('verification/error', 'Auth\RegisterController@getVerificationError');
-Route::get('verification/{token}', 'Auth\RegisterController@getVerification');
+Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError');
+Route::get('email-verification/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
+Route::get('email-verification-resend', function(){
+    UserVerification::generate(Auth::user());
+    UserVerification::send(Auth::user());
+    session('email-verification.wasResend', \Carbon\Carbon::now());
+    return back()->with([
+        'email-verification.resend' => true
+    ]);
+})->name('email-verification.resend');
 
 Route::group(['middleware' => ['auth'/*'role:see'*/]], function () {
     // UserVerification::generate(Auth::user());

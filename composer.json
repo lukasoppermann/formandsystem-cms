@@ -6,13 +6,19 @@
     "type": "project",
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "repositories": [
+    {
+        "type": "git",
+        "url": "https://github.com/veare/laravel-user-verification.git"
+    }
+    ],
     "require": {
         "php": ">=7.0.0",
         "laravel/framework": "5.3.*",
         "spatie/laravel-permission": "^1.5",
         "mpociot/teamwork": "^4.0",
         "doctrine/dbal": "^2.5",
-        "jrean/laravel-user-verification": "^3.0",
+        "jrean/laravel-user-verification": "dev-route-improvement",
         "spatie/laravel-activitylog": "^1.7",
         "guzzlehttp/guzzle": "~6.0",
         "graham-campbell/binput": "^3.4",

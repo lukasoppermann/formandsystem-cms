@@ -16,7 +16,7 @@
                 setTimeout(function(){
                     el.classList.remove('is-active');
                     dropdown.classList.remove('is-active');
-                },100);
+                },200);
             });
         });
 

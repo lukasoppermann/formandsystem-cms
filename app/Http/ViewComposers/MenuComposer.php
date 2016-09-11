@@ -29,10 +29,12 @@ class MenuComposer
      */
     public function compose(View $view)
     {
-        $view->with([
-            'sidebar'   => $this->sidebar(),
-            'main_menu' => $this->mainMenu(),
-        ]);
+        if (Auth::check()) {
+            $view->with([
+                'sidebar'   => $this->sidebar(),
+                'main_menu' => $this->mainMenu(),
+            ]);
+        };
     }
     /**
      * build main sidebar
@@ -91,7 +93,7 @@ class MenuComposer
                     ->setAttribute('data-js-dropdown')
                     ->view('menu.item', ['label' => 'Profile', 'link' => route('users.me')], route('users.me'))
                     ->view('menu.item', ['label' => 'Help', 'link' => route('support.index')], route('support.index'))
-                    ->view('menu.logout', ['label' => 'Logout', 'link' => '/logout'])
+                    ->view('menu.logout', ['label' => 'Logout'])
             )
         );
     }

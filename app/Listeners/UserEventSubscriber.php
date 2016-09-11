@@ -8,18 +8,30 @@ class UserEventSubscriber
      * Handle user login events.
      */
     public function onUserLogin($event) {
-        activity('logins')
-           ->causedBy($event->user)
-           ->log("User :causer.name logged in.");
+        activity('login')
+            ->on($event->user)
+            ->causedBy($event->user)
+            ->log("User :causer.name logged in.");
     }
 
     /**
      * Handle user logout events.
      */
     public function onUserLogout($event) {
-        activity('logouts')
-           ->causedBy($event->user)
-           ->log("User :causer.name logged out.");
+        activity('logout')
+            ->on($event->user)
+            ->causedBy($event->user)
+            ->log("User :causer.name logged out.");
+    }
+
+    /**
+     * Handle user logout events.
+     */
+    public function onUserSentEmailVerification($event) {
+        activity('email verification')
+            ->on($event->user)
+            ->causedBy($event->user)
+            ->log("User :causer.name resent email verification.");
     }
 
     /**
@@ -37,6 +49,11 @@ class UserEventSubscriber
         $events->listen(
             'Illuminate\Auth\Events\Logout',
             'App\Listeners\UserEventSubscriber@onUserLogout'
+        );
+
+        $events->listen(
+            'Jrean\UserVerification\Events\VerificationEmailSent',
+            'App\Listeners\UserEventSubscriber@onUserSentEmailVerification'
         );
     }
 }

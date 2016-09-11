@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "19496b415dafd4e789af5c6f8f0f0d81",
-    "content-hash": "591fc1faa467a774d3696d995eecb607",
+    "hash": "e75d86587d158a26004b31f840b95289",
+    "content-hash": "edb9b559ebc487506b69c83160082116",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1105,17 +1105,11 @@
         },
         {
             "name": "jrean/laravel-user-verification",
-            "version": "v3.0.5",
+            "version": "dev-route-improvement",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jrean/laravel-user-verification.git",
-                "reference": "e6ef6d6d7a1fc80ca818002fe1aad36b02045a1e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jrean/laravel-user-verification/zipball/e6ef6d6d7a1fc80ca818002fe1aad36b02045a1e",
-                "reference": "e6ef6d6d7a1fc80ca818002fe1aad36b02045a1e",
-                "shasum": ""
+                "url": "https://github.com/veare/laravel-user-verification.git",
+                "reference": "511d94197d5971d431f810581f96db223487042f"
             },
             "require": {
                 "illuminate/support": "5.3.*",
@@ -1127,7 +1121,6 @@
                     "Jrean\\UserVerification\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1146,20 +1139,20 @@
                 "user activation",
                 "user verification"
             ],
-            "time": "2016-09-07 15:41:49"
+            "time": "2016-09-09 19:12:41"
         },
         {
             "name": "laravel/framework",
-            "version": "v5.3.7",
+            "version": "v5.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "443764337de22705c115abe169472c24446764bd"
+                "reference": "99c74afc0b99e1af1984cb55dc242ab28a0e496b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/443764337de22705c115abe169472c24446764bd",
-                "reference": "443764337de22705c115abe169472c24446764bd",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/99c74afc0b99e1af1984cb55dc242ab28a0e496b",
+                "reference": "99c74afc0b99e1af1984cb55dc242ab28a0e496b",
                 "shasum": ""
             },
             "require": {
@@ -1273,7 +1266,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-09-08 17:10:45"
+            "time": "2016-09-09 16:33:59"
         },
         {
             "name": "league/flysystem",
@@ -5097,6 +5090,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "jrean/laravel-user-verification": 20,
         "spatie/laravel-menu": 20,
         "nothingworks/blade-svg": 20
     },
