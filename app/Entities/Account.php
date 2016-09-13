@@ -71,7 +71,8 @@ class Account extends AbstractModelEntity
         if(!Cache::has($cache_name)){
             // get collection with only pages
             $items = (new CollectionService)->find('type','navigation', [
-                'only' => 'pages'
+                'only' => 'pages',
+                'exclude' => 'pages,fragments',
             ]);
             // cache data
             $this->cacheAsEntities($items['data']);
@@ -111,6 +112,33 @@ class Account extends AbstractModelEntity
         // return collection
         return $this->collectionData($data, $field, $key, $first);
     }
+    public function onlyCollections($field = NULL, $key = NULL, $first = false)
+    {
+        // get data
+        $data = $this->getCacheOrRetrieve('OnlyCollections','OnlyCollections');
+        // return collection
+        return $this->collectionData($data, $field, $key, $first);
+    }
+    /**
+     * get metadetails for account from API
+     *
+     * @method retrieveAccountMetadetail
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function retrieveOnlyCollections()
+    {
+        $collections = collect((new \App\Services\Api\CollectionService)->find('type',['posts','collections','pages'], [
+            'exclude' => 'pages,fragments'
+        ]));
+
+        // cache included
+        $this->cacheAsEntities($collections->get('included',[]));
+        // return as collection
+        return (new LaravelCollection($collections->get('data', [])))->map(function($item){
+            return new LaravelCollection($item);
+        });
+    }
     /**
      * get metadetails for account from API
      *
@@ -121,9 +149,9 @@ class Account extends AbstractModelEntity
     public function retrieveCollection()
     {
         $collections = collect((new \App\Services\Api\CollectionService)->find('type',['posts','collections','pages'], [
-            'only' => false
+            'only' => false,
+            'exclude' => 'pages.fragments, pages.pages'
         ]));
-
         // cache included
         $this->cacheAsEntities($collections->get('included',[]));
         // return as collection
