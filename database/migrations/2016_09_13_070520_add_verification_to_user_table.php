@@ -1,11 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class AddVerificationToUsersTable extends Migration
+class AddVerificationToUserTable extends Migration
 {
+    public function getUserTableName()
+    {
+        $user_model = config('auth.providers.users.model', App\User::class);
+        return (new $user_model)->getTable();
+    }
     /**
      * Run the migrations.
      *
@@ -13,7 +17,7 @@ class AddVerificationToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table($this->getUserTableName(), function (Blueprint $table) {
             $table->boolean('verified')->default(false);
             $table->string('verification_token')->nullable();
         });
@@ -26,7 +30,7 @@ class AddVerificationToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table($this->getUserTableName(), function (Blueprint $table) {
             $table->dropColumn('verified');
             $table->dropColumn('verification_token');
         });

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e75d86587d158a26004b31f840b95289",
-    "content-hash": "edb9b559ebc487506b69c83160082116",
+    "hash": "373d2c4ff88c44d2d707eeba66a368ea",
+    "content-hash": "bae4f9f389dac8aea096beeecc3c17e0",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -477,16 +477,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.5.4",
+            "version": "v2.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "abbdfd1cff43a7b99d027af3be709bc8fc7d4769"
+                "reference": "9f8c05cd5225a320d56d4bfdb4772f10d045a0c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/abbdfd1cff43a7b99d027af3be709bc8fc7d4769",
-                "reference": "abbdfd1cff43a7b99d027af3be709bc8fc7d4769",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/9f8c05cd5225a320d56d4bfdb4772f10d045a0c9",
+                "reference": "9f8c05cd5225a320d56d4bfdb4772f10d045a0c9",
                 "shasum": ""
             },
             "require": {
@@ -495,7 +495,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "4.*",
-                "symfony/console": "2.*"
+                "symfony/console": "2.*||^3.0"
             },
             "suggest": {
                 "symfony/console": "For helpful console commands such as SQL execution and import of files."
@@ -544,7 +544,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2016-01-05 22:11:12"
+            "time": "2016-09-09 19:13:33"
         },
         {
             "name": "doctrine/inflector",
@@ -1109,7 +1109,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/veare/laravel-user-verification.git",
-                "reference": "511d94197d5971d431f810581f96db223487042f"
+                "reference": "9abc56ee10c94cd0204203f0bde8a5713ff3eaf3"
             },
             "require": {
                 "illuminate/support": "5.3.*",
@@ -1139,20 +1139,20 @@
                 "user activation",
                 "user verification"
             ],
-            "time": "2016-09-09 19:12:41"
+            "time": "2016-09-10 19:06:45"
         },
         {
             "name": "laravel/framework",
-            "version": "v5.3.8",
+            "version": "v5.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "99c74afc0b99e1af1984cb55dc242ab28a0e496b"
+                "reference": "f6fbb481672f8dc4bc6882d5d654bbfa3588c8ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/99c74afc0b99e1af1984cb55dc242ab28a0e496b",
-                "reference": "99c74afc0b99e1af1984cb55dc242ab28a0e496b",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/f6fbb481672f8dc4bc6882d5d654bbfa3588c8ec",
+                "reference": "f6fbb481672f8dc4bc6882d5d654bbfa3588c8ec",
                 "shasum": ""
             },
             "require": {
@@ -1266,7 +1266,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-09-09 16:33:59"
+            "time": "2016-09-12 14:08:29"
         },
         {
             "name": "league/flysystem",
@@ -1532,16 +1532,16 @@
         },
         {
             "name": "mpociot/teamwork",
-            "version": "4.0.0",
+            "version": "4.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpociot/teamwork.git",
-                "reference": "d19abbb0b69e922aa22d96cc916317618461c4ff"
+                "reference": "b7730a049b12ab4d65cc9b663dc3f0883d542045"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpociot/teamwork/zipball/d19abbb0b69e922aa22d96cc916317618461c4ff",
-                "reference": "d19abbb0b69e922aa22d96cc916317618461c4ff",
+                "url": "https://api.github.com/repos/mpociot/teamwork/zipball/b7730a049b12ab4d65cc9b663dc3f0883d542045",
+                "reference": "b7730a049b12ab4d65cc9b663dc3f0883d542045",
                 "shasum": ""
             },
             "require": {
@@ -1576,7 +1576,7 @@
                 "Invite",
                 "Teams"
             ],
-            "time": "2016-08-25 13:05:03"
+            "time": "2016-08-29 08:11:42"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -2111,6 +2111,56 @@
             "time": "2016-08-02 18:39:32"
         },
         {
+            "name": "schuppo/password-strength",
+            "version": "1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schuppo/PasswordStrengthPackage.git",
+                "reference": "1d0820c2fcab646ebfded4b51cd220bb17de3da3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schuppo/PasswordStrengthPackage/zipball/1d0820c2fcab646ebfded4b51cd220bb17de3da3",
+                "reference": "1d0820c2fcab646ebfded4b51cd220bb17de3da3",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "illuminate/translation": "^5.1",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "illuminate/validation": "~5.0",
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Schuppo\\PasswordStrength": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Schupp",
+                    "email": "oliver.schupp@yahoo.de"
+                }
+            ],
+            "description": "This package provides a validator for ensuring strong passwords in Laravel 4 applications.",
+            "keywords": [
+                "laravel",
+                "laravel 5",
+                "laravel5",
+                "password",
+                "password strength",
+                "validation"
+            ],
+            "time": "2016-09-01 10:10:05"
+        },
+        {
             "name": "sofa/eloquence",
             "version": "v5.3.2",
             "source": {
@@ -2260,22 +2310,22 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "1.7.1",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "027fbf39fd3cda3030e4e8314c9fbf9e700c7d98"
+                "reference": "900fecac75bf450f27a449ea8a53bb3e11bb1a7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/027fbf39fd3cda3030e4e8314c9fbf9e700c7d98",
-                "reference": "027fbf39fd3cda3030e4e8314c9fbf9e700c7d98",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/900fecac75bf450f27a449ea8a53bb3e11bb1a7d",
+                "reference": "900fecac75bf450f27a449ea8a53bb3e11bb1a7d",
                 "shasum": ""
             },
             "require": {
-                "illuminate/config": "^5.2|^5.3",
-                "illuminate/database": "^5.2.6|^5.3",
-                "illuminate/support": "^5.2|^5.3",
+                "illuminate/config": "~5.2.0|~5.3.0",
+                "illuminate/database": "~5.2.6|~5.3.0",
+                "illuminate/support": "~5.2.0|~5.3.0",
                 "php": "^7.0",
                 "spatie/string": "^2.1"
             },
@@ -2320,7 +2370,7 @@
                 "spatie",
                 "user"
             ],
-            "time": "2016-08-23 14:01:54"
+            "time": "2016-09-12 07:40:12"
         },
         {
             "name": "spatie/laravel-menu",
@@ -3736,16 +3786,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.5.2",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "da8529775f14f4fdae33f916eb0cf65f6afbddbc"
+                "reference": "94e5ca3e90aa5b34663780393e10914f7438f991"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/da8529775f14f4fdae33f916eb0cf65f6afbddbc",
-                "reference": "da8529775f14f4fdae33f916eb0cf65f6afbddbc",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/94e5ca3e90aa5b34663780393e10914f7438f991",
+                "reference": "94e5ca3e90aa5b34663780393e10914f7438f991",
                 "shasum": ""
             },
             "require": {
@@ -3774,7 +3824,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2016-09-06 16:07:05"
+            "time": "2016-09-07 15:34:10"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -5035,6 +5085,48 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2016-09-02 02:12:52"
+        },
+        {
+            "name": "tightenco/mailthief",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tightenco/mailthief.git",
+                "reference": "96d54cf72959f08ec5fc49fb3e6825fd6fcfaf4f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tightenco/mailthief/zipball/96d54cf72959f08ec5fc49fb3e6825fd6fcfaf4f",
+                "reference": "96d54cf72959f08ec5fc49fb3e6825fd6fcfaf4f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/mail": "^5.0",
+                "illuminate/view": "^5.0"
+            },
+            "require-dev": {
+                "laravel/framework": "^5.1",
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "^5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MailThief\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Wathan",
+                    "email": "adam.wathan@gmail.com"
+                }
+            ],
+            "description": "A fake Mailer for Laravel applications that takes the pain out of testing mail.",
+            "time": "2016-09-08 16:52:07"
         },
         {
             "name": "webmozart/assert",

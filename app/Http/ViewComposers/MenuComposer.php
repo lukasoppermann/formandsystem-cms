@@ -67,7 +67,7 @@ class MenuComposer
                     return ViewItem::create('menu.item', $item)->activateForPath($item['link']);
                 })
             )
-            ->view('menu.item', ['label' => 'Team', 'link' => route('settings.index')])
+            ->view('menu.item', ['label' => 'Team', 'link' => route('teams.members.show', Auth::user()->currentTeam)])
             ->view('menu.item', ['label' => 'Settings', 'link' => route('settings.index')])
             // add header
             ->append(view('menu.footer')->render());

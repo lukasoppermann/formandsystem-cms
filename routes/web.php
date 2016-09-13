@@ -23,6 +23,10 @@ Route::group(['middleware' => ['guest'/*'role:see'*/]], function () {
     });
 });
 
+Route::get('/', function () {
+    return redirect()->route('dashboard.index');
+});
+
 Route::group([
         'prefix'     => 'settings',
         'namespace'  => 'Settings',
@@ -59,24 +63,23 @@ Route::get('/roles', function () {
     // Auth::user()->attachTeam(App\Models\Team::first());
 });
 
-Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError');
-Route::get('email-verification/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
-Route::get('email-verification-resend', function(){
-    UserVerification::generate(Auth::user());
-    UserVerification::send(Auth::user());
-    session('email-verification.wasResend', \Carbon\Carbon::now());
-    return back()->with([
-        'email-verification.resend' => true
-    ]);
-})->name('email-verification.resend');
+// Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError');
+// Route::get('email-verification/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
+// Route::get('email-verification-resend', function(){
+//     UserVerification::generate(Auth::user());
+//     UserVerification::send(Auth::user());
+//     session('email-verification.wasResend', \Carbon\Carbon::now());
+//     return back()->with([
+//         'email-verification.resend' => true
+//     ]);
+// })->name('email-verification.resend');
 
 Route::group(['middleware' => ['auth'/*'role:see'*/]], function () {
     // UserVerification::generate(Auth::user());
 
-
-    Route::get('/', 'Dashboard@index')->name('dashboard.index');
-    Route::get('/test', 'Dashboard@index')->name('dashboard.index');
-    Route::get('/news', 'Dashboard@index')->name('dashboard.index');
+    Route::get('/dashboard', 'Dashboard@index')->name('dashboard.index');
+    Route::get('/test', 'Dashboard@index');
+    Route::get('/news', 'Dashboard@index');
 
 });
 
@@ -84,7 +87,7 @@ Route::group(['middleware' => ['auth'/*'role:see'*/]], function () {
 /**
  * Teamwork routes
  */
-Route::group(['prefix' => 'teams', 'namespace' => 'Teamwork', 'middleware' => ['auth','role:teams']], function()
+Route::group(['prefix' => 'projects', 'namespace' => 'Teamwork', 'middleware' => ['auth','permission:view teams']], function()
 {
     Route::get('/', 'TeamController@index')->name('teams.index');
     Route::get('create', 'TeamController@create')->name('teams.create');
@@ -94,10 +97,10 @@ Route::group(['prefix' => 'teams', 'namespace' => 'Teamwork', 'middleware' => ['
     Route::delete('destroy/{id}', 'TeamController@destroy')->name('teams.destroy');
     Route::get('switch/{id}', 'TeamController@switchTeam')->name('teams.switch');
 
-    Route::get('members/{id}', 'TeamMemberController@show')->name('teams.members.show');
-    Route::get('members/resend/{invite_id}', 'TeamMemberController@resendInvite')->name('teams.members.resend_invite');
-    Route::post('members/{id}', 'TeamMemberController@invite')->name('teams.members.invite');
-    Route::delete('members/{id}/{user_id}', 'TeamMemberController@destroy')->name('teams.members.destroy');
+    Route::get('team/{id}', 'TeamMemberController@show')->name('teams.members.show');
+    Route::get('team/resend/{invite_id}', 'TeamMemberController@resendInvite')->name('teams.members.resend_invite');
+    Route::post('team/{id}', 'TeamMemberController@invite')->name('teams.members.invite');
+    Route::delete('team/{id}/{user_id}', 'TeamMemberController@destroy')->name('teams.members.destroy');
 
     Route::get('accept/{token}', 'AuthController@acceptInvite')->name('teams.accept_invite');
 });

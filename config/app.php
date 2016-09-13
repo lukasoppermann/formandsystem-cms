@@ -177,6 +177,7 @@ return [
         Spatie\Menu\Laravel\MenuServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         BladeSvg\BladeSvgServiceProvider::class,
+        Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,
         //
 
         /*

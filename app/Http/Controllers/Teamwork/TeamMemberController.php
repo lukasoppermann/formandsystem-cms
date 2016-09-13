@@ -23,6 +23,7 @@ class TeamMemberController extends Controller
      */
     public function show($id)
     {
+
         $teamModel = config('teamwork.team_model');
         $team = $teamModel::findOrFail($id);
 
@@ -80,13 +81,13 @@ class TeamMemberController extends Controller
                 'email' => 'The email address is already invited to the team.'
             ]);
         }
-        
+
         return redirect(route('teams.members.show', $team->id));
     }
 
     /**
      * Resend an invitation mail.
-     * 
+     *
      * @param $invite_id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

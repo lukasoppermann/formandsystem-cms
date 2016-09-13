@@ -27,14 +27,16 @@
         "mpociot/laravel-test-factory-helper": "^0.3.1",
         "spatie/laravel-menu": "dev-master",
         "barryvdh/laravel-debugbar": "^2.2",
-        "nothingworks/blade-svg": "@dev"
+        "nothingworks/blade-svg": "@dev",
+        "schuppo/password-strength": "~1.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.0",
         "symfony/css-selector": "3.1.*",
-        "symfony/dom-crawler": "3.1.*"
+        "symfony/dom-crawler": "3.1.*",
+        "tightenco/mailthief": "^0.3.0"
     },
     "autoload": {
         "classmap": [

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Closure;
 
-class RoleMiddleware
+class PermissionMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,10 @@ class RoleMiddleware
     public function handle($request, Closure $next, $permission)
     {
         if (Auth::guest()) {
-            return redirect($urlOfYourLoginPage);
+            return redirect('/');
         }
 
-        if (! $request->user()->can($permission)) {
+        if (! $request->user()->hasPermissionTo($permission)) {
             abort(403);
         }
 

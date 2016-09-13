@@ -8168,6 +8168,9 @@ Polymer({
             attached: {
                 type: String,
                 value: "true"
+            },
+            timeout: {
+                type: Number
             }
         },
         isTrue: function(string){
@@ -8178,15 +8181,20 @@ Polymer({
                 if(this.isTrue(this.icon) === true && ['notice','error','success','warning'].indexOf(this.type) > -1){
                     this.$$('use').setAttribute('xlink:href','#svg-icon--'+this.type);
                 }
+
+                if(this.timeout !== undefined && Number.isInteger(parseInt(this.timeout))){
+                    setTimeout(function(){
+                        this.close();
+                    }.bind(this), parseInt(this.timeout));
+                }
             });
         },
         close: function(){
 
             this.$.container.classList.add('is-hidden');
 
-            var element = this;
             setTimeout(function(){
-                element.parentNode.removeChild(element);
-            },1000);
+                this.parentNode.removeChild(this);
+            }.bind(this),1000);
         }
     });

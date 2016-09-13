@@ -3,9 +3,11 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use MailThief\Testing\InteractsWithMail;
 
 class LoginPageTest extends \TestCase
 {
+    use InteractsWithMail;
     /**
      * @var FakerGenerator
      */
@@ -20,27 +22,30 @@ class LoginPageTest extends \TestCase
         $this->faker = \Faker\Factory::create();
     }
     /**
-     * My test implementation
-     */
-    public function testSignup()
-    {
-        $this->visit('/login');
-        $this->click('Sign up');
-        $this->type($this->faker->name, 'name');
-        $this->type($this->faker->email, 'email');
-        $this->type('password', 'password');
-        $this->type('password', 'password_confirmation');
-        $this->press('signup');
-        $this->visit('/');
-
-    }
-    /**
      * Can user see login page
      */
     public function testSeePage()
     {
         $this->visit('/')
              ->see('Sign in');
+    }
+    /**
+     * My test implementation
+     */
+    public function testSignup()
+    {
+        $email = $this->faker->email;
+        $this->visit('/login');
+        $this->click('Sign up');
+        $this->type($this->faker->name, 'name');
+        $this->type($email, 'email');
+        $this->type('password', 'password');
+        $this->type('password', 'password_confirmation');
+        $this->press('signup');
+        $this->seePageIs(route('dashboard.index'));
+
+        $this->seeMessageFor($email);
+        $this->seeMessageWithSubject(trans('laravel-user-verification::user-verification.verification_email_subject'));
     }
     /**
      * Can user log in?
@@ -58,7 +63,9 @@ class LoginPageTest extends \TestCase
         $this->type($user->email, 'email');
         $this->type($password, 'password');
         $this->press('signin');
-        $this->seePageIs('/');
+        $this->seePageIs(route('dashboard.index'));
+
+        $this->see(trans('notifications.email_verification_needed'));
     }
 
     /**
@@ -69,5 +76,36 @@ class LoginPageTest extends \TestCase
         $this->visit('/register');
         $this->click('Sign in');
         $this->seePageIs('/login');
+    }
+
+    /**
+     * Reset
+     */
+    public function testResetPassword()
+    {
+        $password = $this->faker->password;
+        $user = factory(App\Models\User::class)->create([
+            'email' => $this->faker->email,
+            'password' => $password,
+            'name' => $this->faker->name,
+        ]);
+
+        $this->visit('/login');
+        $this->click('Forgot Your Password?');
+        $this->type($user->email, 'email');
+        $this->press('get_reset_email');
+        $this->seePageIs('/password/reset');
+
+        $this->seeMessageFor($user->email);
+        $this->seeMessageWithSubject('Reset Password');
+        // // Make sure the email was sent from the correct address
+        // $this->seeMessageFrom(config('mail.from.address'));
+
+        $this->visit($this->lastMessage()->data['actionUrl']);
+        $this->type($user->email, 'email');
+        $this->type($password, 'password');
+        $this->type($password, 'password_confirmation');
+        $this->press('reset_password');
+        $this->seePageIs(route('dashboard.index'));
     }
 }

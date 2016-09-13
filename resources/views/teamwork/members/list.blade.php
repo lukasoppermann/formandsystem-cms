@@ -6,10 +6,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
-                        Members of team "{{$team->name}}"
-                        <a href="{{route('teams.index')}}" class="btn btn-sm btn-default pull-right">
-                            <i class="fa fa-arrow-left"></i> Back
-                        </a>
+                        Team of Project: {{$team->name}}
                     </div>
                     <div class="panel-body">
                         <table class="table table-striped">
