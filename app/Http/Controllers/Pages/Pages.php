@@ -157,16 +157,9 @@ class Pages extends Controller
             if( !$collection->isEmpty() ){
                 $page = $collection->pages('id',$id,true);
                 $page->update((new LaravelCollection($data))->except(['collection','id'])->toArray());
-
-                if($page->parentCollection()->get('type') === 'posts'){
-                    $slug = '/collections/'.$page->parentCollection()->get('slug');
-                }
-                if($page->parentCollection()->get('type') === 'navigation'){
-                    $slug = '/pages';
-                }
-
+                $slug = '/collections/'.$page->parentCollection()->get('slug');
                 // redirect on success
-                return redirect($slug.'/'.$page->get('slug'))->with([
+                    return redirect($slug.'/'.$page->get('slug'))->with([
                     'status' => 'This page has been updated successfully.',
                     'type' => 'success'
                 ]);
