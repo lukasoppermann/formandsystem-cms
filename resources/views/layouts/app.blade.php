@@ -7,10 +7,10 @@
         <meta name="theme-color" content="rgb(255,210,0)">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="site_url" content="{{ url('/') }}">
-        <link href="{{ asset(env('FILE_PREFIX').elixir('css/app.css')) }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset(env('FILE_PREFIX').elixir('css/app.css'), Request::secure()) }}" rel="stylesheet" type="text/css">
         <link href='//fonts.googleapis.com/css?family=Lato:300,400,700&subset=latin,latin' rel='stylesheet' type='text/css'>
-        <script type="text/javascript" src="{{ asset(env('FILE_PREFIX').elixir('js/webcomponents-lite.min.js')) }}"></script>
-        <link rel="import" href="{{ asset(env('FILE_PREFIX').elixir('webcomponents/webcomponents.html')) }}">
+        <script type="text/javascript" src="{{ asset(env('FILE_PREFIX').elixir('js/webcomponents-lite.min.js'), Request::secure()) }}"></script>
+        <link rel="import" href="{{ asset(env('FILE_PREFIX').elixir('webcomponents/webcomponents.html'), Request::secure()) }}">
         @if (env('APP_ENV') !== 'local')
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -43,5 +43,5 @@
         </main>
 
     </body>
-    <script src='{{ asset(env('FILE_PREFIX').elixir("js/app.js")) }}'></script>
+    <script src='{{ asset(env('FILE_PREFIX').elixir("js/app.js"), Request::secure()) }}'></script>
 </html>
