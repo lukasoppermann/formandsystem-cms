@@ -37,10 +37,11 @@ class LoginPageTest extends \TestCase
         $email = $this->faker->email;
         $this->visit('/login');
         $this->click('Sign up');
+        $this->seePageIs('/register');
         $this->type($this->faker->name, 'name');
         $this->type($email, 'email');
-        $this->type('password', 'password');
-        $this->type('password', 'password_confirmation');
+        $this->type('password&1234', 'password');
+        $this->type('password&1234', 'password_confirmation');
         $this->press('signup');
         $this->seePageIs(route('dashboard.index'));
 

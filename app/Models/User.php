@@ -40,4 +40,17 @@ class User extends Authenticatable
     {
         return $this->verified === 1;
     }
+    /**
+     * returns last email verification request
+     * @method lastVerificationEmail
+     * @return Carbon
+     */
+    public function lastVerificationEmail()
+    {
+        return  collect($this->activity()->inLog('email verification')->get())
+                ->sortByDesc('created_at')
+                ->pluck('created_at')
+                ->first();
+    }
+
 }

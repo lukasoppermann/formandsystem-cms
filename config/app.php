@@ -178,6 +178,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         BladeSvg\BladeSvgServiceProvider::class,
         Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,
+        Orangehill\Iseed\IseedServiceProvider::class,
         //
 
         /*
