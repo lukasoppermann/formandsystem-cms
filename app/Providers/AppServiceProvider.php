@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +27,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        // if (!auth()->user()->email === 'oppermann.lukas@gmail.com') {
+        //     $this->app->make('config')->set('debugbar.enabled', false);
+        //     $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        //     $this->app->register(\GuzzleHttp\Profiling\Debugbar\Support\Laravel\ServiceProvider::class);
+        // } else {
+            $this->app->make('config')->set('debugbar.enabled', true);
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+            $this->app->register(\GuzzleHttp\Profiling\Debugbar\Support\Laravel\ServiceProvider::class);
+        // }
     }
 }

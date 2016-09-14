@@ -58,22 +58,18 @@ abstract class AbstractService
         ], $config->toArray() );
 
         $handler = [];
-
-        // $debugBar = debugbar();
-        // Get data collector.
-        // $timeline = $debugBar->getCollector('time');
-        // Wrap the timeline.
-        // $profiler = new GuzzleHttp\Profiling\Debugbar\Profiler($timeline);
-        // Add the middleware to the stack
-        // $stack = GuzzleHttp\HandlerStack::create();
-        // $stack->unshift(new GuzzleHttp\Profiling\Middleware($profiler));
-        // $handler = ['handler' => $stack];
-        // New up the client with this handler stack.
-        $guzzle = new GuzzleHttp\Client(
-        // array_merge(
-            // $handler
-        // )
-        );
+        if (function_exists('debugbar')) {
+            $debugBar = debugbar();
+            // Get data collector.
+            $timeline = $debugBar->getCollector('time');
+            // Wrap the timeline.
+            $profiler = new GuzzleHttp\Profiling\Debugbar\Profiler($timeline);
+            // Add the middleware to the stack
+            $stack = GuzzleHttp\HandlerStack::create();
+            $stack->unshift(new GuzzleHttp\Profiling\Middleware($profiler));
+            $handler = ['handler' => $stack];
+        }
+        $guzzle = new GuzzleHttp\Client($handler);
 
         // return new API instance
         return new Api($config, new CacheService, $guzzle);

@@ -122,9 +122,6 @@ return [
     */
 
     'providers' => [
-        // Debug
-        Barryvdh\Debugbar\ServiceProvider::class,
-        GuzzleHttp\Profiling\Debugbar\Support\Laravel\ServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
@@ -157,7 +154,6 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
     ],
 
     /*

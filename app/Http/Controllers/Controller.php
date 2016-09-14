@@ -30,6 +30,9 @@ class Controller extends BaseController
 
     public function __construct(Request $request){
         // \Debugbar::stopMeasure('routes');
+        if(\Auth::user()->email !== 'oppermann.lukas@gmail.com'){
+            \Debugbar::disable();
+        }
         \Debugbar::startMeasure('user','Get Current User');
         // get current user
         config(['app.user' => new User($request->user())]);
@@ -74,8 +77,23 @@ class Controller extends BaseController
             'cache'         => false,
             'scopes'        => ['content.get','content.post','content.delete','content.patch']
         ], $config->toArray() );
+        $handler = [];
+        if (function_exists('debugbar')) {
+            $debugBar = debugbar();
+            // Get data collector.
+            $timeline = $debugBar->getCollector('time');
+            // Wrap the timeline.
+            $profiler = new GuzzleHttp\Profiling\Debugbar\Profiler($timeline);
+            // Add the middleware to the stack
+            $stack = GuzzleHttp\HandlerStack::create();
+            $stack->unshift(new GuzzleHttp\Profiling\Middleware($profiler));
+            $handler = ['handler' => $stack];
+        }
         // return new API instance
-        return new Api($config, new CacheService, new GuzzleHttp\Client());
+        return new Api($config, new CacheService, new GuzzleHttp\Client(array_merge(
+            $handler,
+            $opts
+        )));
     }
     /**
      * get user & account config from DB & set as config
