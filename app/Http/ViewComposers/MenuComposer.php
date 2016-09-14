@@ -41,6 +41,10 @@ class MenuComposer
      * @method sidebar
      */
     protected function sidebar(){
+        if(!Auth::check() || !Auth::user()->currentTeam){
+            return false;
+        }
+
         $collections = collect([
             [
                 'link' => '/test',

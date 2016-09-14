@@ -27,7 +27,7 @@ function addMenuMacros(){
         return $this;
     });
     // base menu
-    Menu::macro('baseMenu', function(string $menu_class = '') {
+    Menu::macro('baseMenu', function(string $menu_class = '', $show = true) {
         return Menu::new()
             // menu settings
             ->addClass('o-flexbar')

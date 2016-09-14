@@ -29,11 +29,11 @@
 
         {{ svg_spritesheet() }}
 
-        @if(Auth::check())
+        @if($sidebar !== false)
             @include('menu.sidebar')
         @endif
 
-        <main class="c-main-content c-main-content--with-menu">
+        <main class="c-main-content c-main-content--with-menu {{$sidebar !== false ? 'c-main-content--with-sidebar' : ''}}">
             @if(Auth::check())
                 @include('menu.main')
                 @include('notifications.general')

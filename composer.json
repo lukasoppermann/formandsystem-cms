@@ -31,7 +31,7 @@
         "symfony/dom-crawler": "3.1.*",
         "tightenco/mailthief": "^0.3.0",
         "mpociot/laravel-test-factory-helper": "^0.3.1",
-        "orangehill/iseed": "^2.1"
+        "orangehill/iseed": "^2.2"
     },
     "autoload": {
         "classmap": [

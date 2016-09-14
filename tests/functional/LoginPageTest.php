@@ -100,7 +100,7 @@ class LoginPageTest extends \TestCase
         $this->seeMessageFor($user->email);
         $this->seeMessageWithSubject('Reset Password');
         // // Make sure the email was sent from the correct address
-        // $this->seeMessageFrom(config('mail.from.address'));
+        $this->seeMessageFrom(config('mail.from.address'));
 
         $this->visit($this->lastMessage()->data['actionUrl']);
         $this->type($user->email, 'email');

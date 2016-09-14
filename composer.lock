@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6104c140451316c5d019143ba244ce49",
-    "content-hash": "4804ec0d0b220f9588b15bd35fe6aac2",
+    "hash": "f519aa9fe366aecea6aca8f6639e2497",
+    "content-hash": "93d8cac30082438216b9a8e33f32c513",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -3779,16 +3779,16 @@
         },
         {
             "name": "orangehill/iseed",
-            "version": "v2.1",
+            "version": "v2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orangehill/iseed.git",
-                "reference": "1847f70941f8b8f80be143574432439071bea3b4"
+                "reference": "e94c5a05742ff5e29ddf34a27fcfddbec7712fd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orangehill/iseed/zipball/1847f70941f8b8f80be143574432439071bea3b4",
-                "reference": "1847f70941f8b8f80be143574432439071bea3b4",
+                "url": "https://api.github.com/repos/orangehill/iseed/zipball/e94c5a05742ff5e29ddf34a27fcfddbec7712fd4",
+                "reference": "e94c5a05742ff5e29ddf34a27fcfddbec7712fd4",
                 "shasum": ""
             },
             "require": {
@@ -3824,7 +3824,7 @@
                 "laravel",
                 "seed"
             ],
-            "time": "2016-01-22 10:56:11"
+            "time": "2016-09-14 07:59:34"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -5144,16 +5144,16 @@
         },
         {
             "name": "tightenco/mailthief",
-            "version": "v0.3.0",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tightenco/mailthief.git",
-                "reference": "96d54cf72959f08ec5fc49fb3e6825fd6fcfaf4f"
+                "reference": "4a341566a41042da9e83397929c55cdc0caa27e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tightenco/mailthief/zipball/96d54cf72959f08ec5fc49fb3e6825fd6fcfaf4f",
-                "reference": "96d54cf72959f08ec5fc49fb3e6825fd6fcfaf4f",
+                "url": "https://api.github.com/repos/tightenco/mailthief/zipball/4a341566a41042da9e83397929c55cdc0caa27e6",
+                "reference": "4a341566a41042da9e83397929c55cdc0caa27e6",
                 "shasum": ""
             },
             "require": {
@@ -5182,7 +5182,7 @@
                 }
             ],
             "description": "A fake Mailer for Laravel applications that takes the pain out of testing mail.",
-            "time": "2016-09-08 16:52:07"
+            "time": "2016-09-13 16:55:31"
         },
         {
             "name": "webmozart/assert",
