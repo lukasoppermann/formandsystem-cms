@@ -224,13 +224,17 @@ class NavigationService
         if($collection->pages()->isEmpty()){
             return NULL;
         }
+        $collection_name = $collection->get('slug');
         // return
         return [
             [
                 // 'title'             => $collection->get('name'),
                 'collection_id'     => $collection->get('id'),
                 'patch_url'         => '/pages',
-                'items'     => $collection->pages(),
+                'items'     => $collection->pages()->each(function($item) use ($collection_name){
+                    $item['collection'] = $collection_name;
+                    return $item;
+                }),
                 'template'  => 'navigation.item-page',
                 'elements' => [
                     view('navigation.add', [
