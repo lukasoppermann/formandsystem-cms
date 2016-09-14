@@ -201,6 +201,7 @@
 .c-fragment-placeholder{
     position: relative;
     padding: 0 .2rem;
+    max-height: 250px;
 }
 .c-fragment-placeholder:before{
     content: "";

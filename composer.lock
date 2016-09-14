@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b3baa6a509d0ace72bf9b3b7f39e1345",
-    "content-hash": "f9cb4794881accb5a4fb9bf51783a63d",
+    "hash": "e92f601bd1b298a9f662cd1e0f4499b2",
+    "content-hash": "3ae03dc1f0ef323f603a75538d579460",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1484,6 +1484,56 @@
                 "uuid"
             ],
             "time": "2016-08-02 18:39:32"
+        },
+        {
+            "name": "spatie/db-dumper",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/db-dumper.git",
+                "reference": "006b2864997824ddbf8bb08d45259fef12a319b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/db-dumper/zipball/006b2864997824ddbf8bb08d45259fef12a319b8",
+                "reference": "006b2864997824ddbf8bb08d45259fef12a319b8",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0",
+                "symfony/process": "^3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\DbDumper\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Dump databases",
+            "homepage": "https://github.com/spatie/db-dumper",
+            "keywords": [
+                "database",
+                "db-dumper",
+                "dump",
+                "mysqldump",
+                "spatie"
+            ],
+            "time": "2016-09-07 08:06:47"
         },
         {
             "name": "swiftmailer/swiftmailer",
