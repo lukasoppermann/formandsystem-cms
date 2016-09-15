@@ -9,10 +9,11 @@ use Spatie\Activitylog\Traits\CausesActivity;
 use Mpociot\Teamwork\Traits\UserHasTeams;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Metable;
+use Jrean\UserVerification\Traits\UserVerification;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, UserHasTeams, Eloquence, Metable, CausesActivity;
+    use Notifiable, HasRoles, UserHasTeams, Eloquence, Metable, CausesActivity, UserVerification;
 
     /**
      * The attributes that are mass assignable.
@@ -31,15 +32,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    /**
-     * checks if a user verified her email address
-     * @method isVerified
-     * @return bool
-     */
-    public function isVerified() : bool
-    {
-        return $this->verified === 1;
-    }
     /**
      * returns last email verification request
      * @method lastVerificationEmail

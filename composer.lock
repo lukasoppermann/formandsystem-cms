@@ -1105,16 +1105,16 @@
         },
         {
             "name": "jrean/laravel-user-verification",
-            "version": "v3.0.8",
+            "version": "v3.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jrean/laravel-user-verification.git",
-                "reference": "bd705021033b28357514a6761027ad11ef46ef56"
+                "reference": "6248dfb1671d2ca3f9ac9acf8de372077ca9cb50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jrean/laravel-user-verification/zipball/bd705021033b28357514a6761027ad11ef46ef56",
-                "reference": "bd705021033b28357514a6761027ad11ef46ef56",
+                "url": "https://api.github.com/repos/jrean/laravel-user-verification/zipball/6248dfb1671d2ca3f9ac9acf8de372077ca9cb50",
+                "reference": "6248dfb1671d2ca3f9ac9acf8de372077ca9cb50",
                 "shasum": ""
             },
             "require": {
@@ -1146,7 +1146,7 @@
                 "user activation",
                 "user verification"
             ],
-            "time": "2016-09-12 17:24:24"
+            "time": "2016-09-15 13:18:14"
         },
         {
             "name": "laravel/framework",
