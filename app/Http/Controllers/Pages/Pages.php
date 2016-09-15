@@ -27,6 +27,7 @@ class Pages extends Controller
 
     public function show($slug)
     {
+        \Debugbar::startMeasure('PagesController');
         $page = NULL;
         foreach(config('app.user')->account()->navigation() as $collection){
             if( $new_page = $collection->pages()->where('slug', $slug)){
@@ -38,10 +39,15 @@ class Pages extends Controller
             return redirect('/pages');
         }
 
+        $collections = $page->collections('type','posts')
+        $collection = $page->parentCollection();
+
+        \Debugbar::stopMeasure('PagesController');
+
         return view('pages.page', [
             'item'          => $page,
-            'collection'    => $page->parentCollection(),
-            'collections'   => $page->collections('type','posts'),
+            'collection'    => $collection,
+            'collections'   => $collections,
         ]);
     }
     /**

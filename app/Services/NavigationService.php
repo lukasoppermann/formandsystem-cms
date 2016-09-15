@@ -27,6 +27,7 @@ class NavigationService
      */
     public function __construct(Request $request)
     {
+        \Debugbar::startMeasure('NavigationService');
         // only run in get requests
         if( app('request')->method() === 'GET' ){
             // get active path
@@ -51,9 +52,11 @@ class NavigationService
      */
     public function render()
     {
+        $nav = $this->getNav();
+        \Debugbar::stopMeasure('NavigationService','render now');
         return view('navigation.menu', [
             'active'        => $this->active,
-            'navigation'    => $this->getNav(),
+            'navigation'    => $nav,
         ]);
     }
     /**
@@ -65,6 +68,7 @@ class NavigationService
      */
     protected function getNav()
     {
+        \Debugbar::startMeasure('NavigationService->getNav()');
         // get config
         $nav = Config::get('navigation');
         $lists = NULL;
@@ -74,10 +78,17 @@ class NavigationService
         elseif(isset($nav['lists']['dashboard'])){
             $lists = $nav['lists']['dashboard'];
         }
+        \Debugbar::startMeasure('NavigationService->getHeader()');
+        $header = $this->getHeader($nav['header']);
+        \Debugbar::stopMeasure('NavigationService->getHeader()');
+        \Debugbar::startMeasure('NavigationService->getList()');
+        $lists = $this->getLists($lists);
+        \Debugbar::stopMeasure('NavigationService->getList()');
         // return array
+        \Debugbar::stopMeasure('NavigationService->getNav()');
         return [
-            'header' => $this->getHeader($nav['header']),
-            'lists'  => $this->getLists($lists),
+            'header' => $header,
+            'lists'  => $lists,
         ];
     }
     /**

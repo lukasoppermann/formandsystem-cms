@@ -50,9 +50,7 @@ Route::group(['prefix' => env('APP_PREFIX')], function () {
         });
         // Settings
         Route::group(['namespace' => 'Settings'], function() {
-            Route::get('/settings', function(){
-                return redirect('/settings/site');
-            });
+            Route::get('/settings', 'Site@show');
             // Site
             Route::get('/settings/site', 'Site@show');
             Route::post('/settings/site', 'Site@update');
@@ -77,8 +75,6 @@ Route::group(['prefix' => env('APP_PREFIX')], function () {
         Route::get('/users', 'Users@index');
         Route::get('/users/{user}', 'Users@show');
 
-        Route::get('/dialog/{type}', function(Illuminate\Http\Request $request, $type){
-            return (new \App\Services\DialogService)->show($request, $type);
-        });
+        Route::get('/dialog/{type}', 'DialogController@show');
     });
 });

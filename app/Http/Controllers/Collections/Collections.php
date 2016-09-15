@@ -32,10 +32,12 @@ class Collections extends Controller
      */
     public function show($collection, $page = NULL)
     {
+        \Debugbar::startMeasure('CollectionsController');
         // get collection
         $collection = config('app.user')->account()->collections('slug',$collection,true);
         // get collection
         if($collection->isEmpty()){
+            \Debugbar::stopMeasure('CollectionsController', 'Collection is Empty');
             return redirect('/')->with([
                 'status' => 'The collection you are trying to edit does not exist',
                 'type' => 'error',
@@ -47,6 +49,7 @@ class Collections extends Controller
         if(!$collection->pages()->isEmpty()){
             // if no page was set redirect to first page or empty page
             if($page === NULL){
+                \Debugbar::stopMeasure('CollectionsController', 'Redirect as no page was selected');
                 return $this->firstItemOrEmpty($collection);
             }
             $content_type = 'pages';
@@ -70,6 +73,7 @@ class Collections extends Controller
             })->first();
             // show item if exists
             if($item !== NULL){
+                \Debugbar::stopMeasure('CollectionsController', 'Page exists');
                 return view('pages.page', [
                     'item' => $item,
                     'collection' => $collection,

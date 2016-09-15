@@ -90,10 +90,7 @@ class Controller extends BaseController
             $handler = ['handler' => $stack];
         }
         // return new API instance
-        return new Api($config, new CacheService, new GuzzleHttp\Client(array_merge(
-            $handler,
-            $opts
-        )));
+        return new Api($config, new CacheService, new GuzzleHttp\Client($handler));
     }
     /**
      * get user & account config from DB & set as config
