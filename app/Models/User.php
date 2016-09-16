@@ -45,4 +45,13 @@ class User extends Authenticatable
                 ->first();
     }
 
+    public function getInitialsAttribute()
+    {
+        return collect(explode(' ', $this->name))
+               ->map(function($item){
+                   return substr($item,0,1);
+               })
+               ->implode('');
+    }
+
 }

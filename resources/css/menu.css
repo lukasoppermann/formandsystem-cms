@@ -198,7 +198,7 @@
     background-color: color(var(--black) alpha(15%));
     z-index: 99;
 }
-.c-menu--sidebar::before, .o-menu__header::before{
+.c-menu--sidebar::before, .c-menu--sidebar .o-menu__header::before{
     display: block;
     content: "";
     width: .4rem;
@@ -215,13 +215,15 @@
     font-weight: var(--regular);
     color: var(--text-gray);
 }
-.c-menu--sidebar .o-menu__header{
+.o-menu__header{
     display: flex;
     position: relative;
     z-index: 100;
-    width: 100%;
     height: var(--header-height);
     background-color: var(--yellow);
+}
+.c-menu--sidebar .o-menu__header{
+    width: 100%;
     box-shadow: 0 0 2px color(var(--black) alpha(15%));
 }
 .c-menu--sidebar .o-menu__header::before{

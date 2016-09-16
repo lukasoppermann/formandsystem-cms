@@ -1,7 +1,20 @@
 .c-user-image{
+    position: relative;
     overflow: hidden;
     border-radius: 100%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    background: var(--blue);
+}
+.c-user-image::after{
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    z-index: 10;
+    color: var(--white);
+    content: attr(data-initials);
+    text-transform: uppercase;
 }
 .c-user-image--small{
     width: 4rem;

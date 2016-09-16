@@ -41,9 +41,9 @@ class MenuComposer
      * @method sidebar
      */
     protected function sidebar(){
-        if(!Auth::check() || !Auth::user()->currentTeam){
-            return false;
-        }
+        // if(!Auth::check() || !Auth::user()->currentTeam){
+        //     return false;
+        // }
 
         $collections = collect([
             [
@@ -83,12 +83,14 @@ class MenuComposer
     protected function mainMenu(){
         return Menu::baseMenu()
         ->submenu(Menu::baseMenu('o-menu__list o-flexbar__item')
+            ->prepend(view('menu.header', ['title' => 'Form&System'])->render())
             ->view('menu.item', ['icon' => 'projects', 'inline_icon' => true, 'label' => 'Projects', 'link' => '/projects'])
         )
         ->submenu(Menu::baseMenu('o-menu__list o-flexbar__item o-flexbar__item--right')->addClass('o-flexbar')
             ->view('menu.item', ['label' => '12', 'link' => '/notifications', 'class' => 'c-menu__link--notifications has-new'])
             ->submenu(ViewItem::create('menu.profile', [
                     'label'         => Auth::user()->name,
+                    'initials'       => Auth::user()->initials,
                     'current_path'  => app('request')->path(),
                     'attr'          => 'data-js-toggle-dropdown',
                 ]),
