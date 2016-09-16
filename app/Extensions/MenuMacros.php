@@ -35,8 +35,8 @@ function addMenuMacros(){
             ->setAttribute('role', 'navigation')
             ->addParentClass($menu_class)
             // view settings
-            ->applyToAll(function (ViewItem $link) {
-                $link->addParentClass('o-menu__item');
+            ->applyToAll(function (ViewItem $view) {
+                $view->addParentClass('o-menu__item');
             });
     });
 }

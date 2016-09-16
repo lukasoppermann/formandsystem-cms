@@ -16,6 +16,10 @@
     content: attr(data-initials);
     text-transform: uppercase;
 }
+.c-user-image img{
+    position: relative;
+    z-index: 20;
+}
 .c-user-image--small{
     width: 4rem;
     height: 4rem;

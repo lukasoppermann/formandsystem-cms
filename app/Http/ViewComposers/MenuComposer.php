@@ -41,9 +41,9 @@ class MenuComposer
      * @method sidebar
      */
     protected function sidebar(){
-        // if(!Auth::check() || !Auth::user()->currentTeam){
-        //     return false;
-        // }
+        if(!Auth::user()->currentTeam){
+            return false;
+        }
 
         $collections = collect([
             [
@@ -82,15 +82,16 @@ class MenuComposer
      */
     protected function mainMenu(){
         return Menu::baseMenu()
-        ->submenu(Menu::baseMenu('o-menu__list o-flexbar__item')
-            ->prepend(view('menu.header', ['title' => 'Form&System'])->render())
+        ->submenu(Menu::baseMenu('o-menu__list o-flexbar__item o-flexbar')
+            ->addIf(!Auth::user()->currentTeam, HTML::Raw(view('menu.header', ['title' => 'Form&System'])->render()))
             ->view('menu.item', ['icon' => 'projects', 'inline_icon' => true, 'label' => 'Projects', 'link' => '/projects'])
         )
         ->submenu(Menu::baseMenu('o-menu__list o-flexbar__item o-flexbar__item--right')->addClass('o-flexbar')
             ->view('menu.item', ['label' => '12', 'link' => '/notifications', 'class' => 'c-menu__link--notifications has-new'])
             ->submenu(ViewItem::create('menu.profile', [
                     'label'         => Auth::user()->name,
-                    'initials'       => Auth::user()->initials,
+                    'initials'      => Auth::user()->initials,
+                    'img'           => 'https://s3.amazonaws.com/uifaces/faces/twitter/lukasoppermann/128.jpg',
                     'current_path'  => app('request')->path(),
                     'attr'          => 'data-js-toggle-dropdown',
                 ]),
@@ -103,4 +104,13 @@ class MenuComposer
             )
         );
     }
+    // /**
+    //  * determins if sidebar is shown
+    //  * @method showSidebar
+    //  * @return [type]      [description]
+    //  */
+    // protected function showSidebar()
+    // {
+    //     return Auth::check() && ;
+    // }
 }
