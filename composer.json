@@ -21,7 +21,8 @@
         "spatie/laravel-menu": "dev-master",
         "barryvdh/laravel-debugbar": "^2.2",
         "nothingworks/blade-svg": "@dev",
-        "schuppo/password-strength": "~1.5"
+        "schuppo/password-strength": "~1.5",
+        "stevenmaguire/laravel-middleware-csp": "^0.1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

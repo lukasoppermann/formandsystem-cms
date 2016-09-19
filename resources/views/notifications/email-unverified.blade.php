@@ -9,6 +9,7 @@
                      document.getElementById('resend-verification').submit();">@lang('general.resend_link')</a>.
             <form id="resend-verification" action="{{ route('email-verification.resend') }}" method="POST" style="display: none;">
                 {{ csrf_field() }}
+                <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
             </form>
         </status-bar>
     @endif

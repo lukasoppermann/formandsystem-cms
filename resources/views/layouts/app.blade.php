@@ -26,7 +26,6 @@
         @endif
     </head>
     <body>
-
         {{ svg_spritesheet() }}
 
         @if($sidebar !== false)
