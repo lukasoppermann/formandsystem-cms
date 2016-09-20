@@ -6,7 +6,7 @@ set :stages, ["cms-production","cms-staging"]
 set :default_stage, "cms-staging"
 set :ssh_options, {:forward_agent => true}
 
-set :application, 'formandsystem_cms'
+set :application, 'cms'
 set :repo_url, 'git@github.com:lukasoppermann/formandsystem-cms.git'
 set :user, "lukasoppermann"
 
