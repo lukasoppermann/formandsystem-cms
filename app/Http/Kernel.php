@@ -30,6 +30,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Stevenmaguire\Laravel\Http\Middleware\EnforceContentSecurity::class,
         ],
 
         'api' => [
@@ -53,5 +54,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'permission' => \App\Http\Middleware\PermissionMiddleware::class,
+        'secure.content' => \Stevenmaguire\Laravel\Http\Middleware\EnforceContentSecurity::class,
     ];
 }
