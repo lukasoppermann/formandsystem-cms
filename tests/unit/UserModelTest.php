@@ -6,17 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserModelTest extends TestCase
 {
-    /**
-     * Test get initals from user model
-     *
-     * @return void
-     */
-    public function testGetInitals()
-    {
-        $this->createUser();
-
-        $this->assertEquals('EO', App\Models\User::first()->initials);
-    }
 
     /**
      * Test get initals from user model

@@ -10,10 +10,11 @@ use Mpociot\Teamwork\Traits\UserHasTeams;
 use Sofa\Eloquence\Eloquence;
 use Sofa\Eloquence\Metable;
 use Jrean\UserVerification\Traits\UserVerification;
+use App\Models\Presenters\UserPresenter;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, UserHasTeams, Eloquence, Metable, CausesActivity, UserVerification;
+    use Notifiable, HasRoles, UserHasTeams, Eloquence, Metable, CausesActivity, UserVerification, UserPresenter;
 
     /**
      * The attributes that are mass assignable.
@@ -43,15 +44,6 @@ class User extends Authenticatable
                 ->sortByDesc('created_at')
                 ->pluck('created_at')
                 ->first();
-    }
-
-    public function getInitialsAttribute()
-    {
-        return collect(explode(' ', $this->name))
-               ->map(function($item){
-                   return substr($item,0,1);
-               })
-               ->implode('');
     }
 
 }
