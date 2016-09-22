@@ -3,12 +3,23 @@
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
+     * @var FakerGenerator
+     */
+    protected $faker;
+    /**
      * The base URL to use while testing the application.
      *
      * @var string
      */
-    protected $baseUrl = 'http://fs-cms.dev';
-
+    protected $baseUrl = 'http://cms.formandsystem.dev';#
+    /**
+     * Setup faker
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        $this->faker = \Faker\Factory::create();
+    }
     /**
      * Creates the application.
      *

@@ -11,6 +11,7 @@
     --line-height-xxl: var(--type-size-xl);
     --line-height-xl: var(--type-size-lg);
     --line-height-default: calc(var(--type-size-default)*1.5);
+    --line-height-sm: calc(var(--type-size-md));
 
     --bold: 700;
     --regular: 400;

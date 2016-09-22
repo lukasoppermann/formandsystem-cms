@@ -32,6 +32,17 @@ button{
     background-color: transparent;
     transition: color .5s ease, background-color .5s ease;
 }
+.o-button--small{
+    padding: .25rem 1rem .35rem;
+    font-size: var(--type-size-default);
+    line-height: var(--line-height-default);
+}
+.o-button--tiny{
+    border-width: 1px;
+    padding: 0 1rem;
+    font-size: var(--type-size-sm);
+    line-height: var(--line-height-default);
+}
 .o-button--icon{
     position: relative;
     padding-left: 4.5rem;
@@ -48,7 +59,7 @@ button{
     height: 1.5rem;
     top: calc(50% - .75rem);
 }
-.o-button:disabled{
+.o-button:disabled, .o-button--disabled{
     cursor:not-allowed;
     border: 2px solid color(var(--black) alpha(5%));
     color: var(--text-light-gray);
@@ -91,6 +102,10 @@ button{
     border-color: var(--blue);
     color: var(--blue);
     transition: color .5s ease, background-color .5s ease;
+}
+.o-button--blue.o-button--filled{
+    background-color: var(--blue);
+    color: var(--white);
 }
 .o-button--blue:focus{
     background-color: color(var(--blue) alpha(15%));

@@ -8,19 +8,7 @@ use MailThief\Testing\InteractsWithMail;
 class LoginPageTest extends \TestCase
 {
     use InteractsWithMail;
-    /**
-     * @var FakerGenerator
-     */
-    protected $faker;
 
-    /**
-     * Setup faker
-     */
-    public function setUp()
-    {
-        parent::setUp();
-        $this->faker = \Faker\Factory::create();
-    }
     /**
      * Can user see login page
      */
@@ -99,8 +87,9 @@ class LoginPageTest extends \TestCase
 
         $this->seeMessageFor($user->email);
         $this->seeMessageWithSubject('Reset Password');
-        // // Make sure the email was sent from the correct address
-        $this->seeMessageFrom(config('mail.from.address'));
+        // Make sure the email was sent from the correct address
+        $this->seeMessageFrom(config('mail.from.name'));
+        // $this->seeMessageFrom(config('mail.from.address'));
 
         $this->visit($this->lastMessage()->data['actionUrl']);
         $this->type($user->email, 'email');

@@ -22,7 +22,8 @@
         "barryvdh/laravel-debugbar": "^2.2",
         "nothingworks/blade-svg": "@dev",
         "schuppo/password-strength": "~1.5",
-        "stevenmaguire/laravel-middleware-csp": "^0.1.1"
+        "stevenmaguire/laravel-middleware-csp": "^0.1.1",
+        "laravelcollective/html": "^5.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

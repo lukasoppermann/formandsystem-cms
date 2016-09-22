@@ -4,10 +4,11 @@ namespace App\Listeners;
 
 class UserEventSubscriber
 {
+
     /**
      * Handle user login events.
      */
-    public function onUserLogin($event) {
+    public function logUserLogin($event) {
         activity('login')
             ->on($event->user)
             ->causedBy($event->user)
@@ -17,7 +18,7 @@ class UserEventSubscriber
     /**
      * Handle user logout events.
      */
-    public function onUserLogout($event) {
+    public function logUserLogout($event) {
         activity('logout')
             ->on($event->user)
             ->causedBy($event->user)
@@ -43,12 +44,12 @@ class UserEventSubscriber
     {
         $events->listen(
             'Illuminate\Auth\Events\Login',
-            'App\Listeners\UserEventSubscriber@onUserLogin'
+            'App\Listeners\UserEventSubscriber@logUserLogin'
         );
 
         $events->listen(
             'Illuminate\Auth\Events\Logout',
-            'App\Listeners\UserEventSubscriber@onUserLogout'
+            'App\Listeners\UserEventSubscriber@logUserLogout'
         );
 
         $events->listen(

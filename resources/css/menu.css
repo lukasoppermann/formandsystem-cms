@@ -294,6 +294,10 @@
     overflow: hidden;
     color: var(--text-black);
 }
+.o-menu__header .o-menu__subtitle{
+    font-size: var(--type-size-sm);
+    color: color(var(--black) alpha(50%));
+}
 .o-sidebar__footer{
     height: var(--footer-height);
     background-color: color(var(--dark-gray) shade(10%));

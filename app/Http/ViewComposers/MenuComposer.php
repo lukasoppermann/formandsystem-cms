@@ -60,7 +60,7 @@ class MenuComposer
             // add menu classes
             ->addClass('o-flexbar--vertical o-menu--vertical o-menu--full-width o-menu__body')
             // add header
-            ->prepend(view('menu.header', ['title' => 'Form&System'])->render())
+            ->prepend(view('menu.header', ['title' => 'Form&System', 'subtitle' => auth()->user()->currentTeam->name])->render())
             // ITEMS
             ->view('menu.item', ['label' => 'Dashboard', 'link' => route('dashboard.index')])
             ->submenu(view('menu.title', ['title' => 'Collections'])->render(),
@@ -84,7 +84,7 @@ class MenuComposer
         return Menu::baseMenu()
         ->submenu(Menu::baseMenu('o-menu__list o-flexbar__item o-flexbar')
             ->addIf(!Auth::user()->currentTeam, HTML::Raw(view('menu.header', ['title' => 'Form&System'])->render()))
-            ->view('menu.item', ['icon' => 'projects', 'inline_icon' => true, 'label' => 'Projects', 'link' => '/projects'])
+            ->view('menu.item', ['icon' => 'projects', 'inline_icon' => true, 'label' => 'Projects', 'link' => route('teams.index')])
         )
         ->submenu(Menu::baseMenu('o-menu__list o-flexbar__item o-flexbar__item--right')->addClass('o-flexbar')
             ->view('menu.item', ['label' => '12', 'link' => '/notifications', 'class' => 'c-menu__link--notifications has-new'])

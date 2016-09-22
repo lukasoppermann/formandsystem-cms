@@ -1,0 +1,77 @@
+<?php
+
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Spatie\Permission\Models\Permission;
+
+class ProjectsTest extends TestCase
+{
+
+    /**
+     * Open team page shows team members
+     *
+     * @return void
+     */
+    public function testSeeProjects()
+    {
+        $projects = 2;
+        $user = $this->createUser($projects);
+
+        $user->switchTeam($user->teams->first());
+
+        $teams = $this->visit(route('teams.index'))->crawler->filter('.o-team');
+
+        $this->assertCount($projects, $teams);
+        $this->assertCount(1, $teams->filter('.is-active'));
+    }
+    /**
+     * Switch to other project
+     *
+     * @return void
+     */
+    public function testSwitchProjects()
+    {
+        $projects = 2;
+        $user = $this->createUser($projects);
+
+        $user->switchTeam($user->teams->first());
+        // get active project
+        $teams = $this->visit(route('teams.index'))->crawler->filter('.o-team');
+        $initallyActive = $teams->filter('.is-active');
+        // click on switch button
+        $this->click(trans('projects.switchToButton'));
+        $activeAfterClick = $this->visit(route('teams.index'))->crawler->filter('.o-team.is-active');
+
+        $this->assertNotEquals($activeAfterClick, $initallyActive);
+    }
+
+    protected function createUser($project_count = 0)
+    {
+        $password = $this->faker->password;
+
+        $user = factory(App\Models\User::class)->create([
+            'email' => $this->faker->email,
+            'password' => Hash::make($password),
+            'name' => $this->faker->name,
+        ]);
+
+        Permission::create(['name' => 'view teams']);
+        Permission::create(['name' => 'create teams']);
+        $user->givePermissionTo('view teams');
+
+        factory(App\Models\Team::class, $project_count)->create([
+            'name' => $this->faker->name,
+        ])->each(function($team) use ($user){
+            $user->attachTeam($team);
+        });
+
+
+        $this->visit('/login');
+        $this->type($user->email, 'email');
+        $this->type($password, 'password');
+        $this->press('signin');
+
+        return $user;
+    }
+}

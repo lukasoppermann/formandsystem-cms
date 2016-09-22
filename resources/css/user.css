@@ -27,3 +27,7 @@
 .c-user-image--space-left{
     margin-left: 1.5rem;
 }
+.c-user-name{
+    height: 2rem;
+    white-space: nowrap;
+}
