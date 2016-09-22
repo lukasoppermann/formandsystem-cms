@@ -12,7 +12,9 @@
         <div class="o-media o-media--reverse o-media--center">
             <div class="o-media__body">
                 <h1 class="o-menu__title">{{$title}}</h1>
-                <span class="o-menu__subtitle">/ {{$subtitle or ''}}</span>
+                @if(isset($subtitle))
+                    <span class="o-menu__subtitle">/ {{$subtitle}}</span>
+                @endif
             </div>
             @if(isset($link_right))
                 <div class="o-media__figure o-menu__header-icon">

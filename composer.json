@@ -23,7 +23,8 @@
         "nothingworks/blade-svg": "@dev",
         "schuppo/password-strength": "~1.5",
         "stevenmaguire/laravel-middleware-csp": "^0.1.1",
-        "laravelcollective/html": "^5.3"
+        "laravelcollective/html": "^5.3",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
