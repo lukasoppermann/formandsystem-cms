@@ -54,6 +54,7 @@ gulp.task('build-js', function(){
         'resources/js/dialog-colllection.js',
         'resources/js/sortable-fragments.js',
         'resources/js/sortable-navigation.js',
+        'resources/js/toggable.js',
         'resources/js/app.js'
     );
     // BUILD JS

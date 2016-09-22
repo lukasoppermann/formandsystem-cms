@@ -12,8 +12,8 @@
  */
 .o-input{
     position: relative;
-    margin-bottom: 2rem;
-    padding-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-top: 1.25rem;
 }
 .o-input__input, .o-input__textarea{
     background-color: transparent;
@@ -71,12 +71,12 @@
     pointer-events: none;
     position: absolute;
     left:5px;
-    top: 3.5rem;
+    top: 2.5rem;
     transition: 0.2s ease all;
 }
 /* active state */
 .o-input__input:focus ~ .o-input__label, .o-input__input:not(.is-empty) ~ .o-input__label, .o-input__textarea:focus ~ .o-input__label, .o-input__textarea:not(.is-empty) ~ .o-input__label{
-    top: 1.5rem;
+    top: .5rem;
     font-size: var(--type-size-sm);
 }
 .o-input__input:focus ~ .o-input__label, .o-input__textarea:focus ~ .o-input__label{

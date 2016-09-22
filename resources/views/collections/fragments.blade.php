@@ -7,6 +7,7 @@
                 'item' => $item,
                 'collection' => $collection,
                 'sortable_class' => 'js-sortable-fragment-item',
+                'toggable' => true,
             ])
         @endforeach
         @if(is_array($elements))

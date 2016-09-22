@@ -29,10 +29,10 @@ namespace :deploy do
     task :composer_install do
         on roles(:app), in: :groups, limit:1 do
             execute "cp #{fetch(:deploy_to)}/shared/.env #{fetch(:release_path)}/.env"
-            execute "/usr/local/bin/php5-56STABLE-CLI /kunden/373917_13187/composer.phar install --working-dir #{fetch(:release_path)} --no-scripts --no-dev"
+            execute "cd ~/cms/laradock && docker-compose exec workspace bash && composer install --no-scripts --no-dev"
             # execute "cd #{fetch(:release_path)} && \Illuminate\\Foundation\\ComposerScripts::postInstall"
-            execute "cd #{fetch(:release_path)} && /usr/local/bin/php5-56STABLE-CLI artisan clear-compiled"
-            execute "cd #{fetch(:release_path)} && /usr/local/bin/php5-56STABLE-CLI artisan optimize"
+            # execute "cd #{fetch(:release_path)} && /usr/local/bin/php5-56STABLE-CLI artisan clear-compiled"
+            # execute "cd #{fetch(:release_path)} && /usr/local/bin/php5-56STABLE-CLI artisan optimize"
         end
     end
 
