@@ -8,7 +8,7 @@ if( isset($meta['columns']) ){
     $columns = $meta['columns'];
 }
 ?>
-<div class="{{$toggable === true ? 'toggable' : '' }} {{$sortable_class or ''}} o-fragment o-fragment--{{$item->get('type')}} o-grid__column o-grid__user-column--md-{{$columns['md'] or '12'}}of{{config('user.grid-md')}} {{$custom_class or ''}}" data-id="{{$item->get('id')}}" data-column-sm="{{$columns['sm'] or 2}}" data-column-md="{{$columns['md'] or 12}}" data-column-lg="{{$columns['lg'] or 16}}">
+<div class="{{isset($toggable) && $toggable === true ? 'toggable' : '' }} {{$sortable_class or ''}} o-fragment o-fragment--{{$item->get('type')}} o-grid__column o-grid__user-column--md-{{$columns['md'] or '12'}}of{{config('user.grid-md')}} {{$custom_class or ''}}" data-id="{{$item->get('id')}}" data-column-sm="{{$columns['sm'] or 2}}" data-column-md="{{$columns['md'] or 12}}" data-column-lg="{{$columns['lg'] or 16}}">
 
     {{-- Handle for sortable --}}
     @if(isset($sortable_class) && $sortable_class !== NULL)
@@ -26,7 +26,7 @@ if( isset($meta['columns']) ){
     {{-- Fragment content --}}
     <div class="o-fragment__content">
         {{-- Toggable handler --}}
-        @if($toggable === true)
+        @if(isset($toggable) && $toggable === true)
             <div class="js-toggler o-fragment__toggler" data-condense="condense" data-expand="expand">
                 expand
             </div>
