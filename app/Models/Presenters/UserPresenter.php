@@ -3,6 +3,11 @@ namespace App\Models\Presenters;
 
 trait UserPresenter
 {
+    /**
+     * returns initals for first and lastname, discards middle names
+     * @method getInitialsAttribute
+     * @return string
+     */
    public function getInitialsAttribute(): string
    {
        $names = collect(explode(' ', $this->name));
