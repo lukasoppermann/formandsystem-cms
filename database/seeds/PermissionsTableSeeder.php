@@ -12,20 +12,20 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('permissions')->delete();
-        
+
         \DB::table('permissions')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
-                'name' => 'view teams',
+                'name' => 'create teams',
                 'created_at' => '2016-09-18 14:55:34',
                 'updated_at' => '2016-09-18 14:55:38',
             ),
         ));
-        
-        
+
+
     }
 }

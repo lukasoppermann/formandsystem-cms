@@ -11,7 +11,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      *
      * @var string
      */
-    protected $baseUrl = 'http://cms.formandsystem.dev';#
+    protected $baseUrl = 'http://cms.formandsystem.dev:8080';
     /**
      * Setup faker
      */

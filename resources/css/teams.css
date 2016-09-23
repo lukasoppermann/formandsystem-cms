@@ -11,6 +11,13 @@
     margin-bottom: 2rem;
     align-self: flex-start;
 }
+.o-teams__empty{
+    align-self: center;
+    flex: 1;
+    text-align: center;
+    color: var(--text-light-gray);
+    margin-top: 10%;
+}
 .o-team{
     display: flex;
     flex-direction: column;

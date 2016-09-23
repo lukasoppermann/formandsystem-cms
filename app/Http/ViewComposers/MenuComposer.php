@@ -31,8 +31,9 @@ class MenuComposer
     {
         if (Auth::check()) {
             $view->with([
-                'sidebar'   => $this->sidebar(),
-                'main_menu' => $this->mainMenu(),
+                'sidebar'       => $this->sidebar(),
+                'main_menu'     => $this->mainMenu(),
+                'settings_menu' => $this->settingsMenu(),
             ]);
         };
     }
@@ -72,7 +73,7 @@ class MenuComposer
                 })
             )
             ->view('menu.item', ['label' => 'Team', 'link' => route('teams.members.show', Auth::user()->currentTeam)])
-            ->view('menu.item', ['label' => 'Settings', 'link' => route('settings.index')])
+            ->view('menu.item', ['label' => trans('menu.settings'), 'link' => route('teams.settings')])
             // add header
             ->append(view('menu.footer')->render());
     }
@@ -100,17 +101,20 @@ class MenuComposer
                     ->setAttribute('data-js-dropdown')
                     ->view('menu.item', ['label' => 'Profile', 'link' => route('users.me')], route('users.me'))
                     ->view('menu.item', ['label' => 'Help', 'link' => route('support.index')], route('support.index'))
-                    ->view('menu.logout', ['label' => 'Logout'])
+                    ->view('menu.item', ['label' => 'Logout', 'link' => '/logout'])
             )
         );
     }
-    // /**
-    //  * determins if sidebar is shown
-    //  * @method showSidebar
-    //  * @return [type]      [description]
-    //  */
-    // protected function showSidebar()
-    // {
-    //     return Auth::check() && ;
-    // }
+    /**
+     * settings menu
+     * @method settingsMenu
+     */
+    protected function settingsMenu(){
+        return Menu::baseMenu('o-menu')
+            ->addIf(!Auth::user()->currentTeam, HTML::Raw(view('menu.header', ['title' => 'Form&System'])->render()))
+            ->view('menu.item', ['label' => 'General', 'link' => route('teams.settings', 'site')])
+            ->view('menu.item', ['label' => 'SEO', 'link' => route('teams.index')])
+            ->view('menu.item', ['label' => 'Developers', 'link' => route('teams.index')])
+        ;
+    }
 }

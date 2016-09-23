@@ -7,3 +7,18 @@
 .o-section--no-bottom-padding{
     padding-bottom: 0;
 }
+
+.o-section-header{
+    padding: 2rem 5.5rem 0;
+    background-color: var(--white-gray);
+}
+.o-section-header .o-menu__link{
+    padding: 1.5rem 2rem;
+}
+.o-section-header .o-menu__item.is-active{
+    box-shadow: inset 0 -.3rem 0 var(--blue);
+}
+.o-section-header .c-settings-menu{
+    margin-top: 3rem;
+    margin-left: -2rem;
+}

@@ -1,14 +1,14 @@
-<div class="o-team {{auth()->user()->currentTeam->id == $team->id ? 'is-active' : ''}}">
+<div class="o-team {{!is_null(auth()->user()->currentTeam) && auth()->user()->currentTeam->getKey() == $team->id ? 'is-active' : ''}}">
     <div class="o-team__image"></div>
     <h4 class="o-team__name">{{$team->name}}</h4>
     <div class="o-team__url">{{preg_replace("(^(http://|https://)?(www.)?)", "", $team->url )}}</div>
     <div class="o-team__switch-bar">
         @if(is_null(auth()->user()->currentTeam) || auth()->user()->currentTeam->getKey() !== $team->getKey())
             <a href="{{route('teams.switch', $team)}}" class="o-button o-button--tiny">
-                @lang('projects.switchToButton')
+                @lang('projects.activate')
             </a>
         @else
-            <div class="o-button o-button--blue o-button--filled o-button--tiny" disabled>@lang('projects.switchIsActiveButton')</div>
+            <div class="o-button o-button--blue o-button--filled o-button--tiny">@lang('projects.active')</div>
         @endif
     </div>
 </div>

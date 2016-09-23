@@ -8,6 +8,15 @@ class UserEventSubscriber
     /**
      * Handle user login events.
      */
+    public function activateProjectOnLogin($event) {
+        if($event->user->currentTeam === null && $event->user->teams->count() > 0){
+            $event->user->switchTeam($event->user->teams->first());
+        }
+    }
+
+    /**
+     * Handle user login events.
+     */
     public function logUserLogin($event) {
         activity('login')
             ->on($event->user)
@@ -42,6 +51,11 @@ class UserEventSubscriber
      */
     public function subscribe($events)
     {
+        $events->listen(
+            'Illuminate\Auth\Events\Login',
+            'App\Listeners\UserEventSubscriber@activateProjectOnLogin'
+        );
+
         $events->listen(
             'Illuminate\Auth\Events\Login',
             'App\Listeners\UserEventSubscriber@logUserLogin'

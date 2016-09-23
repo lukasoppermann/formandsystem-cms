@@ -15,7 +15,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'App\Events\SomeEvent' => [
             'App\Listeners\EventListener',
-        ],
+        ]
     ];
 
     /**
@@ -26,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
     protected $subscribe = [
         'App\Listeners\UserEventSubscriber',
     ];
-    
+
     /**
      * Register any events for your application.
      *

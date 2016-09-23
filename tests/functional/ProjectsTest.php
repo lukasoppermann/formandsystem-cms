@@ -34,16 +34,37 @@ class ProjectsTest extends TestCase
     {
         $projects = 2;
         $user = $this->createUser($projects);
+        $user = $user->givePermissionTo('create teams');
 
         $user->switchTeam($user->teams->first());
         // get active project
         $teams = $this->visit(route('teams.index'))->crawler->filter('.o-team');
         $initallyActive = $teams->filter('.is-active');
         // click on switch button
-        $this->click(trans('projects.switchToButton'));
+        $this->click(trans('projects.activate'));
         $activeAfterClick = $this->visit(route('teams.index'))->crawler->filter('.o-team.is-active');
 
         $this->assertNotEquals($activeAfterClick, $initallyActive);
+
+        $this->see(trans('projects.create'));
+    }
+
+    /**
+     * Open projects page with no projects
+     *
+     * @return void
+     * @group test
+     */
+    public function testNoProjects()
+    {
+        $projects = 0;
+        $user = $this->createUser($projects);
+        $teams = $this->visit(route('teams.index'))->crawler->filter('.o-team');
+
+        $this->assertCount($projects, $teams);
+
+        $this->see(trans('projects.noProjectsInfo'));
+        $this->dontSee(trans('projects.create'));
     }
 
     protected function createUser($project_count = 0)
@@ -56,16 +77,15 @@ class ProjectsTest extends TestCase
             'name' => $this->faker->name,
         ]);
 
-        Permission::create(['name' => 'view teams']);
         Permission::create(['name' => 'create teams']);
-        $user->givePermissionTo('view teams');
 
-        factory(App\Models\Team::class, $project_count)->create([
-            'name' => $this->faker->name,
-        ])->each(function($team) use ($user){
-            $user->attachTeam($team);
-        });
-
+        if($project_count > 0){
+            factory(App\Models\Team::class, $project_count)->create([
+                'name' => $this->faker->name,
+            ])->each(function($team) use ($user){
+                $user->attachTeam($team);
+            });
+        }
 
         $this->visit('/login');
         $this->type($user->email, 'email');

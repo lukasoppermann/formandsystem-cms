@@ -7,11 +7,11 @@
 
             @if(auth()->user()->hasPermission('create teams'))
                 <a class="o-button o-button--blue o-button--small" self="right" href="{{route('teams.create')}}">
-                    Create Project
+                    @lang('projects.create')
                 </a>
             @endif
 
         </header>
-        @each('teamwork.teams.team', $teams, 'team')
+        @each('teamwork.teams.team', $teams, 'team', 'teamwork.teams.empty')
     </div>
 @endsection

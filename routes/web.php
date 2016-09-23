@@ -14,10 +14,14 @@
 
 
 Route::group(['middleware' => ['web']], function () {
-    
-    Auth::routes();
 
-    Route::get('/users/me', 'Users@index')->name('users.me');
+    Auth::routes();
+    // needed to avoid post
+    Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+    Route::get('/users/me', function(){
+        return 'not implements';
+    })->name('users.me');
 
     Route::group(['middleware' => ['guest'/*'role:see'*/]], function () {
         Route::get('/', function () {
@@ -27,14 +31,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
         return redirect()->route('dashboard.index');
-    });
-
-    Route::group([
-            'prefix'     => 'settings',
-            'namespace'  => 'Settings',
-            'middleware' => ['auth'/*,'role:see'*/],
-        ], function () {
-        Route::get('/', 'Settings@index')->name('settings.index');
     });
 
     Route::group([
@@ -88,7 +84,7 @@ Route::group(['middleware' => ['web']], function () {
     /**
      * Teamwork routes
      */
-    Route::group(['prefix' => 'projects', 'namespace' => 'Teamwork', 'middleware' => ['auth','permission:view teams']], function()
+    Route::group(['prefix' => 'projects', 'namespace' => 'Teamwork', 'middleware' => ['auth']], function()
     {
         Route::get('/', 'TeamController@index')->name('teams.index');
         Route::get('create', 'TeamController@create')->name('teams.create');
@@ -104,6 +100,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::delete('team/{id}/{user_id}', 'TeamMemberController@destroy')->name('teams.members.destroy');
 
         Route::get('accept/{token}', 'AuthController@acceptInvite')->name('teams.accept_invite');
+
+        Route::get('/settings/{site?}', 'SettingsController@show')->name('teams.settings');
     });
 
 }); // <- close web middle group
