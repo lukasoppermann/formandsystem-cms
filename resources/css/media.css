@@ -1,15 +1,19 @@
 .o-media {
+    position: relative;
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
+    flex-direction: row;
 }
 .o-media__body {
+    position: relative;
     flex: 1;
+    order: 1;
 }
 .o-media--center {
     align-items: center;
 }
 .o-media--reverse > .o-media__figure {
-    order: 1;
+    order: 2;
 }
 .o-media__figure > img{
     max-width: 100%;

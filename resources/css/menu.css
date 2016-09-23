@@ -144,20 +144,15 @@
 /* Main Menu */
 .c-menu--main{
     z-index: 999;
-    position: fixed;
-    top: 0;
+    position: relative;
     width: 100%;
     height: var(--header-height);
     background-color: var(--white);
     box-shadow: 0 .1rem .2rem color(var(--black) alpha(10%)),
         0 .1rem 1rem color(var(--black) alpha(15%));
 }
-.c-main-content--with-menu{
-    padding-top: var(--header-height);
+.c-main--with-menu{
     background-image: linear-gradient(to bottom, rgb(248,250,251), rgba(250,251,252,0) 15rem);
-}
-.c-main-content--with-sidebar .c-menu--main{
-    width: calc(100% - 27rem);
 }
 .c-menu--profile-dropdown{
     position: absolute;
@@ -247,6 +242,7 @@
     position: absolute;
     content: "";
     z-index: 10;
+    top: 0;
     right: 0;
     height: 100%;
     width: 1rem;

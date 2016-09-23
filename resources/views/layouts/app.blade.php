@@ -32,13 +32,14 @@
             @include('menu.sidebar')
         @endif
 
-        <main class="c-main-content c-main-content--with-menu {{$sidebar !== false ? 'c-main-content--with-sidebar' : ''}}">
+        <main class="c-main c-main-content--with-menu">
             @if(Auth::check())
                 @include('menu.main')
                 @include('notifications.general')
             @endif
-
-            @yield('content')
+            <div class="c-main-content">
+                @yield('content')
+            </div>
         </main>
 
     </body>

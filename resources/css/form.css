@@ -87,7 +87,7 @@
     display:block;
     width:100%;
 }
-.o-input__bar:before, .o-input__bar:after {
+.o-input__bar::before, .o-input__bar::after {
     content:'';
     height:2px;
     width:0;
@@ -96,10 +96,10 @@
     background: var(--blue);
     transition:0.2s ease all;
 }
-.o-input__bar:before {
+.o-input__bar::before {
     left:50%;
 }
-.o-input__bar:after {
+.o-input__bar::after {
     right:50%;
 }
 /* errors */

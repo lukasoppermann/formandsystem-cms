@@ -179,6 +179,7 @@ return [
         BladeSvg\BladeSvgServiceProvider::class,
         Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,
         Orangehill\Iseed\IseedServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
         //
 
         /*
@@ -242,6 +243,8 @@ return [
         'Binput' => GrahamCampbell\Binput\Facades\Binput::class,
         'Menu' => Spatie\Menu\Laravel\MenuFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

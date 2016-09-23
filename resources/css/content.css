@@ -1,9 +1,16 @@
-.c-main-content{
+.c-main{
     display: flex;
     flex-direction: column;
     position: relative;
     flex: 1;
     overflow-y: scroll;
+}
+.c-main-content{
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    flex: 1;
 }
 .o-content{
     position: relative;
