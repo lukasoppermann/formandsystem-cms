@@ -10,12 +10,15 @@
 /* --------------------------
  * INPUT
  */
-.o-input{
+.o-input, .o-textarea{
     position: relative;
     margin-bottom: 1rem;
-    padding-top: 1.25rem;
+    padding-top: 2.5rem;
 }
-.o-input__input, .o-input__textarea{
+.o-textarea{
+    padding-top: 0;
+}
+.o-input__input, .o-textarea_textarea{
     background-color: transparent;
     font-size: var(--type-size-md);
     color: var(--text-black);
@@ -25,7 +28,11 @@
     border: none;
     border-bottom: .1rem solid color(var(--black) alpha(15%));
 }
-.o-input__input:focus, .o-input__textarea:focus {
+.o-textarea_textarea{
+    min-height: 120px;
+    font-size: var(--type-size-default);
+}
+.o-input__input:focus, .o-textarea_textarea:focus {
     outline:none;
     color: var(--text-black);
 }
@@ -37,13 +44,13 @@
     right: 0;
     background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 5%, rgba(255, 255, 255, .75) 20%, rgba(255, 255, 255, 1) 80%);
 }
-.o-input:not(.is-saving) .o-input__loading{
+.o-input:not(.is-saving) .o-input__loading, .o-textarea:not(.is-saving) .o-input__loading{
     display: none;
 }
-.o-input:not(.has-succeeded)  .o-input__success{
+.o-input:not(.has-succeeded)  .o-input__success, .o-textarea:not(.has-succeeded)  .o-input__success{
     display: none;
 }
-.o-input:not(.has-failed)  .o-input__failed{
+.o-input:not(.has-failed)  .o-input__failed, .o-textarea:not(.has-failed)  .o-input__failed{
     display: none;
 }
 .o-input__loading .o-icon, .o-input__success .o-icon, .o-input__failed .o-icon{

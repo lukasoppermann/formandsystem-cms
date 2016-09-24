@@ -30,26 +30,6 @@
                         'id' => (isset($form['dir_images']) ? $form['dir_images']->get('id') : NULL)
                     ]
                 ])
-            </section>
-            <section class="o-section">
-                {{-- <h3 class="o-headline o-headline--second">Google Analytics</h3>
-                @include('forms.input',[
-                    'name' => 'analytics_code',
-                    'label' => 'Your Google analytics code UA-XXXXXXX-XX',
-                    'value' => (isset($form['analytics_code']) ? $form['analytics_code']->get('data') : NULL),
-                    'additional_values' => [
-                        'id' => (isset($form['analytics_code']) ? $form['analytics_code']->get('id') : NULL)
-                    ]
-                ])
-                @include('forms.toggle',[
-                    'name' => 'analytics_anonymize_ip',
-                    'label' => 'Anonymize IP',
-                    'value' => (isset($form['analytics_anonymize_ip']) ? $form['analytics_anonymize_ip']->get('data') : NULL),
-                    'additional_values' => [
-                        'id' => (isset($form['analytics_anonymize_ip']) ? $form['analytics_anonymize_ip']->get('id') : NULL)
-                    ]
-                ]) --}}
-
                 <div class="o-flex-bar">
                     @include('forms.submit',['label' => 'Save', 'classes' => 'o-button o-button--blue o-flex-bar__item o-flex-bar__item--right'])
                 </div>
