@@ -27,7 +27,7 @@ class TeamMemberController extends Controller
         $teamModel = config('teamwork.team_model');
         $team = $teamModel::findOrFail($id);
 
-        return view('teamwork.members.list')->withTeam($team);
+        return view('teamwork.settings.team')->withTeam($team);
     }
 
     /**

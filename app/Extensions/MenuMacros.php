@@ -12,20 +12,6 @@ function addMenuMacros(){
         }
         return $this;
     });
-    // activate for a path
-    ViewItem::macro('activateForPath', function(string $path){
-        if(app('request')->path() === trim($path,'/')){
-            $this->setActive();
-        }
-
-        return $this;
-    });
-    // view macro
-    Menu::macro('view', function(string $view, $data = [], $link = '') {
-        $this->add(ViewItem::create($view, $data)->activateForPath($link));
-
-        return $this;
-    });
     // base menu
     Menu::macro('baseMenu', function(string $menu_class = '', $show = true) {
         return Menu::new()

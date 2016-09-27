@@ -94,10 +94,10 @@ Route::group(['middleware' => ['web']], function () {
         Route::delete('destroy/{id}', 'TeamController@destroy')->name('teams.destroy');
         Route::get('switch/{id}', 'TeamController@switchTeam')->name('teams.switch');
 
-        Route::get('team/{id}', 'TeamMemberController@show')->name('teams.members.show');
-        Route::get('team/resend/{invite_id}', 'TeamMemberController@resendInvite')->name('teams.members.resend_invite');
-        Route::post('team/{id}', 'TeamMemberController@invite')->name('teams.members.invite');
-        Route::delete('team/{id}/{user_id}', 'TeamMemberController@destroy')->name('teams.members.destroy');
+        Route::get('/settings/team/{id}', 'TeamMemberController@show')->name('teams.members.show');
+        Route::get('/settings/team/resend/{invite_id}', 'TeamMemberController@resendInvite')->name('teams.members.resend_invite');
+        Route::post('/settings/team/{id}', 'TeamMemberController@invite')->name('teams.members.invite');
+        Route::delete('/settings/team/{id}/{user_id}', 'TeamMemberController@destroy')->name('teams.members.destroy');
 
         Route::get('accept/{token}', 'AuthController@acceptInvite')->name('teams.accept_invite');
 

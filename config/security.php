@@ -25,6 +25,7 @@ return [
                     "'unsafe-inline'",
                     'fonts.googleapis.com'
                 ],
+                'object-src' => "'none'",
             ],
         ],
     ],

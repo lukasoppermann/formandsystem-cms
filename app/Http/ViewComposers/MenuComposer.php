@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\View\View;
 use Spatie\Menu\Html;
 use Spatie\Menu\Laravel\Menu;
+// use App\Extensions\ViewItem as ViewItem;
 use Spatie\Menu\Laravel\View as ViewItem;
 
 class MenuComposer
@@ -56,26 +57,24 @@ class MenuComposer
                 'label' => 'Make icons dynamic'
             ],
         ]);
-
         return Menu::baseMenu()
             // add menu classes
             ->addClass('o-flexbar--vertical o-menu--vertical o-menu--full-width o-menu__body')
             // add header
             ->prepend(view('menu.header', ['title' => 'Form&System', 'subtitle' => auth()->user()->currentTeam->name])->render())
             // ITEMS
-            ->view('menu.item', ['label' => 'Dashboard', 'link' => route('dashboard.index')])
+            ->view('menu.item', ['label' => 'Dashboard', 'url' => route('dashboard.index')])
             ->submenu(view('menu.title', ['title' => 'Collections'])->render(),
                 Menu::baseMenu('c-menu__list--dark')->addClass('o-flexbar--vertical o-menu--vertical o-menu--full-width')
-                ->prefixUrls('/collections')
-                ->addArray($collections->toArray(), function($item){
+                ->fill($collections, function($menu, $item){
                     $item['icon'] = 'posts';
-                    return ViewItem::create('menu.item', $item)->activateForPath($item['link']);
+                    return $menu->add(ViewItem::create('menu.item', $item)->setUrl($item['link']));
                 })
             )
-            ->view('menu.item', ['label' => 'Team', 'link' => route('teams.members.show', Auth::user()->currentTeam)])
-            ->view('menu.item', ['label' => trans('menu.settings'), 'link' => route('teams.settings')])
+            ->view('menu.item', ['label' => trans('menu.settings'), 'url' => route('teams.settings')])
             // add header
-            ->append(view('menu.footer')->render());
+            ->append(view('menu.footer')->render())->setActiveFromRequest();
+            // ->setActiveFromUrl()
     }
     /**
      * build main menu
@@ -85,7 +84,7 @@ class MenuComposer
         return Menu::baseMenu()
         ->submenu(Menu::baseMenu('o-menu__list o-flexbar__item o-flexbar')
             ->addIf(!Auth::user()->currentTeam, HTML::Raw(view('menu.header', ['title' => 'Form&System'])->render()))
-            ->view('menu.item', ['icon' => 'projects', 'inline_icon' => true, 'label' => 'Projects', 'link' => route('teams.index')])
+            ->view('menu.item', ['icon' => 'projects', 'inline_icon' => true, 'label' => 'Projects', 'url' => route('teams.index')])
         )
         ->submenu(Menu::baseMenu('o-menu__list o-flexbar__item o-flexbar__item--right')->addClass('o-flexbar')
             ->view('menu.item', ['label' => '12', 'link' => '/notifications', 'class' => 'c-menu__link--notifications has-new'])
@@ -112,9 +111,11 @@ class MenuComposer
     protected function settingsMenu(){
         return Menu::baseMenu('o-menu')
             ->addIf(!Auth::user()->currentTeam, HTML::Raw(view('menu.header', ['title' => 'Form&System'])->render()))
-            ->view('menu.item', ['label' => 'General', 'link' => route('teams.settings', 'site')])
-            ->view('menu.item', ['label' => 'SEO', 'link' => route('teams.index')])
-            ->view('menu.item', ['label' => 'Developers', 'link' => route('teams.index')])
+            ->view('menu.item', ['label' => 'General', 'url' => route('teams.settings', 'site')])
+            ->view('menu.item', ['label' => 'SEO', 'url' => route('teams.index')])
+            ->view('menu.item', ['label' => 'Developers', 'url' => route('teams.index')])
+            ->view('menu.item', ['label' => 'Team', 'url' => route('teams.members.show', Auth::user()->currentTeam)])
+            ->setActiveFromRequest()
         ;
     }
 }

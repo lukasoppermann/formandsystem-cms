@@ -70,6 +70,27 @@ button{
 .o-button:focus{
     box-shadow: 0 0 5px var(--blue);
 }
+.o-button--red{
+    border-color: var(--red);
+    color: var(--red);
+    transition: color .5s ease, background-color .5s ease;
+}
+.o-button--red:focus{
+    background-color: color(var(--red) alpha(15%));
+    box-shadow: 0 0 5px var(--red);
+}
+.o-button--red:hover, .o-button--red:active{
+    background-color: var(--red);
+    color: var(--white);
+}
+.o-button--link--red{
+    color: var(--red);
+}
+.o-button--blue{
+    border-color: var(--blue);
+    color: var(--blue);
+    transition: color .5s ease, background-color .5s ease;
+}
 .o-button--link{
     padding: 1rem 0;
     background-color: transparent;
@@ -95,14 +116,6 @@ button{
 .o-button--link:hover:after{
     background-color: transparent;
 }
-.o-button--link--red{
-    color: var(--red);
-}
-.o-button--blue{
-    border-color: var(--blue);
-    color: var(--blue);
-    transition: color .5s ease, background-color .5s ease;
-}
 .o-button--blue.o-button--filled{
     background-color: var(--blue);
     color: var(--white);
@@ -127,19 +140,6 @@ button{
 .o-button--white:hover, .o-button--white:active{
     background-color: var(--white);
     color: var(--blue);
-}
-.o-button--red{
-    border-color: var(--red);
-    color: var(--red);
-    transition: color .5s ease, background-color .5s ease;
-}
-.o-button--red:focus{
-    background-color: color(var(--red) alpha(15%));
-    box-shadow: 0 0 5px var(--red);
-}
-.o-button--red:hover, .o-button--red:active{
-    background-color: var(--red);
-    color: var(--white);
 }
 .o-button--space-top{
     margin-top: 2rem;

@@ -14,6 +14,9 @@ a{
 .o-link--quiet:hover{
     color: var(--text-blue);
 }
+.o-link--red{
+    color: var(--text-red);
+}
 .o-link--full{
     width: 100%;
     height: 100%;
