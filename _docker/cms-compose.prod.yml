@@ -3,7 +3,7 @@
 #
 #
 #
-# LOCAL VERSION
+# PRODUCTION
 #
 #
 #
@@ -18,7 +18,7 @@ services:
         volumes:
             - ../:/var/www/html
         networks:
-            - formandsystem_appnet
+            - fsdocker_appnet
         environment:
             - VIRTUAL_HOST=cms.lukasoppermann.de
     # php
@@ -30,13 +30,13 @@ services:
         # volumes_from:
         #     - cms
         networks:
-            - formandsystem_appnet
+            - fsdocker_appnet
     # session & cache
     cmsredis:
         container_name: cmsredis
         image: redis:alpine
         networks:
-            - formandsystem_appnet
+            - fsdocker_appnet
     # mysql db
     cmsdb:
         image: mysql:latest
@@ -51,10 +51,10 @@ services:
         volumes:
             - cmsdata:/var/lib/mysql
         networks:
-            - formandsystem_appnet
+            - fsdocker_appnet
 # used for interal communication within docker
 networks:
-    formandsystem_appnet:
+    fsdocker_appnet:
         external: true
 # used to store and persist data
 volumes:
