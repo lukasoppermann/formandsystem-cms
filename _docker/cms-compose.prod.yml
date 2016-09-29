@@ -14,9 +14,9 @@ version: '2'
 services:
     # cms
     cms:
-        build: ./_docker/cms
+        build: ./nginx
         volumes:
-            - ../cms:/var/www/html
+            - ../:/var/www/html
         networks:
             - formandsystem_appnet
         environment:
@@ -26,7 +26,7 @@ services:
         image: shippingdocker/php:latest
         container_name: cmsphp
         volumes:
-            - ./cms:/var/www/html
+            - ../:/var/www/html
         # volumes_from:
         #     - cms
         networks:
