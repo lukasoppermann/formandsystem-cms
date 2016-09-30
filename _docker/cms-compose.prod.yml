@@ -21,8 +21,8 @@ services:
             - fsdocker_appnet
         environment:
             - VIRTUAL_HOST=cms.lukasoppermann.de
-            - VIRTUAL_PROTO=https
-            - VIRTUAL_PORT=443
+            - LETSENCRYPT_HOST=cms.lukasoppermann.de
+            - LETSENCRYPT_EMAIL=einlukas@gmx.de
     # php
     cmsphp:
         image: shippingdocker/php:latest
