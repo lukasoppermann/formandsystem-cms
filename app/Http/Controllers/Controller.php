@@ -29,10 +29,6 @@ class Controller extends BaseController
     protected $client;
 
     public function __construct(Request $request){
-        // \Debugbar::stopMeasure('routes');
-        if(\Auth::user()->email !== 'oppermann.lukas@gmail.com'){
-            \Debugbar::disable();
-        }
         \Debugbar::startMeasure('user','Get Current User');
         // get current user
         config(['app.user' => new User($request->user())]);
