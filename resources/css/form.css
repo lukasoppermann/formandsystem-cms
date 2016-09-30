@@ -18,7 +18,7 @@
 .o-textarea{
     padding-top: 0;
 }
-.o-input__input, .o-textarea_textarea{
+.o-input__input, .o-textarea_textarea, .o-input__textarea{
     background-color: transparent;
     font-size: var(--type-size-md);
     color: var(--text-black);
