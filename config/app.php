@@ -173,7 +173,6 @@ return [
         GrahamCampbell\Security\SecurityServiceProvider::class,
         GrahamCampbell\Binput\BinputServiceProvider::class,
         Sofa\Eloquence\ServiceProvider::class,
-        Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
         Spatie\Menu\Laravel\MenuServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         BladeSvg\BladeSvgServiceProvider::class,

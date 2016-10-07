@@ -26,7 +26,7 @@ namespace :deploy do
             if fetch(:run_composer) == 'true'
                 execute "cd #{fetch(:deploy_to)}/latest && composer install --no-dev --no-interaction"
             end
-            execute "docker exec api_php php /var/cachetool.phar opcache:reset --fcgi=#{fetch(:fcgi)} >/dev/null"
+            execute "docker exec cms_php php /var/cachetool.phar opcache:reset --fcgi=#{fetch(:fcgi)} >/dev/null"
         end
     end
 
