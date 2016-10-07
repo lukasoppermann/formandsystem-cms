@@ -32,6 +32,10 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
+        // reduce has rounds to speed up tests
+        Hash::setRounds(1);
+
+
         Artisan::call('migrate:reset');
         Artisan::call('migrate');
 

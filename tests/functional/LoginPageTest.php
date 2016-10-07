@@ -41,16 +41,13 @@ class LoginPageTest extends \TestCase
      */
     public function testLogin()
     {
-        $password = $this->faker->password;
-
         $user = factory(App\Models\User::class)->create([
             'email' => $this->faker->email,
-            'password' => Hash::make($password),
         ]);
 
         $this->visit('/login');
         $this->type($user->email, 'email');
-        $this->type($password, 'password');
+        $this->type('secret', 'password'); // secret is the default password for the factory
         $this->press('signin');
         $this->seePageIs(route('dashboard.index'));
 
@@ -75,7 +72,6 @@ class LoginPageTest extends \TestCase
         $password = $this->faker->password;
         $user = factory(App\Models\User::class)->create([
             'email' => $this->faker->email,
-            'password' => $password,
             'name' => $this->faker->name,
         ]);
 

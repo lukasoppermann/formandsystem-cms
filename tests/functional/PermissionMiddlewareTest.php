@@ -19,11 +19,8 @@ class PermissionMiddlewareTest extends TestCase
 
     protected function createUser($project_count = 0)
     {
-        $password = $this->faker->password;
-
         $user = factory(App\Models\User::class)->create([
             'email' => $this->faker->email,
-            'password' => Hash::make($password),
             'name' => $this->faker->name,
         ]);
 
@@ -39,7 +36,7 @@ class PermissionMiddlewareTest extends TestCase
 
         $this->visit('/login');
         $this->type($user->email, 'email');
-        $this->type($password, 'password');
+        $this->type('secret', 'password'); // secret is the default password of user factory
         $this->press('signin');
 
         return $user;

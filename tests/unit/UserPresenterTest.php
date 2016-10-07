@@ -15,7 +15,6 @@ class UserPresenterTest extends TestCase
     {
         factory(App\Models\User::class)->create([
             'email' => $this->faker->email,
-            'password' => Hash::make($this->faker->word),
             'name' => 'Elisa Oppermann',
         ]);
 
@@ -31,7 +30,6 @@ class UserPresenterTest extends TestCase
     {
         factory(App\Models\User::class)->create([
             'email' => $this->faker->email,
-            'password' => Hash::make($this->faker->word),
             'name' => 'Elisa Alexandra Oppermann',
         ]);
 

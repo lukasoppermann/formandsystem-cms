@@ -69,11 +69,8 @@ class ProjectsTest extends TestCase
 
     protected function createUser($project_count = 0)
     {
-        $password = $this->faker->password;
-
         $user = factory(App\Models\User::class)->create([
             'email' => $this->faker->email,
-            'password' => Hash::make($password),
             'name' => $this->faker->name,
         ]);
 
@@ -89,7 +86,7 @@ class ProjectsTest extends TestCase
 
         $this->visit('/login');
         $this->type($user->email, 'email');
-        $this->type($password, 'password');
+        $this->type('secret', 'password'); // secret is the factory default password
         $this->press('signin');
 
         return $user;
