@@ -18,21 +18,15 @@ set :default_env, { path: "/usr/local/bin:$PATH" }
 namespace :deploy do
 
 
-    desc 'Print The Server Name'
-    task :print_server_name do
-      on roles(:app), in: :groups, limit:1 do
-        execute "hostname"
-      end
-    end
-
-    desc 'Composer install'
+    desc 'Setup release & Composer install'
     task :composer_install do
         on roles(:app), in: :groups, limit:1 do
-            execute "cp #{fetch(:deploy_to)}/shared/.env #{fetch(:release_path)}/.env"
-            # execute "cd ~/cms/laradock && docker-compose exec workspace bash && composer install --no-scripts --no-dev"
-            # execute "cd #{fetch(:release_path)} && \Illuminate\\Foundation\\ComposerScripts::postInstall"
-            # execute "cd #{fetch(:release_path)} && /usr/local/bin/php5-56STABLE-CLI artisan clear-compiled"
-            # execute "cd #{fetch(:release_path)} && /usr/local/bin/php5-56STABLE-CLI artisan optimize"
+            execute "ln -sfn #{fetch(:deploy_to)}/shared/.env #{fetch(:release_path)}/.env"
+            execute "cd #{fetch(:deploy_to)} && ln -sfn ./releases/#{fetch(:release_timestamp)} ./latest"
+            if fetch(:run_composer) == 'true'
+                execute "cd #{fetch(:deploy_to)}/latest && composer install --no-dev --no-interaction"
+            end
+            execute "docker exec api_php php /var/cachetool.phar opcache:reset --fcgi=#{fetch(:fcgi)} >/dev/null"
         end
     end
 
