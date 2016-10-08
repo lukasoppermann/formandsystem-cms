@@ -120,7 +120,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -166,7 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
-        Spatie\Permission\PermissionServiceProvider::class,
+        // Spatie\Permission\PermissionServiceProvider::class,
         Mpociot\Teamwork\TeamworkServiceProvider::class,
         Jrean\UserVerification\UserVerificationServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
