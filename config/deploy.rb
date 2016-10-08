@@ -23,13 +23,13 @@ namespace :deploy do
         on roles(:app), in: :groups, limit:1 do
             execute "chmod -R 755 #{fetch(:deploy_to)}/releases/#{fetch(:release_timestamp)}/storage"
             execute "chown -R www-data #{fetch(:deploy_to)}/releases/#{fetch(:release_timestamp)}/storage"
+            execute "chown -R www-data #{fetch(:deploy_to)}/releases/#{fetch(:release_timestamp)}/bootstrap"
             execute "cp #{fetch(:deploy_to)}/shared/.env #{fetch(:deploy_to)}/releases/#{fetch(:release_timestamp)}/.env"
             execute "cd #{fetch(:deploy_to)} && ln -sfn ./releases/#{fetch(:release_timestamp)} ./latest"
             if fetch(:run_composer) == 'true'
                 execute "cd #{fetch(:deploy_to)}/latest && composer install --no-dev --no-interaction"
             end
             execute "docker exec cms_php php /var/cachetool.phar opcache:reset --fcgi=#{fetch(:fcgi)} >/dev/null"
-            execute "docker exec cms_php php /var/www/html/latest/artisan cache:clear >/dev/null"
         end
     end
 
