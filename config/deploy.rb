@@ -21,7 +21,8 @@ namespace :deploy do
     desc 'Setup release & Composer install'
     task :composer_install do
         on roles(:app), in: :groups, limit:1 do
-            execute "chmod -R 777 #{fetch(:deploy_to)}/releases/#{fetch(:release_timestamp)}/storage";
+            execute "chmod -R 755 #{fetch(:deploy_to)}/releases/#{fetch(:release_timestamp)}/storage"
+            execute "chown -R www-data #{fetch(:deploy_to)}/releases/#{fetch(:release_timestamp)}/storage"
             execute "cp #{fetch(:deploy_to)}/shared/.env #{fetch(:deploy_to)}/releases/#{fetch(:release_timestamp)}/.env"
             execute "cd #{fetch(:deploy_to)} && ln -sfn ./releases/#{fetch(:release_timestamp)} ./latest"
             if fetch(:run_composer) == 'true'
