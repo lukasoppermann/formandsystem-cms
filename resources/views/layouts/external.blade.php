@@ -5,9 +5,8 @@
         <meta http-equiv="content-language" content="en">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1,maximum-scale=1">
         <meta name="theme-color" content="rgb(255,210,0)">
-        <link href='{{ asset(env('FILE_PREFIX').elixir('css/app.css')) }}' rel='stylesheet' type='text/css'>
+        <link href='{{ asset(env('FILE_PREFIX').elixir('css/app.css'), Request::secure()) }}' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Lato:300,400,700&subset=latin,latin' rel='stylesheet' type='text/css'>
-
         @if (env('APP_ENV') !== 'local')
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -29,5 +28,5 @@
             @yield('content')
         </main>
     </body>
-    <script src='{{ asset(env('FILE_PREFIX').elixir("js/app.js")) }}'></script>
+    <script src='{{ asset(env('FILE_PREFIX').elixir("js/app.js"), Request::secure()) }}'></script>
 </html>

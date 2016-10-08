@@ -178,6 +178,7 @@ return [
         BladeSvg\BladeSvgServiceProvider::class,
         Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Fideloper\Proxy\TrustedProxyServiceProvider::class,
         //
 
         /*

@@ -27,7 +27,6 @@
     </head>
     <body>
         {{ svg_spritesheet() }}
-
         @if($sidebar !== false)
             @include('menu.sidebar')
         @endif

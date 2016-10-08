@@ -28,6 +28,7 @@ namespace :deploy do
                 execute "cd #{fetch(:deploy_to)}/latest && composer install --no-dev --no-interaction"
             end
             execute "docker exec cms_php php /var/cachetool.phar opcache:reset --fcgi=#{fetch(:fcgi)} >/dev/null"
+            execute "docker exec cms_php php /var/www/html/latest/artisan cache:clear >/dev/null"
         end
     end
 
