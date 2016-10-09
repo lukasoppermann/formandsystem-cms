@@ -100,8 +100,15 @@ Route::group(['middleware' => ['web']], function () {
         Route::delete('/settings/team/{id}/{user_id}', 'TeamMemberController@destroy')->name('teams.members.destroy');
 
         Route::get('accept/{token}', 'AuthController@acceptInvite')->name('teams.accept_invite');
-
-        Route::get('/settings/{site?}', 'SettingsController@show')->name('teams.settings');
     });
-
+    /**
+     * Settings routes
+     */
+    Route::group(['prefix' => 'projects', 'namespace' => 'Settings', 'middleware' => ['auth']], function()
+    {
+        Route::get('/settings', 'SiteController@show')->name('teams.settings');
+        Route::get('/settings/site', 'SiteController@show')->name('teams.settings.site');
+        Route::get('/settings/seo', 'SiteController@show')->name('teams.settings.seo');
+        Route::get('/settings/developers', 'SiteController@show')->name('teams.settings.developers');
+    });
 }); // <- close web middle group

@@ -42,7 +42,6 @@
             "database"
         ],
         "files": [
-            "app/Extensions/MenuMacros.php",
             "app/Extensions/Helpers.php"
         ],
         "psr-4": {

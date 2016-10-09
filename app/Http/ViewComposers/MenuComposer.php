@@ -6,7 +6,6 @@ use Auth;
 use Illuminate\View\View;
 use Spatie\Menu\Html;
 use Spatie\Menu\Laravel\Menu;
-// use App\Extensions\ViewItem as ViewItem;
 use Spatie\Menu\Laravel\View as ViewItem;
 
 class MenuComposer
@@ -19,7 +18,17 @@ class MenuComposer
     public function __construct()
     {
         // load all menu extensions
-        addMenuMacros();
+        Menu::macro('baseMenu', function(string $menu_class = '') {
+            return Menu::new()
+                // menu settings
+                ->addClass('o-flexbar')
+                ->setActiveClass('is-active')
+                ->addParentClass($menu_class)
+                // view settings
+                ->applyToAll(function (ViewItem $view) {
+                    $view->addParentClass('o-menu__item');
+                });
+        });
     }
 
     /**
@@ -74,7 +83,6 @@ class MenuComposer
             ->view('menu.item', ['label' => trans('menu.settings'), 'url' => route('teams.settings')])
             // add header
             ->append(view('menu.footer')->render())->setActiveFromRequest();
-            // ->setActiveFromUrl()
     }
     /**
      * build main menu
@@ -111,10 +119,10 @@ class MenuComposer
     protected function settingsMenu(){
         return Menu::baseMenu('o-menu')
             ->addIf(!Auth::user()->currentTeam, HTML::Raw(view('menu.header', ['title' => 'Form&System'])->render()))
-            ->view('menu.item', ['label' => 'General', 'url' => route('teams.settings', 'site')])
-            ->view('menu.item', ['label' => 'SEO', 'url' => route('teams.index')])
-            ->view('menu.item', ['label' => 'Developers', 'url' => route('teams.index')])
-            ->view('menu.item', ['label' => 'Team', 'url' => route('teams.members.show', Auth::user()->currentTeam)])
+            ->view('menu.item', ['label' => trans('menu.settings_menu.general'), 'url' => route('teams.settings.site')])
+            ->view('menu.item', ['label' => trans('menu.settings_menu.seo'), 'url' => route('teams.settings.seo')])
+            ->view('menu.item', ['label' => trans('menu.settings_menu.developers'), 'url' => route('teams.settings.developers')])
+            ->view('menu.item', ['label' => trans('menu.settings_menu.team'), 'url' => route('teams.members.show', Auth::user()->currentTeam)])
             ->setActiveFromRequest()
         ;
     }

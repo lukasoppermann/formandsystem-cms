@@ -8,6 +8,12 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'settings' => 'Settings',
+    'settings'      => 'Settings',
+    'settings_menu' => [
+        'general'       => 'General',
+        'seo'           => 'SEO',
+        'developers'    => 'Developers',
+        'team'          => 'Team',
+    ]
 
 ];
