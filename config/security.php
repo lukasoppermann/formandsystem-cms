@@ -18,8 +18,14 @@ return [
                     "'self'",
                     'fonts.gstatic.com'
                 ],
-                'img-src' => "'self'",
-                'script-src' => "'self'",
+                'img-src' => [
+                    "'self'",
+                    'www.google-analytics.com'
+                ],
+                'script-src' => [
+                    "'self'",
+                    'www.google-analytics.com'
+                ],
                 'style-src' => [
                     "'self'",
                     "'unsafe-inline'",

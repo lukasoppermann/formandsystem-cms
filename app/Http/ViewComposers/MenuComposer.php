@@ -91,7 +91,7 @@ class MenuComposer
             ->submenu(ViewItem::create('menu.profile', [
                     'label'         => Auth::user()->name,
                     'initials'      => Auth::user()->initials,
-                    'img'           => 'https://s3.amazonaws.com/uifaces/faces/twitter/lukasoppermann/128.jpg',
+                    'img'           => '',
                     'current_path'  => app('request')->path(),
                     'attr'          => 'data-js-toggle-dropdown',
                 ]),
