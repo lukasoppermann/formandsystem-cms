@@ -152,7 +152,7 @@
         0 .1rem 1rem color(var(--black) alpha(15%));
 }
 .c-main--with-menu{
-    background-image: linear-gradient(to bottom, rgb(248,250,251), rgba(250,251,252,0) 15rem);
+    background-image: linear-gradient(to bottom, var(--white-tint), color(var(--white-tint) alpha(0)) 15rem);
 }
 .c-menu--profile-dropdown{
     position: absolute;

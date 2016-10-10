@@ -48,6 +48,7 @@
     "foreach.js": "git+https://github.com/toddmotto/foreach.git",
     "mark.js": "^0.9.2",
     "minireset.css": "0.0.2",
+    "open-color": "^1.4.0",
     "readyjs": "^1.0.2",
     "sortable-elements": "^0.1.0",
     "status-bar-component": "^1.0.1",

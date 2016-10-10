@@ -40,28 +40,28 @@
 /* ICON: PROJECTS */
 @keyframes ani-icon-project {
     0%{
-      fill: rgb(55,115,215);
+      fill: var(--blue);
     }
     50%{
         width: 45%;
         height: 45%;
         rx: 0;
         ry: 0;
-        fill: rgb(248,250,252);
+        fill: var(--white-tint);
     }
     90%{
         width: 45%;
         height: 45%;
         rx: 0;
         ry: 0;
-        fill: rgb(55,115,215);
+        fill: var(--blue);
     }
     100%{
         width: 45%;
         height: 45%;
         rx: 0;
         ry: 0;
-        fill: rgba(55,115,215,0);
+        fill: color(var(--blue) alpha(0));
     }
 }
 .o-icon--projects [class*="fill-"]{
@@ -91,5 +91,5 @@
 }
 *:hover > .o-icon--projects{
     transition: fill .75s ease;
-    fill: rgb(55,115,215);
+    fill: var(--blue);
 }

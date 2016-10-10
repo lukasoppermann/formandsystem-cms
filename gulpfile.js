@@ -174,13 +174,16 @@ gulp.task('watch-external-js', function(){
 
 gulp.task('build-css', function(){
     return gulp.src([
-            'resources/css/includes/*.css',
-            'resources/css/*.css',
-            'resources/css/pages/*.css',
             // npm resources
             'node_modules/minireset.css/minireset.css',
+            'node_modules/open-color/open-color.css',
             'node_modules/flexboxgrid/css/flexboxgrid.css',
-            'node_modules/flex-layout-attribute/css/flex-layout-attribute.css'
+            'node_modules/flex-layout-attribute/css/flex-layout-attribute.css',
+            // includes
+            'resources/css/includes/*.css',
+            // main files
+            'resources/css/*.css',
+            'resources/css/pages/*.css'
         ])
         .pipe(sourcemaps.init())
         .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))

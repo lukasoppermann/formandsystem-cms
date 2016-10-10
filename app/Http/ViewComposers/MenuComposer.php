@@ -106,9 +106,9 @@ class MenuComposer
                 Menu::baseMenu('o-menu__item')
                     ->addClass('o-menu o-menu--vertical o-menu--dropdown c-menu--profile-dropdown o-flexbar o-flexbar--vertical')
                     ->setAttribute('data-js-dropdown')
-                    ->view('menu.item', ['label' => 'Profile', 'link' => route('users.me')], route('users.me'))
-                    ->view('menu.item', ['label' => 'Help', 'link' => route('support.index')], route('support.index'))
-                    ->view('menu.item', ['label' => 'Logout', 'link' => '/logout'])
+                    ->view('menu.item', ['label' => 'Profile', 'url' => route('users.me')], route('users.me'))
+                    ->view('menu.item', ['label' => 'Help', 'url' => route('support.index')], route('support.index'))
+                    ->view('menu.item', ['label' => 'Logout', 'url' => '/logout'])
             )
         );
     }

@@ -6,6 +6,12 @@
     "type": "project",
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/lukasoppermann/fs-content"
+        }
+    ],
     "require": {
         "php": ">=7.0.0",
         "laravel/framework": "5.3.*",
@@ -25,7 +31,8 @@
         "stevenmaguire/laravel-middleware-csp": "^0.1.1",
         "laravelcollective/html": "^5.3",
         "predis/predis": "^1.1",
-        "fideloper/proxy": "^3.1"
+        "fideloper/proxy": "^3.1",
+        "formandsystem/content":"dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
