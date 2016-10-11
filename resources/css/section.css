@@ -11,6 +11,8 @@
 .o-section-header{
     padding: 2rem 5.5rem 0;
     background-color: var(--white-gray);
+    flex-grow: 0;
+    flex-shrink: 0;
 }
 .o-section-header .o-menu__link{
     padding: 1.5rem 2rem;

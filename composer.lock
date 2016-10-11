@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1394d6eae824d41f40aa55045cff02f5",
-    "content-hash": "0029909c682fe49c0ebfb5444374afd9",
+    "hash": "c78600d4c027244b8efe43cc61c22078",
+    "content-hash": "38a53fb8c9293dae1e56a506057e929a",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -719,17 +719,81 @@
             "time": "2015-12-24 15:02:55"
         },
         {
+            "name": "formandsystem/api",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/formandsystem/api.git",
+                "reference": "be655bb5fd703d36e57f94367cecb6529e546fd2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/formandsystem/api/zipball/be655bb5fd703d36e57f94367cecb6529e546fd2",
+                "reference": "be655bb5fd703d36e57f94367cecb6529e546fd2",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "~6.0",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.11",
+                "fzaninotto/faker": "~1.0",
+                "humbug/humbug": "~1.0@dev",
+                "mockery/mockery": "0.9.*@dev",
+                "phpunit/phpunit": "^5.5",
+                "satooshi/php-coveralls": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Formandsystem\\Api\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Formandsystem\\Api\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "phpunit; vendor/bin/php-cs-fixer fix -v --diff --dry-run; composer humbug;"
+                ],
+                "php-fix": [
+                    "vendor/bin/php-cs-fixer fix -v --diff;"
+                ],
+                "travis": [
+                    "phpunit --coverage-clover build/logs/clover.xml"
+                ],
+                "humbug": [
+                    "vendor/bin/humbug -vvv --ansi && vendor/bin/humbug stats --skip-killed=yes -vvv --ansi"
+                ]
+            },
+            "authors": [
+                {
+                    "name": "Form&System",
+                    "email": "support@formandsystem.com"
+                }
+            ],
+            "description": "Wrapper for Form&System CMS api.",
+            "support": {
+                "source": "https://github.com/formandsystem/api/tree/0.1.2",
+                "issues": "https://github.com/formandsystem/api/issues"
+            },
+            "time": "2016-08-30 19:30:53"
+        },
+        {
             "name": "formandsystem/content",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@github.com:lukasoppermann/fs-content.git",
-                "reference": "a7640619e3f3feee194c2094065d1cc9d412c609"
+                "reference": "3152876fe8b69fccbdbfc525f113d11f65604296"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lukasoppermann/fs-content/zipball/a7640619e3f3feee194c2094065d1cc9d412c609",
-                "reference": "a7640619e3f3feee194c2094065d1cc9d412c609",
+                "url": "https://api.github.com/repos/lukasoppermann/fs-content/zipball/3152876fe8b69fccbdbfc525f113d11f65604296",
+                "reference": "3152876fe8b69fccbdbfc525f113d11f65604296",
                 "shasum": ""
             },
             "require": {
@@ -749,7 +813,7 @@
                 "source": "https://github.com/lukasoppermann/fs-content/tree/master",
                 "issues": "https://github.com/lukasoppermann/fs-content/issues"
             },
-            "time": "2016-10-10 07:27:03"
+            "time": "2016-10-11 16:16:51"
         },
         {
             "name": "graham-campbell/binput",
@@ -813,6 +877,71 @@
                 "security"
             ],
             "time": "2016-04-26 14:18:44"
+        },
+        {
+            "name": "graham-campbell/htmlmin",
+            "version": "v4.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GrahamCampbell/Laravel-HTMLMin.git",
+                "reference": "31a3101a7ff58a62250d77d61cd2516e55683b24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-HTMLMin/zipball/31a3101a7ff58a62250d77d61cd2516e55683b24",
+                "reference": "31a3101a7ff58a62250d77d61cd2516e55683b24",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "5.1.*|5.2.*|5.3.*",
+                "illuminate/filesystem": "5.1.*|5.2.*|5.3.*",
+                "illuminate/http": "5.1.*|5.2.*|5.3.*",
+                "illuminate/routing": "5.1.*|5.2.*|5.3.*",
+                "illuminate/support": "5.1.*|5.2.*|5.3.*",
+                "illuminate/view": "5.1.*|5.2.*|5.3.*",
+                "mrclay/minify": "^2.2",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "graham-campbell/testbench": "^3.1",
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": "^4.8|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GrahamCampbell\\HTMLMin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "graham@alt-three.com"
+                }
+            ],
+            "description": "HTMLMin Is A Simple HTML Minifier For Laravel 5",
+            "keywords": [
+                "Graham Campbell",
+                "GrahamCampbell",
+                "Laravel HTMLMin",
+                "Laravel-HTMLMin",
+                "framework",
+                "html",
+                "html minifier",
+                "htmlmin",
+                "laravel",
+                "minifier"
+            ],
+            "time": "2016-08-28 09:57:28"
         },
         {
             "name": "graham-campbell/security",
@@ -1693,6 +1822,51 @@
             "time": "2016-08-29 08:11:42"
         },
         {
+            "name": "mrclay/minify",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mrclay/minify.git",
+                "reference": "f4cb31135d288f951bb0af1f23a03d4c00ba9446"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mrclay/minify/zipball/f4cb31135d288f951bb0af1f23a03d4c00ba9446",
+                "reference": "f4cb31135d288f951bb0af1f23a03d4c00ba9446",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "php": ">=5.2.1"
+            },
+            "require-dev": {
+                "tubalmartin/cssmin": "~2.4.8"
+            },
+            "suggest": {
+                "tubalmartin/cssmin": "Support minify with CSSMin (YUI PHP port)"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "min/lib/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Clay",
+                    "email": "steve@mrclay.org",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Minify is a PHP5 app that helps you follow several rules for client-side performance. It combines multiple CSS or Javascript files, removes unnecessary whitespace and comments, and serves them with gzip encoding and optimal client-side cache headers",
+            "homepage": "http://code.google.com/p/minify/",
+            "time": "2016-03-08 11:49:57"
+        },
+        {
             "name": "mtdowling/cron-expression",
             "version": "v1.1.0",
             "source": {
@@ -1836,7 +2010,7 @@
         },
         {
             "name": "nothingworks/blade-svg",
-            "version": "dev-master",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/adamwathan/blade-svg.git",
@@ -2086,16 +2260,16 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "5277094ed527a1c4477177d102fe4c53551953e0"
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/5277094ed527a1c4477177d102fe4c53551953e0",
-                "reference": "5277094ed527a1c4477177d102fe4c53551953e0",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
                 "shasum": ""
             },
             "require": {
@@ -2129,7 +2303,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-09-19 16:02:08"
+            "time": "2016-10-10 12:19:37"
         },
         {
             "name": "psy/psysh",
@@ -2483,16 +2657,16 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "1.9.2",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "4e06ac112327be673d3a3da9f3260f31ef790ac9"
+                "reference": "10850468cd973d3309e4c5e730e951545fbb6727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/4e06ac112327be673d3a3da9f3260f31ef790ac9",
-                "reference": "4e06ac112327be673d3a3da9f3260f31ef790ac9",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/10850468cd973d3309e4c5e730e951545fbb6727",
+                "reference": "10850468cd973d3309e4c5e730e951545fbb6727",
                 "shasum": ""
             },
             "require": {
@@ -2543,20 +2717,20 @@
                 "spatie",
                 "user"
             ],
-            "time": "2016-09-27 07:33:56"
+            "time": "2016-10-10 14:20:42"
         },
         {
             "name": "spatie/laravel-menu",
-            "version": "dev-master",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-menu.git",
-                "reference": "741e143a99c58830d9cf0e149c36efcebf01f4f4"
+                "reference": "429f33448628294ed4290ad965f40d5e7a3ff39d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-menu/zipball/741e143a99c58830d9cf0e149c36efcebf01f4f4",
-                "reference": "741e143a99c58830d9cf0e149c36efcebf01f4f4",
+                "url": "https://api.github.com/repos/spatie/laravel-menu/zipball/429f33448628294ed4290ad965f40d5e7a3ff39d",
+                "reference": "429f33448628294ed4290ad965f40d5e7a3ff39d",
                 "shasum": ""
             },
             "require": {
@@ -2564,7 +2738,7 @@
                 "illuminate/contracts": "~5.1.14|~5.2.0|~5.3.0",
                 "illuminate/support": "~5.1.14|~5.2.0|~5.3.0",
                 "php": "^7.0",
-                "spatie/menu": "2.0.0-beta.4"
+                "spatie/menu": "^2.0.0"
             },
             "require-dev": {
                 "orchestra/testbench": "^3.3",
@@ -2594,7 +2768,7 @@
                 "laravel-menu",
                 "spatie"
             ],
-            "time": "2016-09-27 14:00:31"
+            "time": "2016-10-11 09:00:50"
         },
         {
             "name": "spatie/laravel-permission",
@@ -2651,22 +2825,22 @@
         },
         {
             "name": "spatie/menu",
-            "version": "2.0.0-beta.4",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/menu.git",
-                "reference": "08563a297dfe6fd48c05f03b9b5a09644a92f9e6"
+                "reference": "e8442e616824d9e5800bbffbc271a4cec98d0d02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/menu/zipball/08563a297dfe6fd48c05f03b9b5a09644a92f9e6",
-                "reference": "08563a297dfe6fd48c05f03b9b5a09644a92f9e6",
+                "url": "https://api.github.com/repos/spatie/menu/zipball/e8442e616824d9e5800bbffbc271a4cec98d0d02",
+                "reference": "e8442e616824d9e5800bbffbc271a4cec98d0d02",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0",
                 "spatie/html-element": "^1.0.0",
-                "spatie/url": "^0.3.0"
+                "spatie/url": "^1.0.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^5.2.10"
@@ -2696,7 +2870,7 @@
                 "navigation",
                 "spatie"
             ],
-            "time": "2016-09-27 12:14:59"
+            "time": "2016-10-11 09:05:09"
         },
         {
             "name": "spatie/string",
@@ -2753,16 +2927,16 @@
         },
         {
             "name": "spatie/url",
-            "version": "0.3.0",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/url.git",
-                "reference": "eb2a6e106865efc39340eefda0322d2c3870de9c"
+                "reference": "87a1409244c5e825be088418071bb44be752e09f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/url/zipball/eb2a6e106865efc39340eefda0322d2c3870de9c",
-                "reference": "eb2a6e106865efc39340eefda0322d2c3870de9c",
+                "url": "https://api.github.com/repos/spatie/url/zipball/87a1409244c5e825be088418071bb44be752e09f",
+                "reference": "87a1409244c5e825be088418071bb44be752e09f",
                 "shasum": ""
             },
             "require": {
@@ -2790,13 +2964,13 @@
                     "role": "Developer"
                 }
             ],
-            "description": ":package_description",
+            "description": "Parse, build and manipulate URL's",
             "homepage": "https://github.com/spatie/url",
             "keywords": [
                 "spatie",
                 "url"
             ],
-            "time": "2016-09-21 10:19:08"
+            "time": "2016-10-07 14:47:45"
         },
         {
             "name": "stevenmaguire/laravel-middleware-csp",
@@ -5612,8 +5786,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "spatie/laravel-menu": 20,
-        "nothingworks/blade-svg": 20,
         "formandsystem/content": 20
     },
     "prefer-stable": true,

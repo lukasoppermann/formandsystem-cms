@@ -61,14 +61,13 @@ gulp.task('build-js', function(){
     // push prism stuff
     files.push(
         // polyfills load in file
-        // 'node_modules/webcomponentsjs/full.js',
-        // web components
-        // 'resources/js/status-bar.js.babel',
+        'node_modules/webcomponents.js/webcomponents-lite.js',
         // npm stuff
         'node_modules/readyjs/dist/ready.js',
         'node_modules/unfocus/dist/unfocus.js',
         'node_modules/foreach.js/dist/foreach.js',
         'node_modules/isemptyjs/dist/isempty.js',
+        'node_modules/status-bar-component/dist/status-bar.js',
         // 'node_modules/es6-promise/dist/es6-promise.js',
         // 'node_modules/fetch/lib/fetch.js',
         // kill

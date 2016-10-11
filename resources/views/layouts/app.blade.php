@@ -9,8 +9,6 @@
         <meta name="site_url" content="{{ url('/') }}">
         <link href="{{ asset(env('FILE_PREFIX').elixir('css/app.css'), Request::secure()) }}" rel="stylesheet" type="text/css">
         <link href='//fonts.googleapis.com/css?family=Lato:300,400,700&subset=latin,latin' rel='stylesheet' type='text/css'>
-        <script type="text/javascript" src="{{ asset(env('FILE_PREFIX').elixir('js/webcomponents-lite.min.js'), Request::secure()) }}"></script>
-        <link rel="import" href="{{ asset(env('FILE_PREFIX').elixir('webcomponents/webcomponents.html'), Request::secure()) }}">
         @if (env('APP_ENV') !== 'local')
             <script {{csp_none()}}>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -25,6 +23,7 @@
         @endif
     </head>
     <body>
+        {!! dd(config('app.user')) !!}
         {{ svg_spritesheet() }}
         @if($sidebar !== false)
             @include('menu.sidebar')

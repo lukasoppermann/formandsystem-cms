@@ -10,6 +10,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/lukasoppermann/fs-content"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/formandsystem/api.git"
         }
     ],
     "require": {
@@ -24,15 +28,17 @@
         "graham-campbell/binput": "^3.4",
         "watson/validating": "^2.2",
         "sofa/eloquence": "^5.3",
-        "spatie/laravel-menu": "dev-master",
+        "spatie/laravel-menu": "^2.0",
         "barryvdh/laravel-debugbar": "^2.2",
-        "nothingworks/blade-svg": "@dev",
+        "nothingworks/blade-svg": "^0.1",
         "schuppo/password-strength": "~1.5",
         "stevenmaguire/laravel-middleware-csp": "^0.1.1",
         "laravelcollective/html": "^5.3",
         "predis/predis": "^1.1",
         "fideloper/proxy": "^3.1",
-        "formandsystem/content":"dev-master"
+        "formandsystem/content":"dev-master",
+        "graham-campbell/htmlmin": "^4.4",
+        "formandsystem/api": "^0.1.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
