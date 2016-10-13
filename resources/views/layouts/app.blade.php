@@ -23,7 +23,7 @@
         @endif
     </head>
     <body>
-        {!! dd(config('app.user')) !!}
+        {{-- {!! dd(new \Formandsystem\Content\Entities\User(auth()->user())) !!} --}}
         {{ svg_spritesheet() }}
         @if($sidebar !== false)
             @include('menu.sidebar')

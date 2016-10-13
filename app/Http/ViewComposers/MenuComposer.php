@@ -119,7 +119,7 @@ class MenuComposer
     protected function settingsMenu(){
         return Menu::baseMenu('o-menu')
             ->addIf(!Auth::user()->currentTeam, HTML::Raw(view('menu.header', ['title' => 'Form&System'])->render()))
-            ->view('menu.item', ['label' => trans('menu.settings_menu.general'), 'url' => route('teams.settings.site')])
+            ->view('menu.item', ['label' => trans('menu.settings_menu.general'), 'url' => route('teams.settings.project')])
             ->view('menu.item', ['label' => trans('menu.settings_menu.seo'), 'url' => route('teams.settings.seo')])
             ->view('menu.item', ['label' => trans('menu.settings_menu.developers'), 'url' => route('teams.settings.developers')])
             ->view('menu.item', ['label' => trans('menu.settings_menu.team'), 'url' => route('teams.members.show', Auth::user()->currentTeam)])

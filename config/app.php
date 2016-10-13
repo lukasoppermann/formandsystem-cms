@@ -172,7 +172,6 @@ return [
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         GrahamCampbell\Security\SecurityServiceProvider::class,
         GrahamCampbell\Binput\BinputServiceProvider::class,
-        GrahamCampbell\HTMLMin\HTMLMinServiceProvider::class,
         Sofa\Eloquence\ServiceProvider::class,
         Spatie\Menu\Laravel\MenuServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,

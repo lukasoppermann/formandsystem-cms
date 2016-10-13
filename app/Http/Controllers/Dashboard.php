@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class Dashboard extends Controller
 {
+    public function __construct(Request $request)
+    {
+        parent::__construct($request);
+    }
     /**
      * index
      *

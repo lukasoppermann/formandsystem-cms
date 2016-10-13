@@ -28,34 +28,10 @@ gulp.task('clean-js', function(){
         'public/build/js/app.js',
         'public/build/js/app.js.map',
         'public/build/js/app-*.js',
-        'public/build/js/webcomponents-*.js'
     ]);
-});
-gulp.task('clean-webcomponents', function(){
-    return del([
-        'public/build/webcomponents/*.html'
-    ]);
-});
-
-gulp.task('build-webcomponents', function(){
-    return gulp.src('resources/webcomponents/webcomponents.html')
-        .pipe(vulcanize({
-            abspath: '',
-            excludes: [],
-            stripExcludes: false
-        }))
-        .pipe(crisper())
-        .pipe(gulp.dest('public/build/webcomponents'));
-
 });
 
 gulp.task('build-js', function(){
-    // move files
-    gulp.src([
-        'node_modules/webcomponents.js/webcomponents-lite.min.js'
-    ])
-        .pipe(gulp.dest('public/build/js'));
-
     // main files
     var files = [];
     // push prism stuff
@@ -310,12 +286,6 @@ gulp.task('watch-svg', function(){
         'resources/svgs/*'
     ], ['svg']);
 });
-
-gulp.task('watch-webcomponents', function(){
-    gulp.watch([
-        'resources/webcomponents/*'
-    ], ['build-webcomponents','build-js']);
-});
 /* ------------------------------
  *
  * Revision
@@ -326,9 +296,7 @@ gulp.task('rev', function(done){
         'public/build/css/app.css',
         'public/build/js/app.js',
         'public/build/js/external.js',
-        'public/build/svgs/svg-sprite.svg',
-        'public/build/js/webcomponents-lite.min.js',
-        'public/build/webcomponents/webcomponents.html'
+        'public/build/svgs/svg-sprite.svg'
     ], {base: 'public/build'})
         .pipe(rev())
         .pipe(gulp.dest('public/build'))
@@ -347,19 +315,17 @@ gulp.task('default', function(done){
 [    'clean-js',
     'clean-css',
     'clean-external-js',
-    'clean-webcomponents',
     'clean-svg'],
 [    'build-js',
     'build-css',
     'build-external-js',
-    'build-webcomponents',
     'svgsprite'],
     'rev',
 [    'watch-svg',
     'watch-css',
     'watch-js',
-    'watch-external-js',
-'watch-webcomponents'],
+    'watch-external-js'
+],
     done
     );
 });

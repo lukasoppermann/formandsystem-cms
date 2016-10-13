@@ -40,7 +40,6 @@
     "svgmin": "^0.1.0"
   },
   "dependencies": {
-    "@polymer/polymer": "git+https://github.com/Polymer/polymer.git",
     "es6-promise": "^3.2.1",
     "fetch": "^1.1.0",
     "flex-layout-attribute": "^1.0.3",
@@ -53,7 +52,6 @@
     "sortable-elements": "^0.1.0",
     "status-bar-component": "^1.0.1",
     "unfocus": "^1.0.0",
-    "webcomponents": "^0.1.4",
     "webcomponents.js": "^0.7.22"
   }
 }
