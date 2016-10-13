@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "68277bf2cd260d637ce3c72af20b24f4",
-    "content-hash": "4ca0f8f802588d83c4882e9cda3a2737",
+    "hash": "ff746aaee80b622a5970ffcfb5a31ccc",
+    "content-hash": "a70f9e7fce83e31dacc2efff281558b2",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -4852,6 +4852,51 @@
                 "xunit"
             ],
             "time": "2016-10-09 07:01:45"
+        },
+        {
+            "name": "robinfranssen/analyzelocale",
+            "version": "0.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aXent/laravel-analyze-locale.git",
+                "reference": "3a848e109e319dab9fc782f6c241760a74eecf30"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aXent/laravel-analyze-locale/zipball/3a848e109e319dab9fc782f6c241760a74eecf30",
+                "reference": "3a848e109e319dab9fc782f6c241760a74eecf30",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RobinFranssen\\AnalyzeLocale\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robin Franssen",
+                    "email": "robin@dev-it.be",
+                    "homepage": "http://www.dev-it.be"
+                }
+            ],
+            "description": "This scans your laravel project for used locale keys that aren't translated by your locale files.",
+            "homepage": "https://github.com/aXent/laravel-analyze-locale",
+            "keywords": [
+                "analyze",
+                "artisan",
+                "command",
+                "locale",
+                "translation"
+            ],
+            "time": "2016-02-22 10:43:11"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

@@ -179,6 +179,7 @@ return [
         Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
+        RobinFranssen\AnalyzeLocale\Providers\ServiceProvider::class,
         //
 
         /*
