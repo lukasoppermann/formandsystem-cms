@@ -230,30 +230,32 @@
     padding-top: 1.5rem;
     margin-bottom: 2rem;
 }
-.o-toggle__label{
-    display: flex;
-    cursor: pointer;
-}
-.o-toggle__text{
-    flex: 1;
-    padding-left: 1rem;
-    padding-top: .2rem;
-}
-.o-toggle__switch {
+.o-toggle__checkbox{
     position: relative;
+    display: inline-block;
+    border: 0;
+    width: 10px;
+    height: 10px;
+    margin: 10px 40px 10px 3px;
+}
+.o-toggle__checkbox:before {
+    content: "";
+    position: absolute;
     display: block;
-    margin-top: .5rem;
+    left: -3px;
+    top: -3px;
     height: 16px;
     width: 44px;
-    background: var(--light-gray);
+    background: white;
+    background-image: linear-gradient(var(--light-gray), var(--light-gray));
     border-radius: 100px;
     transition: all 0.3s ease;
 }
-.o-toggle__switch:after {
+.o-toggle__checkbox:after {
     left: 20px;
     position: absolute;
-    left: -2px;
-    top: -.5rem;
+    left: -5px;
+    top: -8px;
     display: block;
     width: 26px;
     height: 26px;
@@ -263,27 +265,27 @@
     content: '';
     transition: all 0.3s ease;
 }
-.o-toggle__switch:active:after {
+.o-toggle__checkbox:active:after {
     transform: scale(1.15, 0.85);
 }
-.o-toggle__checkbox:checked ~ .o-toggle__label .o-toggle__switch {
-    background: color(var(--blue) alpha(50%));
+.o-toggle__checkbox:checked:before {
+    background-image: linear-gradient(color(var(--blue) alpha(50%)), color(var(--blue) alpha(50%)));
 }
-.o-toggle__checkbox:checked ~ .o-toggle__label .o-toggle__switch:after {
+.o-toggle__checkbox:checked:after {
     left: 20px;
     background: var(--blue);
 }
 .o-toggle__checkbox:disabled ~ .o-toggle__label .o-toggle__switch {
-    background: var(--white)-gray;
+    background: var(--white-gray);
     pointer-events: none;
 }
 .o-toggle__checkbox:disabled ~ .o-toggle__label .o-toggle__switch:after {
     background: var(--light-gray);
     box-shadow: var(--shadow-light);
 }
-.o-toggle__checkbox {
+/*.o-toggle__checkbox {
     display: none;
-}
+}*/
 /* --------------------------
  * File
  */

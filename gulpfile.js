@@ -5,7 +5,7 @@ var rev = require('gulp-rev');
 var del = require('del');
 var postcss = require('gulp-postcss');
 var concat = require('gulp-concat');
-var jsmin = require('gulp-jsmin');
+var uglify = require('gulp-uglify');
 var plumber = require('gulp-plumber');
 var svgmin = require('gulp-svgmin');
 var svgstore = require('gulp-svgstore');
@@ -15,8 +15,6 @@ var sourcemaps = require('gulp-sourcemaps');
 var runSequence = require('run-sequence');
 var babel = require('gulp-babel');
 var gulpif = require('gulp-if');
-var vulcanize = require('gulp-vulcanize');
-var crisper = require('gulp-crisper');
 var size = size = require('gulp-size');
 /* ------------------------------
  *
@@ -39,11 +37,13 @@ gulp.task('build-js', function(){
         // polyfills load in file
         'node_modules/webcomponents.js/webcomponents-lite.js',
         // npm stuff
+        'node_modules/isemptyjs/dist/isempty.js',
         'node_modules/readyjs/dist/ready.js',
         'node_modules/unfocus/dist/unfocus.js',
         'node_modules/foreach.js/dist/foreach.js',
-        'node_modules/isemptyjs/dist/isempty.js',
         'node_modules/status-bar-component/dist/status-bar.js',
+        'node_modules/material-input/dist/material-input.js',
+        'node_modules/material-toggle/dist/material-toggle.js',
         // 'node_modules/es6-promise/dist/es6-promise.js',
         // 'node_modules/fetch/lib/fetch.js',
         // kill
@@ -67,12 +67,25 @@ gulp.task('build-js', function(){
     );
     // BUILD JS
     return gulp.src(files)
+        .pipe(size({
+            'title':'app.js before:',
+            'pretty':true
+        }))
         .pipe(sourcemaps.init())
         .pipe(gulpif('/\.babel$/b', babel({
             presets: ['es2015']
         })))
         .pipe(concat('app.js'))
-        .pipe(jsmin())
+        .pipe(uglify())
+        .pipe(size({
+            'title':'app.js after:',
+            'pretty':true
+        }))
+        .pipe(size({
+            'title':'app.js gzip:',
+            'pretty':true,
+            'gzip':true
+        }))
         .pipe(sourcemaps.write('/'))
         .pipe(gulp.dest('public/build/js'));
 });
@@ -90,49 +103,6 @@ gulp.task('watch-js', function(){
     gulp.watch([
         'resources/js/*'
     ], ['js']);
-});
-/* ------------------------------
- *
- * EXTERNAL JS
- *
- */
-gulp.task('clean-external-js', function(){
-    return del([
-        'public/build/js/external.js',
-        'public/build/js/external.js.map',
-        'public/build/js/external-*.js'
-    ]);
-});
-// BUILD
-gulp.task('build-external-js', function(){
-    var files = [];
-    // push files
-    files.push(
-        'resources/js/input.js',
-        'resources/js/external/*.js'
-    );
-
-    return gulp.src(files)
-    .pipe(sourcemaps.init())
-    .pipe(concat('external.js'))
-    .pipe(jsmin())
-    .pipe(sourcemaps.write('/'))
-    .pipe(gulp.dest('public/build/js'));
-});
-// css
-gulp.task('external-js', function(done){
-    runSequence(
-        'clean-external-js',
-        'build-external-js',
-        'rev',
-        done
-    );
-});
-// watch css
-gulp.task('watch-external-js', function(){
-    gulp.watch([
-        'resources/js/external/*',
-    ], ['css']);
 });
 /* ------------------------------
  *
@@ -163,6 +133,10 @@ gulp.task('build-css', function(){
         .pipe(sourcemaps.init())
         .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
         .pipe(concat('app.css'))
+        .pipe(size({
+            'title':'app.css before:',
+            'pretty':true,
+        }))
         .pipe(postcss([
             require("postcss-import")(),
             require("postcss-url")(),
@@ -184,6 +158,15 @@ gulp.task('build-css', function(){
                 ]
             }),
         ]))
+        .pipe(size({
+            'title':'app.css after:',
+            'pretty':true,
+        }))
+        .pipe(size({
+            'title':'app.css gzip:',
+            'pretty':true,
+            'gzip':true
+        }))
         .pipe(sourcemaps.write('/'))
         .pipe(gulp.dest('public/build/css'));
 });
@@ -295,7 +278,6 @@ gulp.task('rev', function(done){
     return gulp.src([
         'public/build/css/app.css',
         'public/build/js/app.js',
-        'public/build/js/external.js',
         'public/build/svgs/svg-sprite.svg'
     ], {base: 'public/build'})
         .pipe(rev())
@@ -314,17 +296,14 @@ gulp.task('default', function(done){
     runSequence(
 [    'clean-js',
     'clean-css',
-    'clean-external-js',
     'clean-svg'],
 [    'build-js',
     'build-css',
-    'build-external-js',
     'svgsprite'],
     'rev',
 [    'watch-svg',
     'watch-css',
-    'watch-js',
-    'watch-external-js'
+    'watch-js'
 ],
     done
     );

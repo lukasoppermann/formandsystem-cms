@@ -5,16 +5,18 @@
         <div class="o-dialog__box c-login-dialog">
             <div class="o-dialog__body">
                 <div class="login-logo">
-                    <svg viewBox="0 0 120 50" class="o-icon login-logo">
-                      <use xlink:href="#svg-icon--formandsystem-font"></use>
-                    </svg>
+                    {{ svg_icon('formandsystem-font', 'o-icon--formandsystem-font o-media__figure') }}
                 </div>
 
                 <form role="form" method="POST" action="{{ url('/login') }}">
                     {{ csrf_field() }}
-                    @include('forms.input',['name' => 'email', 'label' => 'E-Mail Address', 'attr' => "autofocus"])
-                    @include('forms.input',['type' => 'password','name' => 'password', 'label' => 'Password'])
-                    @include('forms.toggle',['name' => 'remember', 'label' => 'Remember Me', 'checked' => true])
+                    <material-input name="email" label="E-Mail Address" autofocus autocomplete type="email" value="{{ old('email') }}"></material-input>
+                    <material-input name="password" type="password" label="Password"></material-input>
+                    {{ old('password') }}
+                    {{-- @include('forms.input',['name' => 'email', 'label' => 'E-Mail Address', 'attr' => "autofocus"]) --}}
+                    {{-- @include('forms.input',['type' => 'password','name' => 'password', 'label' => 'Password']) --}}
+                    {{-- @include('forms.toggle',['name' => 'remember', 'label' => 'Remember Me', 'checked' => true]) --}}
+                    <label><material-toggle 'name'='remember'></material-toggle>Remember Me</label>
 
                     <div class="o-flexbar o-flexbar--centered">
                         @include('forms.submit',['name'=>'signin', 'label' => 'Login', 'classes' => 'o-button o-button--blue o-button--space-top o-flexbar__item'])
