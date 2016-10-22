@@ -4,7 +4,7 @@
             @lang('notifications.email_verification_resend')
         </status-bar>
     @else
-        <status-bar type="warning" closeable="true">
+        <status-bar type="warning" closeable>
             @lang('notifications.email_verification_needed') <a href="#" onclick="event.preventDefault();
                      document.getElementById('resend-verification').submit();">@lang('general.resend_link')</a>.
             <form id="resend-verification" action="{{ route('email-verification.resend') }}" method="POST" style="display: none;">

@@ -45,5 +45,23 @@ class User extends Authenticatable
                 ->pluck('created_at')
                 ->first();
     }
+    /**
+     * inTeam
+     * @method inTeam
+     * @return boolean
+     */
+    public function inTeam($team)
+    {
+        return $team->users->contains( $this->getKey() );
+    }
+    /**
+     * getProjectEntity
+     * @method getProjectEntity
+     * @return Entity
+     */
+    public function getProjectEntity()
+    {
+        return new \App\Entities\Project($this->currentTeam);
+     }
 
 }

@@ -807,8 +807,8 @@ coa@~1.0.1:
     q "^1.1.2"
 
 codemirror@^5.18.2:
-  version "5.20.0"
-  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.20.0.tgz#ef3822ae6e442dd595d365a86ff424e35c3985b7"
+  version "5.20.2"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.20.2.tgz#918e0ece96d57a99030b2f8b33011284bed5217a"
 
 color-convert@^0.5.3, color-convert@0.5.x:
   version "0.5.3"
@@ -1417,7 +1417,7 @@ flagged-respawn@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/flagged-respawn/-/flagged-respawn-0.3.2.tgz#ff191eddcd7088a675b2610fffc976be9b8074b5"
 
-flatten@^1.0.2, flatten@1.0.2:
+flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
@@ -2784,8 +2784,8 @@ marked@^0.3.6:
   resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
 
 material-input@^1.0.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/material-input/-/material-input-1.1.1.tgz#b7a36b916fa31d270bee4f6b83d0c24da00ba05f"
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/material-input/-/material-input-1.1.6.tgz#3539a5daa7e97cc87e82047acadd6f5b05768e42"
 
 material-toggle@^0:
   version "0.0.6"
@@ -3361,10 +3361,9 @@ postcss-discard-overridden@^0.1.1:
     postcss "^5.0.16"
 
 postcss-discard-unused@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/postcss-discard-unused/-/postcss-discard-unused-2.2.1.tgz#5d021f021a6ed6cec7310d4603794a75ddd53232"
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/postcss-discard-unused/-/postcss-discard-unused-2.2.2.tgz#5d72f7d05d11de0a9589e001958067ccae1b4931"
   dependencies:
-    flatten "1.0.2"
     postcss "^5.0.14"
     uniqs "^2.0.0"
 

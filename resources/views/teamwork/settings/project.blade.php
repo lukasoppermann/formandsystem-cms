@@ -4,34 +4,12 @@
     @include('teamwork.settings.menu')
 
     <div class="o-content o-content--max-width">
-        <form class="o-form" action="/settings/site" method="POST">
-            {{ csrf_field() }}
+        {{ Form::open(['class' => "o-form",'url' => route('teams.settings.project.put'), 'method' => 'put']) }}
             <section class="o-section o-section--no-top-padding o-section--no-bottom-padding">
-                @include('forms.input',[
-                    'name' => 'project_name',
-                    'label' => 'Name of your project',
-                    'value' => (isset($form['project_name']) ? $form['project_name']->get('data') : NULL),
-                    'additional_values' => [
-                        'id' => (isset($form['project_name']) ? $form['project_name']->get('id') : NULL)
-                    ]
-                ])
-                @include('forms.input',[
-                    'name' => 'site_url',
-                    'label' => 'URL of this website (needed to display images, etc.)',
-                    'value' => (isset($form['site_url']) ? $form['site_url']->get('data') : NULL),
-                    'additional_values' => [
-                        'id' => (isset($form['site_url']) ? $form['site_url']->get('id') : NULL)
-                    ]
-                ])
-                @include('forms.input',[
-                    'name' => 'dir_images',
-                    'label' => 'Public directory where your images are stored on your server',
-                    'value' => (isset($form['dir_images']) ? $form['dir_images']->get('data') : NULL),
-                    'additional_values' => [
-                        'id' => (isset($form['dir_images']) ? $form['dir_images']->get('id') : NULL)
-                    ]
-                ])
-                <div class="o-flex-bar">
+                <material-input name="project_name" value="{{old('project_name', $project->project_name)}}" label="{{trans('settings.project.label_name')}}" required message="{{ $errors->first('project_name') }}"></material-input>
+                <material-input name="site_url" value="{{old('site_url', 'http://test.de')}}" label="{{trans('settings.project.label_url')}}" required message="{{ $errors->first('site_url') }}"></material-input>
+                <material-input name="dir_images" value="{{old('dir_images', 'test')}}" label="{{trans('settings.project.label_images_dir')}}" required message="{{ $errors->first('dir_images') }}"></material-input>
+                <div class="u-margin-top">
                     @include('forms.submit',['label' => 'Save', 'classes' => 'o-button o-button--blue o-flex-bar__item o-flex-bar__item--right'])
                 </div>
             </section>

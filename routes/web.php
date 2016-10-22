@@ -107,7 +107,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'projects', 'namespace' => 'Settings', 'middleware' => ['auth']], function()
     {
         Route::get('/settings', 'ProjectController@show')->name('teams.settings');
+
         Route::get('/settings/project', 'ProjectController@show')->name('teams.settings.project');
+        Route::put('/settings/project', 'ProjectController@update')->name('teams.settings.project.put');
+
         Route::get('/settings/seo', 'SiteController@show')->name('teams.settings.seo');
         Route::get('/settings/developers', 'SiteController@show')->name('teams.settings.developers');
     });

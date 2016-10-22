@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Entities;
+
+use App\Models\User as UserModel;
+use Formandsystem\Content\Entities\Account;
+use Formandsystem\Content\Entities\AbstractModelEntity;
+use Cache;
+use Illuminate\Support\Collection as LaravelCollection;
+
+class User extends AbstractModelEntity
+{
+    /**
+     * determins if entity gets cached
+     *
+     * @var boolean
+     */
+    protected $cacheSelf = false;
+    /**
+     * model namespace or model instance
+     *
+     * @var string|Model
+     */
+    protected $model = '\App\Models\User';
+    // TODO: add caching for User Listing view
+    public function setEntityToId($id)
+    {
+       // try to get from cache
+       if(\Auth::user()->id === $id){
+           $this->model = \Auth::user();
+       }
+       else {
+           $this->model = $this->getModel()->find($id);
+       }
+
+       $this->items = $this->attributes($this->model);
+    }
+    /**
+     * returns all accounts that a user is assosiated with
+     *
+     * @method accounts
+     *
+     * @return Illuminate\Support\Collection
+     */
+    public function projects($field = NULL, $key = NULL, $first = false)
+    {
+        // get data
+        $data = $this->getCacheOrRetrieve('Accounts', 'Account');
+        // return collection
+        return $this->collectionData($data, $field, $key, $first);
+    }
+    /**
+     * get accounts from users relationship
+     *
+     * @method retrieveAccount
+     *
+     * @return Illuminate\Support\Collection
+     */
+    protected function retrieveAccounts()
+    {
+        return $this->getModel()->accounts;
+    }
+    /**
+     * current active account
+     *
+     * @method account
+     *
+     * @return Formandsystem\Content\Entities\Account
+     */
+    public function account()
+    {
+        // return specified user account
+        if($account = $this->accounts('id', config('app.active_account'), true)){
+            return $account;
+        }
+        // if no account is selected return first account
+        return $this->accounts()->first();
+    }
+    /**
+     * prepare attributes
+     *
+     * @method attributes
+     *
+     * @param  mixed     $source [description]
+     *
+     * @return array
+     */
+    protected function attributes($model)
+    {
+        return $model->toArray();
+    }
+}

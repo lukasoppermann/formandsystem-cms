@@ -8,6 +8,18 @@
     margin-top: 1rem;
 }
 /* --------------------------
+ * toggle
+ */
+.o-form__toggle{
+    margin: 1.5rem 0;
+    display: inline-block;
+}
+material-input{
+    margin-top: 2rem;
+    font-size: var(--type-size-md);
+    --material-input-placeholder-color: color(var(--text-black) alpha(25%));
+}
+/* --------------------------
  * INPUT
  */
 .o-input{

@@ -35,7 +35,7 @@ gulp.task('build-js', function(){
     // push prism stuff
     files.push(
         // polyfills load in file
-        'node_modules/webcomponents.js/webcomponents-lite.js',
+        'node_modules/webcomponents.js/webcomponents.js',
         // npm stuff
         'node_modules/isemptyjs/dist/isempty.js',
         'node_modules/readyjs/dist/ready.js',

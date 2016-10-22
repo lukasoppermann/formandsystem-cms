@@ -10,13 +10,12 @@
 
                 <form role="form" method="POST" action="{{ url('/login') }}">
                     {{ csrf_field() }}
-                    <material-input name="email" label="E-Mail Address" autofocus autocomplete type="email" value="{{ old('email') }}"></material-input>
-                    <material-input name="password" type="password" label="Password"></material-input>
-                    {{ old('password') }}
+                    <material-input name="email" label="E-Mail Address" autofocus autocomplete type="email" value="{{ old('email') }}" required></material-input>
+                    <material-input name="password" type="password" label="Password" required message="{{ $errors->count() > 0 ? htmlspecialchars(implode($errors->all(),' ')) : '' }}"></material-input>
                     {{-- @include('forms.input',['name' => 'email', 'label' => 'E-Mail Address', 'attr' => "autofocus"]) --}}
                     {{-- @include('forms.input',['type' => 'password','name' => 'password', 'label' => 'Password']) --}}
                     {{-- @include('forms.toggle',['name' => 'remember', 'label' => 'Remember Me', 'checked' => true]) --}}
-                    <label><material-toggle 'name'='remember'></material-toggle>Remember Me</label>
+                    <label class="o-form__toggle"><material-toggle name='remember' {{ old('remember') === 'on' ? 'checked' : '' }}></material-toggle>Remember Me</label>
 
                     <div class="o-flexbar o-flexbar--centered">
                         @include('forms.submit',['name'=>'signin', 'label' => 'Login', 'classes' => 'o-button o-button--blue o-button--space-top o-flexbar__item'])

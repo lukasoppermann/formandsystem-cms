@@ -181,7 +181,7 @@ return [
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
         RobinFranssen\AnalyzeLocale\Providers\ServiceProvider::class,
         //
-
+        Formandsystem\Content\ContentServiceProvider::class,
         /*
          * Application Service Providers...
          */
