@@ -55,17 +55,13 @@ class MenuComposer
         if(!Auth::user()->currentTeam){
             return false;
         }
+        $collections = config('app.user')->getProjectEntity()->collections()->sortBy('position')
+            ->each(function($item){
+                $item['url'] = '/collections/'.$item['slug'];
+                $item['label'] = $item['name'];
+                return $item;
+            });
 
-        $collections = collect([
-            [
-                'link' => '/test',
-                'label' => 'Replace with DB'
-            ],
-            [
-                'link' => '/news',
-                'label' => 'Make icons dynamic'
-            ],
-        ]);
         return Menu::baseMenu()
             // add menu classes
             ->addClass('o-flexbar--vertical o-menu--vertical o-menu--full-width o-menu__body')
@@ -77,7 +73,7 @@ class MenuComposer
                 Menu::baseMenu('c-menu__list--dark')->addClass('o-flexbar--vertical o-menu--vertical o-menu--full-width')
                 ->fill($collections, function($menu, $item){
                     $item['icon'] = 'posts';
-                    return $menu->add(ViewItem::create('menu.item', $item)->setUrl($item['link']));
+                    return $menu->add(ViewItem::create('menu.item', $item->toArray())->setUrl($item['url']));
                 })
             )
             ->view('menu.item', ['label' => trans('menu.settings'), 'url' => route('teams.settings')])

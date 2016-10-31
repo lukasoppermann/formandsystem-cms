@@ -174,12 +174,13 @@ return [
         GrahamCampbell\Binput\BinputServiceProvider::class,
         Sofa\Eloquence\ServiceProvider::class,
         Spatie\Menu\Laravel\MenuServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
         BladeSvg\BladeSvgServiceProvider::class,
         Schuppo\PasswordStrength\PasswordStrengthServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
+        // development
         RobinFranssen\AnalyzeLocale\Providers\ServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
         //
         Formandsystem\Content\ContentServiceProvider::class,
         /*

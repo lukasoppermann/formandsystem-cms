@@ -5,6 +5,7 @@
     "dev": "gulp watch"
   },
   "devDependencies": {
+    "access-sniff": "^2.4.61",
     "babel-preset-es2015": "^6.14.0",
     "cssnano": "^3.7.0",
     "del": "^2.2.*",
@@ -53,5 +54,41 @@
     "status-bar-component": "^1.0.1",
     "unfocus": "^1.0.0",
     "webcomponents.js": "^0.7.22"
+  },
+  "resolutions": {
+    "core-js": "2.4.1",
+    "lodash": "4.16.4",
+    "debug": "2.2.0",
+    "chalk": "1.1.3",
+    "js-tokens": "2.0.0",
+    "supports-color": "3.1.2",
+    "jsesc": "1.3.0",
+    "object-assign": "4.1.0",
+    "balanced-match": "0.4.2",
+    "color": "0.11.3",
+    "clone": "1.0.2",
+    "postcss-selector-parser": "2.2.1",
+    "colors": "1.1.2",
+    "source-map": "0.4.4",
+    "minimist": "1.2.0",
+    "glob": "7.1.1",
+    "gulp-util": "3.0.7",
+    "semver": "5.3.0",
+    "lodash.template": "4.4.0",
+    "through2": "2.0.1",
+    "vinyl": "1.2.0",
+    "graceful-fs": "4.1.9",
+    "strip-bom": "3.0.0",
+    "readable-stream": "2.1.5",
+    "end-of-stream": "1.1.0",
+    "source-map-support": "0.4.5",
+    "cheerio": "0.22.0",
+    "uglify-js": "2.7.4",
+    "commander": "2.9.0",
+    "node.extend": "1.1.6",
+    "d": "1.0.0"
+  },
+  "scripts": {
+    "test": "sniff http://cms.dev && phpunit"
   }
 }

@@ -121,7 +121,6 @@ class Project extends AbstractModelEntity
             'only' => false,
             'exclude' => 'pages.fragments, pages.pages'
         ]));
-        dd($collections);
         // cache included
         $this->cacheAsEntities($collections->get('included',[]));
         // return as collection

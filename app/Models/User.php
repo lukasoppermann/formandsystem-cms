@@ -62,6 +62,9 @@ class User extends Authenticatable
     public function getProjectEntity()
     {
         return new \App\Entities\Project($this->currentTeam);
-     }
-
+    }
+    public function account()
+    {
+        return $this->getProjectEntity();
+    }
 }

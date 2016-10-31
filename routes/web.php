@@ -111,7 +111,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/settings/project', 'ProjectController@show')->name('teams.settings.project');
         Route::put('/settings/project', 'ProjectController@update')->name('teams.settings.project.put');
 
-        Route::get('/settings/seo', 'SiteController@show')->name('teams.settings.seo');
-        Route::get('/settings/developers', 'SiteController@show')->name('teams.settings.developers');
+        Route::get('/settings/seo', 'ProjectController@show')->name('teams.settings.seo');
+        Route::get('/settings/developers', 'ProjectController@show')->name('teams.settings.developers');
     });
 }); // <- close web middle group

@@ -20,6 +20,7 @@ class Controller extends BaseController
        $this->middleware(function ($request, $next) {
            // setup in here
             config(['app.user' => Auth::user()]);
+            // dd(Auth::user());
             config(['app.active_account' => config('app.user')->currentTeam->id]);
             config(['app.account' => config('app.user')->getProjectEntity()]);
             if($cms_id = config('app.user')->getProjectEntity()->cms_client_id){
@@ -28,7 +29,6 @@ class Controller extends BaseController
                     'client_secret'    => config('app.user')->getProjectEntity()->cms_client_secret,
                 ]]);
             }
-            dd(config('app.user')->getProjectEntity()->collections()->sortBy('position'));
             // // GRID
             // \Config::set('custom.fragments', config('app.user')->account()->details()->where('type','fragment')->keyBy('name'));
             // GRID
