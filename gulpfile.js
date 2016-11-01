@@ -119,6 +119,9 @@ gulp.task('watch-js', function(){
 
 gulp.task('build-css', function(){
     return gulp.src([
+            'vendor/formandsystem/content/src/resources/css/codemirror.css',
+            'vendor/formandsystem/content/src/resources/css/fragments.css',
+            'vendor/formandsystem/content/src/resources/css/settings.css',
             // npm resources
             'node_modules/minireset.css/minireset.css',
             'node_modules/open-color/open-color.css',
