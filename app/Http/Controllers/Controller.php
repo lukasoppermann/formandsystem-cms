@@ -20,9 +20,12 @@ class Controller extends BaseController
        $this->middleware(function ($request, $next) {
            // setup in here
             config(['app.user' => Auth::user()]);
-            // dd(Auth::user());
             config(['app.active_account' => config('app.user')->currentTeam->id]);
             config(['app.account' => config('app.user')->getProjectEntity()]);
+            config('app.account')->getModel()->setMeta('test','1','group');
+            config('app.account')->getModel()->setMeta('test2','2','group');
+            config('app.account')->getModel()->save();
+            dd(config('app.account')->getModel()->getMetaByGroup('group'));
             if($cms_id = config('app.user')->getProjectEntity()->cms_client_id){
                 config(['app.user_client' => [
                     'client_id'        => $cms_id,

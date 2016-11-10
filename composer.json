@@ -14,6 +14,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/formandsystem/api.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/lukasoppermann/eloquence.git"
         }
     ],
     "require": {
@@ -27,7 +31,8 @@
         "guzzlehttp/guzzle": "~6.0",
         "graham-campbell/binput": "^3.4",
         "watson/validating": "^2.2",
-        "sofa/eloquence": "^5.3",
+
+        "sofa/eloquence": "dev-meta-group",
         "spatie/laravel-menu": "^2.0",
         "barryvdh/laravel-debugbar": "^2.2",
         "nothingworks/blade-svg": "^0.1",

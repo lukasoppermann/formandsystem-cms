@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff746aaee80b622a5970ffcfb5a31ccc",
-    "content-hash": "a70f9e7fce83e31dacc2efff281558b2",
+    "hash": "a8f750d8d9a705939abb3d1cba91c288",
+    "content-hash": "255a9e713297d1fca3cf03542b3634b2",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -788,12 +788,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:lukasoppermann/fs-content.git",
-                "reference": "d1cfb2a2254e0d9b4f0909c4bebb2d7da4c4c14d"
+                "reference": "146296647c684f1a5d338881f4779ccb1bf05b27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lukasoppermann/fs-content/zipball/d1cfb2a2254e0d9b4f0909c4bebb2d7da4c4c14d",
-                "reference": "d1cfb2a2254e0d9b4f0909c4bebb2d7da4c4c14d",
+                "url": "https://api.github.com/repos/lukasoppermann/fs-content/zipball/146296647c684f1a5d338881f4779ccb1bf05b27",
+                "reference": "146296647c684f1a5d338881f4779ccb1bf05b27",
                 "shasum": ""
             },
             "require": {
@@ -813,7 +813,7 @@
                 "source": "https://github.com/lukasoppermann/fs-content/tree/master",
                 "issues": "https://github.com/lukasoppermann/fs-content/issues"
             },
-            "time": "2016-10-31 20:11:47"
+            "time": "2016-11-03 12:50:15"
         },
         {
             "name": "graham-campbell/binput",
@@ -1253,16 +1253,16 @@
         },
         {
             "name": "jrean/laravel-user-verification",
-            "version": "v3.0.15",
+            "version": "v3.0.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jrean/laravel-user-verification.git",
-                "reference": "4baee2f436cfbd62ee1a89e183ecc675e6c4630c"
+                "reference": "7ce972fb7e4ad86a419e9d8414c3290fcb946399"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jrean/laravel-user-verification/zipball/4baee2f436cfbd62ee1a89e183ecc675e6c4630c",
-                "reference": "4baee2f436cfbd62ee1a89e183ecc675e6c4630c",
+                "url": "https://api.github.com/repos/jrean/laravel-user-verification/zipball/7ce972fb7e4ad86a419e9d8414c3290fcb946399",
+                "reference": "7ce972fb7e4ad86a419e9d8414c3290fcb946399",
                 "shasum": ""
             },
             "require": {
@@ -1302,20 +1302,20 @@
                 "user activation",
                 "user verification"
             ],
-            "time": "2016-10-22 08:54:14"
+            "time": "2016-11-02 08:07:17"
         },
         {
             "name": "laravel/framework",
-            "version": "v5.3.21",
+            "version": "v5.3.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "140ad823863d5cc6f4580f1cdf9b18b9a6a457f4"
+                "reference": "715328dd4fb1a7bcf3cb41b3472f9e3499d068fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/140ad823863d5cc6f4580f1cdf9b18b9a6a457f4",
-                "reference": "140ad823863d5cc6f4580f1cdf9b18b9a6a457f4",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/715328dd4fb1a7bcf3cb41b3472f9e3499d068fc",
+                "reference": "715328dd4fb1a7bcf3cb41b3472f9e3499d068fc",
                 "shasum": ""
             },
             "require": {
@@ -1430,7 +1430,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-10-26 13:27:05"
+            "time": "2016-11-01 18:52:00"
         },
         {
             "name": "laravelcollective/html",
@@ -2399,16 +2399,16 @@
         },
         {
             "name": "sofa/eloquence",
-            "version": "v5.3.2",
+            "version": "dev-meta-group",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jarektkaczyk/eloquence.git",
-                "reference": "b19ee7a40a66d9d6655af9869060456b508ed5e5"
+                "url": "https://github.com/lukasoppermann/eloquence.git",
+                "reference": "74bf9f23c43a3d79ff9afc4d60c01f107b028b63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jarektkaczyk/eloquence/zipball/b19ee7a40a66d9d6655af9869060456b508ed5e5",
-                "reference": "b19ee7a40a66d9d6655af9869060456b508ed5e5",
+                "url": "https://api.github.com/repos/lukasoppermann/eloquence/zipball/74bf9f23c43a3d79ff9afc4d60c01f107b028b63",
+                "reference": "74bf9f23c43a3d79ff9afc4d60c01f107b028b63",
                 "shasum": ""
             },
             "require": {
@@ -2430,7 +2430,11 @@
                     "src/helpers.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Sofa\\Eloquence\\Tests\\": "tests"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -2451,7 +2455,11 @@
                 "mutable",
                 "searchable"
             ],
-            "time": "2016-09-01 15:44:48"
+            "support": {
+                "issues": "https://github.com/jarektkaczyk/eloquence/issues",
+                "source": "https://github.com/jarektkaczyk/eloquence"
+            },
+            "time": "2016-11-03 13:37:37"
         },
         {
             "name": "sofa/hookable",
@@ -4470,16 +4478,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "5f3f7e736d6319d5f1fc402aff8b026da26709a3"
+                "reference": "6cba06ff75a1a63a71033e1a01b89056f3af1e8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/5f3f7e736d6319d5f1fc402aff8b026da26709a3",
-                "reference": "5f3f7e736d6319d5f1fc402aff8b026da26709a3",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6cba06ff75a1a63a71033e1a01b89056f3af1e8d",
+                "reference": "6cba06ff75a1a63a71033e1a01b89056f3af1e8d",
                 "shasum": ""
             },
             "require": {
@@ -4529,7 +4537,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-07-26 14:39:29"
+            "time": "2016-11-01 05:06:24"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -5721,6 +5729,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "sofa/eloquence": 20,
         "formandsystem/content": 20
     },
     "prefer-stable": true,
